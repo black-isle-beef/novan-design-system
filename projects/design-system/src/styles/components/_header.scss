@@ -1,0 +1,12 @@
+// -----------------------------------------------------------------------------
+// _header.scss — Overrides for DsHeaderComponent (selector: ds-header)
+// -----------------------------------------------------------------------------
+
+.ds-header {
+  display: block;
+}
+
+.ds-header__banner {
+  background-color: var(--ds-color-surface-body);
+  border-color: var(--ds-color-neutral-gray-300, #dde1e6);
+}

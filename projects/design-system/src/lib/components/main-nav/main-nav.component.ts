@@ -10,7 +10,6 @@ import type { NavItem } from '../../models/nav-item.model';
   selector: 'ds-main-nav',
   standalone: true,
   templateUrl: './main-nav.component.html',
-  styleUrl: './main-nav.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-main-nav',

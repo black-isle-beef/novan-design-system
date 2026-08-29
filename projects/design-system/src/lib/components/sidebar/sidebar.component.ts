@@ -9,7 +9,6 @@ import type { SidebarItem } from '../../models/nav-item.model';
   selector: 'ds-sidebar',
   standalone: true,
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-sidebar',

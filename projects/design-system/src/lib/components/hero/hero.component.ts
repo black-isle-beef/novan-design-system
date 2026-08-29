@@ -10,7 +10,6 @@ export type DsHeroVariant = 'primary' | 'dark' | 'light' | 'image';
   selector: 'ds-hero',
   standalone: true,
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-hero',

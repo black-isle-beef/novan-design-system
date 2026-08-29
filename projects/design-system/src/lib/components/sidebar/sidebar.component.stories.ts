@@ -10,7 +10,7 @@ const items: SidebarItem[] = [
 ];
 
 const meta: Meta<DsSidebarComponent> = {
-  title: 'Layout/Sidebar',
+  title: 'Components/Sidebar',
   component: DsSidebarComponent,
   tags: ['autodocs'],
   args: { items },

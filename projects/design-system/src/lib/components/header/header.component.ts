@@ -11,7 +11,6 @@ import type { NavItem } from '../../models/nav-item.model';
   standalone: true,
   imports: [DsMainNavComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-header',

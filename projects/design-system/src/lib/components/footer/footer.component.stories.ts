@@ -10,7 +10,7 @@ const linkGroups: FooterLinkGroup[] = [
 ];
 
 const meta: Meta<DsFooterComponent> = {
-  title: 'Layout/Footer',
+  title: 'Components/Footer',
   component: DsFooterComponent,
   tags: ['autodocs'],
   args: {

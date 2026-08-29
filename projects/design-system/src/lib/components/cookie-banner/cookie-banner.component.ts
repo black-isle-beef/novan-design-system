@@ -19,7 +19,6 @@ import {
   selector: 'ds-cookie-banner',
   standalone: true,
   templateUrl: './cookie-banner.component.html',
-  styleUrl: './cookie-banner.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-cookie-banner',

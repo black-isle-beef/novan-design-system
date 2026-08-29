@@ -9,7 +9,6 @@ import type { FooterLinkGroup } from '../../models/nav-item.model';
   selector: 'ds-footer',
   standalone: true,
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-footer',
