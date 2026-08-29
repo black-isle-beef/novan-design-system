@@ -16,6 +16,7 @@ export interface FooterLinkGroup {
 export interface SidebarItem {
   label: string;
   href: string;
+  /** Bootstrap Icons class name(s) for the leading glyph, e.g. `'bi bi-columns-gap'`. */
   icon?: string;
   active?: boolean;
 }

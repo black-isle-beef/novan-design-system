@@ -12,6 +12,7 @@ import type { SidebarItem } from '../../models/nav-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-sidebar',
+    '[class.ds-sidebar--open]': '!collapsed()',
   },
 })
 export class DsSidebarComponent {

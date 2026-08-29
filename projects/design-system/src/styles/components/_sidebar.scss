@@ -2,31 +2,111 @@
 // _sidebar.scss — Overrides for DsSidebarComponent (selector: ds-sidebar)
 // -----------------------------------------------------------------------------
 
+$sidebar-width: 16rem;
+$sidebar-rail-width: 3.75rem; // 60px
+$sidebar-bg: var(--bs-dark);
+$sidebar-color: var(--bs-light);
+$sidebar-toggle-size: 3.125rem; // 50px
+
 .ds-sidebar {
-  display: block;
-}
+  position: relative;
+  display: flex;
+  flex: 0 0 $sidebar-rail-width;
+  width: $sidebar-rail-width;
+  align-self: stretch;
+  color: $sidebar-color;
+  background: $sidebar-bg;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
 
-.ds-sidebar__nav {
-  background-color: var(--ds-color-surface-body);
-  border-right: 1px solid var(--ds-color-neutral-gray-300, #dde1e6);
-  min-width: 240px;
-  transition: min-width 0.15s ease-in-out;
-}
-
-.ds-sidebar__nav--collapsed {
-  min-width: 64px;
-}
-
-.ds-sidebar__link {
-  color: var(--ds-color-text-body);
-  text-decoration: none;
-
-  &:hover {
-    background-color: var(--ds-color-surface-muted);
+  &.ds-sidebar--open {
+    flex-basis: $sidebar-width;
+    width: $sidebar-width;
   }
 }
 
-.ds-sidebar__link--active {
-  background-color: var(--ds-color-brand-primary);
-  color: var(--ds-color-text-inverse);
+.ds-sidebar__nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: $sidebar-rail-width;
+  padding: 1.5rem 0.3125rem;
+  overflow: hidden;
+  background: $sidebar-bg;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ds-sidebar--open .ds-sidebar__nav {
+  width: $sidebar-width;
+}
+
+.ds-sidebar:not(.ds-sidebar--open) .ds-sidebar__label {
+  display: none;
+}
+
+.ds-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem;
+  color: $sidebar-color;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 0.5rem;
+
+  .ds-sidebar__icon {
+    flex: 0 0 1.5rem;
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  &:hover,
+  &.ds-sidebar__link--active {
+    color: var(--bs-dark);
+    background: var(--bs-light-bg-subtle);
+  }
+}
+
+.ds-sidebar__toggle {
+  display: flex;
+  flex: 0 0 $sidebar-toggle-size;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: $sidebar-toggle-size;
+  height: $sidebar-toggle-size;
+  padding: 0;
+  margin-top: auto;
+  color: var(--bs-white);
+  background: $sidebar-bg;
+  border: 1px solid var(--bs-white);
+  border-radius: 0.5rem;
+
+  .ds-sidebar__toggle-icon {
+    font-size: 1.5rem;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    background: var(--bs-light-bg-subtle);
+    color: var(--bs-dark);
+  }
+}
+
+.ds-sidebar--open .ds-sidebar__toggle {
+  align-self: flex-end;
+
+  .ds-sidebar__toggle-icon {
+    transform: rotate(180deg);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ds-sidebar__nav {
+    box-shadow: var(--bs-box-shadow);
+  }
 }
