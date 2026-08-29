@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+This guide covers setting up the Novan Design System repository for local
+development, generating its design tokens, and running the available quality
+checks.
+
+## Prerequisites
+
+Use a current Node.js release compatible with the project's pinned npm version.
+The repository specifies `npm@11.13.0` in its `packageManager` field.
+
+## Install dependencies
+
+From the repository root, install the package dependencies:
+
+```bash
+npm install
+```
+
+## Generate design tokens
+
+Design tokens in `/tokens` are the source for generated SCSS and TypeScript
+outputs used by the library. Generate them before building or serving:
+
+```bash
+npm run build:tokens
+```
+
+## Run locally
+
+Start the sandbox application:
+
+```bash
+npm start
+```
+
+The sandbox is available at `http://localhost:4200`.
+
+Start this Storybook instance to develop and inspect design-system components:
+
+```bash
+npm run storybook
+```
+
+Storybook is available at `http://localhost:6006`.
+
+## Build and verify
+
+Build the publishable `@my-org/design-system` library:
+
+```bash
+npm run build:lib
+```
+
+Run the library tests:
+
+```bash
+npm run test:lib
+```
+
+Run the accessibility suite, which builds Storybook and checks components
+against WCAG 2.1 AA with axe-core:
+
+```bash
+npm run test:a11y
+```
+
+## Useful scripts
+
+- `npm run build:tokens` generates SCSS and TypeScript tokens from `/tokens`.
+- `npm run build:lib` builds the publishable Angular library.
+- `npm run lint:ts` runs ESLint for the application and design system.
+- `npm run lint:scss` runs Stylelint for library SCSS.
+- `npm run build-storybook` produces a static Storybook build.
