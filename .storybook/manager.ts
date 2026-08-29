@@ -1,0 +1,36 @@
+import { addons } from 'storybook/manager-api';
+import { create } from 'storybook/theming';
+
+const novanTheme = create({
+  base: 'light',
+  brandTitle: 'Novan Design System',
+  brandUrl: '/',
+  brandImage: '/Novan%20logos_1.png',
+  brandTarget: '_self',
+  fontBase: 'Montserrat, sans-serif',
+  fontCode: 'Montserrat, monospace',
+  colorPrimary: '#111111',
+  colorSecondary: '#5d5d5d',
+  appBg: '#f5f5f3',
+  appContentBg: '#ffffff',
+  appPreviewBg: '#ffffff',
+  appBorderColor: '#d5d5d1',
+  appBorderRadius: 2,
+  textColor: '#171717',
+  textInverseColor: '#ffffff',
+  barTextColor: '#5d5d5d',
+  barSelectedColor: '#111111',
+  barHoverColor: '#111111',
+  inputBg: '#ffffff',
+  inputBorder: '#bababa',
+  inputTextColor: '#171717',
+  inputBorderRadius: 2,
+  buttonBg: '#111111',
+  buttonBorder: '#111111',
+  booleanBg: '#111111',
+  booleanSelectedBg: '#5d5d5d',
+});
+
+addons.setConfig({
+  theme: novanTheme,
+});
