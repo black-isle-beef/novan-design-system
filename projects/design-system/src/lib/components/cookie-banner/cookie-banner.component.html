@@ -1,0 +1,30 @@
+@if (visible()) {
+  <div
+    class="ds-cookie-banner__region d-flex flex-column flex-md-row align-items-md-center gap-4 p-6"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="ds-cookie-banner-message"
+  >
+    <p id="ds-cookie-banner-message" class="ds-cookie-banner__message mb-0 flex-grow-1">
+      {{ message() }}
+    </p>
+
+    <div class="ds-cookie-banner__actions d-flex gap-2 flex-shrink-0">
+      <button
+        type="button"
+        class="btn btn-outline-light ds-focus-ring"
+        (click)="decline()"
+      >
+        Decline
+      </button>
+      <button
+        #acceptButton
+        type="button"
+        class="btn btn-primary ds-focus-ring"
+        (click)="accept()"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+}

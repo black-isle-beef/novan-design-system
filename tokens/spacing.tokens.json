@@ -1,0 +1,27 @@
+{
+  "spacing": {
+    "base": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Base spacing unit that the 1-16 scale is derived from."
+    },
+    "scale": {
+      "1": { "$type": "dimension", "$value": "2px", "$description": "Spacing step 1 - hairline gaps (icon/text spacing)." },
+      "2": { "$type": "dimension", "$value": "4px", "$description": "Spacing step 2 - tight component padding." },
+      "3": { "$type": "dimension", "$value": "8px", "$description": "Spacing step 3 - default compact spacing unit." },
+      "4": { "$type": "dimension", "$value": "16px", "$description": "Spacing step 4 - default spacing unit for most components." },
+      "5": { "$type": "dimension", "$value": "24px", "$description": "Spacing step 5 - comfortable component padding." },
+      "6": { "$type": "dimension", "$value": "32px", "$description": "Spacing step 6 - section-level spacing." },
+      "7": { "$type": "dimension", "$value": "40px", "$description": "Spacing step 7 - large section spacing." },
+      "8": { "$type": "dimension", "$value": "48px", "$description": "Spacing step 8 - block-level vertical rhythm." },
+      "9": { "$type": "dimension", "$value": "56px", "$description": "Spacing step 9 - large block spacing." },
+      "10": { "$type": "dimension", "$value": "64px", "$description": "Spacing step 10 - page section spacing." },
+      "11": { "$type": "dimension", "$value": "72px", "$description": "Spacing step 11 - hero/feature spacing." },
+      "12": { "$type": "dimension", "$value": "80px", "$description": "Spacing step 12 - large hero spacing." },
+      "13": { "$type": "dimension", "$value": "88px", "$description": "Spacing step 13 - extra-large layout spacing." },
+      "14": { "$type": "dimension", "$value": "96px", "$description": "Spacing step 14 - page-level vertical rhythm." },
+      "15": { "$type": "dimension", "$value": "104px", "$description": "Spacing step 15 - maximum layout spacing." },
+      "16": { "$type": "dimension", "$value": "112px", "$description": "Spacing step 16 - largest utility spacing value." }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<nav class="ds-main-nav__nav navbar navbar-expand-lg px-4 py-3" [attr.aria-label]="ariaLabel()">
+  <button
+    type="button"
+    class="ds-main-nav__toggle btn btn-outline-secondary d-lg-none ds-focus-ring"
+    [attr.aria-expanded]="mobileOpen()"
+    aria-controls="ds-main-nav-menu"
+    [attr.aria-label]="mobileOpen() ? 'Close main menu' : 'Open main menu'"
+    (click)="toggleMobile()"
+  >
+    <span aria-hidden="true">&#9776;</span>
+  </button>
+
+  <ul
+    id="ds-main-nav-menu"
+    class="ds-main-nav__list navbar-nav flex-grow-1 gap-2"
+    [class.ds-main-nav__list--open]="mobileOpen()"
+  >
+    @for (item of items(); track item.label; let i = $index) {
+      <li
+        class="ds-main-nav__item nav-item"
+        [class.dropdown]="!!item.children?.length"
+      >
+        @if (item.children?.length) {
+          <button
+            type="button"
+            class="ds-main-nav__link nav-link btn btn-link ds-focus-ring"
+            [attr.aria-expanded]="openDropdownIndex() === i"
+            [attr.aria-controls]="'ds-main-nav-dropdown-' + i"
+            (click)="toggleDropdown(i)"
+            (keydown)="onDropdownKeydown($event, i)"
+          >
+            {{ item.label }}
+          </button>
+          <ul
+            [id]="'ds-main-nav-dropdown-' + i"
+            class="ds-main-nav__dropdown dropdown-menu"
+            [class.show]="openDropdownIndex() === i"
+          >
+            @for (child of item.children; track child.label) {
+              <li>
+                <a class="dropdown-item" [href]="child.href">{{ child.label }}</a>
+              </li>
+            }
+          </ul>
+        } @else {
+          <a
+            class="ds-main-nav__link nav-link ds-focus-ring"
+            [href]="item.href"
+            [attr.aria-current]="item.active ? 'page' : null"
+          >
+            {{ item.label }}
+          </a>
+        }
+      </li>
+    }
+  </ul>
+</nav>

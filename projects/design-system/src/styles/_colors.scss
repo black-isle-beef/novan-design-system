@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+// _colors.scss
+// Overrides Bootstrap's $theme-colors (and related color variables) with the
+// hex values produced by Style Dictionary from /tokens/color.tokens.json.
+// Must be imported BEFORE `bootstrap/scss/bootstrap` so Bootstrap's `!default`
+// declarations in `_variables.scss` no-op in favor of these values.
+// -----------------------------------------------------------------------------
+@use 'sass:color';
+@import 'variables';
+
+// Full replacement of Bootstrap's theme color map, sourced entirely from tokens.
+$theme-colors: (
+  'primary': $ds-color-brand-primary,
+  'secondary': $ds-color-brand-secondary,
+  'accent': $ds-color-brand-accent,
+  'success': $ds-color-semantic-success,
+  'warning': $ds-color-semantic-warning,
+  'danger': $ds-color-semantic-danger,
+  'info': $ds-color-semantic-info,
+  'light': $ds-color-neutral-gray-100,
+  'dark': $ds-color-neutral-gray-900,
+);
+
+// Body / surface / text colors.
+$body-bg: $ds-color-surface-body;
+$body-color: $ds-color-text-body;
+$body-secondary-color: $ds-color-text-muted;
+$link-color: $ds-color-brand-primary;
+$link-hover-color: color.adjust($ds-color-brand-primary, $lightness: -10%);
+
+// Runtime CSS custom properties (kept in sync with $theme-colors above) so
+// components can read colors without recompiling SCSS, e.g. for theming.
+:root {
+  --ds-color-brand-primary: #{$ds-color-brand-primary};
+  --ds-color-brand-secondary: #{$ds-color-brand-secondary};
+  --ds-color-brand-accent: #{$ds-color-brand-accent};
+  --ds-color-semantic-success: #{$ds-color-semantic-success};
+  --ds-color-semantic-warning: #{$ds-color-semantic-warning};
+  --ds-color-semantic-danger: #{$ds-color-semantic-danger};
+  --ds-color-semantic-info: #{$ds-color-semantic-info};
+  --ds-color-surface-body: #{$ds-color-surface-body};
+  --ds-color-surface-muted: #{$ds-color-surface-muted};
+  --ds-color-text-body: #{$ds-color-text-body};
+  --ds-color-text-muted: #{$ds-color-text-muted};
+  --ds-color-text-inverse: #{$ds-color-text-inverse};
+}

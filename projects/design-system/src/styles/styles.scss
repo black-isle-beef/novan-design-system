@@ -1,0 +1,23 @@
+// =============================================================================
+// styles.scss — Master entry point for @my-org/design-system
+//
+// Import order is intentional and load-bearing:
+//   1. Generated design tokens (Style Dictionary output)
+//   2. Custom Bootstrap variable overrides driven by those tokens
+//   3. Bootstrap core (functions -> variables -> maps -> mixins -> components)
+//   4. Custom utilities / components authored on top of Bootstrap
+// =============================================================================
+
+// 1. Generated tokens (forwarded via _variables.scss) --------------------------
+@import 'variables';
+
+// 2. Custom overrides (must precede Bootstrap so `!default` vars no-op) -------
+@import 'colors';
+@import 'typography';
+@import 'spacers';
+
+// 3. Bootstrap core ------------------------------------------------------------
+@import 'bootstrap/scss/bootstrap';
+
+// 4. Custom utilities / components ---------------------------------------------
+@import 'utilities';

@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.ds-hero--primary {
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-hero--dark {
+  background-color: var(--ds-color-neutral-gray-900, #1a202c);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-hero--light {
+  background-color: var(--ds-color-surface-muted);
+  color: var(--ds-color-text-body);
+}
+
+.ds-hero--image {
+  background-size: cover;
+  background-position: center;
+  color: var(--ds-color-text-inverse);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .ds-hero__content {
+    position: relative;
+    z-index: 1;
+  }
+}

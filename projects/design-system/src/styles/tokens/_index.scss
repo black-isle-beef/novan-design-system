@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------
+// AUTO-GENERATED forwarding index. Do not edit directly — edit /tokens/*.json
+// Forwards every Style Dictionary generated partial so consumers can do a
+// single `@use 'tokens'` (see src/styles/_variables.scss).
+// -----------------------------------------------------------------------------
+@forward 'colors.tokens';
+@forward 'typography.tokens';
+@forward 'spacing.tokens';
+@forward 'spacers.map';
+@forward 'theme-colors.map';

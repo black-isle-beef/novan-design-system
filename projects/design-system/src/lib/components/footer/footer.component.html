@@ -1,0 +1,23 @@
+<footer class="ds-footer__region py-10 px-4 px-md-8" role="contentinfo">
+  @if (linkGroups().length) {
+    <div class="ds-footer__columns row g-6 mb-8">
+      @for (group of linkGroups(); track group.title) {
+        <div class="col-6 col-md-3">
+          <h2 class="ds-footer__group-title h6 mb-3">{{ group.title }}</h2>
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            @for (link of group.links; track link.label) {
+              <li><a class="ds-footer__link" [href]="link.href">{{ link.label }}</a></li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="ds-footer__legal border-top pt-6 d-flex flex-column flex-md-row justify-content-between gap-3">
+    <p class="ds-footer__copyright mb-0">&copy; {{ currentYear }} {{ organizationName() }}. All rights reserved.</p>
+    <div class="ds-footer__disclaimers">
+      <ng-content select="[dsFooterLegal]" />
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,29 @@
+// -----------------------------------------------------------------------------
+// _utilities.scss
+// Design-system-specific utility classes layered on top of Bootstrap's
+// generated utility API. Keep this file small — prefer Bootstrap's utility
+// generator (`$utilities` map) for anything expressible as a single property.
+// -----------------------------------------------------------------------------
+
+// Visually-hidden-until-focused skip link, used by DsHeaderComponent/DsMainNavComponent.
+.ds-skip-link {
+  position: absolute;
+  top: -100%;
+  left: $spacer * 0.5;
+  z-index: $zindex-tooltip;
+  padding: map-get($spacers, 2) map-get($spacers, 4);
+  background-color: $ds-color-surface-body;
+  color: $ds-color-text-body;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+
+  &:focus-visible {
+    top: map-get($spacers, 2);
+  }
+}
+
+// Consistent focus ring across custom DS components (matches Bootstrap's focus-ring).
+.ds-focus-ring:focus-visible {
+  outline: 0;
+  box-shadow: $focus-ring-box-shadow;
+}

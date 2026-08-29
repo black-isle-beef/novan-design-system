@@ -1,0 +1,45 @@
+// -----------------------------------------------------------------------------
+// _typography.scss
+// Overrides Bootstrap's font family/size variables with values produced by
+// Style Dictionary from /tokens/typography.tokens.json, and (optionally)
+// loads the web fonts referenced by those tokens.
+// -----------------------------------------------------------------------------
+@use 'sass:math';
+@import 'variables';
+
+// Bootstrap expects font-size variables expressed in `rem` so they scale with
+// the root font size; tokens are authored in `px`, so convert at the boundary.
+@function ds-rem($px, $root: 16px) {
+  @return math.div($px, $root) * 1rem;
+}
+
+@if $ds-enable-web-fonts {
+  // Self-host these families in production; this CDN import is provided for
+  // local development / Storybook convenience only.
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+}
+
+$font-family-sans-serif: #{$ds-font-family-sans};
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: #{$ds-font-family-heading};
+$font-family-monospace: #{$ds-font-family-monospace};
+
+$font-size-base: ds-rem($ds-font-size-base);
+$font-size-sm: ds-rem($ds-font-size-sm);
+$font-size-lg: ds-rem($ds-font-size-lg);
+
+$h1-font-size: ds-rem($ds-font-size-h1);
+$h2-font-size: ds-rem($ds-font-size-h2);
+$h3-font-size: ds-rem($ds-font-size-h3);
+$h4-font-size: ds-rem($ds-font-size-h4);
+$h5-font-size: ds-rem($ds-font-size-h5);
+$h6-font-size: ds-rem($ds-font-size-h6);
+
+$line-height-base: $ds-font-line-height-base;
+$headings-line-height: $ds-font-line-height-heading;
+
+$font-weight-normal: $ds-font-weight-regular;
+$font-weight-medium: $ds-font-weight-medium;
+$font-weight-semibold: $ds-font-weight-semibold;
+$font-weight-bold: $ds-font-weight-bold;
+$headings-font-weight: $font-weight-semibold;

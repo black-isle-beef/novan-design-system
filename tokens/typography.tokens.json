@@ -1,0 +1,102 @@
+{
+  "font": {
+    "family": {
+      "sans": {
+        "$type": "fontFamily",
+        "$value": ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        "$description": "Primary sans-serif typeface used for body copy and UI controls."
+      },
+      "heading": {
+        "$type": "fontFamily",
+        "$value": ["Poppins", "Inter", "-apple-system", "sans-serif"],
+        "$description": "Display typeface used for headings (h1-h6)."
+      },
+      "monospace": {
+        "$type": "fontFamily",
+        "$value": ["SFMono-Regular", "Menlo", "Consolas", "monospace"],
+        "$description": "Monospace typeface used for code samples."
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$description": "Default body copy weight."
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$description": "Medium emphasis weight, used for labels and nav items."
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$description": "Semi-bold weight, used for subheadings and emphasis."
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$description": "Bold weight, used for headings and strong emphasis."
+      }
+    },
+    "size": {
+      "base": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Base font size that all rem-based typography scales from."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$description": "Small text size, used for captions and helper text."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "18px",
+        "$description": "Slightly larger body text, used for lead paragraphs."
+      },
+      "h1": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$description": "Heading level 1 font size."
+      },
+      "h2": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$description": "Heading level 2 font size."
+      },
+      "h3": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Heading level 3 font size."
+      },
+      "h4": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$description": "Heading level 4 font size."
+      },
+      "h5": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Heading level 5 font size."
+      },
+      "h6": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Heading level 6 font size."
+      }
+    },
+    "line-height": {
+      "base": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "Default line height for body copy."
+      },
+      "heading": {
+        "$type": "number",
+        "$value": 1.2,
+        "$description": "Tighter line height used for headings."
+      }
+    }
+  }
+}

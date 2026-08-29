@@ -1,0 +1,109 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "#2952e3",
+        "$description": "Primary brand color used for main CTAs, links, and active states."
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#6c757d",
+        "$description": "Secondary brand color used for supporting actions."
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#ff6b35",
+        "$description": "Accent color used sparingly for highlights and promotional callouts."
+      }
+    },
+    "semantic": {
+      "success": {
+        "$type": "color",
+        "$value": "#1e8e3e",
+        "$description": "Indicates successful actions or positive status."
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#f9a825",
+        "$description": "Indicates caution or a state requiring attention."
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "#d32f2f",
+        "$description": "Indicates destructive actions or error states."
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#0288d1",
+        "$description": "Indicates informational, non-critical messaging."
+      }
+    },
+    "neutral": {
+      "white": {
+        "$type": "color",
+        "$value": "#ffffff",
+        "$description": "Pure white, used for surfaces and inverted text."
+      },
+      "gray-100": {
+        "$type": "color",
+        "$value": "#f5f6f8",
+        "$description": "Lightest neutral gray, used for page backgrounds."
+      },
+      "gray-300": {
+        "$type": "color",
+        "$value": "#dde1e6",
+        "$description": "Light gray, used for borders and dividers."
+      },
+      "gray-500": {
+        "$type": "color",
+        "$value": "#8a94a6",
+        "$description": "Mid gray, used for disabled text and placeholders."
+      },
+      "gray-700": {
+        "$type": "color",
+        "$value": "#4a5568",
+        "$description": "Dark gray, used for secondary body text."
+      },
+      "gray-900": {
+        "$type": "color",
+        "$value": "#1a202c",
+        "$description": "Darkest neutral, used for primary body text and headings."
+      },
+      "black": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Pure black, used sparingly for maximum contrast needs."
+      }
+    },
+    "surface": {
+      "body": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Default page/body background surface."
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.neutral.gray-100}",
+        "$description": "Muted surface for cards and secondary panels."
+      }
+    },
+    "text": {
+      "body": {
+        "$type": "color",
+        "$value": "{color.neutral.gray-900}",
+        "$description": "Default body text color."
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.neutral.gray-700}",
+        "$description": "De-emphasized/secondary text color."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Text color used on dark/brand-colored backgrounds."
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.ds-main-nav__list--open {
+  display: flex !important;
+  flex-direction: column;
+}
+
+@media (max-width: 991.98px) {
+  .ds-main-nav__list:not(.ds-main-nav__list--open) {
+    display: none;
+  }
+}

@@ -1,0 +1,36 @@
+<nav
+  class="ds-sidebar__nav d-flex flex-column py-4"
+  [class.ds-sidebar__nav--collapsed]="collapsed()"
+  [attr.aria-label]="ariaLabel()"
+>
+  <button
+    type="button"
+    class="ds-sidebar__toggle btn btn-outline-secondary align-self-end mx-3 mb-4 ds-focus-ring"
+    [attr.aria-expanded]="!collapsed()"
+    aria-controls="ds-sidebar-list"
+    [attr.aria-label]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+    (click)="toggleCollapsed()"
+  >
+    <span aria-hidden="true">{{ collapsed() ? '&raquo;' : '&laquo;' }}</span>
+  </button>
+
+  <ul id="ds-sidebar-list" class="ds-sidebar__list list-unstyled d-flex flex-column gap-1 px-2">
+    @for (item of items(); track item.label) {
+      <li>
+        <a
+          class="ds-sidebar__link d-flex align-items-center gap-2 px-3 py-2 rounded ds-focus-ring"
+          [href]="item.href"
+          [attr.aria-current]="item.active ? 'page' : null"
+          [class.ds-sidebar__link--active]="item.active"
+        >
+          @if (item.icon) {
+            <span class="ds-sidebar__icon" aria-hidden="true">{{ item.icon }}</span>
+          }
+          @if (!collapsed()) {
+            <span class="ds-sidebar__label">{{ item.label }}</span>
+          }
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

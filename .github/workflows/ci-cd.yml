@@ -1,0 +1,148 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1: Design tokens, lint, library build, and headless a11y tests
+  # ---------------------------------------------------------------------------
+  build-and-test:
+    name: Tokens, Lint, Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build design tokens (Style Dictionary)
+        run: npm run build:tokens
+
+      - name: Lint SCSS
+        run: npm run lint:scss
+
+      - name: Lint TypeScript
+        run: npm run lint:ts
+
+      - name: Unit tests (library)
+        run: npm run test:lib
+
+      - name: Build library (ng-packagr)
+        run: npm run build:lib
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Accessibility tests (axe-core via Playwright)
+        run: npm run test:a11y
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload library dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-system-dist
+          path: dist/design-system
+
+  # ---------------------------------------------------------------------------
+  # Job 2: Visual regression testing via Chromatic
+  # ---------------------------------------------------------------------------
+  visual-regression:
+    name: Visual Regression & Storybook Review
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build design tokens (Style Dictionary)
+        run: npm run build:tokens
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build-storybook
+          exitOnceUploaded: true
+
+  # ---------------------------------------------------------------------------
+  # Job 3: Release & publish (main branch only, after Jobs 1 & 2 succeed)
+  # ---------------------------------------------------------------------------
+  release:
+    name: Release & Publish
+    runs-on: ubuntu-latest
+    needs: [build-and-test, visual-regression]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build design tokens (Style Dictionary)
+        run: npm run build:tokens
+
+      - name: Build library (ng-packagr)
+        run: npm run build:lib
+
+      - name: Release (semantic-release)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

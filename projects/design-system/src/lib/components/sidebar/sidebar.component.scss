@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.ds-sidebar__nav {
+  background-color: var(--ds-color-surface-body);
+  border-right: 1px solid var(--ds-color-neutral-gray-300, #dde1e6);
+  min-width: 240px;
+  transition: min-width 0.15s ease-in-out;
+}
+
+.ds-sidebar__nav--collapsed {
+  min-width: 64px;
+}
+
+.ds-sidebar__link {
+  color: var(--ds-color-text-body);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--ds-color-surface-muted);
+  }
+}
+
+.ds-sidebar__link--active {
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
