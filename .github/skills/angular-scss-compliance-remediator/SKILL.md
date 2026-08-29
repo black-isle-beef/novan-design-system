@@ -9,7 +9,7 @@ Act as a Principal Frontend Engineer and Lead Code Reviewer. This skill consumes
 
 ## Prerequisite
 
-This skill requires `.github/skills/angular-scss-compliance-auditor/audit.ps1`. If that companion audit skill is not installed, report the missing prerequisite before attempting remediation; do not replace it with an improvised audit or claim audit results.
+This skill uses its bundled audit script at `.github/skills/angular-scss-compliance-remediator/audit.ps1`. Run it before attempting remediation; do not replace it with an improvised audit or claim audit results.
 
 ## Guardrails
 
@@ -25,7 +25,7 @@ This skill requires `.github/skills/angular-scss-compliance-auditor/audit.ps1`. 
 Run the existing audit from the repository root:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github/skills/angular-scss-compliance-auditor/audit.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github/skills/angular-scss-compliance-remediator/audit.ps1
 ```
 
 Capture the complete output and group every finding under these categories:
@@ -85,7 +85,7 @@ After each component or shared-style slice:
 At the end, run:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github/skills/angular-scss-compliance-auditor/audit.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github/skills/angular-scss-compliance-remediator/audit.ps1
 npm.cmd run build:app
 npm.cmd run test:a11y
 ```
