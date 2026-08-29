@@ -17,7 +17,7 @@ const sampleItems: NavItem[] = [
 ];
 
 const meta: Meta<DsMainNavComponent> = {
-  title: 'Components/MainNav',
+  title: 'Components/Global/MainNav',
   component: DsMainNavComponent,
   tags: ['autodocs'],
   args: {

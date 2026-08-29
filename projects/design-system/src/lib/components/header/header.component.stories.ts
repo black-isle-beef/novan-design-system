@@ -9,7 +9,7 @@ const navItems: NavItem[] = [
 ];
 
 const meta: Meta<DsHeaderComponent> = {
-  title: 'Components/Header',
+  title: 'Components/Structural/Header',
   component: DsHeaderComponent,
   tags: ['autodocs'],
   args: { navItems },

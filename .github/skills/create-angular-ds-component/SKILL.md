@@ -226,7 +226,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsButtonComponent } from './button.component';
 
 const meta: Meta<DsButtonComponent> = {
-  title: 'Components/Button',
+  title: 'Components/Global/Button',
   component: DsButtonComponent,
   tags: ['autodocs'],
 };
