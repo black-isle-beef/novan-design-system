@@ -23,6 +23,13 @@ const preview: Preview = {
     // Default padded layout so the Docs page's embedded story canvases keep
     // normal breathing room; full-bleed structural components opt into
     // `layout: 'fullscreen'` individually via their own story meta.
+    options: {
+      // Force the top-level Introduction page first so it's what Storybook
+      // opens to on launch; everything else keeps its natural sort order.
+      storySort: {
+        order: ['Introduction', 'Components'],
+      },
+    },
   },
 };
 

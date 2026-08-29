@@ -20,7 +20,16 @@ const meta: Meta<DsMainNavComponent> = {
   title: 'Components/Navigation/Nav bar',
   component: DsMainNavComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      subtitle: 'Accessible primary navigation bar',
+      description: {
+        component:
+          'Accessible primary navigation bar with desktop dropdown support and a keyboard-navigable mobile toggle. Implements the WAI-ARIA disclosure pattern for dropdowns and the navigation-menu pattern for the mobile toggle.',
+      },
+    },
+  },
   args: {
     items: sampleItems,
     ariaLabel: 'Primary',

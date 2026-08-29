@@ -12,7 +12,16 @@ const meta: Meta<DsHeaderComponent> = {
   title: 'Components/Structural/Header',
   component: DsHeaderComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      subtitle: 'Structural site header',
+      description: {
+        component:
+          'Structural site header. Renders the `banner` landmark, a projected branding slot, and an integrated `DsMainNavComponent`.',
+      },
+    },
+  },
   args: { navItems },
   render: (args) => ({
     props: args,

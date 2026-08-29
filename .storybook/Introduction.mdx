@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Novan Design System
+
+`@my-org/design-system` is a token-driven Angular standalone component library
+built on Bootstrap 5. It provides shared, accessible building blocks — page
+structure (header, footer, sidebar), navigation (main nav, breadcrumb), and
+content components (hero, cookie banner) — so products across the
+organization render consistent UI without re-implementing the same markup,
+styling, and accessibility behavior in every app.
+
+## What this Storybook is for
+
+This Storybook is the living reference for every published component:
+
+- **Docs** — each component's Docs page (in the sidebar under **Components**)
+  explains what the component does, documents its inputs/outputs, and renders
+  its default usage.
+- **Canvas** — open a component's individual story to interact with it in
+  isolation and change its args via the Controls panel.
+- **Accessibility** — every component is verified against WCAG 2.1 AA with an
+  automated axe-core suite (`projects/design-system/e2e/a11y`); the
+  Accessibility panel here is for manual spot-checks during development.
+
+## Design principles
+
+- **Token-driven** — visual values (color, spacing, typography) come from
+  Style Dictionary tokens in `/tokens`, not hardcoded values, so theming stays
+  centralized.
+- **Bootstrap 5 foundation** — components compose Bootstrap's grid, utilities,
+  and component CSS rather than reinventing layout primitives.
+- **Standalone Angular, signals-based** — every component is a standalone
+  Angular component using signal `input()`/`output()` and `OnPush` change
+  detection.
+- **Accessible by default** — semantic HTML, ARIA attributes, keyboard
+  interaction, and focus management are part of each component's public
+  contract, not an afterthought.
+
+## Getting started
+
+Install the library in a consuming Angular application:
+
+```bash
+npm install @my-org/design-system
+```
+
+Import the compiled styles once in your global stylesheet:
+
+```scss
+@import '@my-org/design-system/styles/styles';
+```
+
+Then import any component directly from `@my-org/design-system` into a
+standalone Angular component's `imports` array.

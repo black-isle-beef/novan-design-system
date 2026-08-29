@@ -12,6 +12,15 @@ const meta: Meta<DsBreadcrumbComponent> = {
   title: 'Components/Navigation/Breadcrumb',
   component: DsBreadcrumbComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      subtitle: 'Accessible breadcrumb trail',
+      description: {
+        component:
+          'Accessible breadcrumb trail. Every item but the last renders as a link, optionally paired with a leading icon; the last item renders as the non-interactive current page, underlined, with `aria-current="page"`.',
+      },
+    },
+  },
   args: { items },
 };
 

@@ -13,7 +13,16 @@ const meta: Meta<DsSidebarComponent> = {
   title: 'Components/Navigation/Sidebar',
   component: DsSidebarComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      subtitle: 'Collapsible side navigation rail',
+      description: {
+        component:
+          'Collapsible side navigation with `aria-current="page"` active-route indication and a labeled toggle button for collapsing/expanding the rail.',
+      },
+    },
+  },
   args: { items },
   // The rail relies on `align-self: stretch` inside a full-height flex parent
   // (an app shell's `.app-body`) and its nav overlay is absolutely positioned

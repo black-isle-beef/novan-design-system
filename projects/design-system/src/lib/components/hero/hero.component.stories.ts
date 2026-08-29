@@ -5,7 +5,16 @@ const meta: Meta<DsHeroComponent> = {
   title: 'Components/Global/Hero',
   component: DsHeroComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      subtitle: 'Flexible hero/banner section',
+      description: {
+        component:
+          'Flexible hero/banner section with configurable background variants, a heading/subheading, and projected CTA button slot(s).',
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',

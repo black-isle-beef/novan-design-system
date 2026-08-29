@@ -13,7 +13,16 @@ const meta: Meta<DsFooterComponent> = {
   title: 'Components/Structural/Footer',
   component: DsFooterComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      subtitle: 'Responsive multi-column footer',
+      description: {
+        component:
+          'Multi-column responsive footer with grouped links, a copyright notice, and a slot for additional legal disclaimers.',
+      },
+    },
+  },
   args: {
     organizationName: 'Novan Inc.',
     linkGroups,
