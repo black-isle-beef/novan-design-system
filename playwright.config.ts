@@ -12,14 +12,14 @@ export default defineConfig({
   retries: process.env['CI'] ? 2 : 0,
   reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: 'http://localhost:6006',
+    baseURL: 'http://localhost:9323',
     trace: 'on-first-retry',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'npx http-server storybook-static -p 6006 -s',
-    url: 'http://localhost:6006',
-    reuseExistingServer: !process.env['CI'],
+    command: 'npx http-server storybook-static -p 9323 -s',
+    url: 'http://localhost:9323',
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

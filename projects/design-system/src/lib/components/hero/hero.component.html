@@ -8,10 +8,13 @@
   [class.ds-hero--dark]="variant() === 'dark'"
   [class.ds-hero--light]="variant() === 'light'"
   [class.ds-hero--image]="variant() === 'image'"
-  [style.backgroundImage]="variant() === 'image' && backgroundImage() ? 'url(' + backgroundImage() + ')' : null"
   aria-labelledby="ds-hero-heading"
 >
-  <div class="ds-hero__content mx-auto text-center" style="max-width: 720px;">
+  @if (variant() === 'image' && backgroundImage(); as imageUrl) {
+    <img class="ds-hero__background" [src]="imageUrl" alt="" aria-hidden="true" />
+  }
+
+  <div class="ds-hero__content mx-auto text-center">
     <h1 id="ds-hero-heading" class="ds-hero__heading mb-4">{{ heading() }}</h1>
 
     @if (subheading()) {

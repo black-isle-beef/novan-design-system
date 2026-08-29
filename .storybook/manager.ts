@@ -3,12 +3,12 @@ import { create } from 'storybook/theming';
 
 const novanTheme = create({
   base: 'light',
-  brandTitle: 'Novan Design System',
+  brandTitle: 'novan design system',
   brandUrl: '/',
   brandImage: '/Novan%20logos_1.png',
   brandTarget: '_self',
-  fontBase: 'Montserrat, sans-serif',
-  fontCode: 'Montserrat, monospace',
+  fontBase: 'Montserrat Alternates, sans-serif',
+  fontCode: 'Montserrat Alternates, monospace',
   colorPrimary: '#111111',
   colorSecondary: '#5d5d5d',
   appBg: '#f5f5f3',
