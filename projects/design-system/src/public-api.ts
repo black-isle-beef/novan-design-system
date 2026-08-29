@@ -9,6 +9,7 @@ export * from './lib/components/header/header.component';
 export * from './lib/components/footer/footer.component';
 export * from './lib/components/sidebar/sidebar.component';
 export * from './lib/components/cookie-banner/cookie-banner.component';
+export * from './lib/components/breadcrumb/breadcrumb.component';
 
 // Models
 export * from './lib/models/nav-item.model';

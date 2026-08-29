@@ -20,7 +20,9 @@ const preview: Preview = {
     a11y: {
       test: 'off',
     },
-    layout: 'fullscreen',
+    // Default padded layout so the Docs page's embedded story canvases keep
+    // normal breathing room; full-bleed structural components opt into
+    // `layout: 'fullscreen'` individually via their own story meta.
   },
 };
 

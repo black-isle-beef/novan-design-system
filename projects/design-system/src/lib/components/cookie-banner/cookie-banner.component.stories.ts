@@ -5,6 +5,7 @@ const meta: Meta<DsCookieBannerComponent> = {
   title: 'Components/Global/CookieBanner',
   component: DsCookieBannerComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   // The banner is `position: fixed`, so it contributes no height to normal
   // document flow. Storybook's Docs page renders stories inline inside a
   // 0px-tall wrapper, which clips fixed content entirely. Wrapping with a

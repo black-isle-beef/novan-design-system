@@ -1,0 +1,28 @@
+// -----------------------------------------------------------------------------
+// _breadcrumb.scss — Overrides for DsBreadcrumbComponent (selector: ds-breadcrumb)
+// -----------------------------------------------------------------------------
+
+.ds-breadcrumb {
+  display: block;
+}
+
+.ds-breadcrumb__link {
+  color: var(--ds-color-brand-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+.ds-breadcrumb__current {
+  color: var(--ds-color-text-body);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.ds-breadcrumb__icon {
+  margin-inline-end: 0.375rem;
+}

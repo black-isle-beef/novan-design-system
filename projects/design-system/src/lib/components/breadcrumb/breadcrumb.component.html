@@ -1,0 +1,28 @@
+<nav [attr.aria-label]="ariaLabel()">
+  <ol class="ds-breadcrumb__list breadcrumb mb-0">
+    @for (item of items(); track item.label; let last = $last) {
+      <li
+        class="ds-breadcrumb__item breadcrumb-item"
+        [class.active]="last"
+        [class.ds-breadcrumb__item--active]="last"
+        [attr.aria-current]="last ? 'page' : null"
+      >
+        @if (last) {
+          <span class="ds-breadcrumb__current">
+            @if (item.icon) {
+              <i class="ds-breadcrumb__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
+            {{ item.label }}
+          </span>
+        } @else {
+          <a class="ds-breadcrumb__link" [href]="item.href">
+            @if (item.icon) {
+              <i class="ds-breadcrumb__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
+            {{ item.label }}
+          </a>
+        }
+      </li>
+    }
+  </ol>
+</nav>

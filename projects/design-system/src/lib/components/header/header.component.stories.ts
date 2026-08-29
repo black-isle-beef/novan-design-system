@@ -12,6 +12,7 @@ const meta: Meta<DsHeaderComponent> = {
   title: 'Components/Structural/Header',
   component: DsHeaderComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   args: { navItems },
   render: (args) => ({
     props: args,

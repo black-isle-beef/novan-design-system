@@ -18,26 +18,30 @@ async function expectNoA11yViolations(page: import('@playwright/test').Page, sto
 
 test.describe('WCAG 2.1 AA accessibility', () => {
   test('DsHeroComponent (Primary) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-hero--primary');
+    await expectNoA11yViolations(page, 'components-global-hero--primary');
   });
 
   test('DsMainNavComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-mainnav--default');
+    await expectNoA11yViolations(page, 'components-navigation-nav-bar--default');
   });
 
   test('DsHeaderComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-header--default');
+    await expectNoA11yViolations(page, 'components-structural-header--default');
   });
 
   test('DsFooterComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-footer--default');
+    await expectNoA11yViolations(page, 'components-structural-footer--default');
   });
 
   test('DsSidebarComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-sidebar--default');
+    await expectNoA11yViolations(page, 'components-navigation-sidebar--default');
   });
 
   test('DsCookieBannerComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'layout-cookiebanner--default');
+    await expectNoA11yViolations(page, 'components-global-cookiebanner--default');
+  });
+
+  test('DsBreadcrumbComponent (Default) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-navigation-breadcrumb--default');
   });
 });

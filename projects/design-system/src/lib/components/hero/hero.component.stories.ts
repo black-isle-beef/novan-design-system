@@ -5,6 +5,7 @@ const meta: Meta<DsHeroComponent> = {
   title: 'Components/Global/Hero',
   component: DsHeroComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   argTypes: {
     variant: {
       control: 'select',

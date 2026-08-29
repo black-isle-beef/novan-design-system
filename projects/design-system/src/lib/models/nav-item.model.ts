@@ -20,3 +20,12 @@ export interface SidebarItem {
   icon?: string;
   active?: boolean;
 }
+
+/** A single entry in a `DsBreadcrumbComponent` trail. The last entry is the current page. */
+export interface BreadcrumbItem {
+  label: string;
+  /** Omit on the current page; preceding entries render as links. */
+  href?: string;
+  /** Bootstrap Icons class name(s) for a leading glyph, e.g. `'bi bi-house'`. */
+  icon?: string;
+}

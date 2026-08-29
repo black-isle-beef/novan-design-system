@@ -20,6 +20,7 @@ const meta: Meta<DsMainNavComponent> = {
   title: 'Components/Navigation/Nav bar',
   component: DsMainNavComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   args: {
     items: sampleItems,
     ariaLabel: 'Primary',

@@ -13,6 +13,7 @@ const meta: Meta<DsFooterComponent> = {
   title: 'Components/Structural/Footer',
   component: DsFooterComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   args: {
     organizationName: 'Novan Inc.',
     linkGroups,
