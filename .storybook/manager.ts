@@ -3,7 +3,7 @@ import { create } from 'storybook/theming';
 
 const novanTheme = create({
   base: 'light',
-  brandTitle: 'Novan Design System',
+  brandTitle: 'novan design system',
   brandUrl: '/',
   brandImage: '/Novan%20logos_1.png',
   brandTarget: '_self',
