@@ -1,11 +1,11 @@
 {
-  "name": "@my-org/design-system",
+  "name": "@black-isle-beef/novan-design-system",
   "version": "0.0.1",
   "description": "Token-driven Angular standalone component library built on Bootstrap 5.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/my-org/novan-design-system.git",
+    "url": "git+https://github.com/black-isle-beef/novan-design-system.git",
     "directory": "projects/design-system"
   },
   "keywords": ["angular", "design-system", "bootstrap", "design-tokens", "component-library"],

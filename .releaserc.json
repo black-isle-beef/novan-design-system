@@ -18,7 +18,7 @@
       "@semantic-release/changelog",
       {
         "changelogFile": "CHANGELOG.md",
-        "changelogTitle": "# Changelog\n\nAll notable changes to `@my-org/design-system` are documented here."
+        "changelogTitle": "# Changelog\n\nAll notable changes to `@black-isle-beef/novan-design-system` are documented here."
       }
     ],
     [
@@ -38,7 +38,9 @@
     [
       "@semantic-release/github",
       {
-        "assets": []
+        "assets": [],
+        "labels": false,
+        "failTitle": false
       }
     ]
   ]
