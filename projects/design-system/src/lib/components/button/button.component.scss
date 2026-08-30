@@ -1,0 +1,17 @@
+:host(.ds-button--full-width) {
+  display: block;
+}
+
+:host(.ds-button--full-width) .btn {
+  inline-size: 100%;
+}
+
+:host(.ds-button--hover) .btn {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+:host(.ds-button--focus) .btn {
+  box-shadow: var(--bs-btn-focus-box-shadow);
+}

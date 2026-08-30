@@ -17,6 +17,10 @@ async function expectNoA11yViolations(page: import('@playwright/test').Page, sto
 }
 
 test.describe('WCAG 2.1 AA accessibility', () => {
+  test('Button Bootstrap variants have no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-buttons--bootstrap-variants');
+  });
+
   test('DsHeroComponent (Primary) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'components-global-hero--primary');
   });

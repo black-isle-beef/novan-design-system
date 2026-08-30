@@ -8,17 +8,27 @@
 @use 'sass:color';
 @import 'variables';
 
+// Bootstrap uses these scalar variables while it constructs component variants.
+$primary: $ds-color-brand-primary;
+$secondary: $ds-color-brand-secondary;
+$success: $ds-color-semantic-success;
+$info: $ds-color-semantic-info;
+$warning: $ds-color-semantic-warning;
+$danger: $ds-color-semantic-danger;
+$light: $ds-color-neutral-gray-100;
+$dark: $ds-color-neutral-gray-900;
+
 // Full replacement of Bootstrap's theme color map, sourced entirely from tokens.
 $theme-colors: (
-  'primary': $ds-color-brand-primary,
-  'secondary': $ds-color-brand-secondary,
+  'primary': $primary,
+  'secondary': $secondary,
   'accent': $ds-color-brand-accent,
-  'success': $ds-color-semantic-success,
-  'warning': $ds-color-semantic-warning,
-  'danger': $ds-color-semantic-danger,
-  'info': $ds-color-semantic-info,
-  'light': $ds-color-neutral-gray-100,
-  'dark': $ds-color-neutral-gray-900,
+  'success': $success,
+  'warning': $warning,
+  'danger': $danger,
+  'info': $info,
+  'light': $light,
+  'dark': $dark,
 );
 
 // Body / surface / text colors.

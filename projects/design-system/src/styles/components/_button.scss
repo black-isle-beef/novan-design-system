@@ -1,0 +1,38 @@
+// -----------------------------------------------------------------------------
+// _button.scss -- Bootstrap button color variants sourced from design tokens.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.btn-primary {
+  @include button-variant($ds-color-brand-primary, $ds-color-brand-primary);
+}
+
+.btn-secondary {
+  @include button-variant(
+    $background: $ds-color-neutral-white,
+    $border: $ds-color-brand-primary,
+    $color: $ds-color-brand-primary,
+    $hover-background: $ds-color-brand-primary,
+    $hover-border: $ds-color-brand-primary,
+    $hover-color: $ds-color-text-inverse,
+    $active-background: $ds-color-brand-primary,
+    $active-border: $ds-color-brand-primary,
+    $active-color: $ds-color-text-inverse
+  );
+}
+
+.btn-success {
+  @include button-variant($ds-color-semantic-success, $ds-color-semantic-success);
+}
+
+.btn-warning {
+  @include button-variant($ds-color-semantic-warning, $ds-color-semantic-warning);
+}
+
+.btn-danger {
+  @include button-variant($ds-color-semantic-danger, $ds-color-semantic-danger);
+}
+
+.btn-info {
+  @include button-variant($ds-color-brand-secondary, $ds-color-brand-secondary);
+}
