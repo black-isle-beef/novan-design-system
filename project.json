@@ -1,0 +1,138 @@
+{
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "novan-design-system",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "options": {
+        "browser": "src/main.ts",
+        "tsConfig": "tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "public"
+          }
+        ],
+        "styles": [
+          "src/styles.scss"
+        ],
+        "outputPath": "dist/novan-design-system"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kB",
+              "maximumError": "1MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kB",
+              "maximumError": "8kB"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "novan-design-system:build:production"
+        },
+        "development": {
+          "buildTarget": "novan-design-system:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test"
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "src/**/*.ts",
+          "src/**/*.html"
+        ]
+      },
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "storybook-browser-target": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/storybook-browser-target",
+        "index": "src/index.html",
+        "main": "src/main.ts",
+        "tsConfig": "tsconfig.storybook.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "public"
+          }
+        ],
+        "styles": [
+          "projects/design-system/src/styles/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "development",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "novan-design-system:storybook-browser-target",
+        "configDir": ".storybook",
+        "tsConfig": "tsconfig.storybook.json",
+        "compodoc": false,
+        "port": 6006
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "novan-design-system:storybook-browser-target",
+        "configDir": ".storybook",
+        "tsConfig": "tsconfig.storybook.json",
+        "compodoc": false,
+        "outputDir": "storybook-static"
+      }
+    }
+  }
+}

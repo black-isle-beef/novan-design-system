@@ -1,0 +1,151 @@
+<div class="ds-tf__layout">
+  <aside class="ds-tf__drawer">
+    <div class="ds-tf__drawer-inner">
+      <p class="ds-tf__drawer-title">Montserrat</p>
+      <nav aria-label="Typography sections">
+        <ul class="ds-tf__nav-list">
+          @for (section of navSections; track section.id) {
+            <li><a class="ds-tf__nav-link" [href]="'#' + section.id">{{ section.label }}</a></li>
+          }
+        </ul>
+      </nav>
+      <button
+        type="button"
+        class="ds-tf__mode-toggle"
+        [attr.aria-pressed]="darkMode()"
+        (click)="toggleDarkMode()"
+      >
+        {{ darkMode() ? '☀️ Light mode' : '🌙 Dark mode' }}
+      </button>
+    </div>
+  </aside>
+
+  <main class="ds-tf__content">
+    <header class="ds-tf__intro">
+      <h1 class="ds-tf__page-title">Brand Typography</h1>
+      <p class="ds-tf__lede">
+        The full Montserrat family — nine static weights (Thin–Black) plus italics and a
+        variable-font axis, self-hosted from <code>public/fonts/Montserrat</code>.
+      </p>
+    </header>
+
+    <section id="headings" class="ds-tf__section">
+      <h2 class="ds-tf__section-title">Headings</h2>
+      <div class="ds-tf__heading-scale">
+        @for (h of headingScale; track h.level) {
+          <div class="ds-tf__heading-row">
+            <span class="ds-tf__heading-meta">
+              {{ h.level.toUpperCase() }} · {{ h.sizeRem }}rem / {{ h.lineHeight }} line-height /
+              {{ h.letterSpacing }} tracking / {{ h.weight }} weight
+            </span>
+            @switch (h.level) {
+              @case ('h1') {
+                <h1 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h1>
+              }
+              @case ('h2') {
+                <h2 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h2>
+              }
+              @case ('h3') {
+                <h3 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h3>
+              }
+              @case ('h4') {
+                <h4 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h4>
+              }
+              @case ('h5') {
+                <h5 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h5>
+              }
+              @case ('h6') {
+                <h6 class="ds-tf__sample-heading" [style]="{ 'font-size': h.sizeRem + 'rem', 'line-height': h.lineHeight, 'letter-spacing': h.letterSpacing, 'font-weight': h.weight }">
+                  Design with intention
+                </h6>
+              }
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="body" class="ds-tf__section">
+      <h2 class="ds-tf__section-title">Body &amp; Inline Text</h2>
+
+      <p class="ds-tf__lead">
+        Lead paragraphs use a slightly larger, lighter Montserrat weight to introduce a section.
+      </p>
+      <p class="ds-tf__body">
+        Body copy is set in Regular 400 for maximum readability across long-form content.
+        It supports <b>bold</b>/<strong>strong emphasis</strong>, <i>italic</i>/<em>emphasis</em>,
+        <u>underline</u>, <del>strikethrough</del>, and a <mark>highlighter</mark> for callouts.
+      </p>
+      <p><small class="ds-tf__small">Small print — captions, timestamps, and legal copy.</small></p>
+
+      <p class="ds-tf__link-row">
+        <a class="ds-tf__link" href="#body">Default link</a>
+        <a class="ds-tf__link ds-tf__link--force-hover" href="#body">Hover state</a>
+        <a class="ds-tf__link ds-tf__link--force-focus" href="#body">Focus state</a>
+        <a class="ds-tf__link ds-tf__link--force-visited" href="#body">Visited state</a>
+      </p>
+
+      <p class="ds-tf__code-row">
+        Inline code: <code>const family = 'Montserrat';</code>
+        Keyboard shortcut: <kbd>Ctrl</kbd> + <kbd>K</kbd>
+      </p>
+    </section>
+
+    <section id="weight-grid" class="ds-tf__section">
+      <h2 class="ds-tf__section-title">Weight Grid</h2>
+      <div class="ds-tf__weight-grid">
+        @for (weight of fontWeights; track weight.value) {
+          <div class="ds-tf__weight-row">
+            <span class="ds-tf__weight-meta">{{ weight.value }} · {{ weight.name }}</span>
+            <code class="ds-tf__weight-rule">{{ weight.cssRule }}</code>
+            <span class="ds-tf__weight-sample" [style.font-weight]="weight.value">{{ pangram }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="playground" class="ds-tf__section">
+      <h2 class="ds-tf__section-title">Interactive Playground</h2>
+
+      <label class="ds-tf__field-label" for="ds-tf-playground-text">Sample text</label>
+      <input
+        id="ds-tf-playground-text"
+        class="ds-tf__playground-input"
+        type="text"
+        [value]="playgroundText()"
+        (input)="onPlaygroundTextChange($event)"
+      />
+
+      <div class="ds-tf__playground-controls">
+        <label class="ds-tf__slider-field">
+          <span>Font size: {{ playgroundSize() }}px</span>
+          <input type="range" min="12" max="96" step="1" [value]="playgroundSize()" (input)="onPlaygroundSizeChange($event)" />
+        </label>
+        <label class="ds-tf__slider-field">
+          <span>Line height: {{ playgroundLineHeight() }}</span>
+          <input type="range" min="1" max="2.5" step="0.05" [value]="playgroundLineHeight()" (input)="onPlaygroundLineHeightChange($event)" />
+        </label>
+        <label class="ds-tf__slider-field">
+          <span>Letter spacing: {{ playgroundLetterSpacing() }}px</span>
+          <input type="range" min="-2" max="10" step="0.5" [value]="playgroundLetterSpacing()" (input)="onPlaygroundLetterSpacingChange($event)" />
+        </label>
+        <label class="ds-tf__slider-field">
+          <span>Font weight: {{ playgroundWeight() }}</span>
+          <input type="range" min="100" max="900" step="100" [value]="playgroundWeight()" (input)="onPlaygroundWeightChange($event)" />
+        </label>
+      </div>
+
+      <p class="ds-tf__playground-preview" [style]="playgroundStyle()">{{ playgroundText() }}</p>
+    </section>
+  </main>
+</div>

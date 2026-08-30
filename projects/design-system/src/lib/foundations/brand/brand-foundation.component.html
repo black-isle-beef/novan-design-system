@@ -1,0 +1,163 @@
+<section class="ds-bf__intro">
+  <h1 class="ds-bf__title">Brand Foundations</h1>
+  <p class="ds-bf__lede">
+    A modular color palette for the design system. Assign palette colors to
+    brand roles below and see the choices reflected live across typography,
+    buttons, inputs, and feedback components.
+  </p>
+  <button type="button" class="ds-bf__btn ds-bf__btn--primary" (click)="openAssignment()">
+    Customize brand colors
+  </button>
+</section>
+
+@if (assignmentOpen()) {
+  <div class="ds-bf__modal-backdrop" (click)="closeAssignment()">
+    <div
+      class="ds-bf__modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ds-bf-modal-title"
+      (click)="$event.stopPropagation()"
+    >
+      <h2 id="ds-bf-modal-title" class="ds-bf__modal-title">Assign brand roles</h2>
+      <p class="ds-bf__modal-hint">Pick a color for each role, or keep the defaults.</p>
+
+      <div class="ds-bf__modal-grid">
+        @for (def of roleDefinitions; track def.role) {
+          <label class="ds-bf__role-field">
+            <span class="ds-bf__role-name">{{ def.label }}</span>
+            <span class="ds-bf__role-desc">{{ def.description }}</span>
+            <span class="ds-bf__role-picker">
+              <span class="ds-bf__role-swatch" [style.background]="draftTokenFor(def.role).hex" aria-hidden="true"></span>
+              <select
+                class="ds-bf__role-select"
+                [attr.aria-label]="def.label + ' color'"
+                [value]="draftValueFor(def.role)"
+                (change)="onDraftChange(def.role, $event)"
+              >
+                @for (family of families; track family.id) {
+                  <optgroup [label]="family.label">
+                    @for (token of family.tokens; track token.hex; let i = $index) {
+                      <option [value]="family.id + '::' + i">{{ token.name }} ({{ token.hex }})</option>
+                    }
+                  </optgroup>
+                }
+              </select>
+            </span>
+          </label>
+        }
+      </div>
+
+      <div class="ds-bf__modal-actions">
+        <button type="button" class="ds-bf__btn ds-bf__btn--ghost" (click)="resetToDefaults()">
+          Reset to defaults
+        </button>
+        <div class="ds-bf__modal-actions-right">
+          <button type="button" class="ds-bf__btn ds-bf__btn--ghost" (click)="closeAssignment()">Skip</button>
+          <button type="button" class="ds-bf__btn ds-bf__btn--primary" (click)="applyAssignment()">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<section class="ds-bf__demo" [style]="themeVars()">
+  <h2 class="ds-bf__section-title">Live component demo</h2>
+
+  <div class="ds-bf__demo-grid">
+    <div class="ds-bf__demo-card">
+      <h3 class="ds-bf__demo-card-title">Typography</h3>
+      <p class="ds-bf__text-body">Primary body text, set for strong readability on light surfaces.</p>
+      <p class="ds-bf__text-muted">Muted body text is used for secondary or supporting copy.</p>
+      <p>
+        <button type="button" class="ds-bf__link">Default link state</button>
+        ·
+        <button type="button" class="ds-bf__link ds-bf__link--hover">Hover state</button>
+      </p>
+    </div>
+
+    <div class="ds-bf__demo-card ds-bf__demo-card--structural">
+      <h3 class="ds-bf__demo-card-title">Structural surfaces</h3>
+      <div class="ds-bf__page-bg">
+        <span class="ds-bf__page-bg-label">Page background</span>
+        <div class="ds-bf__surface-card">Surface / card container</div>
+      </div>
+    </div>
+
+    <div class="ds-bf__demo-card">
+      <h3 class="ds-bf__demo-card-title">Buttons</h3>
+      <div class="ds-bf__button-row">
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--primary">Primary</button>
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--primary ds-bf__demo-btn--hover">
+          Primary (hover)
+        </button>
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--primary ds-bf__demo-btn--active">
+          Primary (active)
+        </button>
+      </div>
+      <div class="ds-bf__button-row">
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--secondary">Secondary</button>
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--secondary ds-bf__demo-btn--hover">
+          Secondary (hover)
+        </button>
+        <button type="button" class="ds-bf__demo-btn ds-bf__demo-btn--secondary ds-bf__demo-btn--active">
+          Secondary (active)
+        </button>
+      </div>
+    </div>
+
+    <div class="ds-bf__demo-card">
+      <h3 class="ds-bf__demo-card-title">Inputs</h3>
+      <label class="ds-bf__field-label" for="ds-bf-demo-input">Email address</label>
+      <input id="ds-bf-demo-input" class="ds-bf__input" type="text" placeholder="jane@example.com" />
+      <label class="ds-bf__field-label" for="ds-bf-demo-input-focus">Focused state</label>
+      <input
+        id="ds-bf-demo-input-focus"
+        class="ds-bf__input ds-bf__input--focus"
+        type="text"
+        placeholder="Focus ring preview"
+      />
+    </div>
+
+    <div class="ds-bf__demo-card ds-bf__demo-card--feedback">
+      <h3 class="ds-bf__demo-card-title">UI feedback</h3>
+      <div class="ds-bf__alert ds-bf__alert--success">
+        <strong>Success.</strong> Your changes have been saved.
+        <span class="ds-bf__badge ds-bf__badge--success">Verified</span>
+      </div>
+      <div class="ds-bf__alert ds-bf__alert--warning">
+        <strong>Warning.</strong> This action needs your attention.
+        <span class="ds-bf__badge ds-bf__badge--warning">Pending</span>
+      </div>
+      <div class="ds-bf__alert ds-bf__alert--danger">
+        <strong>Error.</strong> Something went wrong, please try again.
+        <span class="ds-bf__badge ds-bf__badge--danger">Failed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-bf__palette">
+  <h2 class="ds-bf__section-title">Full palette</h2>
+
+  @for (family of families; track family.id) {
+    <div class="ds-bf__family">
+      <h3 class="ds-bf__family-title">{{ family.label }}</h3>
+      <div class="ds-bf__swatch-grid">
+        @for (token of family.tokens; track token.hex) {
+          <div class="ds-bf__swatch-card">
+            <div class="ds-bf__swatch-color" [style.background]="token.hex"></div>
+            <div class="ds-bf__swatch-body">
+              <span class="ds-bf__swatch-name">{{ token.name }}</span>
+              <code class="ds-bf__swatch-hex">{{ token.hex }}</code>
+              <p class="ds-bf__swatch-usage">{{ token.usage }}</p>
+              <button type="button" class="ds-bf__copy-btn" (click)="copyHex(token.hex)">
+                {{ copiedHex() === token.hex ? 'Copied!' : 'Copy HEX' }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</section>
