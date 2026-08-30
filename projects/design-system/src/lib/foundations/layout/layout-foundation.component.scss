@@ -6,18 +6,15 @@
   --ds-space-5: 48px;
   --ds-space-6: 64px;
   --ds-space-7: 96px;
-
   --ds-bp-mobile: 0px;
   --ds-bp-tablet: 768px;
   --ds-bp-desktop: 1024px;
   --ds-bp-wide: 1440px;
-
   --ds-container-standard: 1200px;
   --ds-container-narrow: 800px;
-
-  --tf-bg: #ffffff;
+  --tf-bg: #fff;
   --tf-surface: #f5f5f5;
-  --tf-text: #333333;
+  --tf-text: #333;
   --tf-muted: #66665f;
   --tf-border: #b0b3b5;
   --tf-link: #0a2f73;
@@ -250,7 +247,7 @@
 .ds-lf__tab--active {
   background: var(--tf-link);
   border-color: var(--tf-link);
-  color: #ffffff;
+  color: #fff;
 }
 
 /* Viewport toggle */
@@ -432,7 +429,7 @@
 .ds-lf__wire-box--cta,
 .ds-lf__wire-box--cta-ghost {
   background: var(--tf-link);
-  color: #ffffff;
+  color: #fff;
   border-color: var(--tf-link);
 }
 
@@ -486,6 +483,7 @@
   .ds-lf__wire-grid-3 {
     grid-template-columns: 1fr;
   }
+
   .ds-lf__wire-grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }

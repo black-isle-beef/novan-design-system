@@ -44,9 +44,9 @@ describe('DsBrandFoundationComponent', () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
-    await fixture.componentInstance.copyHex('#ffffff');
+    await fixture.componentInstance.copyHex('#fff');
 
-    expect(writeText).toHaveBeenCalledWith('#ffffff');
-    expect(fixture.componentInstance.copiedHex()).toBe('#ffffff');
+    expect(writeText).toHaveBeenCalledWith('#fff');
+    expect(fixture.componentInstance.copiedHex()).toBe('#fff');
   });
 });

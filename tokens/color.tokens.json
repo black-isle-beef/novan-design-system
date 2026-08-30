@@ -42,7 +42,7 @@
     "neutral": {
       "white": {
         "$type": "color",
-        "$value": "#ffffff",
+        "$value": "#fff",
         "$description": "Pure white, used for surfaces and inverted text."
       },
       "gray-100": {

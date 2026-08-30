@@ -22,9 +22,9 @@ export const BRAND_PALETTE: readonly ColorFamily[] = [
     id: 'base',
     label: 'Base',
     tokens: [
-      { name: 'White', hex: '#ffffff', usage: 'Page background and text on dark/brand surfaces.' },
+      { name: 'White', hex: '#fff', usage: 'Page background and text on dark/brand surfaces.' },
       { name: 'Off-White', hex: '#f5f5f5', usage: 'Muted section backgrounds and card fills.' },
-      { name: 'Charcoal', hex: '#333333', usage: 'Primary body text on light surfaces.' },
+      { name: 'Charcoal', hex: '#333', usage: 'Primary body text on light surfaces.' },
       { name: 'Black', hex: '#000000', usage: 'Maximum-contrast text and icons, used sparingly.' },
     ],
   },

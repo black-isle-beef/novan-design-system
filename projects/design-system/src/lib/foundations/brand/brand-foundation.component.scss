@@ -1,6 +1,6 @@
 :host {
   display: block;
-  color: #333333;
+  color: #333;
   line-height: 1.5;
 }
 
@@ -35,7 +35,7 @@
 
 .ds-bf__btn--primary {
   background: #0a2f73;
-  color: #ffffff;
+  color: #fff;
 }
 
 .ds-bf__btn--primary:hover {
@@ -45,7 +45,7 @@
 .ds-bf__btn--ghost {
   background: transparent;
   border-color: #b0b3b5;
-  color: #333333;
+  color: #333;
 }
 
 .ds-bf__btn--ghost:hover {
@@ -65,7 +65,7 @@
 }
 
 .ds-bf__modal {
-  background: #ffffff;
+  background: #fff;
   border-radius: 0.75rem;
   padding: 1.5rem;
   width: 100%;
@@ -159,7 +159,7 @@
 }
 
 .ds-bf__demo-card {
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #b0b3b5;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -171,7 +171,7 @@
 }
 
 .ds-bf__text-body {
-  color: #333333;
+  color: #333;
 }
 
 .ds-bf__text-muted {
@@ -211,7 +211,7 @@
 
 .ds-bf__surface-card {
   margin-top: 0.5rem;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #b0b3b5;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -230,7 +230,7 @@
   padding: 0.5rem 1rem;
   font: inherit;
   font-weight: 600;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -320,7 +320,7 @@
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
 }
 
 .ds-bf__badge--success {
@@ -329,7 +329,7 @@
 
 .ds-bf__badge--warning {
   background: var(--ds-warning);
-  color: #333333;
+  color: #333;
 }
 
 .ds-bf__badge--danger {
@@ -357,7 +357,7 @@
   border: 1px solid #b0b3b5;
   border-radius: 0.75rem;
   overflow: hidden;
-  background: #ffffff;
+  background: #fff;
 }
 
 .ds-bf__swatch-color {
