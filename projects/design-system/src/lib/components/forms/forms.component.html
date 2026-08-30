@@ -1,0 +1,112 @@
+<div class="container-fluid py-4 ds-forms-container">
+  <!-- Header / Hero Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 bg-primary text-white shadow-sm overflow-hidden rounded-3">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <span class="badge bg-white text-primary p-2 fs-4 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 3rem; height: 3rem;">
+              <i class="bi bi-input-cursor-text"></i>
+            </span>
+            <div>
+              <span class="badge bg-light text-primary mb-1 fw-semibold">Angular 22 Standalone Suite</span>
+              <h1 class="h2 mb-0 fw-bold">Bootstrap Form Controls Suite</h1>
+            </div>
+          </div>
+          <p class="lead mb-4 opacity-90">
+            A modular component suite and interactive showcase page for Bootstrap 5 form controls. Each section is a separate, standalone component with dedicated TypeScript, HTML, SCSS, unit tests, and Storybook stories.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Standalone Sub-Components</span>
+            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Reactive Forms & Signals</span>
+            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Async Validation</span>
+            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Zero Bootstrap JS Dependencies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Jumper Navigation -->
+  <div class="row mb-4 sticky-top pt-2" style="z-index: 1020; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-2 d-flex flex-nowrap overflow-x-auto gap-2">
+          @for (sec of sections; track sec.id) {
+            <a
+              [href]="'#' + sec.id"
+              class="btn btn-sm text-nowrap rounded-pill"
+              [ngClass]="activeSection() === sec.id ? 'btn-primary' : 'btn-outline-secondary'"
+              (click)="activeSection.set(sec.id)"
+            >
+              <i class="bi {{ sec.icon }} me-1"></i> {{ sec.label }}
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Text Input -->
+  <section id="text-input" class="row mb-5">
+    <div class="col-12">
+      <ds-text-input></ds-text-input>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Form Select -->
+  <section id="form-select" class="row mb-5">
+    <div class="col-12">
+      <ds-form-select></ds-form-select>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Radio Buttons -->
+  <section id="radio-buttons" class="row mb-5">
+    <div class="col-12">
+      <ds-radio-buttons></ds-radio-buttons>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Checkboxes & Switches -->
+  <section id="checkboxes" class="row mb-5">
+    <div class="col-12">
+      <ds-checkboxes></ds-checkboxes>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Form Control Sizes & General -->
+  <section id="control-sizes" class="row mb-5">
+    <div class="col-12">
+      <ds-control-sizes></ds-control-sizes>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Input Group -->
+  <section id="input-group" class="row mb-5">
+    <div class="col-12">
+      <ds-input-group></ds-input-group>
+    </div>
+  </section>
+
+  <!-- SECTION 7: Range Slider -->
+  <section id="range-slider" class="row mb-5">
+    <div class="col-12">
+      <ds-range-slider></ds-range-slider>
+    </div>
+  </section>
+
+  <!-- SECTION 8: Layout -->
+  <section id="form-layout" class="row mb-5">
+    <div class="col-12">
+      <ds-form-layout></ds-form-layout>
+    </div>
+  </section>
+
+  <!-- SECTION 9: Form Validation Suite -->
+  <section id="form-validation" class="row mb-5">
+    <div class="col-12">
+      <ds-form-validation></ds-form-validation>
+    </div>
+  </section>
+</div>

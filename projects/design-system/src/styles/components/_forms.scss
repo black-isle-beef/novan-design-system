@@ -1,0 +1,33 @@
+// -----------------------------------------------------------------------------
+// _forms.scss -- Custom Bootstrap Form Control overrides driven by design tokens.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+// Focus ring overrides driven by design tokens
+.form-control,
+.form-select,
+.form-check-input,
+.form-range {
+  &:focus {
+    border-color: $ds-color-brand-primary;
+    box-shadow: 0 0 0 0.25rem rgba($ds-color-brand-primary, 0.25);
+  }
+}
+
+// Color picker control adjustments
+.form-control-color {
+  width: 3.5rem;
+  height: 2.375rem;
+  padding: 0.375rem;
+}
+
+// Custom code snippet / preview container helper classes
+.ds-forms-code-preview {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  overflow-x: auto;
+}

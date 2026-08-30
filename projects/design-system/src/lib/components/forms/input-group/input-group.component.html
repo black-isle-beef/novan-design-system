@@ -1,0 +1,79 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-input-cursor text-primary fs-4"></i>
+      <div>
+        <h2 class="h5 mb-0 fw-bold">Input Group Variations</h2>
+        <small class="text-muted">Prefix/suffix badges (.input-group-text), multiple grouped inputs, segmented dropdowns, and checkbox/radio addons.</small>
+      </div>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    @if (activeCodeTab() === 'preview') {
+      <div class="row g-3">
+        <!-- Prefix Badge -->
+        <div class="col-md-6">
+          <label for="igPrefix" class="form-label fw-semibold">Prefix Addon</label>
+          <div class="input-group">
+            <span class="input-group-text" id="igPrefixAddon">@</span>
+            <input type="text" class="form-control" id="igPrefix" placeholder="Username" aria-describedby="igPrefixAddon">
+          </div>
+        </div>
+
+        <!-- Suffix Badge -->
+        <div class="col-md-6">
+          <label for="igSuffix" class="form-label fw-semibold">Suffix Addon</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="igSuffix" placeholder="Recipient's username" aria-label="Recipient's username">
+            <span class="input-group-text">@my-org.com</span>
+          </div>
+        </div>
+
+        <!-- Multiple Grouped Inputs -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Multiple Grouped Inputs</label>
+          <div class="input-group">
+            <span class="input-group-text">First & Last Name</span>
+            <input type="text" aria-label="First name" class="form-control" placeholder="John">
+            <input type="text" aria-label="Last name" class="form-control" placeholder="Doe">
+          </div>
+        </div>
+
+        <!-- Checkbox & Radio Addons -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Checkbox / Radio Addon</label>
+          <div class="input-group">
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for input">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Item task label...">
+          </div>
+        </div>
+
+        <!-- Action Button Addon -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Segmented Action Button Addon</label>
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search me-1"></i> Search</button>
+            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-filter me-1"></i> Filter</button>
+            <input type="text" class="form-control" placeholder="Search parameters..." aria-label="Search parameters">
+            <button class="btn btn-primary" type="button">Execute</button>
+          </div>
+        </div>
+      </div>
+    } @else if (activeCodeTab() === 'html') {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ htmlSnippet }}</code></pre>
+    } @else {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ tsSnippet }}</code></pre>
+    }
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-sliders2 text-primary fs-4"></i>
+      <div>
+        <h2 class="h5 mb-0 fw-bold">Range Sliders with Dynamic Values</h2>
+        <small class="text-muted">Standard .form-range sliders connected to dynamic Reactive Form controls showing real-time numerical badges.</small>
+      </div>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    @if (activeCodeTab() === 'preview') {
+      <div class="row g-4">
+        <!-- Reactive Form Range Slider -->
+        <div class="col-md-6">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="reactiveRange" class="form-label mb-0 fw-semibold">Volume Control (Reactive Form)</label>
+            <span class="badge bg-primary fs-6 px-3 py-1">{{ rangeValue() }}%</span>
+          </div>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="100"
+            step="1"
+            id="reactiveRange"
+            [formControl]="rangeControl"
+          >
+          <div class="d-flex justify-content-between text-muted small mt-1">
+            <span>0% (Mute)</span>
+            <span>50%</span>
+            <span>100% (Max)</span>
+          </div>
+        </div>
+
+        <!-- Dual-binding ngModel Range Slider -->
+        <div class="col-md-6">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="ngModelRangeInput" class="form-label mb-0 fw-semibold">CPU Allocation (ngModel context)</label>
+            <span class="badge bg-info text-white fs-6 px-3 py-1">{{ ngModelRange() }}%</span>
+          </div>
+          <input
+            type="range"
+            class="form-range"
+            min="10"
+            max="100"
+            step="5"
+            id="ngModelRangeInput"
+            [ngModel]="ngModelRange()"
+            (ngModelChange)="ngModelRange.set($event)"
+          >
+          <div class="d-flex justify-content-between text-muted small mt-1">
+            <span>10% (Low)</span>
+            <span>100% (Max)</span>
+          </div>
+        </div>
+      </div>
+    } @else if (activeCodeTab() === 'html') {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ htmlSnippet }}</code></pre>
+    } @else {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ tsSnippet }}</code></pre>
+    }
+  </div>
+</div>

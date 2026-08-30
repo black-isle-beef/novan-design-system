@@ -48,4 +48,20 @@ test.describe('WCAG 2.1 AA accessibility', () => {
   test('DsBreadcrumbComponent (Default) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'components-navigation-breadcrumb--default');
   });
+
+  test('DsFormsComponent (Showcase Dashboard) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-forms-showcase-dashboard--default');
+  });
+
+  test('DsTextInputComponent (Default) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-forms-text-input--default');
+  });
+
+  test('DsFormSelectComponent (Default) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-forms-form-select--default');
+  });
+
+  test('DsFormValidationComponent (Default) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-forms-form-validation--default');
+  });
 });
