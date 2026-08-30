@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DsFormsComponent } from './forms.component';
-import { DsIndeterminateDirective } from './indeterminate.directive';
+import { DsIndeterminateDirective } from './checkboxes/indeterminate.directive';
 import { Component, signal } from '@angular/core';
 
 @Component({
