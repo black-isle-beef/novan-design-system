@@ -98,10 +98,19 @@ jobs:
       - name: Build design tokens (Style Dictionary)
         run: npm run build:tokens
 
+      - name: Report unavailable Chromatic token
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN == '' }}
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: echo "::notice::Chromatic upload skipped because CHROMATIC_PROJECT_TOKEN is unavailable. Add it as a repository secret; secrets are intentionally unavailable to forked pull requests."
+
       - name: Publish to Chromatic
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         uses: chromaui/action@v1
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          projectToken: ${{ env.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build-storybook
           exitOnceUploaded: true
 
