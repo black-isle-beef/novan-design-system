@@ -1,5 +1,4 @@
-export * from './forms.component';
-export * from './indeterminate.directive';
+export * from './checkboxes/indeterminate.directive';
 export * from './text-input/text-input.component';
 export * from './form-select/form-select.component';
 export * from './radio-buttons/radio-buttons.component';
@@ -9,3 +8,4 @@ export * from './input-group/input-group.component';
 export * from './range-slider/range-slider.component';
 export * from './form-layout/form-layout.component';
 export * from './form-validation/form-validation.component';
+export * from './forms.component';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DsIndeterminateDirective } from '../indeterminate.directive';
+import { DsIndeterminateDirective } from './indeterminate.directive';
 
 @Component({
   selector: 'ds-checkboxes',

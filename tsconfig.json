@@ -4,7 +4,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "design-system": ["./dist/design-system"]
+      "@my-org/design-system": ["./projects/design-system/src/public-api.ts"],
+      "design-system": ["./projects/design-system/src/public-api.ts"]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -15,7 +16,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "moduleResolution": "bundler"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -29,6 +31,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     },
     {
       "path": "./projects/design-system/tsconfig.lib.json"
