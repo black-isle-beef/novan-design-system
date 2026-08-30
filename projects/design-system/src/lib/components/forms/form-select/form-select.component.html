@@ -1,0 +1,75 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-menu-button-wide text-primary fs-4"></i>
+      <div>
+        <h2 class="h5 mb-0 fw-bold">Form Select Controls</h2>
+        <small class="text-muted">Single select, multi-select, sizing variations (.form-select-sm, .form-select-lg), and disabled options.</small>
+      </div>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    @if (activeCodeTab() === 'preview') {
+      <div class="row g-3">
+        <!-- Single Select -->
+        <div class="col-md-6">
+          <label for="singleSelectDemo" class="form-label fw-semibold">Standard Single Select</label>
+          <select class="form-select" id="singleSelectDemo" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="de" disabled>Germany (Disabled Option)</option>
+          </select>
+        </div>
+
+        <!-- Sizing Small & Large -->
+        <div class="col-md-6">
+          <label for="selectSmDemo" class="form-label fw-semibold">Small Select (.form-select-sm)</label>
+          <select class="form-select form-select-sm mb-3" id="selectSmDemo">
+            <option selected>Small select option</option>
+            <option value="1">Small Option 1</option>
+          </select>
+
+          <label for="selectLgDemo" class="form-label fw-semibold">Large Select (.form-select-lg)</label>
+          <select class="form-select form-select-lg" id="selectLgDemo">
+            <option selected>Large select option</option>
+            <option value="1">Large Option 1</option>
+          </select>
+        </div>
+
+        <!-- Multi Select -->
+        <div class="col-md-6">
+          <label for="multiSelectDemo" class="form-label fw-semibold">Multi-Select Control</label>
+          <select class="form-select" id="multiSelectDemo" multiple aria-label="Multiple select example" style="height: 120px;">
+            <option value="ng" selected>Angular 22</option>
+            <option value="react" selected>React 19</option>
+            <option value="vue">Vue 3</option>
+            <option value="svelte">Svelte 5</option>
+          </select>
+        </div>
+
+        <!-- Disabled Select -->
+        <div class="col-md-6">
+          <label for="disabledSelectDemo" class="form-label fw-semibold">Disabled Select</label>
+          <select class="form-select" id="disabledSelectDemo" disabled>
+            <option selected>Disabled menu state</option>
+          </select>
+        </div>
+      </div>
+    } @else if (activeCodeTab() === 'html') {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ htmlSnippet }}</code></pre>
+    } @else {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ tsSnippet }}</code></pre>
+    }
+  </div>
+</div>

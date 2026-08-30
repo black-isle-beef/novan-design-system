@@ -1,0 +1,53 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-sliders text-primary fs-4"></i>
+      <div>
+        <h2 class="h5 mb-0 fw-bold">General Form Control Sizes, File & Color Inputs</h2>
+        <small class="text-muted">Sizing variations (.form-control-lg, .form-control-sm), file inputs, and color picker controls.</small>
+      </div>
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    @if (activeCodeTab() === 'preview') {
+      <div class="row g-3">
+        <!-- Sizing Examples -->
+        <div class="col-md-6">
+          <label for="formControlLgDemo" class="form-label fw-semibold">Large Input (.form-control-lg)</label>
+          <input class="form-control form-control-lg mb-3" id="formControlLgDemo" type="text" placeholder=".form-control-lg">
+
+          <label for="formControlDefaultDemo" class="form-label fw-semibold">Default Input</label>
+          <input class="form-control mb-3" id="formControlDefaultDemo" type="text" placeholder="Default sizing">
+
+          <label for="formControlSmDemo" class="form-label fw-semibold">Small Input (.form-control-sm)</label>
+          <input class="form-control form-control-sm" id="formControlSmDemo" type="text" placeholder=".form-control-sm">
+        </div>
+
+        <!-- File & Color Inputs -->
+        <div class="col-md-6">
+          <label for="fileInputDemo" class="form-label fw-semibold">File Upload Input (type="file")</label>
+          <input class="form-control mb-3" type="file" id="fileInputDemo">
+
+          <label for="colorInputDemo" class="form-label fw-semibold d-block">Color Picker Control (type="color")</label>
+          <div class="d-flex align-items-center gap-3">
+            <input type="color" class="form-control form-control-color" id="colorInputDemo" value="#0d6efd" title="Choose brand color">
+            <span class="text-muted small">Brand Theme Accent Color</span>
+          </div>
+        </div>
+      </div>
+    } @else if (activeCodeTab() === 'html') {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ htmlSnippet }}</code></pre>
+    } @else {
+      <pre class="ds-forms-code-preview mb-0"><code>{{ tsSnippet }}</code></pre>
+    }
+  </div>
+</div>
