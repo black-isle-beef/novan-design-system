@@ -4,7 +4,7 @@ export * from './lib/components/hero/hero.component';
 export * from './lib/components/main-nav/main-nav.component';
 export * from './lib/components/header/header.component';
 /*
- * Public API Surface of @my-org/design-system
+ * Public API Surface of @black-isle-beef/novan-design-system
  */
 
 // Components

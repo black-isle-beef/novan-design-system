@@ -1,6 +1,6 @@
 # Novan Design System
 
-Bespoke Angular (v17+ standalone components) and Bootstrap 5 (SASS) design system, distributed as `@my-org/design-system`.
+Bespoke Angular (v17+ standalone components) and Bootstrap 5 (SASS) design system, distributed as `@black-isle-beef/novan-design-system`.
 
 ## Repository layout
 
@@ -8,7 +8,7 @@ Bespoke Angular (v17+ standalone components) and Bootstrap 5 (SASS) design syste
 tokens/                          W3C/DTCG design tokens (color, typography, spacing)
 style-dictionary.config.mjs      Style Dictionary build config -> SCSS + TypeScript outputs
 scripts/build-tokens.mjs         Runs the Style Dictionary build (npm run build:tokens)
-projects/design-system/          The publishable library (@my-org/design-system)
+projects/design-system/          The publishable library (@black-isle-beef/novan-design-system)
   src/lib/components/            Starter standalone components (Hero, MainNav, Header, Footer, Sidebar, CookieBanner)
   src/lib/tokens/                Generated TypeScript token exports (gitignored, build artifact)
   src/styles/                    SASS architecture (_variables, _colors, _typography, _spacers, styles.scss)
@@ -33,7 +33,7 @@ npm run storybook      # serve Storybook on http://localhost:6006
 | Script                | Description                                             |
 | ---------------------- | -------------------------------------------------------- |
 | `build:tokens`         | Style Dictionary: builds SCSS + TS tokens from `tokens/`  |
-| `build:lib`            | Builds `@my-org/design-system` with ng-packagr (tokens run first) |
+| `build:lib`            | Builds `@black-isle-beef/novan-design-system` with ng-packagr (tokens run first) |
 | `test:lib`             | Unit tests for the library                                |
 | `test:a11y`            | Builds Storybook and runs the axe-core WCAG 2.1 AA suite   |
 | `lint:scss` / `lint:ts`| Stylelint / ESLint                                        |

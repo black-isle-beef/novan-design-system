@@ -1,17 +1,17 @@
-# @my-org/design-system
+# @black-isle-beef/novan-design-system
 
 Token-driven Angular (v17+ standalone components) + Bootstrap 5 design system.
 
 ## Install
 
 ```bash
-npm install @my-org/design-system bootstrap
+npm install @black-isle-beef/novan-design-system bootstrap
 ```
 
 ## Usage
 
 ```ts
-import { DsHeroComponent, DsHeaderComponent } from '@my-org/design-system';
+import { DsHeroComponent, DsHeaderComponent } from '@black-isle-beef/novan-design-system';
 
 @Component({
   standalone: true,
@@ -24,19 +24,19 @@ export class AppComponent {}
 Add the compiled stylesheet to your app's global styles (`angular.json`):
 
 ```jsonc
-"styles": ["node_modules/@my-org/design-system/styles/styles.scss"]
+"styles": ["node_modules/@black-isle-beef/novan-design-system/styles/styles.scss"]
 ```
 
 Or import it directly in a root SCSS file:
 
 ```scss
-@import '@my-org/design-system/styles/styles';
+@import '@black-isle-beef/novan-design-system/styles/styles';
 ```
 
 Design tokens are also available as typed TypeScript constants:
 
 ```ts
-import { colorTokens, SpacingScale } from '@my-org/design-system';
+import { colorTokens, SpacingScale } from '@black-isle-beef/novan-design-system';
 ```
 
 ---
