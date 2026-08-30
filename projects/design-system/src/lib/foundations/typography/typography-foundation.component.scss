@@ -181,7 +181,7 @@
   --tf-muted: #66665f;
   --tf-border: #b0b3b5;
   --tf-link: #0a2f73;
-  --tf-link-hover: #082862;
+  --tf-link-hover: #03122e;
   --tf-mark-bg: #f0b429;
 
   display: block;
@@ -244,12 +244,13 @@
 
 .ds-tf__nav-link {
   color: var(--tf-link);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   font-size: 0.9rem;
 }
 
 .ds-tf__nav-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--tf-link-hover);
 }
 
@@ -359,7 +360,7 @@
 .ds-tf__link:hover,
 .ds-tf__link--force-hover {
   color: var(--tf-link-hover);
-  text-decoration-thickness: 2px;
+  text-decoration: none;
 }
 
 .ds-tf__link:focus-visible,
@@ -368,8 +369,13 @@
   outline-offset: 2px;
 }
 
-.ds-tf__link--force-visited {
-  color: #7a4fb0;
+.ds-tf__link--body {
+  font-weight: 500;
+}
+
+.ds-tf__example-link-list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
 }
 
 .ds-tf__code-row {

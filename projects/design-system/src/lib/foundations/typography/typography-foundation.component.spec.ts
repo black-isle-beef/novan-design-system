@@ -23,6 +23,15 @@ describe('DsTypographyFoundationComponent', () => {
     expect(rows.length).toBe(9);
   });
 
+  it('renders hyperlink examples for body, navigation, and standalone links', async () => {
+    const fixture = await setup();
+    const section = fixture.nativeElement.querySelector('#hyperlinks') as HTMLElement;
+
+    expect(section.querySelector('.ds-tf__link--body')).toBeTruthy();
+    expect(section.querySelectorAll('.ds-tf__example-link-list a').length).toBe(2);
+    expect(section.querySelector('.ds-tf__link-row a')).toBeTruthy();
+  });
+
   it('toggles dark mode', async () => {
     const fixture = await setup();
     const host = fixture.nativeElement as HTMLElement;

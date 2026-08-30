@@ -5,7 +5,6 @@
 // Must be imported BEFORE `bootstrap/scss/bootstrap` so Bootstrap's `!default`
 // declarations in `_variables.scss` no-op in favor of these values.
 // -----------------------------------------------------------------------------
-@use 'sass:color';
 @import 'variables';
 
 // Bootstrap uses these scalar variables while it constructs component variants.
@@ -36,7 +35,9 @@ $body-bg: $ds-color-surface-body;
 $body-color: $ds-color-text-body;
 $body-secondary-color: $ds-color-text-muted;
 $link-color: $ds-color-brand-primary;
-$link-hover-color: color.adjust($ds-color-brand-primary, $lightness: -10%);
+$link-decoration: underline;
+$link-hover-color: #03122e;
+$link-hover-decoration: none;
 
 // Runtime CSS custom properties (kept in sync with $theme-colors above) so
 // components can read colors without recompiling SCSS, e.g. for theming.
