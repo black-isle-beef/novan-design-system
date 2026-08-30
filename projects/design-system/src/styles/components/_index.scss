@@ -1,0 +1,13 @@
+// -----------------------------------------------------------------------------
+// _index.scss — Standalone barrel for all design system component styles
+// -----------------------------------------------------------------------------
+@import 'footer';
+@import 'header';
+@import 'hero';
+@import 'main-nav';
+@import 'sidebar';
+@import 'cookie-banner';
+@import 'breadcrumb';
+@import 'button';
+@import 'forms';
+@import 'brand-foundation';

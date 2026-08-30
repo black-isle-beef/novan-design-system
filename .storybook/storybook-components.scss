@@ -1,0 +1,11 @@
+// =============================================================================
+// storybook-components.scss — Standalone stylesheet for Storybook component styles
+//
+// This global stylesheet is dedicated specifically to the Storybook build.
+// Component SCSS files were removed from individual Angular @Component metadata
+// during audit remediation; this standalone stylesheet imports all component-level
+// SCSS styles into a centralized location for Storybook.
+// =============================================================================
+
+@import '../projects/design-system/src/styles/variables';
+@import '../projects/design-system/src/styles/components/index';

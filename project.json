@@ -95,7 +95,8 @@
           }
         ],
         "styles": [
-          "projects/design-system/src/styles/styles.scss"
+          "projects/design-system/src/styles/styles.scss",
+          ".storybook/storybook-components.scss"
         ],
         "scripts": []
       },
