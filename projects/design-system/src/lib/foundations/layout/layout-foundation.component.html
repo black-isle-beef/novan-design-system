@@ -1,0 +1,347 @@
+<div class="ds-lf__layout">
+  <aside class="ds-lf__drawer">
+    <div class="ds-lf__drawer-inner">
+      <p class="ds-lf__drawer-title">Layout &amp; Grid</p>
+      <nav aria-label="Layout sections">
+        <ul class="ds-lf__nav-list">
+          @for (section of navSections; track section.id) {
+            <li><a class="ds-lf__nav-link" [href]="'#' + section.id">{{ section.label }}</a></li>
+          }
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="ds-lf__content">
+    <header class="ds-lf__intro">
+      <h1 class="ds-lf__page-title">Layout &amp; Grid Foundations</h1>
+      <p class="ds-lf__lede">
+        The spatial scale, responsive breakpoints, container widths, and structural patterns that
+        every page and navigation shell in the design system is built from.
+      </p>
+    </header>
+
+    <section id="scale" class="ds-lf__section">
+      <h2 class="ds-lf__section-title">Spatial Scale</h2>
+      <p class="ds-lf__section-lede">An 8px base grid — every gap, padding, and margin is a multiple of 8px.</p>
+      <div class="ds-lf__scale-list">
+        @for (space of spatialScale; track space.token) {
+          <div class="ds-lf__scale-row">
+            <span class="ds-lf__scale-meta">{{ space.token }} · {{ space.px }}px</span>
+            <span class="ds-lf__scale-bar" [style.width.px]="space.px"></span>
+            <span class="ds-lf__scale-usage">{{ space.usage }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="breakpoints" class="ds-lf__section">
+      <h2 class="ds-lf__section-title">Breakpoints</h2>
+      <table class="ds-lf__table">
+        <thead>
+          <tr>
+            <th scope="col">Tier</th>
+            <th scope="col">Range</th>
+            <th scope="col">CSS custom property</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (bp of breakpoints; track bp.name) {
+            <tr>
+              <td>{{ bp.name }}</td>
+              <td>{{ bp.range }}</td>
+              <td><code>{{ bp.cssVar }}: {{ bp.minWidth }}</code></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <section id="containers" class="ds-lf__section">
+      <h2 class="ds-lf__section-title">Containers &amp; Grid</h2>
+
+      <div class="ds-lf__container-demo">
+        @for (container of containers; track container.name) {
+          <div class="ds-lf__container-row">
+            <span class="ds-lf__container-meta">{{ container.name }} · max-width: {{ container.maxWidth }}</span>
+            <div class="ds-lf__container-track">
+              <div class="ds-lf__container-box" [style.max-width]="container.maxWidth"></div>
+            </div>
+            <p class="ds-lf__container-usage">{{ container.usage }}</p>
+          </div>
+        }
+      </div>
+
+      <h3 class="ds-lf__subsection-title">12-column grid</h3>
+      <p class="ds-lf__section-lede">
+        Responsive gap scale:
+        @for (gap of gridGaps; track gap.breakpoint) {
+          <code>{{ gap.breakpoint }}: {{ gap.gap }}</code>
+        }
+      </p>
+      <div class="ds-lf__grid-12">
+        @for (col of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track col) {
+          <span class="ds-lf__grid-col">{{ col }}</span>
+        }
+      </div>
+      <p class="ds-lf__section-lede">
+        <code>grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));</code> below auto-fits as many
+        cards as fit the available width — resize the viewport toggle in the sections below to see it respond.
+      </p>
+    </section>
+
+    <section id="navigation" class="ds-lf__section">
+      <h2 class="ds-lf__section-title">Navigation Patterns</h2>
+
+      <div class="ds-lf__tab-row" role="tablist" aria-label="Navigation pattern">
+        @for (pattern of navPatterns; track pattern.id) {
+          <button
+            type="button"
+            class="ds-lf__tab"
+            role="tab"
+            [class.ds-lf__tab--active]="selectedNavPatternId() === pattern.id"
+            [attr.aria-selected]="selectedNavPatternId() === pattern.id"
+            (click)="selectNavPattern(pattern.id)"
+          >
+            {{ pattern.label }}
+          </button>
+        }
+      </div>
+
+      <p class="ds-lf__section-lede">{{ selectedNavPattern().description }}</p>
+
+      <div class="ds-lf__viewport-toggle" role="group" aria-label="Preview viewport">
+        @for (vp of viewports; track vp.id) {
+          <button
+            type="button"
+            class="ds-lf__viewport-btn"
+            [class.ds-lf__viewport-btn--active]="viewportId() === vp.id"
+            (click)="setViewport(vp.id)"
+          >
+            {{ vp.label }}
+          </button>
+        }
+      </div>
+
+      <div class="ds-lf__view-tab-row">
+        <button type="button" class="ds-lf__view-tab" [class.ds-lf__view-tab--active]="navTab() === 'preview'" (click)="setNavTab('preview')">
+          Preview
+        </button>
+        <button type="button" class="ds-lf__view-tab" [class.ds-lf__view-tab--active]="navTab() === 'code'" (click)="setNavTab('code')">
+          Code
+        </button>
+      </div>
+
+      @if (navTab() === 'preview') {
+        <div class="ds-lf__preview-frame" [style.max-width]="viewportWidth()">
+          @switch (selectedNavPatternId()) {
+            @case ('top') {
+              <div class="ds-lf__wire-frame">
+                <div class="ds-lf__wire-row ds-lf__wire-header">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--logo">Logo</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--nav">Link</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--nav">Link</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--nav">Link</span>
+                  <span class="ds-lf__wire-spacer"></span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--icon">🔍</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--avatar"></span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--cta">CTA</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--hamburger">☰</span>
+                </div>
+                <div class="ds-lf__wire-body">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--content">Page content</span>
+                </div>
+              </div>
+            }
+            @case ('sidebar') {
+              <div class="ds-lf__wire-frame ds-lf__wire-frame--split">
+                <div class="ds-lf__wire-col ds-lf__wire-sidebar">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--search">Search</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link ds-lf__wire-box--active">Overview</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link">Projects</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--sublink">Active</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--sublink">Archived</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link">Settings</span>
+                </div>
+                <div class="ds-lf__wire-col ds-lf__wire-main">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--content">Main content</span>
+                </div>
+              </div>
+            }
+            @case ('combined') {
+              <div class="ds-lf__wire-frame">
+                <div class="ds-lf__wire-row ds-lf__wire-header">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--logo">Logo</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--search">Search</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--avatar">Account</span>
+                </div>
+                <div class="ds-lf__wire-row-body">
+                  <div class="ds-lf__wire-col ds-lf__wire-sidenav">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--link">Section One</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--link">Section Two</span>
+                  </div>
+                  <div class="ds-lf__wire-col ds-lf__wire-main">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--content">Main content</span>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      } @else {
+        <div class="ds-lf__code-block">
+          <div class="ds-lf__code-block-header">
+            <span>HTML</span>
+            <button type="button" class="ds-lf__copy-btn" (click)="copyCode(selectedNavPattern().html, selectedNavPatternId() + '-html')">
+              {{ copiedKey() === selectedNavPatternId() + '-html' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lf__code"><code>{{ selectedNavPattern().html }}</code></pre>
+
+          <div class="ds-lf__code-block-header">
+            <span>CSS</span>
+            <button type="button" class="ds-lf__copy-btn" (click)="copyCode(selectedNavPattern().css, selectedNavPatternId() + '-css')">
+              {{ copiedKey() === selectedNavPatternId() + '-css' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lf__code"><code>{{ selectedNavPattern().css }}</code></pre>
+        </div>
+      }
+    </section>
+
+    <section id="templates" class="ds-lf__section">
+      <h2 class="ds-lf__section-title">Page Templates</h2>
+
+      <div class="ds-lf__tab-row" role="tablist" aria-label="Page template">
+        @for (template of pageTemplates; track template.id) {
+          <button
+            type="button"
+            class="ds-lf__tab"
+            role="tab"
+            [class.ds-lf__tab--active]="selectedPageTemplateId() === template.id"
+            [attr.aria-selected]="selectedPageTemplateId() === template.id"
+            (click)="selectPageTemplate(template.id)"
+          >
+            {{ template.label }}
+          </button>
+        }
+      </div>
+
+      <p class="ds-lf__section-lede">{{ selectedPageTemplate().description }}</p>
+
+      <div class="ds-lf__viewport-toggle" role="group" aria-label="Preview viewport">
+        @for (vp of viewports; track vp.id) {
+          <button
+            type="button"
+            class="ds-lf__viewport-btn"
+            [class.ds-lf__viewport-btn--active]="viewportId() === vp.id"
+            (click)="setViewport(vp.id)"
+          >
+            {{ vp.label }}
+          </button>
+        }
+      </div>
+
+      <div class="ds-lf__view-tab-row">
+        <button type="button" class="ds-lf__view-tab" [class.ds-lf__view-tab--active]="templateTab() === 'preview'" (click)="setTemplateTab('preview')">
+          Preview
+        </button>
+        <button type="button" class="ds-lf__view-tab" [class.ds-lf__view-tab--active]="templateTab() === 'code'" (click)="setTemplateTab('code')">
+          Code
+        </button>
+      </div>
+
+      @if (templateTab() === 'preview') {
+        <div class="ds-lf__preview-frame" [style.max-width]="viewportWidth()">
+          @switch (selectedPageTemplateId()) {
+            @case ('landing') {
+              <div class="ds-lf__wire-frame ds-lf__wire-frame--stack">
+                <div class="ds-lf__wire-hero">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--headline">Headline</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--text">Supporting paragraph</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--cta">Primary CTA</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--cta-ghost">Secondary CTA</span>
+                </div>
+                <div class="ds-lf__wire-grid-3">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--card">Feature</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--card">Feature</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--card">Feature</span>
+                </div>
+                <div class="ds-lf__wire-grid-4">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--stat">Stat</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--stat">Stat</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--stat">Stat</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--stat">Stat</span>
+                </div>
+                <div class="ds-lf__wire-grid-3 ds-lf__wire-footer">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--footer-col">Product</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--footer-col">Company</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--footer-col">Resources</span>
+                </div>
+              </div>
+            }
+            @case ('content') {
+              <div class="ds-lf__wire-frame ds-lf__wire-frame--stack">
+                <div class="ds-lf__wire-row">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--crumbs">Home / Docs / Guide</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--badge">Guide</span>
+                </div>
+                <span class="ds-lf__wire-box ds-lf__wire-box--headline">Page title</span>
+                <div class="ds-lf__wire-asymmetric">
+                  <div class="ds-lf__wire-col ds-lf__wire-article">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--text">Paragraph</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--cta-card">Inline CTA card</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--text">Paragraph</span>
+                  </div>
+                  <div class="ds-lf__wire-col ds-lf__wire-sidebar">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--link">Section one</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--link">Section two</span>
+                  </div>
+                </div>
+              </div>
+            }
+            @case ('dashboard') {
+              <div class="ds-lf__wire-frame ds-lf__wire-frame--split">
+                <div class="ds-lf__wire-col ds-lf__wire-sidebar">
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link">Nav</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link">Nav</span>
+                  <span class="ds-lf__wire-box ds-lf__wire-box--link">Nav</span>
+                </div>
+                <div class="ds-lf__wire-col ds-lf__wire-main">
+                  <div class="ds-lf__wire-row">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--search">Search</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--cta">New</span>
+                  </div>
+                  <div class="ds-lf__wire-dashboard-grid">
+                    <span class="ds-lf__wire-box ds-lf__wire-box--widget ds-lf__wire-box--widget-wide">Revenue chart</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--widget">Active users</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--widget">Conversion</span>
+                    <span class="ds-lf__wire-box ds-lf__wire-box--widget">Activity</span>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      } @else {
+        <div class="ds-lf__code-block">
+          <div class="ds-lf__code-block-header">
+            <span>HTML</span>
+            <button type="button" class="ds-lf__copy-btn" (click)="copyCode(selectedPageTemplate().html, selectedPageTemplateId() + '-html')">
+              {{ copiedKey() === selectedPageTemplateId() + '-html' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lf__code"><code>{{ selectedPageTemplate().html }}</code></pre>
+
+          <div class="ds-lf__code-block-header">
+            <span>CSS</span>
+            <button type="button" class="ds-lf__copy-btn" (click)="copyCode(selectedPageTemplate().css, selectedPageTemplateId() + '-css')">
+              {{ copiedKey() === selectedPageTemplateId() + '-css' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lf__code"><code>{{ selectedPageTemplate().css }}</code></pre>
+        </div>
+      }
+    </section>
+  </main>
+</div>
