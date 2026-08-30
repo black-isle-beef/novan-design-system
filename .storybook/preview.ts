@@ -13,12 +13,10 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    // @storybook/addon-a11y: panel-driven manual checks only. Automated CI
-    // enforcement of WCAG 2.1 AA lives in the dedicated Playwright +
-    // @axe-core/playwright suite (see playwright.config.ts / e2e/a11y),
-    // which would otherwise collide with the addon's own axe instance.
+    // Run @storybook/addon-a11y checks for every story and surface
+    // violations as errors in Storybook's test workflow.
     a11y: {
-      test: 'off',
+      test: 'error',
     },
     // Default padded layout so the Docs page's embedded story canvases keep
     // normal breathing room; full-bleed structural components opt into
