@@ -1,0 +1,39 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "design-system",
+  "projectType": "library",
+  "sourceRoot": "projects/design-system/src",
+  "prefix": "ds",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:ng-packagr",
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/design-system/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/design-system/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "tsConfig": "projects/design-system/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "projects/design-system/src/**/*.ts",
+          "projects/design-system/src/**/*.html"
+        ]
+      },
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    }
+  }
+}
