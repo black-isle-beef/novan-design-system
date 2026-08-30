@@ -1,0 +1,357 @@
+:host {
+  --tf-bg: #ffffff;
+  --tf-surface: #f5f5f5;
+  --tf-text: #333333;
+  --tf-muted: #66665f;
+  --tf-border: #b0b3b5;
+  --tf-link: #0a2f73;
+
+  display: block;
+  color: var(--tf-text);
+  background: var(--tf-bg);
+}
+
+.ds-dt__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.ds-dt__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 720px) {
+  .ds-dt__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-dt__sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  padding: 1rem 0;
+}
+
+.ds-dt__sidebar-inner {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--tf-surface);
+}
+
+.ds-dt__sidebar-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-dt__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ds-dt__nav-link {
+  color: var(--tf-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ds-dt__nav-link:hover {
+  text-decoration: underline;
+}
+
+.ds-dt__content {
+  padding: 1rem 0 2rem;
+  min-width: 0;
+}
+
+.ds-dt__intro {
+  margin-bottom: 2rem;
+}
+
+.ds-dt__intro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ds-dt__page-title {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.ds-dt__lede {
+  color: var(--tf-muted);
+  max-width: 65ch;
+}
+
+.ds-dt__theme-toggle {
+  flex-shrink: 0;
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  background: var(--tf-surface);
+  color: var(--tf-text);
+  padding: 0.5rem 1.1rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Filter bar */
+.ds-dt__filter-bar {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--tf-bg);
+  padding-block: 0.5rem;
+}
+
+.ds-dt__search input {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.ds-dt__chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ds-dt__chip {
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ds-dt__chip--active {
+  background: var(--tf-link);
+  border-color: var(--tf-link);
+  color: #ffffff;
+}
+
+.ds-dt__result-count {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--tf-muted);
+}
+
+/* Sections */
+.ds-dt__section {
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-top: 1px solid var(--tf-border);
+  scroll-margin-top: 1rem;
+}
+
+.ds-dt__section-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-dt__section-lede {
+  color: var(--tf-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.ds-dt__group-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 1.25rem 0 0.75rem;
+}
+
+/* Token cards */
+.ds-dt__card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ds-dt__card {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--tf-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-dt__card-preview {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tf-surface);
+}
+
+.ds-dt__swatch {
+  width: 100%;
+  height: 100%;
+}
+
+.ds-dt__shadow-box {
+  width: 40px;
+  height: 40px;
+  background: var(--tf-bg);
+  border-radius: 0.25rem;
+}
+
+.ds-dt__radius-box {
+  width: 48px;
+  height: 48px;
+  background: var(--tf-link);
+}
+
+.ds-dt__motion-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.25rem;
+  background: var(--tf-link);
+  transition-property: transform;
+  transform: scale(1);
+}
+
+.ds-dt__card-preview:hover .ds-dt__motion-box {
+  transform: scale(1.3);
+}
+
+.ds-dt__text-sample {
+  margin: 0;
+  font-weight: 600;
+}
+
+.ds-dt__spacing-bar {
+  display: block;
+  height: 12px;
+  max-width: 100%;
+  background: var(--tf-link);
+  border-radius: 2px;
+}
+
+.ds-dt__zindex-chip {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--tf-link);
+}
+
+.ds-dt__card-body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ds-dt__card-var {
+  font-size: 0.78rem;
+  word-break: break-all;
+}
+
+.ds-dt__card-var--scss {
+  color: var(--tf-muted);
+}
+
+.ds-dt__card-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.ds-dt__card-usage {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--tf-muted);
+}
+
+.ds-dt__card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.ds-dt__copy-btn {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.25rem;
+  background: var(--tf-bg);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+/* Export tabs / code block */
+.ds-dt__tab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ds-dt__tab {
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  padding: 0.4rem 1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ds-dt__tab--active {
+  background: var(--tf-link);
+  border-color: var(--tf-link);
+  color: #ffffff;
+}
+
+.ds-dt__code-block {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ds-dt__code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--tf-surface);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ds-dt__code {
+  margin: 0;
+  padding: 0.75rem;
+  overflow-x: auto;
+  max-height: 420px;
+  font-size: 0.8rem;
+  background: #1e1f1c;
+  color: #f5f5f5;
+}
