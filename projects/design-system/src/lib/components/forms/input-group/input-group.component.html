@@ -39,33 +39,33 @@
         </div>
 
         <!-- Multiple Grouped Inputs -->
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Multiple Grouped Inputs</label>
+        <fieldset class="col-md-6 border-0 p-0 m-0">
+          <legend class="form-label fw-semibold">Multiple Grouped Inputs</legend>
           <div class="input-group">
             <span class="input-group-text">First & Last Name</span>
             <input type="text" aria-label="First name" class="form-control" placeholder="John">
             <input type="text" aria-label="Last name" class="form-control" placeholder="Doe">
           </div>
-        </div>
+        </fieldset>
 
         <!-- Checkbox & Radio Addons -->
         <div class="col-md-6">
-          <label class="form-label fw-semibold">Checkbox / Radio Addon</label>
+          <label for="igCheckboxText" class="form-label fw-semibold">Checkbox / Radio Addon</label>
           <div class="input-group">
             <div class="input-group-text">
               <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for input">
             </div>
-            <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Item task label...">
+            <input type="text" class="form-control" id="igCheckboxText" aria-label="Text input with checkbox" placeholder="Item task label...">
           </div>
         </div>
 
         <!-- Action Button Addon -->
         <div class="col-12">
-          <label class="form-label fw-semibold">Segmented Action Button Addon</label>
+          <label for="igActionQuery" class="form-label fw-semibold">Segmented Action Button Addon</label>
           <div class="input-group">
             <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search me-1"></i> Search</button>
             <button class="btn btn-outline-secondary" type="button"><i class="bi bi-filter me-1"></i> Filter</button>
-            <input type="text" class="form-control" placeholder="Search parameters..." aria-label="Search parameters">
+            <input type="text" class="form-control" id="igActionQuery" placeholder="Search parameters..." aria-label="Search parameters">
             <button class="btn btn-primary" type="button">Execute</button>
           </div>
         </div>
