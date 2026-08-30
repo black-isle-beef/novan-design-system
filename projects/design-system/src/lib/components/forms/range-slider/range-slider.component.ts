@@ -7,7 +7,6 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './range-slider.component.html',
-  styleUrl: './range-slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-range-slider-component',

@@ -8,7 +8,6 @@ import { DsIndeterminateDirective } from '../indeterminate.directive';
   standalone: true,
   imports: [CommonModule, FormsModule, DsIndeterminateDirective],
   templateUrl: './checkboxes.component.html',
-  styleUrl: './checkboxes.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-checkboxes-component',

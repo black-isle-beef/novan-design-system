@@ -36,7 +36,6 @@ export interface FormSectionNav {
     DsFormValidationComponent,
   ],
   templateUrl: './forms.component.html',
-  styleUrl: './forms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-forms-suite',
