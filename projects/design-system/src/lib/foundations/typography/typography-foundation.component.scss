@@ -1,0 +1,460 @@
+/* Static Montserrat weights, self-hosted from public/fonts/Montserrat/static
+   (served at /fonts/... via Storybook's staticDirs -> ../public). Add
+   .woff2/.woff copies alongside the .ttf files and extend each src list
+   (format('woff2'), format('woff'), format('truetype')) once available. */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Variable-font axis (wght 100-900) under a distinct family name so callers
+   can opt into a single continuously-interpolated file instead of 18
+   discrete static faces. */
+@font-face {
+  font-family: 'Montserrat Variable';
+  src: url('/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat Variable';
+  src: url('/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:host {
+  --font-montserrat: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-montserrat-variable: 'Montserrat Variable', var(--font-montserrat);
+  --font-monospace: 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --heading-h1-size: 3rem;
+  --heading-h2-size: 2.5rem;
+  --heading-h3-size: 2rem;
+  --heading-h4-size: 1.5rem;
+  --heading-h5-size: 1.25rem;
+  --heading-h6-size: 1rem;
+
+  --tf-bg: #ffffff;
+  --tf-surface: #f5f5f5;
+  --tf-text: #333333;
+  --tf-muted: #66665f;
+  --tf-border: #b0b3b5;
+  --tf-link: #0a2f73;
+  --tf-link-hover: #082862;
+  --tf-mark-bg: #f0b429;
+
+  display: block;
+  font-family: var(--font-montserrat);
+  color: var(--tf-text);
+  background: var(--tf-bg);
+}
+
+:host(.ds-tf--dark) {
+  --tf-bg: #151710;
+  --tf-surface: #22241d;
+  --tf-text: #f5f5f5;
+  --tf-muted: #b0b3b5;
+  --tf-border: #4a4d45;
+  --tf-link: #7fa3ff;
+  --tf-link-hover: #a8c1ff;
+  --tf-mark-bg: #6b4a01;
+}
+
+.ds-tf__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  min-height: 100%;
+}
+
+@media (max-width: 720px) {
+  .ds-tf__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-tf__drawer {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  padding: 1rem 0;
+}
+
+.ds-tf__drawer-inner {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--tf-surface);
+}
+
+.ds-tf__drawer-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-tf__nav-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ds-tf__nav-link {
+  color: var(--tf-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ds-tf__nav-link:hover {
+  text-decoration: underline;
+  color: var(--tf-link-hover);
+}
+
+.ds-tf__mode-toggle {
+  width: 100%;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.375rem;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ds-tf__content {
+  padding: 1rem 0 2rem;
+  min-width: 0;
+}
+
+.ds-tf__intro {
+  margin-bottom: 2rem;
+}
+
+.ds-tf__page-title {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.ds-tf__lede {
+  color: var(--tf-muted);
+  max-width: 65ch;
+}
+
+.ds-tf__section {
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-top: 1px solid var(--tf-border);
+  scroll-margin-top: 1rem;
+}
+
+.ds-tf__section-title {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Headings */
+.ds-tf__heading-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ds-tf__heading-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ds-tf__heading-meta {
+  font-size: 0.75rem;
+  color: var(--tf-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ds-tf__sample-heading {
+  margin: 0;
+  font-family: var(--font-montserrat);
+}
+
+/* Body & inline text */
+.ds-tf__lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.ds-tf__body {
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+.ds-tf__body mark {
+  background: var(--tf-mark-bg);
+  color: inherit;
+  padding: 0 0.15em;
+}
+
+.ds-tf__small {
+  color: var(--tf-muted);
+}
+
+.ds-tf__link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.75rem 0;
+}
+
+.ds-tf__link {
+  color: var(--tf-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.ds-tf__link:hover,
+.ds-tf__link--force-hover {
+  color: var(--tf-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+.ds-tf__link:focus-visible,
+.ds-tf__link--force-focus {
+  outline: 2px solid var(--tf-link);
+  outline-offset: 2px;
+}
+
+.ds-tf__link--force-visited {
+  color: #7a4fb0;
+}
+
+.ds-tf__code-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ds-tf__code-row code,
+.ds-tf__code-row kbd {
+  font-family: var(--font-monospace);
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.85em;
+}
+
+/* Weight grid */
+.ds-tf__weight-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ds-tf__weight-row {
+  display: grid;
+  grid-template-columns: 140px 160px 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--tf-border);
+}
+
+@media (max-width: 720px) {
+  .ds-tf__weight-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-tf__weight-meta {
+  font-size: 0.85rem;
+  color: var(--tf-muted);
+}
+
+.ds-tf__weight-rule {
+  font-family: var(--font-monospace);
+  font-size: 0.8rem;
+  color: var(--tf-muted);
+}
+
+.ds-tf__weight-sample {
+  font-family: var(--font-montserrat);
+  font-size: 1.15rem;
+}
+
+/* Playground */
+.ds-tf__field-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--tf-muted);
+  margin-bottom: 0.25rem;
+}
+
+.ds-tf__playground-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.375rem;
+  font: inherit;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.ds-tf__playground-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ds-tf__slider-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--tf-muted);
+}
+
+.ds-tf__slider-field input[type='range'] {
+  width: 100%;
+}
+
+.ds-tf__playground-preview {
+  font-family: var(--font-montserrat);
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  background: var(--tf-surface);
+  padding: 1.5rem;
+  word-break: break-word;
+}
