@@ -88,7 +88,7 @@ const SEMANTIC_COLOR_TOKENS: DesignToken[] = [
     scssVar: '$color-bg-primary',
     category: 'color',
     group: 'Semantic',
-    value: '#ffffff',
+    value: '#fff',
     darkValue: '#151710',
     usage: 'Default page/body background.',
     preview: 'swatch',

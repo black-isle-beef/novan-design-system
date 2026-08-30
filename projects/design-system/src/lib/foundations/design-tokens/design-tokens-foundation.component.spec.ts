@@ -1,5 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { DsDesignTokensFoundationComponent } from './design-tokens-foundation.component';
+import type { DesignToken } from './token-data';
+
+const DARK_THEME_TOKEN: DesignToken = {
+  cssVar: '--test-color',
+  scssVar: '$test-color',
+  category: 'color',
+  group: 'Test',
+  value: '#fff',
+  darkValue: '#111827',
+  usage: 'Test token for theme resolution.',
+  preview: 'swatch',
+  key: 'test-color',
+};
 
 describe('DsDesignTokensFoundationComponent', () => {
   async function setup() {
@@ -49,9 +62,7 @@ describe('DsDesignTokensFoundationComponent', () => {
     fixture.detectChanges();
 
     expect(component.theme()).toBe('dark');
-    expect(fixture.componentInstance.resolveValue({ value: '#ffffff', darkValue: '#111827' } as any)).toBe(
-      '#111827',
-    );
+    expect(fixture.componentInstance.resolveValue(DARK_THEME_TOKEN)).toBe('#111827');
   });
 
   it('generates CSS, SCSS, Bootstrap Sass-map, and JSON export code', async () => {
