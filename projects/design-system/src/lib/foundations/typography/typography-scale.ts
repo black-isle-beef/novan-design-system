@@ -49,6 +49,7 @@ export interface TypographyNavSection {
 export const NAV_SECTIONS: readonly TypographyNavSection[] = [
   { id: 'headings', label: 'Headings' },
   { id: 'body', label: 'Body & Inline Text' },
+  { id: 'hyperlinks', label: 'Hyperlinks' },
   { id: 'weight-grid', label: 'Weight Grid' },
   { id: 'playground', label: 'Playground' },
 ] as const;

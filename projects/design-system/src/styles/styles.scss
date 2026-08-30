@@ -20,6 +20,21 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+// Links retain the same visual affordance wherever Bootstrap components place them.
+a[href] {
+	color: $link-color;
+	text-decoration: underline;
+}
+
+a[href]:hover {
+	color: $link-hover-color;
+	text-decoration: none;
+}
+
+p a[href] {
+	font-weight: $font-weight-medium;
+}
+
 // 4. Custom utilities / components ---------------------------------------------
 @import 'utilities';
 @import 'components/index';
