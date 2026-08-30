@@ -18,7 +18,6 @@ import { map } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './form-validation.component.html',
-  styleUrl: './form-validation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-form-validation-component',

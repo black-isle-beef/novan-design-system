@@ -31,7 +31,6 @@ interface RoleOption {
   selector: 'ds-brand-foundation',
   standalone: true,
   templateUrl: './brand-foundation.component.html',
-  styleUrl: './brand-foundation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-brand-foundation',

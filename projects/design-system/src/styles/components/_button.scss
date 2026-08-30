@@ -36,3 +36,21 @@
 .btn-info {
   @include button-variant($ds-color-brand-secondary, $ds-color-brand-secondary);
 }
+
+ds-button.ds-button--full-width {
+  display: block;
+
+  .btn {
+    inline-size: 100%;
+  }
+}
+
+ds-button.ds-button--hover .btn {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+ds-button.ds-button--focus .btn {
+  box-shadow: var(--bs-btn-focus-box-shadow);
+}

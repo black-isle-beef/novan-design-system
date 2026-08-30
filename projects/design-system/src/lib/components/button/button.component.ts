@@ -11,7 +11,6 @@ export type DsButtonSize = 'sm' | 'md' | 'lg';
   selector: 'ds-button',
   standalone: true,
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-button',

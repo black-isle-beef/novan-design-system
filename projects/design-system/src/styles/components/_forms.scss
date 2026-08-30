@@ -23,11 +23,24 @@
 
 // Custom code snippet / preview container helper classes
 .ds-forms-code-preview {
-  background-color: #1e1e1e;
-  color: #d4d4d4;
+  background-color: $ds-color-neutral-gray-900;
+  color: $ds-color-neutral-gray-100;
   font-family: var(--bs-font-monospace, monospace);
   font-size: 0.875rem;
   border-radius: 0.375rem;
   padding: 1rem;
   overflow-x: auto;
+}
+
+ds-forms,
+ds-checkboxes,
+ds-control-sizes,
+ds-form-layout,
+ds-form-select,
+ds-form-validation,
+ds-input-group,
+ds-radio-buttons,
+ds-range-slider,
+ds-text-input {
+  display: block;
 }
