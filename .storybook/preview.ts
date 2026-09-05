@@ -13,10 +13,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    // Playwright owns the automated Axe gate; running the addon concurrently
-    // causes intermittent "Axe is already running" errors.
+    // Accessibility checks run for every story (components and templates).
+    // `'error'` promotes any Axe violation to a failing test in the Storybook
+    // test run and flags it in the a11y addon panel.
     a11y: {
-      test: 'off',
+      test: 'error',
     },
     // Default padded layout so the Docs page's embedded story canvases keep
     // normal breathing room; full-bleed structural components opt into
