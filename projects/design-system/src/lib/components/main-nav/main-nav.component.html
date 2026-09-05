@@ -7,7 +7,10 @@
     [attr.aria-label]="mobileOpen() ? 'Close main menu' : 'Open main menu'"
     (click)="toggleMobile()"
   >
-    <span aria-hidden="true">&#9776;</span>
+    <span class="ds-main-nav__toggle-icon" aria-hidden="true">
+      <span class="ds-main-nav__toggle-bar"></span>
+      <span class="ds-main-nav__toggle-bar"></span>
+    </span>
   </button>
 
   <ul
@@ -30,6 +33,7 @@
             (keydown)="onDropdownKeydown($event, i)"
           >
             {{ item.label }}
+            <i class="ds-main-nav__chevron bi bi-chevron-down" aria-hidden="true"></i>
           </button>
           <ul
             [id]="'ds-main-nav-dropdown-' + i"

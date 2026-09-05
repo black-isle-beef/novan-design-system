@@ -10,3 +10,20 @@
   background-color: var(--ds-color-surface-body);
   border-color: var(--ds-color-neutral-gray-300);
 }
+
+@media (max-width: 991.98px) {
+  // Taller banner on mobile / tablet so the branding and the pinned menu
+  // trigger have room to breathe.
+  .ds-header__banner {
+    min-height: 60px;
+  }
+
+  // Keep the branding slot visible above the full-screen menu overlay that
+  // DsMainNavComponent renders when the mobile menu is open. The overlay sits
+  // at `$zindex-fixed`; the brand (and the menu trigger) sit above it.
+  .ds-header__brand {
+    position: relative;
+    z-index: $zindex-modal;
+    background-color: var(--ds-color-surface-body);
+  }
+}

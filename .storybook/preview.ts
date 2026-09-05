@@ -13,10 +13,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    // Playwright owns the automated Axe gate; running the addon concurrently
-    // causes intermittent "Axe is already running" errors.
+    // Accessibility checks run for every story (components and templates).
+    // `'error'` promotes any Axe violation to a failing test in the Storybook
+    // test run and flags it in the a11y addon panel.
     a11y: {
-      test: 'off',
+      test: 'error',
     },
     // Default padded layout so the Docs page's embedded story canvases keep
     // normal breathing room; full-bleed structural components opt into
@@ -25,7 +26,7 @@ const preview: Preview = {
       // Force the top-level Introduction page first so it's what Storybook
       // opens to on launch; everything else keeps its natural sort order.
       storySort: {
-        order: ['Introduction', 'Getting Started', 'Foundations', 'Components'],
+        order: ['Introduction', 'Getting Started', 'Foundations', 'Components', 'Templates'],
       },
     },
   },

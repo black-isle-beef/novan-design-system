@@ -1,0 +1,72 @@
+// -----------------------------------------------------------------------------
+// landing-page.component.scss — DsLandingPageComponent (selector: ds-landing-page)
+//
+// Layout rhythm (section padding, grid gaps) comes from token-driven Bootstrap
+// spacing utilities in the template. This file only adds the surface treatments
+// and the centred content column, all sourced from the global `--ds-color-*`
+// custom properties emitted by the token layer.
+// -----------------------------------------------------------------------------
+
+:host {
+  display: block;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+}
+
+// Centred, max-width content column so sections stay readable on wide screens.
+.ds-landing-page__container {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.ds-landing-page__lede {
+  max-width: 42rem;
+}
+
+.ds-landing-page__section--muted {
+  background-color: var(--ds-color-surface-muted);
+}
+
+// Feature grid ---------------------------------------------------------------
+.ds-landing-page__feature {
+  background-color: var(--ds-color-surface-body);
+  border: 1px solid var(--ds-color-neutral-gray-300);
+  border-radius: 1rem;
+}
+
+.ds-landing-page__feature-icon {
+  align-items: center;
+  justify-content: center;
+  inline-size: 3rem;
+  block-size: 3rem;
+  font-size: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--ds-color-surface-muted);
+  color: var(--ds-color-brand-primary);
+}
+
+// Stats band ---------------------------------------------------------------
+.ds-landing-page__stats {
+  background-color: var(--ds-color-surface-muted);
+  border-block: 1px solid var(--ds-color-neutral-gray-300);
+}
+
+.ds-landing-page__stat-value {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ds-color-brand-primary);
+}
+
+// Testimonials -----------------------------------------------------------
+.ds-landing-page__quote {
+  background-color: var(--ds-color-surface-body);
+  border: 1px solid var(--ds-color-neutral-gray-300);
+  border-radius: 1rem;
+}
+
+// Closing CTA banner ---------------------------------------------------------
+.ds-landing-page__cta-banner {
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
