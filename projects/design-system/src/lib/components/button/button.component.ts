@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 
-export type DsButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
+export type DsButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'hero-light'
+  | 'hero-dark';
 export type DsButtonSize = 'sm' | 'md' | 'lg';
 
 /**

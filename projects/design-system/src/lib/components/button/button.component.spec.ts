@@ -29,7 +29,16 @@ describe('DsButtonComponent', () => {
     expect(button.disabled).toBe(false);
   });
 
-  it.each<DsButtonVariant>(['primary', 'secondary', 'success', 'warning', 'danger', 'info'])(
+  it.each<DsButtonVariant>([
+    'primary',
+    'secondary',
+    'success',
+    'warning',
+    'danger',
+    'info',
+    'hero-light',
+    'hero-dark',
+  ])(
     'applies the %s variant class',
     async (variant) => {
       const fixture = await createFixture();

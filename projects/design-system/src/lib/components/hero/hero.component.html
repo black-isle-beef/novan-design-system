@@ -15,13 +15,20 @@
   }
 
   <div class="ds-hero__content mx-auto text-center">
-    <h1 id="ds-hero-heading" class="ds-hero__heading mb-4">{{ heading() }}</h1>
+    <!--
+      Only the copy sits inside `ds-hero__text`; on the image variant this
+      element carries the frosted panel that keeps the white text readable.
+      The CTAs stay outside it so they render directly on the background.
+    -->
+    <div class="ds-hero__text">
+      <h1 id="ds-hero-heading" class="ds-hero__heading mb-4">{{ heading() }}</h1>
 
-    @if (subheading()) {
-      <p class="ds-hero__subheading lead mb-6">{{ subheading() }}</p>
-    }
+      @if (subheading()) {
+        <p class="ds-hero__subheading lead mb-0">{{ subheading() }}</p>
+      }
+    </div>
 
-    <div class="ds-hero__actions d-flex flex-wrap justify-content-center gap-3">
+    <div class="ds-hero__actions d-flex flex-wrap justify-content-center gap-3 mt-6">
       <ng-content select="[dsHeroCta]" />
     </div>
   </div>

@@ -10,14 +10,14 @@ const meta: Meta<DsButtonComponent> = {
       subtitle: 'Accessible semantic action button',
       description: {
         component:
-          'A native button that renders Bootstrap’s `btn` and `btn-{variant}` classes. The primary, secondary, success, warning, danger, and info Bootstrap variables are generated from the design-token brand palette. It also supports Bootstrap’s small and large size classes, projected labels and icons, disabled/loading states, and an optional accessible-name override for icon-only usage.',
+          'A native button that renders Bootstrap’s `btn` and `btn-{variant}` classes. The primary, secondary, success, warning, danger, and info Bootstrap variables are generated from the design-token brand palette, plus `hero-light` / `hero-dark` variants for CTAs on hero banners. It also supports Bootstrap’s small and large size classes, projected labels and icons, disabled/loading states, and an optional accessible-name override for icon-only usage.',
       },
     },
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info'],
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'hero-light', 'hero-dark'],
     },
     size: {
       control: 'select',
@@ -128,6 +128,37 @@ export const BootstrapVariants: Story = {
               <div class="col"><ds-button class="ds-button--full-width" variant="info" [disabled]="true">Disabled</ds-button></div>
             </div>
           </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const HeroVariants: Story = {
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'Hero banner CTAs. `btn-hero-light` is designed for dark hero banners (off-white background/border, neutral-900 text); `btn-hero-dark` is designed for light hero banners (brand-blue background/border, white text). Each renders identically as a native `<button>` and as an `<a>` styled as a button, with hover, active, focus-visible, and disabled states.',
+      },
+      source: {
+        code: '<ds-button variant="hero-light">Get started</ds-button>\n<a class="btn btn-hero-dark" href="#">Get started</a>',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div class="d-flex flex-column gap-4">
+        <div class="p-5 d-flex flex-wrap gap-3" style="background:#151710">
+          <ds-button variant="hero-light">Button</ds-button>
+          <a class="btn btn-hero-light" href="#">Link as button</a>
+          <ds-button variant="hero-light" [disabled]="true">Disabled</ds-button>
+        </div>
+        <div class="p-5 d-flex flex-wrap gap-3" style="background:#f5f6f8">
+          <ds-button variant="hero-dark">Button</ds-button>
+          <a class="btn btn-hero-dark" href="#">Link as button</a>
+          <ds-button variant="hero-dark" [disabled]="true">Disabled</ds-button>
         </div>
       </div>
     `,
