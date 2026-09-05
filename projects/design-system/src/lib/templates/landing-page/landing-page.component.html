@@ -1,0 +1,105 @@
+<!--
+  Landing page template. The regions are ordinary design-system components
+  (`ds-header`, `ds-hero`, `ds-footer`) plus token-driven Bootstrap utility
+  layout for the marketing sections in between. `#ds-main-content` is the
+  target of the header's "Skip to main content" link.
+-->
+<ds-header [navItems]="navItems()">
+  <strong dsBrand>{{ brandName() }}</strong>
+</ds-header>
+
+<main id="ds-main-content" class="ds-landing-page__main">
+  <ds-hero
+    [heading]="heroHeading()"
+    [subheading]="heroSubheading()"
+    [variant]="heroVariant()"
+    [backgroundImage]="heroBackgroundImage()"
+  >
+    <a dsHeroCta [class]="heroCtaClass()" [href]="primaryCtaHref()">{{ primaryCtaLabel() }}</a>
+    <a dsHeroCta [class]="heroCtaClass()" [href]="secondaryCtaHref()">{{ secondaryCtaLabel() }}</a>
+  </ds-hero>
+
+  <!-- Feature grid -->
+  <section class="ds-landing-page__section py-11 py-lg-14 px-4 px-md-8" aria-labelledby="ds-landing-features-heading">
+    <div class="ds-landing-page__container">
+      <div class="text-center mb-8">
+        <h2 id="ds-landing-features-heading" class="h1 mb-3">{{ featuresHeading() }}</h2>
+        @if (featuresSubheading(); as lede) {
+          <p class="lead text-muted mx-auto mb-0 ds-landing-page__lede">{{ lede }}</p>
+        }
+      </div>
+
+      <div class="row g-4 g-lg-5">
+        @for (feature of features(); track feature.title) {
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="ds-landing-page__feature h-100 p-5">
+              <span class="ds-landing-page__feature-icon d-inline-flex mb-4" aria-hidden="true">
+                <i [class]="feature.icon"></i>
+              </span>
+              <h3 class="h5 mb-2">{{ feature.title }}</h3>
+              <p class="text-muted mb-0">{{ feature.description }}</p>
+            </article>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof / stats band -->
+  @if (stats().length) {
+    <section class="ds-landing-page__stats py-9 px-4 px-md-8" aria-label="Key results">
+      <div class="ds-landing-page__container">
+        <dl class="row g-4 text-center mb-0">
+          @for (stat of stats(); track stat.label) {
+            <div class="col-6 col-md-3">
+              <dt class="ds-landing-page__stat-value">{{ stat.value }}</dt>
+              <dd class="ds-landing-page__stat-label text-muted mb-0">{{ stat.label }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </section>
+  }
+
+  <!-- Testimonials -->
+  <section
+    class="ds-landing-page__section ds-landing-page__section--muted py-11 py-lg-14 px-4 px-md-8"
+    aria-labelledby="ds-landing-testimonials-heading"
+  >
+    <div class="ds-landing-page__container">
+      <h2 id="ds-landing-testimonials-heading" class="h1 text-center mb-8">{{ testimonialsHeading() }}</h2>
+
+      <div class="row g-4 g-lg-5">
+        @for (testimonial of testimonials(); track testimonial.name) {
+          <div class="col-12 col-md-4">
+            <figure class="ds-landing-page__quote h-100 d-flex flex-column p-5 mb-0">
+              <blockquote class="blockquote flex-grow-1 mb-4">
+                <p class="mb-0">{{ testimonial.quote }}</p>
+              </blockquote>
+              <figcaption class="blockquote-footer mb-0">
+                {{ testimonial.name }} <cite [attr.title]="testimonial.role">· {{ testimonial.role }}</cite>
+              </figcaption>
+            </figure>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing call-to-action banner -->
+  <section class="ds-landing-page__cta-banner text-center py-12 px-4" aria-labelledby="ds-landing-cta-heading">
+    <div class="ds-landing-page__container">
+      <h2 id="ds-landing-cta-heading" class="h1 mb-3">{{ ctaBannerHeading() }}</h2>
+      @if (ctaBannerText(); as text) {
+        <p class="lead mx-auto mb-6 ds-landing-page__lede">{{ text }}</p>
+      }
+      <a class="btn btn-hero-light btn-lg" [href]="ctaBannerCtaHref()">{{ ctaBannerCtaLabel() }}</a>
+    </div>
+  </section>
+</main>
+
+<ds-footer [organizationName]="organizationName()" [linkGroups]="footerLinkGroups()">
+  @if (footerLegal(); as legal) {
+    <span dsFooterLegal>{{ legal }}</span>
+  }
+</ds-footer>

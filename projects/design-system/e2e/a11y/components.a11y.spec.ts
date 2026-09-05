@@ -64,4 +64,8 @@ test.describe('WCAG 2.1 AA accessibility', () => {
   test('DsFormValidationComponent (Default) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'components-global-forms-form-validation--default');
   });
+
+  test('DsLandingPageComponent template (Default) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'templates-landing-page--default');
+  });
 });

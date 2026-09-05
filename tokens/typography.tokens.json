@@ -8,7 +8,7 @@
       },
       "heading": {
         "$type": "fontFamily",
-        "$value": ["Poppins", "Inter", "-apple-system", "sans-serif"],
+        "$value": ["Montserrat Alternates", "Poppins", "Inter", "-apple-system", "sans-serif"],
         "$description": "Display typeface used for headings (h1-h6)."
       },
       "monospace": {

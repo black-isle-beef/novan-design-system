@@ -25,7 +25,7 @@ const preview: Preview = {
       // Force the top-level Introduction page first so it's what Storybook
       // opens to on launch; everything else keeps its natural sort order.
       storySort: {
-        order: ['Introduction', 'Getting Started', 'Foundations', 'Components'],
+        order: ['Introduction', 'Getting Started', 'Foundations', 'Components', 'Templates'],
       },
     },
   },

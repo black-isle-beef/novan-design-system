@@ -1,18 +1,196 @@
 // -----------------------------------------------------------------------------
 // _main-nav.scss — Overrides for DsMainNavComponent (selector: ds-main-nav)
 // -----------------------------------------------------------------------------
+@import '../variables';
 
 .ds-main-nav {
   display: block;
 }
 
-.ds-main-nav__list--open {
-  display: flex !important;
-  flex-direction: column;
+// Dropdown affordance on the parent nav item's toggle. Points down to signal a
+// menu; rotates a full 180deg clockwise while the dropdown is open and unwinds
+// counter-clockwise back to 0 when it closes. Same behaviour at every viewport.
+.ds-main-nav__chevron {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: 0.375rem;
+  font-size: 0.75em;
+  transition: transform 0.3s ease;
+}
+
+.ds-main-nav__link[aria-expanded='true'] .ds-main-nav__chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-main-nav__chevron {
+    transition: none;
+  }
 }
 
 @media (max-width: 991.98px) {
-  .ds-main-nav__list:not(.ds-main-nav__list--open) {
-    display: none;
+  // -----------------------------------------------------------------------
+  // Mobile / tablet: the menu list is a fixed, full-viewport overlay panel
+  // that is always in the DOM so it can animate. It is clipped to a zero-
+  // height sliver at the top edge (and made non-interactive) until `--open`
+  // is set, then the clip animates open from top -> bottom over 0.3s. On
+  // close the same property animates back, so the panel retracts
+  // bottom -> top.
+  // -----------------------------------------------------------------------
+  .ds-main-nav__list {
+    position: fixed;
+    inset: 0;
+    z-index: $zindex-fixed;
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: map-get($spacers, 11) map-get($spacers, 5) map-get($spacers, 6);
+    background-color: $ds-color-neutral-white;
+    overflow-y: auto;
+    box-shadow: inset 0 6px 10px -8px rgba($ds-color-neutral-gray-900, 0.15);
+    visibility: hidden;
+    pointer-events: none;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path 0.3s ease,
+      visibility 0s linear 0.3s;
+  }
+
+  .ds-main-nav__list--open {
+    visibility: visible;
+    pointer-events: auto;
+    clip-path: inset(0 0 0% 0);
+    transition:
+      clip-path 0.3s ease,
+      visibility 0s linear 0s;
+  }
+
+  // Divided vertical list — items left-aligned, hairline rule between each,
+  // large touch targets.
+  .ds-main-nav__list--open .ds-main-nav__item {
+    border-bottom: 1px solid $ds-color-neutral-gray-300;
+  }
+
+  .ds-main-nav__list--open .ds-main-nav__item:last-child {
+    border-bottom: 0;
+  }
+
+  .ds-main-nav__list--open .ds-main-nav__link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-block: map-get($spacers, 4);
+    font-size: 1.125rem;
+    text-align: left;
+  }
+
+  .ds-main-nav__list--open .ds-main-nav__link[aria-current='page'] {
+    font-weight: $font-weight-bold;
+    text-decoration: underline;
+  }
+
+  // Push the dropdown chevron to the trailing edge of the full-width row.
+  .ds-main-nav__list--open .ds-main-nav__chevron {
+    margin-inline-start: auto;
+  }
+
+  // Submenu flowed inline (not Bootstrap's absolute positioning) so it stacks
+  // within the overlay. Kept in flow and collapsed to zero height when closed
+  // so it can animate open / closed over 0.3s instead of snapping via
+  // `display`.
+  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+    position: static;
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding-block: 0;
+    padding-inline: map-get($spacers, 4) 0;
+    border: 0;
+    box-shadow: none;
+    transform: none;
+    opacity: 0;
+    transition:
+      max-height 0.3s ease,
+      padding-block 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu.show {
+    max-height: 16rem;
+    padding-block: 0 map-get($spacers, 3);
+    opacity: 1;
+  }
+
+  // Pin the collapsed-menu trigger to the top-right of the viewport so it stays
+  // reachable to close the menu once the overlay panel is covering the page.
+  .ds-main-nav__toggle.btn {
+    position: fixed;
+    top: map-get($spacers, 3);
+    right: map-get($spacers, 4);
+    z-index: $zindex-modal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 44px;
+    block-size: 44px;
+    padding: 0;
+    background-color: $ds-color-neutral-white;
+    color: $ds-color-neutral-gray-900;
+    border: 2px solid $ds-color-neutral-gray-700;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $ds-color-neutral-gray-100;
+      color: $ds-color-neutral-gray-900;
+      border-color: $ds-color-neutral-gray-700;
+    }
+  }
+
+  // Two-bar trigger glyph that animates into a cross while the menu is open.
+  .ds-main-nav__toggle-icon {
+    position: relative;
+    display: block;
+    inline-size: 18px;
+    block-size: 12px;
+  }
+
+  .ds-main-nav__toggle-bar {
+    position: absolute;
+    inset-inline: 0;
+    block-size: 2px;
+    background-color: currentcolor;
+    border-radius: 1px;
+    transition:
+      top 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .ds-main-nav__toggle-bar:first-child {
+    top: 2px;
+  }
+
+  .ds-main-nav__toggle-bar:last-child {
+    top: 8px;
+  }
+
+  .ds-main-nav__toggle[aria-expanded='true'] .ds-main-nav__toggle-bar:first-child {
+    top: 5px;
+    transform: rotate(45deg);
+  }
+
+  .ds-main-nav__toggle[aria-expanded='true'] .ds-main-nav__toggle-bar:last-child {
+    top: 5px;
+    transform: rotate(-45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-main-nav__list,
+    .ds-main-nav__list--open,
+    .ds-main-nav__toggle-bar,
+    .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+      transition: none;
+    }
   }
 }
