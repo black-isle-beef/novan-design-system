@@ -45,6 +45,19 @@
     position: relative;
     z-index: 1;
   }
+
+  // Frosted "glass" panel behind the copy only — the CTAs sit outside
+  // `ds-hero__text` and stay on the bare image. This keeps the white heading
+  // and body text legible over any photo without changing their colours.
+  // `backdrop-filter` is left unprefixed — the Angular build pipeline adds the
+  // -webkit- prefix for Safari.
+  .ds-hero__text {
+    padding: 2rem;
+    border-radius: 80px;
+    background-color: color-mix(in srgb, var(--bs-black) 50%, transparent);
+    border: 1px solid color-mix(in srgb, var(--bs-white) 18%, transparent);
+    backdrop-filter: blur(16px) saturate(180%);
+  }
 }
 
 .ds-hero__content {

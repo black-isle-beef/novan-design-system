@@ -48,7 +48,10 @@ $sidebar-toggle-size: 3.125rem; // 50px
   display: none;
 }
 
-.ds-sidebar__link {
+// Scoped under `.ds-sidebar__nav` so the base `color` beats the global
+// `a[href]` link colour in styles.scss (equal specificity would otherwise let
+// the link default win over this single-class selector).
+.ds-sidebar__nav .ds-sidebar__link {
   display: flex;
   align-items: center;
   gap: 0.85rem;

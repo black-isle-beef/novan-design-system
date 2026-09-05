@@ -3,6 +3,13 @@
 // -----------------------------------------------------------------------------
 @import '../variables';
 
+// Pill-shaped buttons across the design system. Overriding the Bootstrap
+// custom property (rather than the SCSS `$btn-border-radius`) keeps the change
+// in this partial and also wins over the `btn-sm` / `btn-lg` radius values.
+.btn {
+  --bs-btn-border-radius: 80px;
+}
+
 .btn-primary {
   @include button-variant($ds-color-brand-primary, $ds-color-brand-primary);
 }
@@ -35,6 +42,102 @@
 
 .btn-info {
   @include button-variant($ds-color-brand-secondary, $ds-color-brand-secondary);
+}
+
+// -----------------------------------------------------------------------------
+// Hero banner CTAs.
+//
+// `btn-hero-light` sits on dark hero banners; `btn-hero-dark` sits on light
+// hero banners. Both work identically on a `<button>` and on an `<a>` styled as
+// a button. The doubled `.btn.btn-hero-*` selector keeps the colour and
+// text-decoration ahead of the global `a[href]` link styling in styles.scss so
+// anchors don't inherit the underlined link treatment.
+// -----------------------------------------------------------------------------
+.btn.btn-hero-light {
+  @include button-variant(
+    $background: $ds-color-neutral-gray-100,
+    $border: $ds-color-neutral-gray-100,
+    $color: $ds-color-neutral-gray-900,
+    $hover-background: $ds-color-neutral-white,
+    $hover-border: $ds-color-neutral-white,
+    $hover-color: $ds-color-neutral-gray-900,
+    $active-background: $ds-color-neutral-gray-300,
+    $active-border: $ds-color-neutral-gray-300,
+    $active-color: $ds-color-neutral-gray-900,
+    $disabled-background: $ds-color-neutral-gray-100,
+    $disabled-border: $ds-color-neutral-gray-100,
+    $disabled-color: $ds-color-neutral-gray-900
+  );
+}
+
+.btn.btn-hero-dark {
+  @include button-variant(
+    $background: $ds-color-brand-primary,
+    $border: $ds-color-brand-primary,
+    $color: $ds-color-neutral-white,
+    $hover-background: $link-hover-color,
+    $hover-border: $link-hover-color,
+    $hover-color: $ds-color-neutral-white,
+    $active-background: $link-hover-color,
+    $active-border: $link-hover-color,
+    $active-color: $ds-color-neutral-white,
+    $disabled-background: $ds-color-brand-primary,
+    $disabled-border: $ds-color-brand-primary,
+    $disabled-color: $ds-color-neutral-white
+  );
+}
+
+.btn.btn-hero-light,
+.btn.btn-hero-dark {
+  // `button-variant` only emits `--bs-btn-*` custom properties; the `color`
+  // declaration itself lives on the base `.btn` rule at a specificity the
+  // global `a[href]` link colour beats. Re-declaring `color` here (two
+  // classes) keeps an `<a class="btn btn-hero-*">` matching its `<button>`
+  // counterpart instead of falling back to link blue + underline.
+  color: var(--bs-btn-color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--bs-btn-hover-color);
+  }
+
+  &:focus-visible {
+    color: var(--bs-btn-hover-color);
+  }
+
+  &:active,
+  &.active {
+    color: var(--bs-btn-active-color);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: var(--bs-btn-disabled-color);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+
+  // Always-visible focus indicator. The transparent outline becomes a solid
+  // colour under Windows forced-colors mode; the coloured outline + halo below
+  // stay legible on the hero background each variant is paired with.
+  &:focus-visible {
+    outline: 3px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+.btn.btn-hero-light:focus-visible {
+  outline-color: $ds-color-neutral-white;
+  box-shadow: 0 0 0 5px rgba($ds-color-neutral-black, 0.35);
+}
+
+.btn.btn-hero-dark:focus-visible {
+  outline-color: $ds-color-brand-primary;
+  box-shadow: 0 0 0 5px rgba($ds-color-neutral-white, 0.65);
 }
 
 ds-button.ds-button--full-width {
