@@ -1,0 +1,26 @@
+<!--
+  DOM order is always image-then-panel so assistive tech reads the copy after
+  the image it relates to; `imagePosition` only flips the visual order via flex.
+  The `<section>` becomes a labeled region when the split layout has a heading
+  (`aria-labelledby`), otherwise it stays a plain group.
+-->
+<section class="ds-image-banner__layout" [attr.aria-labelledby]="labelledBy()">
+  <img class="ds-image-banner__image" [src]="imageSrc()" [alt]="imageAlt()" />
+
+  @if (layout() === 'split') {
+    <div class="ds-image-banner__panel">
+      @if (heading(); as headingText) {
+        <h2 [id]="headingId" class="ds-image-banner__heading">{{ headingText }}</h2>
+      }
+
+      <div class="ds-image-banner__panel-content">
+        <ng-content />
+      </div>
+    </div>
+  } @else {
+    <!-- Overlay is click-through except for the projected CTA itself. -->
+    <div class="ds-image-banner__cta">
+      <ng-content select="[dsImageBannerCta]" />
+    </div>
+  }
+</section>

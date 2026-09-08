@@ -1,0 +1,251 @@
+// -----------------------------------------------------------------------------
+// _image-banner.scss — Overrides for DsImageBannerComponent (selector: ds-image-banner)
+//
+// `--layout-split` (default): an image and a text panel that split whatever
+// width the component is given into two equal halves with a gutter between
+// them; `--rounded` shapes the edge that faces the other panel.
+// `--layout-image`: the image alone, full width, with a projected CTA overlaid
+// and placed by `--cta-{start,center,end}`; `--rounded` shapes the image ends.
+// Unlike `_hero.scss`, the split layout keeps the copy beside the image, not
+// on top of it.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-image-banner {
+  display: block;
+
+  // `pill`: large enough that the facing-edge corners always clamp to half the
+  // panel height — a semicircular cap rather than a fixed rounded corner.
+  --ds-image-banner-corner-radius: 50rem;
+
+  // `sweep`: a single fixed oversized corner on each panel.
+  --ds-image-banner-sweep-radius: 15rem;
+
+  // Height cap for the image-only layout (300px).
+  --ds-image-banner-image-max-block-size: 18.75rem;
+}
+
+.ds-image-banner__layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: $ds-spacing-scale-5;
+}
+
+.ds-image-banner__image {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  object-fit: cover;
+  box-shadow: $box-shadow-lg;
+}
+
+.ds-image-banner__panel {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: $ds-spacing-scale-4;
+  padding: $ds-spacing-scale-7;
+  color: var(--ds-color-text-body);
+
+  // Frosted "glass" panel — same technique as `.ds-hero__text` in _hero.scss.
+  // The tint stays mostly opaque so the near-black body text keeps its contrast
+  // whatever sits behind the banner; the blur only shows through where the
+  // banner is placed over imagery. `backdrop-filter` is left unprefixed — the
+  // Angular build pipeline adds the -webkit- prefix for Safari.
+  background-color: color-mix(in srgb, var(--ds-color-surface-muted) 78%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ds-color-neutral-white) 45%, transparent);
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: $box-shadow-lg;
+}
+
+// No `backdrop-filter` support: fall back to the solid muted surface so the
+// panel never renders semi-transparent without the blur to justify it.
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ds-image-banner__panel {
+    background-color: var(--ds-color-surface-muted);
+  }
+}
+
+.ds-image-banner__heading {
+  margin-block: 0;
+}
+
+.ds-image-banner__panel-content {
+  margin-block: 0;
+
+  :last-child {
+    margin-block-end: 0;
+  }
+}
+
+// Image on the left: copy hugs the image — vertically centred in the panel and
+// aligned to its inline-end (right in LTR) edge.
+.ds-image-banner--image-left .ds-image-banner__panel {
+  justify-content: center;
+  align-items: flex-end;
+  text-align: end;
+}
+
+// Image on the right: flip the visual order (DOM order is unchanged) and align
+// the copy to the panel's inline-start (left in LTR) edge so it hugs the image.
+.ds-image-banner--image-right {
+  .ds-image-banner__image {
+    order: 2;
+  }
+
+  .ds-image-banner__panel {
+    order: 1;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+// Split layout — "pill" facing-edge corner radii ---------------------------
+// image-left: image rounds its right (inline-end) edge, panel rounds its left
+// (inline-start) edge.
+.ds-image-banner--layout-split.ds-image-banner--pill.ds-image-banner--image-left {
+  .ds-image-banner__image {
+    border-start-end-radius: var(--ds-image-banner-corner-radius);
+    border-end-end-radius: var(--ds-image-banner-corner-radius);
+  }
+
+  .ds-image-banner__panel {
+    border-start-start-radius: var(--ds-image-banner-corner-radius);
+    border-end-start-radius: var(--ds-image-banner-corner-radius);
+  }
+}
+
+// image-right: mirror of the above.
+.ds-image-banner--layout-split.ds-image-banner--pill.ds-image-banner--image-right {
+  .ds-image-banner__image {
+    border-start-start-radius: var(--ds-image-banner-corner-radius);
+    border-end-start-radius: var(--ds-image-banner-corner-radius);
+  }
+
+  .ds-image-banner__panel {
+    border-start-end-radius: var(--ds-image-banner-corner-radius);
+    border-end-end-radius: var(--ds-image-banner-corner-radius);
+  }
+}
+
+// Split layout — "sweep": one oversized corner on each panel, on the corners
+// that meet at the gutter — the bottom-inner corner of the left-hand panel and
+// the top-inner corner of the right-hand one. `border-end-end-radius` =
+// bottom-right, `border-start-start-radius` = top-left (both flip under RTL).
+.ds-image-banner--layout-split.ds-image-banner--sweep.ds-image-banner--image-left {
+  .ds-image-banner__image {
+    border-end-end-radius: var(--ds-image-banner-sweep-radius);
+  }
+
+  .ds-image-banner__panel {
+    border-start-start-radius: var(--ds-image-banner-sweep-radius);
+  }
+}
+
+// image-right: the panel is the left-hand element (order: 1), the image the
+// right-hand one (order: 2).
+.ds-image-banner--layout-split.ds-image-banner--sweep.ds-image-banner--image-right {
+  .ds-image-banner__panel {
+    border-end-end-radius: var(--ds-image-banner-sweep-radius);
+  }
+
+  .ds-image-banner__image {
+    border-start-start-radius: var(--ds-image-banner-sweep-radius);
+  }
+}
+
+// Image-only layout --------------------------------------------------------
+// The image goes full width and the projected CTA is overlaid on top, placed
+// horizontally by `--cta-{start,center,end}` and centred vertically.
+.ds-image-banner--layout-image {
+  .ds-image-banner__layout {
+    position: relative;
+    display: block;
+  }
+
+  // `object-fit: cover` (base rule) crops the image into the capped height.
+  .ds-image-banner__image {
+    inline-size: 100%;
+    max-block-size: var(--ds-image-banner-image-max-block-size);
+  }
+
+  .ds-image-banner__cta {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: $ds-spacing-scale-6;
+
+    // The overlay is click-through; only the CTA inside it is interactive.
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+
+  &.ds-image-banner--cta-start .ds-image-banner__cta {
+    justify-content: flex-start;
+  }
+
+  &.ds-image-banner--cta-center .ds-image-banner__cta {
+    justify-content: center;
+  }
+
+  &.ds-image-banner--cta-end .ds-image-banner__cta {
+    justify-content: flex-end;
+  }
+
+  // "pill": huge radius on every corner clamps to half the image height — a
+  // rounded-rect with fully semicircular short ends.
+  &.ds-image-banner--pill .ds-image-banner__image {
+    border-radius: var(--ds-image-banner-corner-radius);
+  }
+
+  // "sweep": one large corner on a diagonal pair, mirrored by `imagePosition`
+  // — left → top-left + bottom-right; right ("sweep right") → top-right +
+  // bottom-left.
+  &.ds-image-banner--sweep.ds-image-banner--image-left .ds-image-banner__image {
+    border-start-start-radius: var(--ds-image-banner-sweep-radius);
+    border-end-end-radius: var(--ds-image-banner-sweep-radius);
+  }
+
+  &.ds-image-banner--sweep.ds-image-banner--image-right .ds-image-banner__image {
+    border-start-end-radius: var(--ds-image-banner-sweep-radius);
+    border-end-start-radius: var(--ds-image-banner-sweep-radius);
+  }
+}
+
+// Split layout — stack full-width on narrow viewports; drop the visual order
+// swap so the image always leads and the mirrored radii don't produce odd
+// half-rounded shapes on a vertical stack.
+@media (max-width: 767.98px) {
+  .ds-image-banner--layout-split {
+    .ds-image-banner__image,
+    .ds-image-banner__panel {
+      flex-basis: 100%;
+    }
+
+    &.ds-image-banner--image-right {
+      .ds-image-banner__image,
+      .ds-image-banner__panel {
+        order: 0;
+      }
+    }
+
+    &.ds-image-banner--rounded {
+      .ds-image-banner__image,
+      .ds-image-banner__panel {
+        border-radius: 0;
+      }
+    }
+
+    // On a vertical stack the copy always reads from the inline-start edge.
+    &.ds-image-banner--image-left .ds-image-banner__panel {
+      align-items: flex-start;
+      text-align: start;
+    }
+  }
+}

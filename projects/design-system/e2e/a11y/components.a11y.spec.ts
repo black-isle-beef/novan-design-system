@@ -25,6 +25,22 @@ test.describe('WCAG 2.1 AA accessibility', () => {
     await expectNoA11yViolations(page, 'components-global-hero--primary');
   });
 
+  test('DsImageBannerComponent (ImageLeft) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-image-banner--image-left');
+  });
+
+  test('DsImageBannerComponent (ImageRight) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-image-banner--image-right');
+  });
+
+  test('DsImageBannerComponent (Sweep) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-image-banner--sweep');
+  });
+
+  test('DsImageBannerComponent (ImageOnlyPill) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-global-image-banner--image-only-pill');
+  });
+
   test('DsMainNavComponent (Default) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'components-navigation-nav-bar--default');
   });
