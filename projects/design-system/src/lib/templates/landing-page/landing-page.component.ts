@@ -137,7 +137,6 @@ export const DEFAULT_LANDING_FOOTER_GROUPS: FooterLinkGroup[] = [
   standalone: true,
   imports: [DsHeaderComponent, DsHeroComponent, DsFooterComponent],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-landing-page',

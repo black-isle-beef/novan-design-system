@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsFormLayoutComponent } from './form-layout.component';
 
 const meta: Meta<DsFormLayoutComponent> = {
-  title: 'Components/Global/Forms/Form Layout',
+  title: 'Components/Forms/Form Layout',
   component: DsFormLayoutComponent,
   parameters: {
     docs: {

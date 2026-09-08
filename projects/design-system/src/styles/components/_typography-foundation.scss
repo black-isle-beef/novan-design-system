@@ -1,3 +1,15 @@
+// -----------------------------------------------------------------------------
+// _typography-foundation.scss — DsTypographyFoundationComponent (ds-typography-foundation)
+//
+// Migrated out of the component stylesheet so every rule lives in the global
+// cascade. Selectors are BEM-scoped under `.ds-tf` (the component host class)
+// so nothing leaks. All colour values are derived from the `$ds-color-*`
+// design tokens instead of hand-picked hex literals; the dark-theme chrome
+// colours are tinted from the neutral/brand tokens (a dedicated dark-theme
+// token set would let these reference values directly).
+// -----------------------------------------------------------------------------
+@import '../variables';
+
 /* Static Montserrat weights, self-hosted from public/fonts/Montserrat/static
    (served at /fonts/... via Storybook's staticDirs -> ../public). Add
    .woff2/.woff copies alongside the .ttf files and extend each src list
@@ -165,7 +177,7 @@
   font-display: swap;
 }
 
-:host {
+.ds-tf {
   --font-montserrat: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-montserrat-variable: 'Montserrat Variable', var(--font-montserrat);
   --font-monospace: 'SFMono-Regular', menlo, consolas, monospace;
@@ -175,14 +187,14 @@
   --heading-h4-size: 1.5rem;
   --heading-h5-size: 1.25rem;
   --heading-h6-size: 1rem;
-  --tf-bg: #fff;
-  --tf-surface: #f5f5f5;
-  --tf-text: #333;
-  --tf-muted: #66665f;
-  --tf-border: #b0b3b5;
-  --tf-link: #0a2f73;
-  --tf-link-hover: #03122e;
-  --tf-mark-bg: #f0b429;
+  --tf-bg: #{$ds-color-surface-body};
+  --tf-surface: #{$ds-color-surface-muted};
+  --tf-text: #{$ds-color-text-body};
+  --tf-muted: #{$ds-color-text-muted};
+  --tf-border: #{$ds-color-neutral-gray-300};
+  --tf-link: #{$ds-color-brand-primary};
+  --tf-link-hover: #{mix(black, $ds-color-brand-primary, 64%)};
+  --tf-mark-bg: #{$ds-color-semantic-warning};
 
   display: block;
   font-family: var(--font-montserrat);
@@ -190,15 +202,15 @@
   background: var(--tf-bg);
 }
 
-:host(.ds-tf--dark) {
-  --tf-bg: #151710;
-  --tf-surface: #22241d;
-  --tf-text: #f5f5f5;
-  --tf-muted: #b0b3b5;
-  --tf-border: #4a4d45;
-  --tf-link: #7fa3ff;
-  --tf-link-hover: #a8c1ff;
-  --tf-mark-bg: #6b4a01;
+.ds-tf.ds-tf--dark {
+  --tf-bg: #{$ds-color-neutral-gray-900};
+  --tf-surface: #{tint-color($ds-color-neutral-gray-900, 6%)};
+  --tf-text: #{$ds-color-neutral-gray-100};
+  --tf-muted: #{$ds-color-neutral-gray-300};
+  --tf-border: #{tint-color($ds-color-neutral-gray-900, 22%)};
+  --tf-link: #{tint-color($ds-color-brand-primary, 55%)};
+  --tf-link-hover: #{tint-color($ds-color-brand-primary, 70%)};
+  --tf-mark-bg: #{shade-color($ds-color-semantic-warning, 55%)};
 }
 
 .ds-tf__layout {

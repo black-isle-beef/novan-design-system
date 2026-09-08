@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsRangeSliderComponent } from './range-slider.component';
 
 const meta: Meta<DsRangeSliderComponent> = {
-  title: 'Components/Global/Forms/Range Slider',
+  title: 'Components/Forms/Range Slider',
   component: DsRangeSliderComponent,
   parameters: {
     docs: {

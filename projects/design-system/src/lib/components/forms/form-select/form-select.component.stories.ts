@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsFormSelectComponent } from './form-select.component';
 
 const meta: Meta<DsFormSelectComponent> = {
-  title: 'Components/Global/Forms/Form Select',
+  title: 'Components/Forms/Form Select',
   component: DsFormSelectComponent,
   parameters: {
     docs: {

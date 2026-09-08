@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsInputGroupComponent } from './input-group.component';
 
 const meta: Meta<DsInputGroupComponent> = {
-  title: 'Components/Global/Forms/Input Group',
+  title: 'Components/Forms/Input Group',
   component: DsInputGroupComponent,
   parameters: {
     docs: {

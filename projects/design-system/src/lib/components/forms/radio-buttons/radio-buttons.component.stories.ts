@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsRadioButtonsComponent } from './radio-buttons.component';
 
 const meta: Meta<DsRadioButtonsComponent> = {
-  title: 'Components/Global/Forms/Radio Buttons',
+  title: 'Components/Forms/Radio Buttons',
   component: DsRadioButtonsComponent,
   parameters: {
     docs: {

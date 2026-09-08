@@ -11,7 +11,6 @@ import { FONT_WEIGHTS, HEADING_SCALE, NAV_SECTIONS, PANGRAM, type FontWeightToke
   selector: 'ds-typography-foundation',
   standalone: true,
   templateUrl: './typography-foundation.component.html',
-  styleUrl: './typography-foundation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-tf',

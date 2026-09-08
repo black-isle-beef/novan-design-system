@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsCookieBannerComponent } from './cookie-banner.component';
 
 const meta: Meta<DsCookieBannerComponent> = {
-  title: 'Components/Global/CookieBanner',
+  title: 'Components/Structural/CookieBanner',
   component: DsCookieBannerComponent,
   tags: ['autodocs'],
   parameters: {

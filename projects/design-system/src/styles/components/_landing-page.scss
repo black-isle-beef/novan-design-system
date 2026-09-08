@@ -1,13 +1,14 @@
 // -----------------------------------------------------------------------------
-// landing-page.component.scss — DsLandingPageComponent (selector: ds-landing-page)
+// _landing-page.scss — DsLandingPageComponent (selector: ds-landing-page)
 //
-// Layout rhythm (section padding, grid gaps) comes from token-driven Bootstrap
-// spacing utilities in the template. This file only adds the surface treatments
-// and the centred content column, all sourced from the global `--ds-color-*`
-// custom properties emitted by the token layer.
+// Migrated out of the component stylesheet so every rule lives in the global
+// cascade. Layout rhythm (section padding, grid gaps) comes from token-driven
+// Bootstrap spacing utilities in the template; this file only adds the surface
+// treatments and the centred content column, all sourced from the global
+// `--ds-color-*` custom properties emitted by the token layer.
 // -----------------------------------------------------------------------------
 
-:host {
+.ds-landing-page {
   display: block;
   background-color: var(--ds-color-surface-body);
   color: var(--ds-color-text-body);
