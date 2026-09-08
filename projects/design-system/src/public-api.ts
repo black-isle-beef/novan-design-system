@@ -9,6 +9,7 @@ export * from './lib/components/header/header.component';
 
 // Components
 export * from './lib/components/hero/hero.component';
+export * from './lib/components/image-banner';
 export * from './lib/components/main-nav/main-nav.component';
 export * from './lib/components/header/header.component';
 export * from './lib/components/footer/footer.component';
