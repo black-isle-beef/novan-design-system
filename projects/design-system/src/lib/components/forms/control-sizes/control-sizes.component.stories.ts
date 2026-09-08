@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsControlSizesComponent } from './control-sizes.component';
 
 const meta: Meta<DsControlSizesComponent> = {
-  title: 'Components/Global/Forms/Control Sizes & File Color',
+  title: 'Components/Forms/Control Sizes & File Color',
   component: DsControlSizesComponent,
   parameters: {
     docs: {

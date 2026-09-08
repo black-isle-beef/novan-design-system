@@ -1,10 +1,20 @@
-:host {
-  --tf-bg: #fff;
-  --tf-surface: #f5f5f5;
-  --tf-text: #333;
-  --tf-muted: #66665f;
-  --tf-border: #b0b3b5;
-  --tf-link: #0a2f73;
+// -----------------------------------------------------------------------------
+// _design-tokens-foundation.scss — DsDesignTokensFoundationComponent (ds-design-tokens-foundation)
+//
+// Migrated out of the component stylesheet so every rule lives in the global
+// cascade. Selectors are BEM-scoped under `.ds-dt` (the component host class)
+// so nothing leaks. Colour values are derived from the `$ds-color-*` design
+// tokens instead of hand-picked hex literals.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-dt {
+  --tf-bg: #{$ds-color-surface-body};
+  --tf-surface: #{$ds-color-surface-muted};
+  --tf-text: #{$ds-color-text-body};
+  --tf-muted: #{$ds-color-text-muted};
+  --tf-border: #{$ds-color-neutral-gray-300};
+  --tf-link: #{$ds-color-brand-primary};
 
   display: block;
   color: var(--tf-text);
@@ -152,7 +162,7 @@
 .ds-dt__chip--active {
   background: var(--tf-link);
   border-color: var(--tf-link);
-  color: #fff;
+  color: #{$ds-color-neutral-white};
 }
 
 .ds-dt__result-count {
@@ -327,7 +337,7 @@
 .ds-dt__tab--active {
   background: var(--tf-link);
   border-color: var(--tf-link);
-  color: #fff;
+  color: #{$ds-color-neutral-white};
 }
 
 .ds-dt__code-block {
@@ -352,6 +362,6 @@
   overflow-x: auto;
   max-height: 420px;
   font-size: 0.8rem;
-  background: #1e1f1c;
-  color: #f5f5f5;
+  background: #{tint-color($ds-color-neutral-gray-900, 4%)};
+  color: #{$ds-color-neutral-gray-100};
 }

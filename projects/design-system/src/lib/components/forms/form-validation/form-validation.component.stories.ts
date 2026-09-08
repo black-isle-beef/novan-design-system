@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsFormValidationComponent } from './form-validation.component';
 
 const meta: Meta<DsFormValidationComponent> = {
-  title: 'Components/Global/Forms/Form Validation',
+  title: 'Components/Forms/Form Validation',
   component: DsFormValidationComponent,
   parameters: {
     docs: {

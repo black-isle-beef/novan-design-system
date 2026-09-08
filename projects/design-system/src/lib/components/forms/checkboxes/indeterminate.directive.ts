@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Directive, ElementRef, effect, inject, input } from '@angular/core';
 
 /**
  * Directs an `<input type="checkbox">` element to reflect an indeterminate
@@ -8,15 +8,15 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '
   selector: '[dsIndeterminate]',
   standalone: true,
 })
-export class DsIndeterminateDirective implements OnChanges {
+export class DsIndeterminateDirective {
   private readonly elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
   /** Whether the checkbox DOM element should set `indeterminate = true`. */
-  @Input() dsIndeterminate = false;
+  readonly dsIndeterminate = input(false);
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('dsIndeterminate' in changes) {
-      this.elementRef.nativeElement.indeterminate = this.dsIndeterminate;
-    }
+  constructor() {
+    effect(() => {
+      this.elementRef.nativeElement.indeterminate = this.dsIndeterminate();
+    });
   }
 }

@@ -36,7 +36,10 @@ $body-color: $ds-color-text-body;
 $body-secondary-color: $ds-color-text-muted;
 $link-color: $ds-color-brand-primary;
 $link-decoration: underline;
-$link-hover-color: #03122e;
+
+// Hover state is the brand primary shaded toward black (~64%), keeping the
+// value token-derived instead of a hand-picked hex literal.
+$link-hover-color: mix(black, $ds-color-brand-primary, 64%);
 $link-hover-decoration: none;
 
 // Runtime CSS custom properties (kept in sync with $theme-colors above) so

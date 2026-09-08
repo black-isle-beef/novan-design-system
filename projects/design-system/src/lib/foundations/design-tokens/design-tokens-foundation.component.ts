@@ -58,7 +58,6 @@ function groupBy<T, K>(items: readonly T[], keyFn: (item: T) => K): Map<K, T[]> 
   selector: 'ds-design-tokens-foundation',
   standalone: true,
   templateUrl: './design-tokens-foundation.component.html',
-  styleUrl: './design-tokens-foundation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-dt',

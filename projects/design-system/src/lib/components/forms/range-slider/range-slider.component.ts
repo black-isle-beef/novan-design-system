@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,20 +17,16 @@ export class DsRangeSliderComponent {
   /** Range Slider Reactive Form Control. */
   readonly rangeControl = new FormControl<number>(75, { nonNullable: true });
 
-  /** Signal reflecting live value of Range Control. */
-  readonly rangeValue = signal<number>(75);
+  /** Signal reflecting the live value of the range control, bridged from its `valueChanges` stream. */
+  readonly rangeValue = toSignal(this.rangeControl.valueChanges, {
+    initialValue: this.rangeControl.value,
+  });
 
   /** Dual-binding ngModel Range Slider signal. */
   readonly ngModelRange = signal(65);
 
   readonly activeCodeTab = signal<'preview' | 'html' | 'ts'>('preview');
   readonly copied = signal(false);
-
-  constructor() {
-    this.rangeControl.valueChanges.subscribe((val: number) => {
-      this.rangeValue.set(val);
-    });
-  }
 
   setCodeTab(tab: 'preview' | 'html' | 'ts'): void {
     this.activeCodeTab.set(tab);
@@ -60,10 +57,8 @@ export class DsRangeSliderComponent {
 })
 export class DsRangeSliderComponent {
   readonly rangeControl = new FormControl<number>(75, { nonNullable: true });
-  readonly rangeValue = signal<number>(75);
-
-  constructor() {
-    this.rangeControl.valueChanges.subscribe(val => this.rangeValue.set(val));
-  }
+  readonly rangeValue = toSignal(this.rangeControl.valueChanges, {
+    initialValue: this.rangeControl.value,
+  });
 }`;
 }

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsFormsComponent } from './forms.component';
 
 const meta: Meta<DsFormsComponent> = {
-  title: 'Components/Global/Forms/Showcase Dashboard',
+  title: 'Components/Forms/Showcase Dashboard',
   component: DsFormsComponent,
   tags: ['autodocs'],
   parameters: {

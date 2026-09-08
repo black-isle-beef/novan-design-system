@@ -25,7 +25,6 @@ type TabView = 'preview' | 'code';
   selector: 'ds-layout-foundation',
   standalone: true,
   templateUrl: './layout-foundation.component.html',
-  styleUrl: './layout-foundation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-lf',

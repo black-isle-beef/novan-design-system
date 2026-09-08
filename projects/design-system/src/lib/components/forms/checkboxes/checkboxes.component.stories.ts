@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsCheckboxesComponent } from './checkboxes.component';
 
 const meta: Meta<DsCheckboxesComponent> = {
-  title: 'Components/Global/Forms/Checkboxes & Switches',
+  title: 'Components/Forms/Checkboxes & Switches',
   component: DsCheckboxesComponent,
   parameters: {
     docs: {
