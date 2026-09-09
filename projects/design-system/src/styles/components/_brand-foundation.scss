@@ -294,22 +294,25 @@
   border: 1px solid transparent;
 }
 
+// Alerts pair the family's lightest shade (`-bg`) with its darkest shade
+// (`-text`) so body text and borders clear WCAG AA 4.5:1 contrast; the
+// mid-tone accent (`--ds-<role>`) is too light on these fills.
 .ds-bf__alert--success {
   background: var(--ds-success-bg);
-  color: var(--ds-success);
-  border-color: var(--ds-success);
+  color: var(--ds-success-text);
+  border-color: var(--ds-success-text);
 }
 
 .ds-bf__alert--warning {
   background: var(--ds-warning-bg);
-  color: var(--ds-warning);
-  border-color: var(--ds-warning);
+  color: var(--ds-warning-text);
+  border-color: var(--ds-warning-text);
 }
 
 .ds-bf__alert--danger {
   background: var(--ds-danger-bg);
-  color: var(--ds-danger);
-  border-color: var(--ds-danger);
+  color: var(--ds-danger-text);
+  border-color: var(--ds-danger-text);
 }
 
 .ds-bf__badge {
@@ -320,17 +323,18 @@
   color: var(--ds-color-text-inverse);
 }
 
+// Darkest family shade as the fill keeps the inverse (white) label at AA
+// contrast; the mid-tone accent falls short for this small, bold text.
 .ds-bf__badge--success {
-  background: var(--ds-success);
+  background: var(--ds-success-text);
 }
 
 .ds-bf__badge--warning {
-  background: var(--ds-warning);
-  color: var(--ds-color-text-body);
+  background: var(--ds-warning-text);
 }
 
 .ds-bf__badge--danger {
-  background: var(--ds-danger);
+  background: var(--ds-danger-text);
 }
 
 .ds-bf__family {

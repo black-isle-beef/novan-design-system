@@ -79,6 +79,16 @@ export class DsBrandFoundationComponent {
     return family.tokens[index];
   }
 
+  /**
+   * Darkest shade in the assigned family. Used for text and borders that sit on
+   * the light `-bg` fill (alerts, badges) so they clear the WCAG AA 4.5:1
+   * contrast ratio — the mid-tone accent (`--ds-<role>`) does not.
+   */
+  private textShade(selection: RoleSelection): ColorToken {
+    const family = this.familiesById.get(selection.familyId) ?? this.families[0];
+    return family.tokens[family.tokens.length - 1];
+  }
+
   readonly resolvedRoles = computed(() => {
     const current = this.selections();
     return Object.fromEntries(
@@ -96,6 +106,7 @@ export class DsBrandFoundationComponent {
       vars[`--ds-${def.role}-hover`] = this.shadeAt(selection, 1).hex;
       vars[`--ds-${def.role}-active`] = this.shadeAt(selection, 2).hex;
       vars[`--ds-${def.role}-bg`] = this.shadeAt(selection, -selection.tokenIndex).hex;
+      vars[`--ds-${def.role}-text`] = this.textShade(selection).hex;
     }
     return vars;
   });
