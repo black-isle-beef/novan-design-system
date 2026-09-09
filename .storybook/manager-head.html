@@ -1,4 +1,18 @@
 <style>
+  /* The Controls panel renders native radio/checkbox inputs with no Storybook
+     styling, so they inherit the host OS form-control rendering. Pin a light
+     colour scheme and a brand accent so unselected radios show as a normal
+     outline and selected ones use the brand colour. */
+  :root {
+    color-scheme: light;
+  }
+
+  body,
+  input[type='radio'],
+  input[type='checkbox'] {
+    accent-color: #2f1778;
+  }
+
   @font-face {
     font-family: 'Montserrat Alternates';
     font-style: normal;
