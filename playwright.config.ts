@@ -17,7 +17,7 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'npx http-server storybook-static -p 9323 -s',
+    command: 'npx sirv-cli storybook-static --port 9323 --quiet',
     url: 'http://localhost:9323',
     reuseExistingServer: false,
     timeout: 120_000,
