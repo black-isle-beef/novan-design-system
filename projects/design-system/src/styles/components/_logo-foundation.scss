@@ -1,0 +1,428 @@
+// -----------------------------------------------------------------------------
+// _logo-foundation.scss — DsLogoFoundationComponent (ds-logo-foundation)
+//
+// Selectors are BEM-scoped under `.ds-lg` (the component host class) so
+// nothing leaks. Colour values are derived from the `$ds-color-*` design
+// tokens instead of hand-picked hex literals, except where a swatch must
+// mirror an exact logo-export background color.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-logo-foundation {
+  --tf-bg: #{$ds-color-surface-body};
+  --tf-surface: #{$ds-color-surface-muted};
+  --tf-text: #{$ds-color-text-body};
+  --tf-muted: #{$ds-color-text-muted};
+  --tf-border: #{$ds-color-neutral-gray-300};
+  --tf-link: #{$ds-color-brand-primary};
+
+  display: block;
+  color: var(--tf-text);
+  background: var(--tf-bg);
+}
+
+.ds-lg__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 720px) {
+  .ds-lg__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ds-lg__drawer {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  padding: 1rem 0;
+}
+
+.ds-lg__drawer-inner {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--tf-surface);
+}
+
+.ds-lg__drawer-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-lg__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ds-lg__nav-link {
+  color: var(--tf-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ds-lg__nav-link:hover {
+  text-decoration: underline;
+}
+
+.ds-lg__content {
+  padding: 1rem 0 2rem;
+  min-width: 0;
+}
+
+.ds-lg__intro {
+  margin-bottom: 2rem;
+}
+
+.ds-lg__page-title {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.ds-lg__lede {
+  color: var(--tf-muted);
+  max-width: 65ch;
+}
+
+.ds-lg__section {
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-top: 1px solid var(--tf-border);
+  scroll-margin-top: 1rem;
+}
+
+.ds-lg__section-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-lg__section-lede {
+  color: var(--tf-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Logo cards (primary + compact lockup grids) */
+.ds-lg__logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.ds-lg__logo-card {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--tf-bg);
+}
+
+.ds-lg__logo-swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  min-height: 160px;
+}
+
+.ds-lg__logo-swatch--compact {
+  min-height: 100px;
+}
+
+.ds-lg__logo-img {
+  max-width: 140px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+}
+
+.ds-lg__logo-img--compact {
+  max-width: 160px;
+  max-height: 64px;
+}
+
+.ds-lg__logo-body {
+  padding: 0.75rem;
+  border-top: 1px solid var(--tf-border);
+}
+
+.ds-lg__logo-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.ds-lg__logo-usage {
+  font-size: 0.8rem;
+  color: var(--tf-muted);
+  margin: 0;
+}
+
+/* Viewport toggle (responsive site usage) */
+.ds-lg__viewport-toggle {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.ds-lg__viewport-btn {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.375rem;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  padding: 0.3rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ds-lg__viewport-btn--active {
+  background: var(--tf-surface);
+  border-color: var(--tf-link);
+  color: var(--tf-link);
+  font-weight: 600;
+}
+
+.ds-lg__preview-frame {
+  margin-inline: auto;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--tf-surface);
+  overflow-x: auto;
+  transition: max-width 0.2s ease;
+}
+
+.ds-lg__wire-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--tf-border);
+  padding-bottom: 0.5rem;
+}
+
+.ds-lg__wire-header-logo {
+  height: 32px;
+  width: auto;
+}
+
+.ds-lg__wire-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #{tint-color($ds-color-neutral-gray-300, 50%)};
+  border: 1px solid var(--tf-border);
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.7rem;
+  color: var(--tf-muted);
+}
+
+.ds-lg__wire-box--cta {
+  background: var(--tf-link);
+  color: #{$ds-color-neutral-white};
+  border-color: var(--tf-link);
+}
+
+.ds-lg__wire-spacer {
+  flex: 1;
+}
+
+/* Color & background pairing grid */
+.ds-lg__pairing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.ds-lg__pairing-card {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--tf-bg);
+}
+
+.ds-lg__pairing-swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  min-height: 96px;
+}
+
+.ds-lg__pairing-mark {
+  width: 48px;
+  height: 48px;
+}
+
+.ds-lg__pairing-body {
+  padding: 0.75rem;
+  border-top: 1px solid var(--tf-border);
+}
+
+.ds-lg__pairing-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.ds-lg__pairing-rationale {
+  font-size: 0.8rem;
+  color: var(--tf-muted);
+  margin: 0;
+}
+
+/* Tabs (SVG mark selector) */
+.ds-lg__tab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ds-lg__tab {
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  background: var(--tf-bg);
+  color: var(--tf-text);
+  padding: 0.4rem 1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ds-lg__tab--active {
+  background: var(--tf-link);
+  border-color: var(--tf-link);
+  color: #{$ds-color-neutral-white};
+}
+
+/* Preview / Code view tabs */
+.ds-lg__view-tab-row {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--tf-border);
+}
+
+.ds-lg__view-tab {
+  border: none;
+  background: none;
+  color: var(--tf-muted);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.ds-lg__view-tab--active {
+  color: var(--tf-link);
+  border-bottom-color: var(--tf-link);
+  font-weight: 600;
+}
+
+/* Web lockup (SVG mark + live wordmark text) preview */
+.ds-lg__web-lockup-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.ds-lg__web-lockup-mark {
+  height: 40px;
+  width: 40px;
+}
+
+.ds-lg__web-lockup-text {
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+}
+
+/* Code blocks */
+.ds-lg__code-block {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ds-lg__code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--tf-surface);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ds-lg__code-block-header + .ds-lg__code-block-header {
+  border-top: 1px solid var(--tf-border);
+}
+
+.ds-lg__copy-btn {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.25rem;
+  background: var(--tf-bg);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.ds-lg__code {
+  margin: 0;
+  padding: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  background: #{tint-color($ds-color-neutral-gray-900, 4%)};
+  color: #{$ds-color-neutral-gray-100};
+}
+
+/* Usage guidelines */
+.ds-lg__guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.ds-lg__guideline-card {
+  border: 1px solid var(--tf-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.ds-lg__guideline-card--do {
+  border-inline-start: 3px solid #{$ds-color-brand-primary};
+}
+
+.ds-lg__guideline-card--dont {
+  border-inline-start: 3px solid #{$ds-color-neutral-gray-900};
+}
+
+.ds-lg__guideline-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ds-lg__guideline-list {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--tf-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
