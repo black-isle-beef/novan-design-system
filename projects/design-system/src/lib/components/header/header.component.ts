@@ -4,7 +4,8 @@ import type { NavItem } from '../../models/nav-item.model';
 
 /**
  * Structural site header. Renders the `banner` landmark, a projected
- * branding slot, and an integrated `DsMainNavComponent`.
+ * branding slot, an integrated `DsMainNavComponent`, and a trailing
+ * `[dsActions]` slot for controls such as a theme toggle.
  */
 @Component({
   selector: 'ds-header',

@@ -8,4 +8,8 @@
   <div class="ds-header__nav flex-grow-1">
     <ds-main-nav [items]="navItems()" />
   </div>
+
+  <div class="ds-header__actions px-4 py-2 d-flex align-items-center gap-2">
+    <ng-content select="[dsActions]" />
+  </div>
 </header>

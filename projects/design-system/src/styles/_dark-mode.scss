@@ -1,0 +1,18 @@
+// -----------------------------------------------------------------------------
+// _dark-mode.scss
+// Dark-theme values for the design system's `--ds-color-*` custom properties.
+// Bootstrap 5.3 ships its own `[data-bs-theme="dark"]` overrides for `--bs-*`
+// variables (body/link colors, form controls, etc.) at compile time; this
+// partial extends the same attribute to the token layer that DS components
+// read directly (header, footer, breadcrumb, hero "light" variant, forms).
+// Toggle dark mode at runtime by setting `data-bs-theme="dark"` on <html>.
+// -----------------------------------------------------------------------------
+@import 'variables';
+
+[data-bs-theme='dark'] {
+  --ds-color-surface-body: #{$ds-color-neutral-gray-900};
+  --ds-color-surface-muted: #{mix($ds-color-neutral-gray-900, white, 88%)};
+  --ds-color-text-body: #{$ds-color-neutral-gray-100};
+  --ds-color-text-muted: #{$ds-color-neutral-gray-400};
+  --ds-link-hover-color: #{mix($ds-color-brand-primary, white, 45%)};
+}
