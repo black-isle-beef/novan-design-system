@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------------
 // _header.scss — Overrides for DsHeaderComponent (selector: ds-header)
 // -----------------------------------------------------------------------------
+@import '../variables';
 
 .ds-header {
   display: block;
@@ -25,5 +26,18 @@
     position: relative;
     z-index: $zindex-modal;
     background-color: var(--ds-color-surface-body);
+  }
+
+  // DsMainNavComponent pins its mobile menu trigger `fixed` to the top-right
+  // corner (a 44px circle at `right: $spacer-4`) once the nav collapses. Pin
+  // `[dsActions]` fixed at the same top offset, immediately to its left, so a
+  // theme toggle (or other action) stays reachable without overlapping either
+  // the trigger or the in-flow brand at the opposite corner.
+  .ds-header__actions {
+    position: fixed;
+    top: map-get($spacers, 3);
+    right: calc(#{map-get($spacers, 4)} + 44px + #{map-get($spacers, 2)});
+    z-index: $zindex-modal;
+    padding: 0;
   }
 }
