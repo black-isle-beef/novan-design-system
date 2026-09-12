@@ -1,0 +1,231 @@
+<div class="ds-lg__layout">
+  <aside class="ds-lg__drawer">
+    <div class="ds-lg__drawer-inner">
+      <p class="ds-lg__drawer-title">Logos</p>
+      <nav aria-label="Logo sections">
+        <ul class="ds-lg__nav-list">
+          @for (section of navSections; track section.id) {
+            <li><a class="ds-lg__nav-link" [href]="'#' + section.id">{{ section.label }}</a></li>
+          }
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="ds-lg__content">
+    <header class="ds-lg__intro">
+      <h1 class="ds-lg__page-title">Logo Foundations</h1>
+      <p class="ds-lg__lede">
+        The Novan Web Services logo system: a compass/diamond mark paired with the "novan web
+        services" wordmark. Use the <strong>primary lockup</strong> for desktop and site headers,
+        the <strong>compact lockup</strong> for tablet and mobile, and the standalone
+        <strong>SVG mark</strong> when you need a scalable, crisp icon alongside live text.
+      </p>
+    </header>
+
+    <section id="primary-lockup" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">Primary Lockup (Desktop &amp; Site Use)</h2>
+      <p class="ds-lg__section-lede">
+        1080×1080 square lockup, exported per background. Keep at least the mark's own width as
+        clear space on every side, and never scale it below 120px wide.
+      </p>
+      <div class="ds-lg__logo-grid">
+        @for (logo of primaryLockups; track logo.id) {
+          <div class="ds-lg__logo-card">
+            <div class="ds-lg__logo-swatch" [style.background]="logo.backgroundHex">
+              <img class="ds-lg__logo-img" [src]="logo.src" [alt]="logo.alt" />
+            </div>
+            <div class="ds-lg__logo-body">
+              <span class="ds-lg__logo-name">{{ logo.backgroundLabel }}</span>
+              <p class="ds-lg__logo-usage">{{ logo.usage }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="compact-lockup" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">Compact Lockup (Tablet &amp; Mobile)</h2>
+      <p class="ds-lg__section-lede">
+        250×100 horizontal lockup for headers and toolbars where vertical space is limited.
+      </p>
+      <div class="ds-lg__logo-grid">
+        @for (logo of compactLockups; track logo.id) {
+          <div class="ds-lg__logo-card">
+            <div class="ds-lg__logo-swatch ds-lg__logo-swatch--compact" [style.background]="logo.backgroundHex">
+              <img class="ds-lg__logo-img ds-lg__logo-img--compact" [src]="logo.src" [alt]="logo.alt" />
+            </div>
+            <div class="ds-lg__logo-body">
+              <span class="ds-lg__logo-name">{{ logo.backgroundLabel }}</span>
+              <p class="ds-lg__logo-usage">{{ logo.usage }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="responsive-usage" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">Responsive Site Usage</h2>
+      <p class="ds-lg__section-lede">
+        A site header swaps from the primary lockup on desktop to the compact lockup on tablet and
+        mobile. Toggle the viewport to see it respond.
+      </p>
+
+      <div class="ds-lg__viewport-toggle" role="group" aria-label="Preview viewport">
+        @for (vp of viewports; track vp.id) {
+          <button
+            type="button"
+            class="ds-lg__viewport-btn"
+            [class.ds-lg__viewport-btn--active]="viewportId() === vp.id"
+            (click)="setViewport(vp.id)"
+          >
+            {{ vp.label }}
+          </button>
+        }
+      </div>
+
+      <div class="ds-lg__preview-frame" [style.max-width]="viewportWidth()">
+        <div class="ds-lg__wire-header">
+          <img class="ds-lg__wire-header-logo" [src]="headerLogo().src" [alt]="headerLogo().alt" />
+          <span class="ds-lg__wire-box ds-lg__wire-box--nav">Link</span>
+          <span class="ds-lg__wire-box ds-lg__wire-box--nav">Link</span>
+          <span class="ds-lg__wire-spacer"></span>
+          <span class="ds-lg__wire-box ds-lg__wire-box--cta">CTA</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="background-pairing" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">Color &amp; Background Pairing</h2>
+      <p class="ds-lg__section-lede">
+        Pick the mark color that holds contrast against the surface it sits on.
+      </p>
+      <div class="ds-lg__pairing-grid">
+        @for (pairing of backgroundPairings; track pairing.backgroundLabel) {
+          <div class="ds-lg__pairing-card">
+            <div class="ds-lg__pairing-swatch" [style.background]="pairing.backgroundHex">
+              @if (markById(pairing.recommendedMarkId); as mark) {
+                <img class="ds-lg__pairing-mark" [src]="mark.src" [alt]="mark.alt" />
+              }
+            </div>
+            <div class="ds-lg__pairing-body">
+              <span class="ds-lg__pairing-name">
+                {{ pairing.backgroundLabel }} → {{ recommendedMarkLabel(pairing.recommendedMarkId) }} mark
+              </span>
+              <p class="ds-lg__pairing-rationale">{{ pairing.rationale }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section id="web-lockup" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">SVG Marks + Wordmark (Web Lockup)</h2>
+      <p class="ds-lg__section-lede">
+        For web headers and footers, pair the scalable SVG mark with live HTML text instead of a
+        raster lockup — it stays crisp at any size and the text remains selectable/accessible.
+      </p>
+
+      <div class="ds-lg__tab-row" role="tablist" aria-label="SVG mark">
+        @for (mark of iconMarks; track mark.id) {
+          <button
+            type="button"
+            class="ds-lg__tab"
+            role="tab"
+            [class.ds-lg__tab--active]="selectedMarkId() === mark.id"
+            [attr.aria-selected]="selectedMarkId() === mark.id"
+            (click)="selectMark(mark.id)"
+          >
+            {{ mark.label }}
+          </button>
+        }
+      </div>
+
+      <p class="ds-lg__section-lede">Recommended on: {{ selectedMark().recommendedOn }}</p>
+
+      <div class="ds-lg__view-tab-row">
+        <button
+          type="button"
+          class="ds-lg__view-tab"
+          [class.ds-lg__view-tab--active]="lockupTab() === 'preview'"
+          (click)="setLockupTab('preview')"
+        >
+          Preview
+        </button>
+        <button
+          type="button"
+          class="ds-lg__view-tab"
+          [class.ds-lg__view-tab--active]="lockupTab() === 'code'"
+          (click)="setLockupTab('code')"
+        >
+          Code
+        </button>
+      </div>
+
+      @if (lockupTab() === 'preview') {
+        <div
+          class="ds-lg__web-lockup-preview"
+          [style.background]="selectedMark().id === 'mark-charcoal' ? '#ffffff' : '#333333'"
+        >
+          <img class="ds-lg__web-lockup-mark" [src]="selectedMark().src" [alt]="selectedMark().alt" />
+          <span
+            class="ds-lg__web-lockup-text"
+            [style.color]="selectedMark().fillHex"
+          >
+            novan web services
+          </span>
+        </div>
+      } @else {
+        <div class="ds-lg__code-block">
+          <div class="ds-lg__code-block-header">
+            <span>HTML</span>
+            <button
+              type="button"
+              class="ds-lg__copy-btn"
+              (click)="copyCode(selectedSnippet().html, selectedMarkId() + '-html')"
+            >
+              {{ copiedKey() === selectedMarkId() + '-html' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lg__code"><code>{{ selectedSnippet().html }}</code></pre>
+
+          <div class="ds-lg__code-block-header">
+            <span>CSS</span>
+            <button
+              type="button"
+              class="ds-lg__copy-btn"
+              (click)="copyCode(selectedSnippet().css, selectedMarkId() + '-css')"
+            >
+              {{ copiedKey() === selectedMarkId() + '-css' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+          <pre class="ds-lg__code"><code>{{ selectedSnippet().css }}</code></pre>
+        </div>
+      }
+    </section>
+
+    <section id="guidelines" class="ds-lg__section">
+      <h2 class="ds-lg__section-title">Usage Guidelines</h2>
+      <div class="ds-lg__guidelines-grid">
+        <div class="ds-lg__guideline-card ds-lg__guideline-card--do">
+          <h3 class="ds-lg__guideline-title">Do</h3>
+          <ul class="ds-lg__guideline-list">
+            <li>Keep clear space around the mark equal to at least its own width.</li>
+            <li>Use the primary lockup at 120px wide or larger; below that, use the mark alone.</li>
+            <li>Choose the mark color from the Color &amp; Background Pairing section above.</li>
+            <li>Swap to the compact lockup at tablet and mobile widths.</li>
+          </ul>
+        </div>
+        <div class="ds-lg__guideline-card ds-lg__guideline-card--dont">
+          <h3 class="ds-lg__guideline-title">Don't</h3>
+          <ul class="ds-lg__guideline-list">
+            <li>Don't recolor the mark's purple accent triangle.</li>
+            <li>Don't stretch, skew, or rotate the mark or wordmark.</li>
+            <li>Don't place a low-contrast variant on a similarly-toned background.</li>
+            <li>Don't rebuild the wordmark in a different typeface — use Montserrat.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
