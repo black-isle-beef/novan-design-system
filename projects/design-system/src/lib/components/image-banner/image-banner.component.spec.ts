@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { DsImageBannerComponent } from './image-banner.component';
 
@@ -7,14 +7,14 @@ import { DsImageBannerComponent } from './image-banner.component';
   imports: [DsImageBannerComponent],
   template: `
     <ds-image-banner
-      [imageSrc]="src"
-      [imageAlt]="alt"
-      [layout]="layout"
-      [imagePosition]="position"
-      [heading]="heading"
-      [rounded]="rounded"
-      [cornerStyle]="cornerStyle"
-      [ctaPosition]="ctaPosition"
+      [imageSrc]="src()"
+      [imageAlt]="alt()"
+      [layout]="layout()"
+      [imagePosition]="position()"
+      [heading]="heading()"
+      [rounded]="rounded()"
+      [cornerStyle]="cornerStyle()"
+      [ctaPosition]="ctaPosition()"
     >
       <p class="projected">Projected body copy</p>
       <a class="cta" dsImageBannerCta href="#">Get started</a>
@@ -22,14 +22,14 @@ import { DsImageBannerComponent } from './image-banner.component';
   `,
 })
 class HostComponent {
-  src = '/example.jpg';
-  alt = '';
-  layout: 'split' | 'image' = 'split';
-  position: 'left' | 'right' = 'left';
-  heading: string | undefined = undefined;
-  rounded = true;
-  cornerStyle: 'pill' | 'sweep' = 'pill';
-  ctaPosition: 'start' | 'center' | 'end' = 'center';
+  src = signal('/example.jpg');
+  alt = signal('');
+  layout = signal<'split' | 'image'>('split');
+  position = signal<'left' | 'right'>('left');
+  heading = signal<string | undefined>(undefined);
+  rounded = signal(true);
+  cornerStyle = signal<'pill' | 'sweep'>('pill');
+  ctaPosition = signal<'start' | 'center' | 'end'>('center');
 }
 
 describe('DsImageBannerComponent', () => {
@@ -61,7 +61,7 @@ describe('DsImageBannerComponent', () => {
 
   it('applies a descriptive alt when imageAlt is set', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.alt = 'Team collaborating at a whiteboard';
+    fixture.componentInstance.alt.set('Team collaborating at a whiteboard');
     fixture.detectChanges();
 
     const img = host.querySelector('img.ds-image-banner__image') as HTMLImageElement;
@@ -70,7 +70,7 @@ describe('DsImageBannerComponent', () => {
 
   it('switches to image-right when requested', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.position = 'right';
+    fixture.componentInstance.position.set('right');
     fixture.detectChanges();
 
     expect(host.classList.contains('ds-image-banner--image-right')).toBe(true);
@@ -79,7 +79,7 @@ describe('DsImageBannerComponent', () => {
 
   it('drops the rounded and corner-style classes when rounded is false', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.rounded = false;
+    fixture.componentInstance.rounded.set(false);
     fixture.detectChanges();
 
     expect(host.classList.contains('ds-image-banner--rounded')).toBe(false);
@@ -89,7 +89,7 @@ describe('DsImageBannerComponent', () => {
 
   it('swaps the pill class for the sweep class when cornerStyle is "sweep"', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.cornerStyle = 'sweep';
+    fixture.componentInstance.cornerStyle.set('sweep');
     fixture.detectChanges();
 
     expect(host.classList.contains('ds-image-banner--sweep')).toBe(true);
@@ -107,7 +107,7 @@ describe('DsImageBannerComponent', () => {
 
   it('labels the region with the heading when one is provided', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.heading = 'Built for teams that ship';
+    fixture.componentInstance.heading.set('Built for teams that ship');
     fixture.detectChanges();
 
     const heading = host.querySelector('h2.ds-image-banner__heading') as HTMLElement;
@@ -127,8 +127,8 @@ describe('DsImageBannerComponent', () => {
 
   it('drops the panel and overlays the CTA in the image layout', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.layout = 'image';
-    fixture.componentInstance.heading = 'Ignored in image layout';
+    fixture.componentInstance.layout.set('image');
+    fixture.componentInstance.heading.set('Ignored in image layout');
     fixture.detectChanges();
 
     const section = host.querySelector('section.ds-image-banner__layout') as HTMLElement;
@@ -142,8 +142,8 @@ describe('DsImageBannerComponent', () => {
 
   it('reflects ctaPosition as a host class', async () => {
     const { fixture, host } = await render();
-    fixture.componentInstance.layout = 'image';
-    fixture.componentInstance.ctaPosition = 'end';
+    fixture.componentInstance.layout.set('image');
+    fixture.componentInstance.ctaPosition.set('end');
     fixture.detectChanges();
 
     expect(host.classList.contains('ds-image-banner--cta-end')).toBe(true);
