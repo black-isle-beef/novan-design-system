@@ -15,4 +15,8 @@
   --ds-color-text-body: #{$ds-color-neutral-gray-100};
   --ds-color-text-muted: #{$ds-color-neutral-gray-400};
   --ds-link-hover-color: #{mix($ds-color-brand-primary, white, 45%)};
+
+  // A darker scrim than the light-theme default keeps the modal surface (a
+  // dark card on an already-dark page) visually separated from the backdrop.
+  --ds-elevation-scrim-color: rgb(0 0 0 / 65%);
 }

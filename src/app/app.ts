@@ -8,6 +8,7 @@ import {
   DsHeaderComponent,
   DsHeroComponent,
   DsImageBannerComponent,
+  DsModalComponent,
   type BreadcrumbItem,
   type FooterLinkGroup,
   type NavItem,
@@ -26,6 +27,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Buttons', href: '#buttons' },
       { label: 'Content banner', href: '#content' },
       { label: 'Forms', href: '#forms' },
+      { label: 'Modal', href: '#modal' },
     ],
   },
   { label: 'Foundations', href: '#' },
@@ -44,6 +46,7 @@ const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
       { label: 'Buttons', href: '#buttons' },
       { label: 'Content banner', href: '#content' },
       { label: 'Forms', href: '#forms' },
+      { label: 'Modal', href: '#modal' },
     ],
   },
   {
@@ -95,6 +98,7 @@ function readInitialTheme(): Theme {
     DsFormsComponent,
     DsFooterComponent,
     DsCookieBannerComponent,
+    DsModalComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -106,6 +110,7 @@ export class App {
   protected readonly placeholderImage = PLACEHOLDER_IMAGE;
 
   protected readonly theme = signal<Theme>(readInitialTheme());
+  protected readonly demoModalOpen = signal(false);
 
   constructor() {
     effect(() => {

@@ -1,0 +1,80 @@
+{
+  "elevation": {
+    "scale": {
+      "0": {
+        "$type": "shadow",
+        "$value": "none",
+        "$description": "Elevation step 0 - flush with the page, no shadow (inline content, flat surfaces)."
+      },
+      "1": {
+        "$type": "shadow",
+        "$value": "0 1px 2px rgba(21, 23, 16, 0.06), 0 1px 1px rgba(21, 23, 16, 0.04)",
+        "$description": "Elevation step 1 - subtle lift for resting cards and panels."
+      },
+      "2": {
+        "$type": "shadow",
+        "$value": "0 2px 4px rgba(21, 23, 16, 0.08), 0 1px 2px rgba(21, 23, 16, 0.06)",
+        "$description": "Elevation step 2 - hovered cards and the site header when the page scrolls beneath it."
+      },
+      "3": {
+        "$type": "shadow",
+        "$value": "0 4px 8px rgba(21, 23, 16, 0.10), 0 2px 4px rgba(21, 23, 16, 0.06)",
+        "$description": "Elevation step 3 - floating surfaces anchored to a trigger: dropdowns, popovers, tooltips."
+      },
+      "4": {
+        "$type": "shadow",
+        "$value": "0 8px 16px rgba(21, 23, 16, 0.12), 0 4px 8px rgba(21, 23, 16, 0.08)",
+        "$description": "Elevation step 4 - transient overlays not anchored to a trigger: toasts, notifications."
+      },
+      "5": {
+        "$type": "shadow",
+        "$value": "0 16px 32px rgba(21, 23, 16, 0.16), 0 8px 16px rgba(21, 23, 16, 0.10)",
+        "$description": "Elevation step 5 - highest layer, sits above a scrim: modals and dialogs."
+      }
+    },
+    "component": {
+      "card": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.1}",
+        "$description": "Default resting elevation for cards and content panels."
+      },
+      "card-hover": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.2}",
+        "$description": "Elevation for a card or panel on hover/focus-within."
+      },
+      "header": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.2}",
+        "$description": "Sticky/fixed header once the page has scrolled beneath it."
+      },
+      "dropdown": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.3}",
+        "$description": "Dropdown menus, select listboxes, and comboboxes."
+      },
+      "tooltip": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.3}",
+        "$description": "Tooltips and popovers anchored to their trigger."
+      },
+      "toast": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.4}",
+        "$description": "Toast and inline notification surfaces."
+      },
+      "modal": {
+        "$type": "shadow",
+        "$value": "{elevation.scale.5}",
+        "$description": "Modal and dialog surfaces presented above the scrim."
+      }
+    },
+    "scrim": {
+      "color": {
+        "$type": "color",
+        "$value": "rgba(21, 23, 16, 0.5)",
+        "$description": "Backdrop/scrim color behind modals and off-canvas panels, derived from {color.neutral.gray-900}."
+      }
+    }
+  }
+}

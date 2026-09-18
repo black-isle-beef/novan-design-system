@@ -1,0 +1,75 @@
+{
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": "0ms",
+        "$description": "No animation - respects prefers-reduced-motion or truly instant state changes."
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": "100ms",
+        "$description": "Micro-interactions: button/link hover and active state changes."
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "200ms",
+        "$description": "Default duration for most UI transitions: fades, color/background changes."
+      },
+      "moderate": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$description": "Larger surface transitions: dropdown/tooltip open, accordion expand/collapse."
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "400ms",
+        "$description": "Full-surface transitions: modal/dialog and off-canvas enter/exit."
+      },
+      "slower": {
+        "$type": "duration",
+        "$value": "600ms",
+        "$description": "Large, attention-directing motion used sparingly (page-level banners)."
+      }
+    },
+    "easing": {
+      "linear": {
+        "$type": "cubicBezier",
+        "$value": "linear",
+        "$description": "Constant speed - progress indicators and marquee-style motion only."
+      },
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "$description": "Default easing for transitions that both enter and exit the screen."
+      },
+      "decelerate": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0, 0, 0.2, 1)",
+        "$description": "Entering elements: fast start, gentle finish (menus, dialogs, tooltips appearing)."
+      },
+      "accelerate": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$description": "Exiting elements: gentle start, fast finish (menus, dialogs, tooltips dismissing)."
+      }
+    },
+    "component": {
+      "fade": {
+        "$type": "duration",
+        "$value": "{motion.duration.base}",
+        "$description": "Fade transitions for tooltips, toasts, and simple show/hide states."
+      },
+      "overlay": {
+        "$type": "duration",
+        "$value": "{motion.duration.slow}",
+        "$description": "Modal, dialog, and off-canvas enter/exit transitions."
+      },
+      "collapse": {
+        "$type": "duration",
+        "$value": "{motion.duration.moderate}",
+        "$description": "Accordion, dropdown, and collapsible-panel expand/collapse transitions."
+      }
+    }
+  }
+}
