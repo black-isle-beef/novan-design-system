@@ -162,6 +162,16 @@ export default {
           options: { groupPath: 'color.brand', mapName: 'ds-theme-colors' },
         },
         {
+          destination: '_elevation.tokens.scss',
+          format: 'scss/tokens-variables',
+          filter: (t) => t.path[0] === 'elevation',
+        },
+        {
+          destination: '_motion.tokens.scss',
+          format: 'scss/tokens-variables',
+          filter: (t) => t.path[0] === 'motion',
+        },
+        {
           destination: 'tokens.css',
           format: 'css/tokens-custom-properties',
         },

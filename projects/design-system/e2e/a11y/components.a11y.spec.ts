@@ -84,4 +84,12 @@ test.describe('WCAG 2.1 AA accessibility', () => {
   test('DsLandingPageComponent template (Default) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'templates-landing-page--default');
   });
+
+  test('DsModalComponent (Default, open) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-overlay-modal--default');
+  });
+
+  test('DsModalComponent (WithFooterActions) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-overlay-modal--with-footer-actions');
+  });
 });

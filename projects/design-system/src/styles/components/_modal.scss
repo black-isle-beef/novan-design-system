@@ -1,0 +1,87 @@
+// -----------------------------------------------------------------------------
+// _modal.scss — Overrides for DsModalComponent (selector: ds-modal)
+//
+// The `<dialog>` element is stretched to fill the viewport and centers the
+// visible `.ds-modal__surface` card inside itself; see modal.component.html
+// for why this makes backdrop-click detection trivial. `::backdrop` is the
+// native scrim layer the browser paints behind a `<dialog>` opened with
+// `showModal()`.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-modal__dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1090;
+  inline-size: 100vw;
+  block-size: 100vh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: $ds-spacing-scale-5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+
+  &::backdrop {
+    background-color: var(--ds-elevation-scrim-color);
+  }
+
+  &[open],
+  &[open]::backdrop {
+    animation: ds-modal-fade-in var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-modal__surface {
+  inline-size: 100%;
+  max-inline-size: 32rem;
+  max-block-size: 100%;
+  overflow-y: auto;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  border-radius: 0.75rem;
+  box-shadow: var(--ds-elevation-component-modal);
+}
+
+.ds-modal__dialog--sm .ds-modal__surface {
+  max-inline-size: 24rem;
+}
+
+.ds-modal__dialog--lg .ds-modal__surface {
+  max-inline-size: 48rem;
+}
+
+// Collapse the header/footer regions entirely when neither a heading, a close
+// button, nor projected footer content is present, instead of leaving behind
+// empty padding.
+.ds-modal__header:empty,
+.ds-modal__footer:empty {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-modal__dialog,
+  .ds-modal__dialog::backdrop {
+    animation: none;
+  }
+}
+
+@keyframes ds-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-modal__surface {
+    border: 0.0625rem solid CanvasText;
+  }
+}

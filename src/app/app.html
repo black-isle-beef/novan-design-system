@@ -53,9 +53,20 @@
     </ds-image-banner>
   </section>
 
-  <section id="forms" class="p-4 p-md-8" aria-labelledby="ds-sandbox-forms-heading">
+  <section id="forms" class="p-4 p-md-8 border-bottom" aria-labelledby="ds-sandbox-forms-heading">
     <h2 id="ds-sandbox-forms-heading" class="visually-hidden">Forms</h2>
     <ds-forms />
+  </section>
+
+  <section id="modal" class="p-4 p-md-8" aria-labelledby="ds-sandbox-modal-heading">
+    <h2 id="ds-sandbox-modal-heading" class="h3 mb-4">Modal</h2>
+    <ds-button (pressed)="demoModalOpen.set(true)">Open modal</ds-button>
+    <ds-modal [(open)]="demoModalOpen" heading="Invite teammates">
+      <p class="mb-0">
+        Two-way bound with <code>[(open)]</code> — the trigger button and the modal's own close
+        affordances (Escape, backdrop click, close button) all stay in sync.
+      </p>
+    </ds-modal>
   </section>
 </main>
 

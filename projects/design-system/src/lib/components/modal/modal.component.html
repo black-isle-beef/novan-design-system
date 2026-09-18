@@ -1,0 +1,41 @@
+<!--
+  The `<dialog>` element itself is stretched to fill the viewport and acts as
+  the click-catching backdrop area; `.ds-modal__surface` is the visible card.
+  A click lands on the dialog element (not the surface) only when it's
+  outside the visible card, which is what `handleBackdropClick` checks for.
+-->
+<dialog
+  #dialog
+  class="ds-modal__dialog"
+  [class.ds-modal__dialog--sm]="size() === 'sm'"
+  [class.ds-modal__dialog--lg]="size() === 'lg'"
+  [attr.aria-labelledby]="heading() ? headingId : null"
+  [attr.aria-label]="!heading() && ariaLabel() ? ariaLabel() : null"
+  (cancel)="handleCancel($event)"
+  (close)="handleClose()"
+  (click)="handleBackdropClick($event)"
+>
+  <div class="ds-modal__surface" (click)="$event.stopPropagation()">
+    <div class="ds-modal__header d-flex align-items-start gap-4 p-6 pb-4">
+      @if (heading()) {
+        <h2 [id]="headingId" class="ds-modal__heading h4 flex-grow-1 mb-0">{{ heading() }}</h2>
+      }
+      @if (dismissible()) {
+        <button
+          type="button"
+          class="ds-modal__close btn-close ds-focus-ring flex-shrink-0"
+          [attr.aria-label]="closeButtonLabel()"
+          (click)="requestClose()"
+        ></button>
+      }
+    </div>
+
+    <div class="ds-modal__body px-6 pb-6">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="ds-modal__footer d-flex justify-content-end gap-3 px-6 pb-6">
+      <ng-content select="[dsModalFooter]"></ng-content>
+    </div>
+  </div>
+</dialog>
