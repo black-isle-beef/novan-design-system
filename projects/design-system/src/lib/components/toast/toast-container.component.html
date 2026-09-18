@@ -1,0 +1,11 @@
+@for (toast of toastService.toasts(); track toast.id) {
+  <ds-toast
+    class="ds-toast-container__item"
+    [variant]="toast.variant"
+    [title]="toast.title"
+    [dismissible]="toast.dismissible"
+    (dismissed)="toastService.dismiss(toast.id)"
+    (paused)="toastService.pause(toast.id)"
+    (resumed)="toastService.resume(toast.id)"
+  >{{ toast.message }}</ds-toast>
+}
