@@ -1,0 +1,915 @@
+From 3dcd69c35951cee4896458b6a8b68af9d70d6069 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 18 Sep 2026 19:24:25 +0100
+Subject: [PATCH] feat(tokens,modal): add elevation/motion tokens and a
+ DsModalComponent
+
+Phase 1 gap-fill: the token pipeline covered color, typography, and
+spacing but had no elevation (shadow) or motion (duration/easing)
+scale, so every future overlay/transition would have hand-rolled its
+own values. Adds tokens/elevation.tokens.json and
+tokens/motion.tokens.json (DTCG format, matching the existing files),
+wires them into style-dictionary.config.mjs and the generated-output
+forwarding index, and adds a dark-mode scrim override.
+
+Phase 2 gap-fill: Bootstrap's CSS is compiled in but its JS components
+(modal, dropdown, tooltip, toast, etc.) were never wired up anywhere in
+the library. Adds DsModalComponent as the first of that category, built
+on the native <dialog> element (top-layer stacking, built-in focus trap
+and focus restoration) rather than reimplementing that behavior, styled
+with the new elevation/motion tokens. Includes unit tests, Storybook
+stories, and an axe a11y e2e check, and wires it into the component
+sandbox app and public API.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_014pgS8fBMP7CLBzpunUJHfZ
+---
+ .../e2e/a11y/components.a11y.spec.ts          |   8 +
+ .../src/lib/components/modal/index.ts         |   1 +
+ .../lib/components/modal/modal.component.html |  41 +++++
+ .../components/modal/modal.component.spec.ts  | 163 ++++++++++++++++++
+ .../modal/modal.component.stories.ts          | 116 +++++++++++++
+ .../lib/components/modal/modal.component.ts   |  93 ++++++++++
+ projects/design-system/src/public-api.ts      |   1 +
+ .../design-system/src/styles/_dark-mode.scss  |   4 +
+ .../src/styles/components/_index.scss         |   1 +
+ .../src/styles/components/_modal.scss         |  87 ++++++++++
+ .../src/styles/tokens/_index.scss             |   2 +
+ src/app/app.html                              |  13 +-
+ src/app/app.ts                                |   5 +
+ style-dictionary.config.mjs                   |  10 ++
+ tokens/elevation.tokens.json                  |  80 +++++++++
+ tokens/motion.tokens.json                     |  75 ++++++++
+ 16 files changed, 699 insertions(+), 1 deletion(-)
+ create mode 100644 projects/design-system/src/lib/components/modal/index.ts
+ create mode 100644 projects/design-system/src/lib/components/modal/modal.component.html
+ create mode 100644 projects/design-system/src/lib/components/modal/modal.component.spec.ts
+ create mode 100644 projects/design-system/src/lib/components/modal/modal.component.stories.ts
+ create mode 100644 projects/design-system/src/lib/components/modal/modal.component.ts
+ create mode 100644 projects/design-system/src/styles/components/_modal.scss
+ create mode 100644 tokens/elevation.tokens.json
+ create mode 100644 tokens/motion.tokens.json
+
+diff --git a/projects/design-system/e2e/a11y/components.a11y.spec.ts b/projects/design-system/e2e/a11y/components.a11y.spec.ts
+index 3e99992..ca0eb71 100644
+--- a/projects/design-system/e2e/a11y/components.a11y.spec.ts
++++ b/projects/design-system/e2e/a11y/components.a11y.spec.ts
+@@ -84,4 +84,12 @@ test.describe('WCAG 2.1 AA accessibility', () => {
+   test('DsLandingPageComponent template (Default) has no violations', async ({ page }) => {
+     await expectNoA11yViolations(page, 'templates-landing-page--default');
+   });
++
++  test('DsModalComponent (Default, open) has no violations', async ({ page }) => {
++    await expectNoA11yViolations(page, 'components-overlay-modal--default');
++  });
++
++  test('DsModalComponent (WithFooterActions) has no violations', async ({ page }) => {
++    await expectNoA11yViolations(page, 'components-overlay-modal--with-footer-actions');
++  });
+ });
+diff --git a/projects/design-system/src/lib/components/modal/index.ts b/projects/design-system/src/lib/components/modal/index.ts
+new file mode 100644
+index 0000000..0c42f83
+--- /dev/null
++++ b/projects/design-system/src/lib/components/modal/index.ts
+@@ -0,0 +1 @@
++export * from './modal.component';
+diff --git a/projects/design-system/src/lib/components/modal/modal.component.html b/projects/design-system/src/lib/components/modal/modal.component.html
+new file mode 100644
+index 0000000..01d06a4
+--- /dev/null
++++ b/projects/design-system/src/lib/components/modal/modal.component.html
+@@ -0,0 +1,41 @@
++<!--
++  The `<dialog>` element itself is stretched to fill the viewport and acts as
++  the click-catching backdrop area; `.ds-modal__surface` is the visible card.
++  A click lands on the dialog element (not the surface) only when it's
++  outside the visible card, which is what `handleBackdropClick` checks for.
++-->
++<dialog
++  #dialog
++  class="ds-modal__dialog"
++  [class.ds-modal__dialog--sm]="size() === 'sm'"
++  [class.ds-modal__dialog--lg]="size() === 'lg'"
++  [attr.aria-labelledby]="heading() ? headingId : null"
++  [attr.aria-label]="!heading() && ariaLabel() ? ariaLabel() : null"
++  (cancel)="handleCancel($event)"
++  (close)="handleClose()"
++  (click)="handleBackdropClick($event)"
++>
++  <div class="ds-modal__surface" (click)="$event.stopPropagation()">
++    <div class="ds-modal__header d-flex align-items-start gap-4 p-6 pb-4">
++      @if (heading()) {
++        <h2 [id]="headingId" class="ds-modal__heading h4 flex-grow-1 mb-0">{{ heading() }}</h2>
++      }
++      @if (dismissible()) {
++        <button
++          type="button"
++          class="ds-modal__close btn-close ds-focus-ring flex-shrink-0"
++          [attr.aria-label]="closeButtonLabel()"
++          (click)="requestClose()"
++        ></button>
++      }
++    </div>
++
++    <div class="ds-modal__body px-6 pb-6">
++      <ng-content></ng-content>
++    </div>
++
++    <div class="ds-modal__footer d-flex justify-content-end gap-3 px-6 pb-6">
++      <ng-content select="[dsModalFooter]"></ng-content>
++    </div>
++  </div>
++</dialog>
+diff --git a/projects/design-system/src/lib/components/modal/modal.component.spec.ts b/projects/design-system/src/lib/components/modal/modal.component.spec.ts
+new file mode 100644
+index 0000000..8674467
+--- /dev/null
++++ b/projects/design-system/src/lib/components/modal/modal.component.spec.ts
+@@ -0,0 +1,163 @@
++import { TestBed } from '@angular/core/testing';
++import { DsModalComponent } from './modal.component';
++
++describe('DsModalComponent', () => {
++  async function createFixture() {
++    await TestBed.configureTestingModule({ imports: [DsModalComponent] }).compileComponents();
++    return TestBed.createComponent(DsModalComponent);
++  }
++
++  function getDialog(fixture: { nativeElement: HTMLElement }): HTMLDialogElement {
++    return fixture.nativeElement.querySelector('dialog') as HTMLDialogElement;
++  }
++
++  it('does not open the native dialog by default', async () => {
++    const fixture = await createFixture();
++    const showModal = vi.spyOn(HTMLDialogElement.prototype, 'showModal');
++    fixture.detectChanges();
++
++    expect(showModal).not.toHaveBeenCalled();
++  });
++
++  it('calls showModal() when open becomes true and close() when it becomes false', async () => {
++    const fixture = await createFixture();
++    const showModal = vi.spyOn(HTMLDialogElement.prototype, 'showModal').mockImplementation(function (
++      this: HTMLDialogElement,
++    ) {
++      this.setAttribute('open', '');
++    });
++    const close = vi.spyOn(HTMLDialogElement.prototype, 'close').mockImplementation(function (
++      this: HTMLDialogElement,
++    ) {
++      this.removeAttribute('open');
++    });
++    fixture.detectChanges();
++
++    fixture.componentRef.setInput('open', true);
++    fixture.detectChanges();
++    expect(showModal).toHaveBeenCalledTimes(1);
++
++    fixture.componentRef.setInput('open', false);
++    fixture.detectChanges();
++    expect(close).toHaveBeenCalledTimes(1);
++  });
++
++  it('sets aria-labelledby to the heading id when a heading is provided', async () => {
++    const fixture = await createFixture();
++    fixture.componentRef.setInput('heading', 'Delete item');
++    fixture.detectChanges();
++
++    const dialog = getDialog(fixture);
++    const headingId = dialog.getAttribute('aria-labelledby');
++    expect(headingId).toBeTruthy();
++    expect(dialog.querySelector(`#${headingId}`)?.textContent).toContain('Delete item');
++    expect(dialog.hasAttribute('aria-label')).toBe(false);
++  });
++
++  it('falls back to ariaLabel for its accessible name when no heading is set', async () => {
++    const fixture = await createFixture();
++    fixture.componentRef.setInput('ariaLabel', 'Confirm deletion');
++    fixture.detectChanges();
++
++    const dialog = getDialog(fixture);
++    expect(dialog.getAttribute('aria-label')).toBe('Confirm deletion');
++    expect(dialog.hasAttribute('aria-labelledby')).toBe(false);
++  });
++
++  it('renders a close button by default and omits it when not dismissible', async () => {
++    const fixture = await createFixture();
++    fixture.detectChanges();
++    expect(getDialog(fixture).querySelector('.ds-modal__close')).toBeTruthy();
++
++    fixture.componentRef.setInput('dismissible', false);
++    fixture.detectChanges();
++    expect(getDialog(fixture).querySelector('.ds-modal__close')).toBeNull();
++  });
++
++  it('emits openChange(false) and closed when the native dialog fires close', async () => {
++    const fixture = await createFixture();
++    fixture.componentRef.setInput('open', true);
++    fixture.detectChanges();
++
++    let openChangeValue: boolean | undefined;
++    let closedCount = 0;
++    fixture.componentInstance.openChange.subscribe((value) => (openChangeValue = value));
++    fixture.componentInstance.closed.subscribe(() => closedCount++);
++
++    getDialog(fixture).dispatchEvent(new Event('close'));
++
++    expect(openChangeValue).toBe(false);
++    expect(closedCount).toBe(1);
++  });
++
++  it('prevents the default Escape-to-close (cancel) gesture when not dismissible', async () => {
++    const fixture = await createFixture();
++    fixture.componentRef.setInput('dismissible', false);
++    fixture.detectChanges();
++
++    const cancelEvent = new Event('cancel', { cancelable: true });
++    getDialog(fixture).dispatchEvent(cancelEvent);
++
++    expect(cancelEvent.defaultPrevented).toBe(true);
++  });
++
++  it('allows the Escape-to-close (cancel) gesture when dismissible', async () => {
++    const fixture = await createFixture();
++    fixture.detectChanges();
++
++    const cancelEvent = new Event('cancel', { cancelable: true });
++    getDialog(fixture).dispatchEvent(cancelEvent);
++
++    expect(cancelEvent.defaultPrevented).toBe(false);
++  });
++
++  it('closes on a click that lands on the dialog element itself (the backdrop area)', async () => {
++    const fixture = await createFixture();
++    const close = vi.spyOn(HTMLDialogElement.prototype, 'close').mockImplementation(function (
++      this: HTMLDialogElement,
++    ) {
++      this.removeAttribute('open');
++    });
++    fixture.detectChanges();
++
++    const dialog = getDialog(fixture);
++    dialog.dispatchEvent(new MouseEvent('click', { bubbles: true }));
++
++    expect(close).toHaveBeenCalledTimes(1);
++  });
++
++  it('ignores a backdrop click when not dismissible', async () => {
++    const fixture = await createFixture();
++    const close = vi.spyOn(HTMLDialogElement.prototype, 'close').mockImplementation(function (
++      this: HTMLDialogElement,
++    ) {
++      this.removeAttribute('open');
++    });
++    fixture.componentRef.setInput('dismissible', false);
++    fixture.detectChanges();
++
++    getDialog(fixture).dispatchEvent(new MouseEvent('click', { bubbles: true }));
++
++    expect(close).not.toHaveBeenCalled();
++  });
++
++  it('restores focus to the previously focused element after closing', async () => {
++    const trigger = document.createElement('button');
++    document.body.appendChild(trigger);
++    trigger.focus();
++
++    const fixture = await createFixture();
++    vi.spyOn(HTMLDialogElement.prototype, 'showModal').mockImplementation(function (this: HTMLDialogElement) {
++      this.setAttribute('open', '');
++    });
++    fixture.detectChanges();
++
++    fixture.componentRef.setInput('open', true);
++    fixture.detectChanges();
++
++    getDialog(fixture).dispatchEvent(new Event('close'));
++
++    expect(document.activeElement).toBe(trigger);
++    trigger.remove();
++  });
++});
+diff --git a/projects/design-system/src/lib/components/modal/modal.component.stories.ts b/projects/design-system/src/lib/components/modal/modal.component.stories.ts
+new file mode 100644
+index 0000000..c57b8c0
+--- /dev/null
++++ b/projects/design-system/src/lib/components/modal/modal.component.stories.ts
+@@ -0,0 +1,116 @@
++import { Component, signal } from '@angular/core';
++import type { Meta, StoryObj } from '@storybook/angular';
++import { DsButtonComponent } from '../button';
++import { DsModalComponent } from './modal.component';
++
++const meta: Meta<DsModalComponent> = {
++  title: 'Components/Overlay/Modal',
++  component: DsModalComponent,
++  tags: ['autodocs'],
++  parameters: {
++    docs: {
++      subtitle: 'Accessible modal dialog built on the native <dialog> element',
++      description: {
++        component:
++          'Accessible modal dialog built on the native `<dialog>` element, which provides top-layer stacking, a focus trap, and (in current browsers) focus restoration for free. Visibility is controlled by the parent through the `open` input; bind `[(open)]` for two-way sync. Escape, the backdrop, and the built-in close button can all be turned off together with `dismissible="false"` for flows that require an explicit in-content action before the modal may close.',
++      },
++    },
++  },
++  args: {
++    open: true,
++    heading: 'Delete project',
++    size: 'md',
++    dismissible: true,
++    closeButtonLabel: 'Close',
++  },
++};
++
++export default meta;
++type Story = StoryObj<DsModalComponent>;
++
++export const Default: Story = {
++  render: (args) => ({
++    props: args,
++    template: `
++      <ds-modal
++        [open]="open"
++        [heading]="heading"
++        [size]="size"
++        [dismissible]="dismissible"
++        [closeButtonLabel]="closeButtonLabel"
++      >
++        <p>This action can't be undone. It will permanently delete the project and remove your access to it.</p>
++      </ds-modal>
++    `,
++  }),
++};
++
++export const WithFooterActions: Story = {
++  render: (args) => ({
++    moduleMetadata: { imports: [DsButtonComponent] },
++    props: args,
++    template: `
++      <ds-modal
++        [open]="open"
++        [heading]="heading"
++        [size]="size"
++        [dismissible]="dismissible"
++        [closeButtonLabel]="closeButtonLabel"
++      >
++        <p>This action can't be undone. It will permanently delete the project and remove your access to it.</p>
++        <ds-button dsModalFooter variant="secondary">Cancel</ds-button>
++        <ds-button dsModalFooter variant="danger">Delete project</ds-button>
++      </ds-modal>
++    `,
++  }),
++};
++
++export const Small: Story = {
++  args: { size: 'sm', heading: 'Sign out?' },
++};
++
++export const Large: Story = {
++  args: { size: 'lg', heading: 'Project settings' },
++};
++
++export const NotDismissible: Story = {
++  args: {
++    heading: 'Finish setup',
++    dismissible: false,
++  },
++  render: (args) => ({
++    moduleMetadata: { imports: [DsButtonComponent] },
++    props: args,
++    template: `
++      <ds-modal
++        [open]="open"
++        [heading]="heading"
++        [size]="size"
++        [dismissible]="dismissible"
++      >
++        <p>Escape, the backdrop, and the close button are all disabled here — finish or cancel from inside the dialog.</p>
++        <ds-button dsModalFooter variant="primary">Finish setup</ds-button>
++      </ds-modal>
++    `,
++  }),
++};
++
++@Component({
++  selector: 'ds-modal-trigger-demo',
++  standalone: true,
++  imports: [DsModalComponent, DsButtonComponent],
++  template: `
++    <ds-button (pressed)="open.set(true)">Open modal</ds-button>
++    <ds-modal [(open)]="open" heading="Invite teammates">
++      <p>Two-way bound with <code>[(open)]</code> — the trigger button and the modal's own close affordances all stay in sync.</p>
++    </ds-modal>
++  `,
++})
++class ModalTriggerDemoComponent {
++  readonly open = signal(false);
++}
++
++export const TriggeredFromAButton: Story = {
++  parameters: { docs: { description: { story: 'A realistic usage pattern: a trigger button opens the modal via `[(open)]` two-way binding.' } } },
++  render: () => ({ moduleMetadata: { imports: [ModalTriggerDemoComponent] }, template: `<ds-modal-trigger-demo />` }),
++};
+diff --git a/projects/design-system/src/lib/components/modal/modal.component.ts b/projects/design-system/src/lib/components/modal/modal.component.ts
+new file mode 100644
+index 0000000..f064775
+--- /dev/null
++++ b/projects/design-system/src/lib/components/modal/modal.component.ts
+@@ -0,0 +1,93 @@
++import { ChangeDetectionStrategy, Component, ElementRef, effect, input, output, viewChild } from '@angular/core';
++
++export type DsModalSize = 'sm' | 'md' | 'lg';
++
++let nextModalId = 0;
++
++/**
++ * Accessible modal dialog built on the native `<dialog>` element, which
++ * provides the top-layer stacking, focus trap, and (in current browsers)
++ * focus restoration for free. Visibility is controlled by the parent through
++ * the `open` input; bind `[(open)]` for two-way sync.
++ *
++ * Dismissal (Escape, backdrop click, and the built-in close button) can be
++ * turned off with `dismissible="false"` for flows that require an explicit
++ * in-content action before the modal may close.
++ */
++@Component({
++  selector: 'ds-modal',
++  standalone: true,
++  templateUrl: './modal.component.html',
++  changeDetection: ChangeDetectionStrategy.OnPush,
++  host: {
++    class: 'ds-modal',
++  },
++})
++export class DsModalComponent {
++  /** Whether the modal is open. Bind with `[(open)]` for two-way sync. */
++  readonly open = input(false);
++  /** Modal surface width. */
++  readonly size = input<DsModalSize>('md');
++  /** Heading rendered in the modal header and used as its accessible name. */
++  readonly heading = input<string | null>(null);
++  /** Accessible name for the dialog when no visible `heading` is provided. */
++  readonly ariaLabel = input<string | null>(null);
++  /** Whether Escape, the backdrop, and the close button can dismiss the modal. */
++  readonly dismissible = input(true);
++  /** Accessible label for the built-in close button. */
++  readonly closeButtonLabel = input('Close');
++
++  /** Emits the new open state; pair with `open` for `[(open)]="isOpen"`. */
++  readonly openChange = output<boolean>();
++  /** Emits whenever the modal finishes closing, regardless of cause. */
++  readonly closed = output<void>();
++
++  protected readonly headingId = `ds-modal-heading-${nextModalId++}`;
++  private readonly dialogRef = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
++  private previouslyFocused: HTMLElement | null = null;
++
++  constructor() {
++    effect(() => {
++      const dialogEl = this.dialogRef().nativeElement;
++      if (this.open()) {
++        if (!dialogEl.open) {
++          this.previouslyFocused = document.activeElement as HTMLElement | null;
++          dialogEl.showModal();
++        }
++      } else if (dialogEl.open) {
++        dialogEl.close();
++      }
++    });
++  }
++
++  /** Blocks the native Escape-to-close gesture when the modal isn't dismissible. */
++  protected handleCancel(event: Event): void {
++    if (!this.dismissible()) {
++      event.preventDefault();
++    }
++  }
++
++  /** Fires for every close, however it happened (Escape, backdrop, button, or `open` flipping to false). */
++  protected handleClose(): void {
++    this.previouslyFocused?.focus();
++    this.previouslyFocused = null;
++    if (this.open()) {
++      this.openChange.emit(false);
++    }
++    this.closed.emit();
++  }
++
++  /** A click landing on the `<dialog>` element itself (not its content) is a backdrop click. */
++  protected handleBackdropClick(event: MouseEvent): void {
++    if (this.dismissible() && event.target === this.dialogRef().nativeElement) {
++      this.requestClose();
++    }
++  }
++
++  /** Programmatic close used by the built-in close button. */
++  protected requestClose(): void {
++    if (this.dismissible()) {
++      this.dialogRef().nativeElement.close();
++    }
++  }
++}
+diff --git a/projects/design-system/src/public-api.ts b/projects/design-system/src/public-api.ts
+index c15d2ee..bf28a9b 100644
+--- a/projects/design-system/src/public-api.ts
++++ b/projects/design-system/src/public-api.ts
+@@ -16,6 +16,7 @@ export * from './lib/components/footer/footer.component';
+ export * from './lib/components/sidebar/sidebar.component';
+ export * from './lib/components/cookie-banner/cookie-banner.component';
+ export * from './lib/components/breadcrumb/breadcrumb.component';
++export * from './lib/components/modal';
+ export * from './lib/components/forms';
+ 
+ // Models
+diff --git a/projects/design-system/src/styles/_dark-mode.scss b/projects/design-system/src/styles/_dark-mode.scss
+index 620ead2..c35d372 100644
+--- a/projects/design-system/src/styles/_dark-mode.scss
++++ b/projects/design-system/src/styles/_dark-mode.scss
+@@ -15,4 +15,8 @@
+   --ds-color-text-body: #{$ds-color-neutral-gray-100};
+   --ds-color-text-muted: #{$ds-color-neutral-gray-400};
+   --ds-link-hover-color: #{mix($ds-color-brand-primary, white, 45%)};
++
++  // A darker scrim than the light-theme default keeps the modal surface (a
++  // dark card on an already-dark page) visually separated from the backdrop.
++  --ds-elevation-scrim-color: rgb(0 0 0 / 65%);
+ }
+diff --git a/projects/design-system/src/styles/components/_index.scss b/projects/design-system/src/styles/components/_index.scss
+index a45e627..318d09c 100644
+--- a/projects/design-system/src/styles/components/_index.scss
++++ b/projects/design-system/src/styles/components/_index.scss
+@@ -10,6 +10,7 @@
+ @import 'cookie-banner';
+ @import 'breadcrumb';
+ @import 'button';
++@import 'modal';
+ @import 'forms';
+ @import 'brand-foundation';
+ @import 'design-tokens-foundation';
+diff --git a/projects/design-system/src/styles/components/_modal.scss b/projects/design-system/src/styles/components/_modal.scss
+new file mode 100644
+index 0000000..0079976
+--- /dev/null
++++ b/projects/design-system/src/styles/components/_modal.scss
+@@ -0,0 +1,87 @@
++// -----------------------------------------------------------------------------
++// _modal.scss — Overrides for DsModalComponent (selector: ds-modal)
++//
++// The `<dialog>` element is stretched to fill the viewport and centers the
++// visible `.ds-modal__surface` card inside itself; see modal.component.html
++// for why this makes backdrop-click detection trivial. `::backdrop` is the
++// native scrim layer the browser paints behind a `<dialog>` opened with
++// `showModal()`.
++// -----------------------------------------------------------------------------
++@import '../variables';
++
++.ds-modal__dialog {
++  position: fixed;
++  inset: 0;
++  z-index: 1090;
++  inline-size: 100vw;
++  block-size: 100vh;
++  max-inline-size: none;
++  max-block-size: none;
++  margin: 0;
++  padding: $ds-spacing-scale-5;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  background: transparent;
++  border: 0;
++  color: inherit;
++
++  &::backdrop {
++    background-color: var(--ds-elevation-scrim-color);
++  }
++
++  &[open],
++  &[open]::backdrop {
++    animation: ds-modal-fade-in var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
++  }
++}
++
++.ds-modal__surface {
++  inline-size: 100%;
++  max-inline-size: 32rem;
++  max-block-size: 100%;
++  overflow-y: auto;
++  background-color: var(--ds-color-surface-body);
++  color: var(--ds-color-text-body);
++  border-radius: 0.75rem;
++  box-shadow: var(--ds-elevation-component-modal);
++}
++
++.ds-modal__dialog--sm .ds-modal__surface {
++  max-inline-size: 24rem;
++}
++
++.ds-modal__dialog--lg .ds-modal__surface {
++  max-inline-size: 48rem;
++}
++
++// Collapse the header/footer regions entirely when neither a heading, a close
++// button, nor projected footer content is present, instead of leaving behind
++// empty padding.
++.ds-modal__header:empty,
++.ds-modal__footer:empty {
++  display: none;
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .ds-modal__dialog,
++  .ds-modal__dialog::backdrop {
++    animation: none;
++  }
++}
++
++@keyframes ds-modal-fade-in {
++  from {
++    opacity: 0;
++  }
++
++  to {
++    opacity: 1;
++  }
++}
++
++@media (forced-colors: active) {
++  .ds-modal__surface {
++    border: 0.0625rem solid CanvasText;
++  }
++}
+diff --git a/projects/design-system/src/styles/tokens/_index.scss b/projects/design-system/src/styles/tokens/_index.scss
+index 390fc52..998e23f 100644
+--- a/projects/design-system/src/styles/tokens/_index.scss
++++ b/projects/design-system/src/styles/tokens/_index.scss
+@@ -8,3 +8,5 @@
+ @forward 'spacing.tokens';
+ @forward 'spacers.map';
+ @forward 'theme-colors.map';
++@forward 'elevation.tokens';
++@forward 'motion.tokens';
+diff --git a/src/app/app.html b/src/app/app.html
+index 5cf2158..347616f 100644
+--- a/src/app/app.html
++++ b/src/app/app.html
+@@ -53,10 +53,21 @@
+     </ds-image-banner>
+   </section>
+ 
+-  <section id="forms" class="p-4 p-md-8" aria-labelledby="ds-sandbox-forms-heading">
++  <section id="forms" class="p-4 p-md-8 border-bottom" aria-labelledby="ds-sandbox-forms-heading">
+     <h2 id="ds-sandbox-forms-heading" class="visually-hidden">Forms</h2>
+     <ds-forms />
+   </section>
++
++  <section id="modal" class="p-4 p-md-8" aria-labelledby="ds-sandbox-modal-heading">
++    <h2 id="ds-sandbox-modal-heading" class="h3 mb-4">Modal</h2>
++    <ds-button (pressed)="demoModalOpen.set(true)">Open modal</ds-button>
++    <ds-modal [(open)]="demoModalOpen" heading="Invite teammates">
++      <p class="mb-0">
++        Two-way bound with <code>[(open)]</code> — the trigger button and the modal's own close
++        affordances (Escape, backdrop click, close button) all stay in sync.
++      </p>
++    </ds-modal>
++  </section>
+ </main>
+ 
+ <ds-footer organizationName="Novan Inc." [linkGroups]="footerLinkGroups">
+diff --git a/src/app/app.ts b/src/app/app.ts
+index 6d51bfe..4ddc716 100644
+--- a/src/app/app.ts
++++ b/src/app/app.ts
+@@ -8,6 +8,7 @@ import {
+   DsHeaderComponent,
+   DsHeroComponent,
+   DsImageBannerComponent,
++  DsModalComponent,
+   type BreadcrumbItem,
+   type FooterLinkGroup,
+   type NavItem,
+@@ -26,6 +27,7 @@ const NAV_ITEMS: NavItem[] = [
+       { label: 'Buttons', href: '#buttons' },
+       { label: 'Content banner', href: '#content' },
+       { label: 'Forms', href: '#forms' },
++      { label: 'Modal', href: '#modal' },
+     ],
+   },
+   { label: 'Foundations', href: '#' },
+@@ -44,6 +46,7 @@ const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
+       { label: 'Buttons', href: '#buttons' },
+       { label: 'Content banner', href: '#content' },
+       { label: 'Forms', href: '#forms' },
++      { label: 'Modal', href: '#modal' },
+     ],
+   },
+   {
+@@ -95,6 +98,7 @@ function readInitialTheme(): Theme {
+     DsFormsComponent,
+     DsFooterComponent,
+     DsCookieBannerComponent,
++    DsModalComponent,
+   ],
+   templateUrl: './app.html',
+   styleUrl: './app.scss',
+@@ -106,6 +110,7 @@ export class App {
+   protected readonly placeholderImage = PLACEHOLDER_IMAGE;
+ 
+   protected readonly theme = signal<Theme>(readInitialTheme());
++  protected readonly demoModalOpen = signal(false);
+ 
+   constructor() {
+     effect(() => {
+diff --git a/style-dictionary.config.mjs b/style-dictionary.config.mjs
+index e3d0683..e22566c 100644
+--- a/style-dictionary.config.mjs
++++ b/style-dictionary.config.mjs
+@@ -161,6 +161,16 @@ export default {
+           format: 'scss/tokens-map',
+           options: { groupPath: 'color.brand', mapName: 'ds-theme-colors' },
+         },
++        {
++          destination: '_elevation.tokens.scss',
++          format: 'scss/tokens-variables',
++          filter: (t) => t.path[0] === 'elevation',
++        },
++        {
++          destination: '_motion.tokens.scss',
++          format: 'scss/tokens-variables',
++          filter: (t) => t.path[0] === 'motion',
++        },
+         {
+           destination: 'tokens.css',
+           format: 'css/tokens-custom-properties',
+diff --git a/tokens/elevation.tokens.json b/tokens/elevation.tokens.json
+new file mode 100644
+index 0000000..4202369
+--- /dev/null
++++ b/tokens/elevation.tokens.json
+@@ -0,0 +1,80 @@
++{
++  "elevation": {
++    "scale": {
++      "0": {
++        "$type": "shadow",
++        "$value": "none",
++        "$description": "Elevation step 0 - flush with the page, no shadow (inline content, flat surfaces)."
++      },
++      "1": {
++        "$type": "shadow",
++        "$value": "0 1px 2px rgba(21, 23, 16, 0.06), 0 1px 1px rgba(21, 23, 16, 0.04)",
++        "$description": "Elevation step 1 - subtle lift for resting cards and panels."
++      },
++      "2": {
++        "$type": "shadow",
++        "$value": "0 2px 4px rgba(21, 23, 16, 0.08), 0 1px 2px rgba(21, 23, 16, 0.06)",
++        "$description": "Elevation step 2 - hovered cards and the site header when the page scrolls beneath it."
++      },
++      "3": {
++        "$type": "shadow",
++        "$value": "0 4px 8px rgba(21, 23, 16, 0.10), 0 2px 4px rgba(21, 23, 16, 0.06)",
++        "$description": "Elevation step 3 - floating surfaces anchored to a trigger: dropdowns, popovers, tooltips."
++      },
++      "4": {
++        "$type": "shadow",
++        "$value": "0 8px 16px rgba(21, 23, 16, 0.12), 0 4px 8px rgba(21, 23, 16, 0.08)",
++        "$description": "Elevation step 4 - transient overlays not anchored to a trigger: toasts, notifications."
++      },
++      "5": {
++        "$type": "shadow",
++        "$value": "0 16px 32px rgba(21, 23, 16, 0.16), 0 8px 16px rgba(21, 23, 16, 0.10)",
++        "$description": "Elevation step 5 - highest layer, sits above a scrim: modals and dialogs."
++      }
++    },
++    "component": {
++      "card": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.1}",
++        "$description": "Default resting elevation for cards and content panels."
++      },
++      "card-hover": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.2}",
++        "$description": "Elevation for a card or panel on hover/focus-within."
++      },
++      "header": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.2}",
++        "$description": "Sticky/fixed header once the page has scrolled beneath it."
++      },
++      "dropdown": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.3}",
++        "$description": "Dropdown menus, select listboxes, and comboboxes."
++      },
++      "tooltip": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.3}",
++        "$description": "Tooltips and popovers anchored to their trigger."
++      },
++      "toast": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.4}",
++        "$description": "Toast and inline notification surfaces."
++      },
++      "modal": {
++        "$type": "shadow",
++        "$value": "{elevation.scale.5}",
++        "$description": "Modal and dialog surfaces presented above the scrim."
++      }
++    },
++    "scrim": {
++      "color": {
++        "$type": "color",
++        "$value": "rgba(21, 23, 16, 0.5)",
++        "$description": "Backdrop/scrim color behind modals and off-canvas panels, derived from {color.neutral.gray-900}."
++      }
++    }
++  }
++}
+diff --git a/tokens/motion.tokens.json b/tokens/motion.tokens.json
+new file mode 100644
+index 0000000..f5487ad
+--- /dev/null
++++ b/tokens/motion.tokens.json
+@@ -0,0 +1,75 @@
++{
++  "motion": {
++    "duration": {
++      "instant": {
++        "$type": "duration",
++        "$value": "0ms",
++        "$description": "No animation - respects prefers-reduced-motion or truly instant state changes."
++      },
++      "fast": {
++        "$type": "duration",
++        "$value": "100ms",
++        "$description": "Micro-interactions: button/link hover and active state changes."
++      },
++      "base": {
++        "$type": "duration",
++        "$value": "200ms",
++        "$description": "Default duration for most UI transitions: fades, color/background changes."
++      },
++      "moderate": {
++        "$type": "duration",
++        "$value": "300ms",
++        "$description": "Larger surface transitions: dropdown/tooltip open, accordion expand/collapse."
++      },
++      "slow": {
++        "$type": "duration",
++        "$value": "400ms",
++        "$description": "Full-surface transitions: modal/dialog and off-canvas enter/exit."
++      },
++      "slower": {
++        "$type": "duration",
++        "$value": "600ms",
++        "$description": "Large, attention-directing motion used sparingly (page-level banners)."
++      }
++    },
++    "easing": {
++      "linear": {
++        "$type": "cubicBezier",
++        "$value": "linear",
++        "$description": "Constant speed - progress indicators and marquee-style motion only."
++      },
++      "standard": {
++        "$type": "cubicBezier",
++        "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
++        "$description": "Default easing for transitions that both enter and exit the screen."
++      },
++      "decelerate": {
++        "$type": "cubicBezier",
++        "$value": "cubic-bezier(0, 0, 0.2, 1)",
++        "$description": "Entering elements: fast start, gentle finish (menus, dialogs, tooltips appearing)."
++      },
++      "accelerate": {
++        "$type": "cubicBezier",
++        "$value": "cubic-bezier(0.4, 0, 1, 1)",
++        "$description": "Exiting elements: gentle start, fast finish (menus, dialogs, tooltips dismissing)."
++      }
++    },
++    "component": {
++      "fade": {
++        "$type": "duration",
++        "$value": "{motion.duration.base}",
++        "$description": "Fade transitions for tooltips, toasts, and simple show/hide states."
++      },
++      "overlay": {
++        "$type": "duration",
++        "$value": "{motion.duration.slow}",
++        "$description": "Modal, dialog, and off-canvas enter/exit transitions."
++      },
++      "collapse": {
++        "$type": "duration",
++        "$value": "{motion.duration.moderate}",
++        "$description": "Accordion, dropdown, and collapsible-panel expand/collapse transitions."
++      }
++    }
++  }
++}
+-- 
+2.43.0
+
