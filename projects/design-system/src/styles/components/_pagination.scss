@@ -1,0 +1,20 @@
+// -----------------------------------------------------------------------------
+// _pagination.scss — Overrides for DsPaginationComponent
+//
+// Layout/color come from Bootstrap's own `.pagination`/`.page-item`/
+// `.page-link` classes (already themed off `$primary` -> brand.primary via
+// `_colors.scss`); this only adds the design system's consistent
+// focus-visible treatment and a forced-colors fallback for the active page.
+// -----------------------------------------------------------------------------
+
+.ds-pagination .page-link:focus-visible {
+  outline: 0.1875rem solid var(--ds-color-brand-primary);
+  outline-offset: 0.125rem;
+  box-shadow: none;
+}
+
+@media (forced-colors: active) {
+  .ds-pagination .page-item.active .page-link {
+    outline: 0.125rem solid LinkText;
+  }
+}
