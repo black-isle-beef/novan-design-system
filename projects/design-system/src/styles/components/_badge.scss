@@ -76,11 +76,11 @@
   // overlay color, so the highlight reads correctly on both light
   // (`--neutral`) and colored/dark-text badge backgrounds alike.
   &:hover {
-    background-color: color-mix(in srgb, currentColor 20%, transparent);
+    background-color: color-mix(in srgb, currentcolor 20%, transparent);
   }
 
   &:focus-visible {
-    outline: 0.125rem solid currentColor;
+    outline: 0.125rem solid currentcolor;
     outline-offset: 0.125rem;
   }
 }
