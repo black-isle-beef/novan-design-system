@@ -1,0 +1,333 @@
+
+> novan-design-system@0.0.0 build-storybook
+> nx run novan-design-system:build-storybook --output-dir=C:\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT --stats-json=C:\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT
+
+
+[2m> [22m[2mnx run[22m novan-design-system:build-storybook --output-dir=C:\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT --stats-json=C:\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT
+
+[90m┌[39m  Building Storybook
+[90m│[39m
+[32m◇[39m  Cleaning outputDir:
+[90m│[39m  [36m../../Users/black/AppData/Local/Temp/chromatic--3196-peE6U636YYXT[39m
+[90m│[39m
+[32m◇[39m  Loading presets
+[90m│[39m
+[32m◇[39m  Building manager..
+[90m│[39m
+[34m●[39m  Building open services..
+[90m│[39m
+[34m●[39m  Building preview..
+[90m│[39m
+[34m●[39m  Addon-docs: using MDX3
+[90m│[39m
+[34m●[39m  Using implicit CSS loaders
+[90m│[39m
+[34m●[39m  Using angular browser target options from
+[90m│[39m  "novan-design-system:storybook-browser-target"
+[90m│[39m
+[34m●[39m  Using angular project with "tsConfig:tsconfig.storybook.json"
+[90m│[39m
+[34m●[39m  Using default Webpack5 setup
+[90m│[39m
+[34m●[39m  Copying static files: [36mpublic[39m at
+[90m│[39m  [36m..\..\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT[39m
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 9, column 8 of
+[90m│[39m  file:///C:/develop/novan-design-system/.storybook/storybook-components.scss:9:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  9 | @import '../projects/design-system/src/styles/styles';
+[90m│[39m  .storybook\storybook-components.scss 10:9  root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 10, column 10 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/_spacers.scss:10:10:
+[90m│[39m  Global built-in functions are deprecated and will be removed in Dart
+[90m│[39m  Sass 3.0.0.
+[90m│[39m  Use map.merge instead.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  10 | $spacers: map-merge(
+[90m│[39m  (0: 0),
+[90m│[39m  $ds-spacers
+[90m│[39m  );
+[90m│[39m  projects\design-system\src\styles\_spacers.scss 11:11  @import
+[90m│[39m  projects\design-system\src\styles\styles.scss 18:9     @import
+[90m│[39m  .storybook\storybook-components.scss 10:9              root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 11, column 8 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/styles.scss:11:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  11 | @import 'variables';
+[90m│[39m  projects\design-system\src\styles\styles.scss 12:9  @import
+[90m│[39m  .storybook\storybook-components.scss 10:9           root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 13, column 11 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/_utilities.scss:13:11:
+[90m│[39m  Global built-in functions are deprecated and will be removed in Dart
+[90m│[39m  Sass 3.0.0.
+[90m│[39m  Use map.get instead.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  13 |   padding: map-get($spacers, 2) map-get($spacers, 4);
+[90m│[39m  projects\design-system\src\styles\_utilities.scss 14:12  @import
+[90m│[39m  projects\design-system\src\styles\styles.scss 42:9       @import
+[90m│[39m  .storybook\storybook-components.scss 10:9                root
+[90m│[39m  stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 13, column 30 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/_dark-mode.scss:13:30:
+[90m│[39m  Global built-in functions are deprecated and will be removed in Dart
+[90m│[39m  Sass 3.0.0.
+[90m│[39m  Use color.mix instead.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  13 |   --ds-color-surface-muted: #{mix($ds-color-neutral-gray-900,
+[90m│[39m  white, 88%)};
+[90m│[39m  projects\design-system\src\styles\_dark-mode.scss 14:31  @import
+[90m│[39m  projects\design-system\src\styles\styles.scss 16:9       @import
+[90m│[39m  .storybook\storybook-components.scss 10:9                root
+[90m│[39m  stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 14, column 8 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/styles.scss:14:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  14 | @import 'colors';
+[90m│[39m  projects\design-system\src\styles\styles.scss 15:9  @import
+[90m│[39m  .storybook\storybook-components.scss 10:9           root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 15, column 8 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/styles.scss:15:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  15 | @import 'dark-mode';
+[90m│[39m  projects\design-system\src\styles\styles.scss 16:9  @import
+[90m│[39m  .storybook\storybook-components.scss 10:9           root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 16, column 8 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/styles.scss:16:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  16 | @import 'typography';
+[90m│[39m  projects\design-system\src\styles\styles.scss 17:9  @import
+[90m│[39m  .storybook\storybook-components.scss 10:9           root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 16, column 27 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/_dark-mode.scss:16:27:
+[90m│[39m  Global built-in functions are deprecated and will be removed in Dart
+[90m│[39m  Sass 3.0.0.
+[90m│[39m  Use color.mix instead.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  16 |   --ds-link-hover-color: #{mix($ds-color-brand-primary, white,
+[90m│[39m  45%)};
+[90m│[39m  projects\design-system\src\styles\_dark-mode.scss 17:28  @import
+[90m│[39m  projects\design-system\src\styles\styles.scss 16:9       @import
+[90m│[39m  .storybook\storybook-components.scss 10:9                root
+[90m│[39m  stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  Deprecation Warning on line 41, column 19 of
+[90m│[39m  file:///C:/develop/novan-design-system/projects/design-system/src/styles/_colors.scss:41:19:
+[90m│[39m  Global built-in functions are deprecated and will be removed in Dart
+[90m│[39m  Sass 3.0.0.
+[90m│[39m  Use color.mix instead.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  41 | $link-hover-color: mix(black, $ds-color-brand-primary, 64%);
+[90m│[39m  projects\design-system\src\styles\_colors.scss 42:20  @import
+[90m│[39m  projects\design-system\src\styles\styles.scss 15:9    @import
+[90m│[39m  .storybook\storybook-components.scss 10:9             root stylesheet
+[90m│[39m
+[33m▲[39m  Module Warning (from ./node_modules/sass-loader/dist/cjs/index.js):
+[90m│[39m  71 repetitive deprecation warnings omitted.
+[90m│[39m  Run in verbose mode to see all warnings.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/.storybook/main.ts is part of the
+[90m│[39m  TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/.storybook/manager.ts is part of the
+[90m│[39m  TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/accordion/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/alert/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/badge/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/card/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/dropdown/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/forms/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/image-banner/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/modal/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/offcanvas/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/pagination/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/progress/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/tabs/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/toast/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/components/tooltip/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/templates/landing-page/index.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/lib/tokens/design-tokens.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/public-api.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/projects/design-system/src/test-setup.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/src/app/app.config.ts is part of the
+[90m│[39m  TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/src/app/app.ts is part of the
+[90m│[39m  TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  C:/develop/novan-design-system/src/main.ts is part of the TypeScript
+[90m│[39m  compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  asset size limit: The following asset(s) exceed the recommended size
+[90m│[39m  limit (244 KiB).
+[90m│[39m  This can impact web performance.
+[90m│[39m  Assets:
+[90m│[39m  hero-banner-example.jpg (1.14 MiB)
+[90m│[39m  fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf (685 KiB)
+[90m│[39m  fonts/Montserrat/Montserrat-VariableFont_wght.ttf (672 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Black.ttf (335 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-BlackItalic.ttf (340 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Bold.ttf (328 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-BoldItalic.ttf (334 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-ExtraBold.ttf (336 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf (340 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-ExtraLight.ttf (323 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-ExtraLightItalic.ttf (329 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Italic.ttf (329 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Light.ttf (323 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-LightItalic.ttf (329 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Medium.ttf (323 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-MediumItalic.ttf (329 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Regular.ttf (323 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-SemiBold.ttf (326 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-SemiBoldItalic.ttf (331 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-Thin.ttf (322 KiB)
+[90m│[39m  fonts/Montserrat/static/Montserrat-ThinItalic.ttf (328 KiB)
+[90m│[39m  main.1bb9263c31dc8eb840f1.css (529 KiB)
+[90m│[39m  7376.812825fc.iframe.bundle.js (440 KiB)
+[90m│[39m  2101.0eb8e72d.iframe.bundle.js (842 KiB)
+[90m│[39m  7420.b8abd9ee.iframe.bundle.js (1.13 MiB)
+[90m│[39m  1405.a4e91bcd.iframe.bundle.js (2.32 MiB)
+[90m│[39m
+[33m▲[39m  entrypoint size limit: The following entrypoint(s) combined asset size
+[90m│[39m  exceeds the recommended limit (244 KiB). This can impact web
+[90m│[39m  performance.
+[90m│[39m  Entrypoints:
+[90m│[39m  main (2.87 MiB)
+[90m│[39m  runtime~main.8686d4d5.iframe.bundle.js
+[90m│[39m  1405.a4e91bcd.iframe.bundle.js
+[90m│[39m  main.1bb9263c31dc8eb840f1.css
+[90m│[39m  main.158ca099.iframe.bundle.js
+[90m│[39m
+[34m●[39m  Preview stats written to
+[90m│[39m  [36mC:\Users\black\AppData\Local\Temp\chromatic--3196-peE6U636YYXT\preview-stats.json[39m
+[90m│[39m
+[32m◇[39m  Output directory:
+[90m│[39m  C:/Users/black/AppData/Local/Temp/chromatic--3196-peE6U636YYXT
+[90m│[39m
+[90m└[39m  Storybook build completed successfully
+
+[2m[32m[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild-storybook[22m for project novan-design-system[39m
+
+
+  Run duration:      36.3s
+  Cache:             0/1 hit (0%)
+  Critical path:     36.3s (1 task)
+  Recoverable time:  <1ms
+
+  Recommendations:
+    - Drastically reduce your run duration by sharing a cache across your team and CI → https://nx.dev/ci/features/remote-cache?utm_source=nx-cli&utm_medium=cli&utm_campaign=performance-report&utm_content=remote-cache.
+    - Speed up or split the longest tasks on the critical path:
+        novan-design-system:build-storybook    36.3s
