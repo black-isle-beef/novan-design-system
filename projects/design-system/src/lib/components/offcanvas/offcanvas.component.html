@@ -1,0 +1,45 @@
+<!--
+  The `<dialog>` element itself is stretched to fill the viewport and acts as
+  the click-catching backdrop area; `.ds-offcanvas__surface` is the visible
+  drawer, anchored to one edge via the `--ds-offcanvas__dialog--<placement>`
+  modifier class. A click lands on the dialog element (not the surface) only
+  when it's outside the visible drawer, which is what `handleBackdropClick`
+  checks for — same trick as `ds-modal`.
+-->
+<dialog
+  #dialog
+  class="ds-offcanvas__dialog"
+  [class.ds-offcanvas__dialog--start]="placement() === 'start'"
+  [class.ds-offcanvas__dialog--end]="placement() === 'end'"
+  [class.ds-offcanvas__dialog--top]="placement() === 'top'"
+  [class.ds-offcanvas__dialog--bottom]="placement() === 'bottom'"
+  [attr.aria-labelledby]="heading() ? headingId : null"
+  [attr.aria-label]="!heading() && ariaLabel() ? ariaLabel() : null"
+  (cancel)="handleCancel($event)"
+  (close)="handleClose()"
+  (click)="handleBackdropClick($event)"
+>
+  <div class="ds-offcanvas__surface" (click)="$event.stopPropagation()">
+    <div class="ds-offcanvas__header d-flex align-items-start gap-4 p-6 pb-4">
+      @if (heading()) {
+        <h2 [id]="headingId" class="ds-offcanvas__heading h4 flex-grow-1 mb-0">{{ heading() }}</h2>
+      }
+      @if (dismissible()) {
+        <button
+          type="button"
+          class="ds-offcanvas__close btn-close ds-focus-ring flex-shrink-0"
+          [attr.aria-label]="closeButtonLabel()"
+          (click)="requestClose()"
+        ></button>
+      }
+    </div>
+
+    <div class="ds-offcanvas__body px-6 pb-6">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="ds-offcanvas__footer d-flex justify-content-end gap-3 px-6 pb-6">
+      <ng-content select="[dsOffcanvasFooter]"></ng-content>
+    </div>
+  </div>
+</dialog>
