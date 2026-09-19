@@ -4,7 +4,8 @@
       <li>
         <a
           class="ds-sidebar__link ds-focus-ring"
-          [href]="item.href"
+          [href]="isExternalLink(item.href) ? item.href : null"
+          [routerLink]="isExternalLink(item.href) ? null : item.href"
           [attr.aria-current]="item.active ? 'page' : null"
           [class.ds-sidebar__link--active]="item.active"
         >

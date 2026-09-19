@@ -1,4 +1,5 @@
-import type { Preview } from '@storybook/angular';
+import { provideRouter } from '@angular/router';
+import { applicationConfig, type Preview } from '@storybook/angular';
 
 // The design-system stylesheet (generated tokens -> overrides -> Bootstrap
 // core -> custom utilities) is registered as a global style on the
@@ -6,6 +7,10 @@ import type { Preview } from '@storybook/angular';
 // the real production styles instead of Storybook's default theme.
 
 const preview: Preview = {
+  // Navigation components (main-nav, header, footer, sidebar, breadcrumb)
+  // use `routerLink` for in-app hrefs, which needs a `Router` to inject into.
+  // An empty route config is fine — stories never actually navigate.
+  decorators: [applicationConfig({ providers: [provideRouter([])] })],
   parameters: {
     controls: {
       matchers: {

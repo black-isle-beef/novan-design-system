@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { SidebarItem } from '../../models/nav-item.model';
+import { isExternalLink } from '../../utils/link.util';
 
 /**
  * Collapsible side navigation with `aria-current="page"` active-route
@@ -8,6 +10,7 @@ import type { SidebarItem } from '../../models/nav-item.model';
 @Component({
   selector: 'ds-sidebar',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -22,6 +25,8 @@ export class DsSidebarComponent {
   readonly ariaLabel = input('Sidebar');
   /** Emits the new collapsed state whenever the user toggles the sidebar. */
   readonly collapsedChange = output<boolean>();
+
+  protected readonly isExternalLink = isExternalLink;
 
   protected readonly collapsed = signal(false);
 

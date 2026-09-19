@@ -1,9 +1,13 @@
+import { provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { DsHeaderComponent } from './header.component';
 
 describe('DsHeaderComponent', () => {
   it('renders a banner landmark and forwards nav items', async () => {
-    await TestBed.configureTestingModule({ imports: [DsHeaderComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [DsHeaderComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
     const fixture = TestBed.createComponent(DsHeaderComponent);
     fixture.componentRef.setInput('navItems', [{ label: 'Home', href: '/' }]);
     fixture.detectChanges();

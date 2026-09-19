@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { NavItem } from '../../models/nav-item.model';
+import { isExternalLink } from '../../utils/link.util';
 
 /**
  * Accessible primary navigation bar with desktop dropdown support and a
@@ -9,6 +11,7 @@ import type { NavItem } from '../../models/nav-item.model';
 @Component({
   selector: 'ds-main-nav',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './main-nav.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -20,6 +23,8 @@ export class DsMainNavComponent {
   readonly items = input.required<NavItem[]>();
   /** Accessible label for the `<nav>` landmark (distinguishes multiple navs on a page). */
   readonly ariaLabel = input('Primary');
+
+  protected readonly isExternalLink = isExternalLink;
 
   protected readonly mobileOpen = signal(false);
   protected readonly openDropdownIndex = signal<number | null>(null);

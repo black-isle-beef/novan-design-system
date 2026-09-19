@@ -6,7 +6,15 @@
           <h2 class="ds-footer__group-title h6 mb-3">{{ group.title }}</h2>
           <ul class="list-unstyled d-flex flex-column gap-2">
             @for (link of group.links; track link.label) {
-              <li><a class="ds-footer__link" [href]="link.href">{{ link.label }}</a></li>
+              <li>
+                <a
+                  class="ds-footer__link"
+                  [href]="isExternalLink(link.href) ? link.href : null"
+                  [routerLink]="isExternalLink(link.href) ? null : link.href"
+                >
+                  {{ link.label }}
+                </a>
+              </li>
             }
           </ul>
         </div>

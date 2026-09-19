@@ -21,6 +21,7 @@ export * from './lib/components/toast';
 export * from './lib/components/tooltip';
 export * from './lib/components/dropdown';
 export * from './lib/components/tabs';
+export * from './lib/components/accordion';
 export * from './lib/components/forms';
 
 // Models
