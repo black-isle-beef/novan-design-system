@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.0.0...v2.1.0) (2026-09-19)
+
+### Features
+
+* add new favicon images in various sizes ([42f1fbe](https://github.com/black-isle-beef/novan-design-system/commit/42f1fbe43347d79706fab1d7e5bf7dd8a88cc609))
+
 ## [2.0.0](https://github.com/black-isle-beef/novan-design-system/compare/v1.1.0...v2.0.0) (2026-09-19)
 
 ### ⚠ BREAKING CHANGES
