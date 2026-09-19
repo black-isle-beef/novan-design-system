@@ -22,7 +22,7 @@
     "storybook:ci": "nx run novan-design-system:storybook -- --ci --quiet",
     "build-storybook": "nx run novan-design-system:build-storybook",
     "semantic-release": "semantic-release",
-    "chromatic": "npx chromatic --project-token=chpt_68fea4b29bf559b"
+    "chromatic": "npx chromatic"
   },
   "private": true,
   "packageManager": "npm@11.13.0",

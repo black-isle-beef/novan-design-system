@@ -50,6 +50,9 @@ __screenshots__/
 !/projects/design-system/src/styles/tokens/_index.scss
 /projects/design-system/src/lib/tokens/
 
+# Environment variables
+.env
+
 # System files
 .DS_Store
 Thumbs.db
