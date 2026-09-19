@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { DsTabComponent } from './tab.component';
 import { DsTabsComponent, type DsTabsRenderMode } from './tabs.component';
@@ -7,17 +7,26 @@ import { DsTabsComponent, type DsTabsRenderMode } from './tabs.component';
   standalone: true,
   imports: [DsTabsComponent, DsTabComponent],
   template: `
-    <ds-tabs [activeIndex]="activeIndex" [renderMode]="renderMode" (activeIndexChange)="onActiveIndexChange($event)">
+    <ds-tabs
+      [activeIndex]="activeIndex()"
+      [renderMode]="renderMode()"
+      (activeIndexChange)="onActiveIndexChange($event)"
+    >
       <ds-tab label="Profile"><p>Profile content</p></ds-tab>
-      <ds-tab label="Billing" [disabled]="billingDisabled"><p>Billing content</p></ds-tab>
+      <ds-tab label="Billing" [disabled]="billingDisabled()"><p>Billing content</p></ds-tab>
       <ds-tab label="Settings"><p>Settings content</p></ds-tab>
     </ds-tabs>
   `,
 })
 class HostComponent {
-  activeIndex = 0;
-  renderMode: DsTabsRenderMode = 'lazy';
-  billingDisabled = false;
+  // Signals, not plain fields: under zoneless change detection a plain field
+  // mutation never marks the view dirty, so a later `fixture.detectChanges()`
+  // is a no-op (and a synchronous native-event handler that reads the child's
+  // input in between would still see the stale value). Writing through a
+  // signal notifies the scheduler so `detectChanges()` actually re-runs.
+  readonly activeIndex = signal(0);
+  readonly renderMode = signal<DsTabsRenderMode>('lazy');
+  readonly billingDisabled = signal(false);
   onActiveIndexChange = vi.fn();
 }
 
@@ -83,7 +92,7 @@ describe('DsTabsComponent', () => {
 
   it('ArrowRight skips a disabled tab', async () => {
     const { fixture, tablist, tabButtons } = await createFixture();
-    fixture.componentInstance.billingDisabled = true;
+    fixture.componentInstance.billingDisabled.set(true);
     fixture.detectChanges();
 
     tablist.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
@@ -110,7 +119,7 @@ describe('DsTabsComponent', () => {
   it('reflects an externally changed activeIndex input', async () => {
     const { fixture, tabButtons, panels } = await createFixture();
 
-    fixture.componentInstance.activeIndex = 1;
+    fixture.componentInstance.activeIndex.set(1);
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -121,7 +130,7 @@ describe('DsTabsComponent', () => {
   it('renderMode="eager" renders every panel up front', async () => {
     await TestBed.configureTestingModule({ imports: [HostComponent] }).compileComponents();
     const fixture = TestBed.createComponent(HostComponent);
-    fixture.componentInstance.renderMode = 'eager';
+    fixture.componentInstance.renderMode.set('eager');
     fixture.detectChanges();
     await fixture.whenStable();
 

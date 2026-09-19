@@ -7,13 +7,11 @@
           <ul class="list-unstyled d-flex flex-column gap-2">
             @for (link of group.links; track link.label) {
               <li>
-                <a
-                  class="ds-footer__link"
-                  [href]="isExternalLink(link.href) ? link.href : null"
-                  [routerLink]="isExternalLink(link.href) ? null : link.href"
-                >
-                  {{ link.label }}
-                </a>
+                @if (isExternalLink(link.href)) {
+                  <a class="ds-footer__link" [href]="link.href">{{ link.label }}</a>
+                } @else {
+                  <a class="ds-footer__link" [routerLink]="link.href">{{ link.label }}</a>
+                }
               </li>
             }
           </ul>

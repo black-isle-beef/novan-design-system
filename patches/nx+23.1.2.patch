@@ -1,0 +1,29 @@
+diff --git a/node_modules/nx/dist/src/utils/workspace-root.js b/node_modules/nx/dist/src/utils/workspace-root.js
+index 74f0682..eeb9579 100644
+--- a/node_modules/nx/dist/src/utils/workspace-root.js
++++ b/node_modules/nx/dist/src/utils/workspace-root.js
+@@ -14,9 +14,23 @@ exports.workspaceRoot = workspaceRootInner(process.cwd(), process.cwd());
+ function setWorkspaceRoot(root) {
+     exports.workspaceRoot = root;
+ }
++// On Windows, process.env.NX_WORKSPACE_ROOT_PATH (or process.cwd()) can carry a
++// lowercase drive letter that differs from the canonical on-disk casing. When that
++// happens, Node's ESM loader treats file:///c:/... and file:///C:/... as distinct
++// module identities, which can cause packages (e.g. vitest, when bundled/loaded via
++// this differently-cased root) to be loaded twice with divergent module-level state.
++// Normalize the drive letter to uppercase to keep path casing consistent, matching
++// the equivalent fix Angular's own build tooling applies (see @angular/build's
++// canonicalizePath in src/utils/path.js).
++function canonicalizeDriveLetter(pathString) {
++    if (process.platform === 'win32' && /^[a-z]:/.test(pathString)) {
++        return pathString[0].toUpperCase() + pathString.slice(1);
++    }
++    return pathString;
++}
+ function workspaceRootInner(dir, candidateRoot) {
+     if (process.env.NX_WORKSPACE_ROOT_PATH)
+-        return process.env.NX_WORKSPACE_ROOT_PATH;
++        return canonicalizeDriveLetter(process.env.NX_WORKSPACE_ROOT_PATH);
+     if (path.dirname(dir) === dir)
+         return candidateRoot;
+     const matches = [

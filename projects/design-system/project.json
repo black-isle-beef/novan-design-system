@@ -20,7 +20,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "tsConfig": "projects/design-system/tsconfig.spec.json"
+        "tsConfig": "projects/design-system/tsconfig.spec.json",
+        "setupFiles": ["projects/design-system/src/test-setup.ts"]
       }
     },
     "lint": {
