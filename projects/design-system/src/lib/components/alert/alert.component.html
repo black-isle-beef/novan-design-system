@@ -1,0 +1,17 @@
+<span class="ds-alert__icon" aria-hidden="true"></span>
+<div class="ds-alert__content">
+  @if (title()) {
+    <p class="ds-alert__title">{{ title() }}</p>
+  }
+  <div class="ds-alert__message">
+    <ng-content></ng-content>
+  </div>
+</div>
+@if (dismissible()) {
+  <button
+    type="button"
+    class="ds-alert__close btn-close ds-focus-ring"
+    [attr.aria-label]="closeButtonLabel()"
+    (click)="dismiss()"
+  ></button>
+}
