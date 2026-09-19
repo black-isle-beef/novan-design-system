@@ -2,6 +2,34 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.0.0](https://github.com/black-isle-beef/novan-design-system/compare/v1.1.0...v2.0.0) (2026-09-19)
+
+### ⚠ BREAKING CHANGES
+
+* **nav:** ds-sidebar, ds-breadcrumb, ds-footer, and ds-main-nav now
+render internal hrefs via Angular's RouterLink instead of a plain anchor
+href, and require Router to be provided in the host application (e.g. via
+provideRouter(...) or RouterModule). Applications using these components
+without Router configured will fail to navigate on internal links.
+
+This release also adds 9 new components since v1.0.0: Modal, Offcanvas,
+Toast, Tooltip, Dropdown, Tabs, Accordion, Alert, Card/FlipCard, Badge,
+and Pagination/Spinner/Progress, along with new elevation and motion
+design tokens. These were previously released under a minor version
+without the breaking navigation change being reflected; this commit
+corrects the semver classification going forward.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+### Features
+
+* **nav:** require Angular Router for internal links in nav components; add 9 new components ([43b2ecd](https://github.com/black-isle-beef/novan-design-system/commit/43b2ecd0c1afb72b09c7a51158217aabfbdc95bb))
+
+### Bug Fixes
+
+* **button:** raise disabled-state opacity to preserve AA contrast ([1ceefc6](https://github.com/black-isle-beef/novan-design-system/commit/1ceefc697f049dbcde54d092b9e6fc978d1b417a))
+* **modal,offcanvas:** honor prefers-reduced-motion for open animations ([eb1a94a](https://github.com/black-isle-beef/novan-design-system/commit/eb1a94ae5066408d013a6f3f0993d502c34e94c2))
+
 ## [1.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v1.0.0...v1.1.0) (2026-09-19)
 
 ### Features
