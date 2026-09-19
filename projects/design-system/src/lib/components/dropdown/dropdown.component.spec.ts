@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { DsDropdownComponent, type DsDropdownPosition } from './dropdown.component';
 import { DsMenuItemComponent } from './menu-item.component';
@@ -7,18 +7,23 @@ import { DsMenuItemComponent } from './menu-item.component';
   standalone: true,
   imports: [DsDropdownComponent, DsMenuItemComponent],
   template: `
-    <ds-dropdown label="Actions" [position]="position" [disabled]="disabled" [open]="open">
+    <ds-dropdown label="Actions" [position]="position()" [disabled]="disabled()" [open]="open()">
       <ds-menu-item (activated)="onFirst()">First action</ds-menu-item>
-      <ds-menu-item [disabled]="secondDisabled" (activated)="onSecond()">Second action</ds-menu-item>
+      <ds-menu-item [disabled]="secondDisabled()" (activated)="onSecond()">Second action</ds-menu-item>
       <ds-menu-item (activated)="onThird()">Third action</ds-menu-item>
     </ds-dropdown>
   `,
 })
 class HostComponent {
-  position: DsDropdownPosition = 'bottom-start';
-  disabled = false;
-  secondDisabled = false;
-  open = false;
+  // Signals, not plain fields: under zoneless change detection a plain field
+  // mutation never marks the view dirty, so a later `fixture.detectChanges()`
+  // is a no-op and any synchronous native-event handler that reads the child's
+  // input in between still sees the stale value. Writing through a signal
+  // notifies the scheduler so `detectChanges()` actually re-runs.
+  readonly position = signal<DsDropdownPosition>('bottom-start');
+  readonly disabled = signal(false);
+  readonly secondDisabled = signal(false);
+  readonly open = signal(false);
   onFirst = vi.fn();
   onSecond = vi.fn();
   onThird = vi.fn();
@@ -120,7 +125,7 @@ describe('DsDropdownComponent', () => {
 
   it('ArrowDown/ArrowUp inside the menu move roving focus and skip disabled items', async () => {
     const { fixture, trigger, menu } = await createFixture();
-    fixture.componentInstance.secondDisabled = true;
+    fixture.componentInstance.secondDisabled.set(true);
     fixture.detectChanges();
 
     trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
@@ -231,21 +236,21 @@ describe('DsDropdownComponent', () => {
   it('syncs the open input to the native popover via effect', async () => {
     const { fixture, menu } = await createFixture();
 
-    fixture.componentInstance.open = true;
+    fixture.componentInstance.open.set(true);
     fixture.detectChanges();
     expect(showPopoverSpy).toHaveBeenCalledTimes(1);
 
     dispatchToggle(menu, 'open');
     fixture.detectChanges();
 
-    fixture.componentInstance.open = false;
+    fixture.componentInstance.open.set(false);
     fixture.detectChanges();
     expect(hidePopoverSpy).toHaveBeenCalledTimes(1);
   });
 
   it('does not respond to ArrowDown on a disabled trigger', async () => {
     const { fixture, trigger } = await createFixture();
-    fixture.componentInstance.disabled = true;
+    fixture.componentInstance.disabled.set(true);
     fixture.detectChanges();
 
     trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));

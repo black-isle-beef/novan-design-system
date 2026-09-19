@@ -14,12 +14,15 @@
             }
             {{ item.label }}
           </span>
+        } @else if (isExternalLink(item.href ?? '')) {
+          <a class="ds-breadcrumb__link" [href]="item.href">
+            @if (item.icon) {
+              <i class="ds-breadcrumb__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
+            {{ item.label }}
+          </a>
         } @else {
-          <a
-            class="ds-breadcrumb__link"
-            [href]="isExternalLink(item.href ?? '') ? item.href : null"
-            [routerLink]="isExternalLink(item.href ?? '') ? null : item.href"
-          >
+          <a class="ds-breadcrumb__link" [routerLink]="item.href">
             @if (item.icon) {
               <i class="ds-breadcrumb__icon" [class]="item.icon" aria-hidden="true"></i>
             }
