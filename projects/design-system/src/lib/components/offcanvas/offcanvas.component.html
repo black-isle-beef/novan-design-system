@@ -6,6 +6,13 @@
   when it's outside the visible drawer, which is what `handleBackdropClick`
   checks for — same trick as `ds-modal`.
 -->
+<!--
+  eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,
+  @angular-eslint/template/interactive-supports-focus -- backdrop click-to-dismiss
+  is a mouse-only convenience; keyboard users already close via Escape, which the
+  native <dialog> element turns into the `cancel` event above. Making the backdrop
+  focusable would break the dialog's native focus trap.
+-->
 <dialog
   #dialog
   class="ds-offcanvas__dialog"
@@ -19,6 +26,9 @@
   (close)="handleClose()"
   (click)="handleBackdropClick($event)"
 >
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,
+  @angular-eslint/template/interactive-supports-focus -- stops propagation so a
+  click on the surface isn't mistaken for a backdrop click; not itself a control. -->
   <div class="ds-offcanvas__surface" (click)="$event.stopPropagation()">
     <div class="ds-offcanvas__header d-flex align-items-start gap-4 p-6 pb-4">
       @if (heading()) {
