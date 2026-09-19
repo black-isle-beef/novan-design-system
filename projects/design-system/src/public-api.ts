@@ -18,6 +18,7 @@ export * from './lib/components/cookie-banner/cookie-banner.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/modal';
 export * from './lib/components/toast';
+export * from './lib/components/tooltip';
 export * from './lib/components/forms';
 
 // Models

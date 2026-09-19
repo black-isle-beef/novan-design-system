@@ -1,0 +1,57 @@
+// -----------------------------------------------------------------------------
+// _tooltip.scss — Overrides for DsTooltipComponent (selector: ds-tooltip)
+//
+// `.ds-tooltip` is a native `popover="manual"` element, which — like the
+// modal's `<dialog>` — is promoted to the top layer while open, so it's
+// never clipped by an `overflow: hidden` ancestor. The component computes
+// `top`/`left` from the trigger's bounding rect in JS (viewport-relative
+// pixels), which is why the UA's default `position: fixed` is kept here.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-tooltip-trigger {
+  display: inline-block;
+}
+
+.ds-tooltip {
+  position: fixed;
+  z-index: 1070;
+  inset: auto;
+  margin: 0;
+  max-inline-size: 16rem;
+  padding: $ds-spacing-scale-2 $ds-spacing-scale-3;
+  border: 0;
+  border-radius: 0.375rem;
+  background-color: var(--ds-color-neutral-gray-900);
+  color: var(--ds-color-text-inverse);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: start;
+  box-shadow: var(--ds-elevation-component-tooltip);
+
+  &:popover-open {
+    animation: ds-tooltip-fade-in var(--ds-motion-component-fade) var(--ds-motion-easing-decelerate);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-tooltip:popover-open {
+    animation: none;
+  }
+}
+
+@keyframes ds-tooltip-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-tooltip {
+    border: 0.0625rem solid CanvasText;
+  }
+}
