@@ -108,6 +108,11 @@
         "$type": "color",
         "$value": "{color.neutral.white}",
         "$description": "Text color used on dark/brand-colored backgrounds."
+      },
+      "on-light-media": {
+        "$type": "color",
+        "$value": "#333333",
+        "$description": "Heading/label color for text overlaid on a light-toned photo or media background, paired with {color.text.inverse} for dark-toned media."
       }
     }
   }

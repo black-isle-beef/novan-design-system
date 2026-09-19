@@ -1,3 +1,4 @@
+import { provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { DsMainNavComponent } from './main-nav.component';
 import type { NavItem } from '../../models/nav-item.model';
@@ -13,7 +14,10 @@ describe('DsMainNavComponent', () => {
   ];
 
   it('renders a nav landmark with the given aria-label', async () => {
-    await TestBed.configureTestingModule({ imports: [DsMainNavComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
     const fixture = TestBed.createComponent(DsMainNavComponent);
     fixture.componentRef.setInput('items', items);
     fixture.detectChanges();
@@ -23,7 +27,10 @@ describe('DsMainNavComponent', () => {
   });
 
   it('toggles a dropdown menu open state on click', async () => {
-    await TestBed.configureTestingModule({ imports: [DsMainNavComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
     const fixture = TestBed.createComponent(DsMainNavComponent);
     fixture.componentRef.setInput('items', items);
     fixture.detectChanges();
@@ -37,5 +44,22 @@ describe('DsMainNavComponent', () => {
     fixture.detectChanges();
 
     expect(toggleButton.getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('renders internal hrefs via routerLink and external hrefs as plain links', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(DsMainNavComponent);
+    fixture.componentRef.setInput('items', [
+      { label: 'Home', href: '/' },
+      { label: 'Docs', href: 'https://example.com/docs' },
+    ]);
+    fixture.detectChanges();
+
+    const links: HTMLAnchorElement[] = Array.from(fixture.nativeElement.querySelectorAll('.ds-main-nav__link'));
+    expect(links[0].getAttribute('href')).toBe('/');
+    expect(links[1].getAttribute('href')).toBe('https://example.com/docs');
   });
 });

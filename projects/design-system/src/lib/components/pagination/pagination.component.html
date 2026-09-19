@@ -1,0 +1,47 @@
+<nav [attr.aria-label]="ariaLabel()">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="page() <= 1">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="page() <= 1"
+        aria-label="Previous page"
+        (click)="goTo(page() - 1)"
+      >
+        <span aria-hidden="true">&laquo;</span>
+      </button>
+    </li>
+
+    @for (item of pageItems(); track $index) {
+      @if (item === 'ellipsis') {
+        <li class="page-item disabled">
+          <span class="page-link">&hellip;</span>
+        </li>
+      } @else {
+        <li class="page-item" [class.active]="item === page()">
+          <button
+            type="button"
+            class="page-link"
+            [attr.aria-current]="item === page() ? 'page' : null"
+            [attr.aria-label]="'Page ' + item"
+            (click)="goTo(item)"
+          >
+            {{ item }}
+          </button>
+        </li>
+      }
+    }
+
+    <li class="page-item" [class.disabled]="page() >= totalPages()">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="page() >= totalPages()"
+        aria-label="Next page"
+        (click)="goTo(page() + 1)"
+      >
+        <span aria-hidden="true">&raquo;</span>
+      </button>
+    </li>
+  </ul>
+</nav>

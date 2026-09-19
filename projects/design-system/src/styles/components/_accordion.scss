@@ -1,0 +1,83 @@
+// -----------------------------------------------------------------------------
+// _accordion.scss — Overrides for DsAccordionComponent / DsAccordionItemComponent
+//
+// Built on native <details>/<summary>, which gets click/Enter-Space toggling,
+// the disclosure role, and independent open state for free from the browser.
+// The `::details-content` block under `@supports` is a progressive
+// enhancement (Baseline 2025 support) that animates the panel's expand/
+// collapse height; unsupporting browsers just get an instant, unanimated
+// toggle instead of a broken layout.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-accordion-item + .ds-accordion-item {
+  border-block-start: 0.0625rem solid var(--ds-color-neutral-gray-300);
+}
+
+.ds-accordion-item__details {
+  padding-block: $ds-spacing-scale-1;
+}
+
+.ds-accordion-item__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $ds-spacing-scale-3;
+  padding: $ds-spacing-scale-3 $ds-spacing-scale-2;
+  color: var(--ds-color-text-body);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 0.1875rem solid var(--ds-color-brand-primary);
+    outline-offset: 0.125rem;
+  }
+}
+
+.ds-accordion-item__icon {
+  flex-shrink: 0;
+  transition: transform var(--ds-motion-component-collapse) var(--ds-motion-easing-standard);
+}
+
+.ds-accordion-item__details[open] .ds-accordion-item__icon {
+  transform: rotate(180deg);
+}
+
+.ds-accordion-item__body {
+  padding: 0 $ds-spacing-scale-2 $ds-spacing-scale-4;
+  color: var(--ds-color-text-body);
+}
+
+@supports (transition-behavior: allow-discrete) {
+  .ds-accordion-item__details::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      block-size var(--ds-motion-component-collapse) var(--ds-motion-easing-standard),
+      opacity var(--ds-motion-component-collapse) var(--ds-motion-easing-standard),
+      content-visibility var(--ds-motion-component-collapse) allow-discrete;
+  }
+
+  .ds-accordion-item__details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-accordion-item__details::details-content {
+      transition: none;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-accordion-item__summary:focus-visible {
+    outline-color: LinkText;
+  }
+}

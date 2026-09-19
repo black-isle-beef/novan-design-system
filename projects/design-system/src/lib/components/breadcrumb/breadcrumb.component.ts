@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { BreadcrumbItem } from '../../models/nav-item.model';
+import { isExternalLink } from '../../utils/link.util';
 
 /**
  * Accessible breadcrumb trail. Every item but the last renders as a link,
@@ -9,6 +11,7 @@ import type { BreadcrumbItem } from '../../models/nav-item.model';
 @Component({
   selector: 'ds-breadcrumb',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './breadcrumb.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -20,4 +23,6 @@ export class DsBreadcrumbComponent {
   readonly items = input.required<BreadcrumbItem[]>();
   /** Accessible label for the `<nav>` landmark. */
   readonly ariaLabel = input('Breadcrumb');
+
+  protected readonly isExternalLink = isExternalLink;
 }

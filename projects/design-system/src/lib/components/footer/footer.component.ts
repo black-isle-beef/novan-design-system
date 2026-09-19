@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { FooterLinkGroup } from '../../models/nav-item.model';
+import { isExternalLink } from '../../utils/link.util';
 
 /**
  * Multi-column responsive footer with grouped links, a copyright notice,
@@ -8,6 +10,7 @@ import type { FooterLinkGroup } from '../../models/nav-item.model';
 @Component({
   selector: 'ds-footer',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -21,4 +24,5 @@ export class DsFooterComponent {
   readonly organizationName = input.required<string>();
 
   protected readonly currentYear = new Date().getFullYear();
+  protected readonly isExternalLink = isExternalLink;
 }

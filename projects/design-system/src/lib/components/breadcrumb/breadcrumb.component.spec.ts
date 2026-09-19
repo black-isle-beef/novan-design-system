@@ -1,9 +1,13 @@
+import { provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { DsBreadcrumbComponent } from './breadcrumb.component';
 
 describe('DsBreadcrumbComponent', () => {
   async function createFixture() {
-    await TestBed.configureTestingModule({ imports: [DsBreadcrumbComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [DsBreadcrumbComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
     return TestBed.createComponent(DsBreadcrumbComponent);
   }
 
@@ -35,6 +39,20 @@ describe('DsBreadcrumbComponent', () => {
     const lastItem = items[items.length - 1] as HTMLElement;
     expect(lastItem.getAttribute('aria-current')).toBe('page');
     expect(lastItem.querySelector('a')).toBeNull();
+  });
+
+  it('renders internal hrefs via routerLink and external hrefs as plain links', async () => {
+    const fixture = await createFixture();
+    fixture.componentRef.setInput('items', [
+      { label: 'Home', href: '/' },
+      { label: 'Docs', href: 'https://example.com/docs' },
+      { label: 'Current page' },
+    ]);
+    fixture.detectChanges();
+
+    const links: HTMLAnchorElement[] = Array.from(fixture.nativeElement.querySelectorAll('.ds-breadcrumb__link'));
+    expect(links[0].getAttribute('href')).toBe('/');
+    expect(links[1].getAttribute('href')).toBe('https://example.com/docs');
   });
 
   it('renders a leading icon for items that provide one', async () => {

@@ -42,14 +42,21 @@
           >
             @for (child of item.children; track child.label) {
               <li>
-                <a class="dropdown-item" [href]="child.href">{{ child.label }}</a>
+                <a
+                  class="dropdown-item"
+                  [href]="isExternalLink(child.href) ? child.href : null"
+                  [routerLink]="isExternalLink(child.href) ? null : child.href"
+                >
+                  {{ child.label }}
+                </a>
               </li>
             }
           </ul>
         } @else {
           <a
             class="ds-main-nav__link nav-link ds-focus-ring"
-            [href]="item.href"
+            [href]="isExternalLink(item.href) ? item.href : null"
+            [routerLink]="isExternalLink(item.href) ? null : item.href"
             [attr.aria-current]="item.active ? 'page' : null"
           >
             {{ item.label }}

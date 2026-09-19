@@ -34,6 +34,14 @@
   &[open]::backdrop {
     animation: ds-modal-fade-in var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
   }
+
+  // Author styles win over the UA stylesheet's `dialog:not([open]) { display: none }`
+  // regardless of selector specificity, so `display: flex` above must be undone
+  // explicitly here — otherwise the closed dialog still lays out full-viewport
+  // and intercepts clicks on whatever's behind it.
+  &:not([open]) {
+    display: none;
+  }
 }
 
 .ds-modal__surface {

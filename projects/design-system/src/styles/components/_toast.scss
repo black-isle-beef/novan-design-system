@@ -1,0 +1,148 @@
+// -----------------------------------------------------------------------------
+// _toast.scss — Overrides for DsToastComponent / DsToastContainerComponent
+//
+// The container is a fixed-position stack anchored to one screen corner;
+// `pointer-events: none` on the container (re-enabled per toast) keeps it from
+// blocking clicks on whatever sits beneath the empty parts of the stack.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-toast-container {
+  position: fixed;
+  z-index: 1080;
+  display: flex;
+  flex-direction: column;
+  gap: $ds-spacing-scale-3;
+  padding: $ds-spacing-scale-5;
+  max-inline-size: 24rem;
+  pointer-events: none;
+}
+
+.ds-toast-container--top-start {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+.ds-toast-container--top-end {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+.ds-toast-container--bottom-start {
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  flex-direction: column-reverse;
+}
+
+.ds-toast-container--bottom-end {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  flex-direction: column-reverse;
+}
+
+.ds-toast-container__item {
+  pointer-events: auto;
+}
+
+.ds-toast {
+  display: block;
+  animation: ds-toast-fade-in var(--ds-motion-component-fade) var(--ds-motion-easing-decelerate);
+}
+
+.ds-toast__surface {
+  display: flex;
+  align-items: flex-start;
+  gap: $ds-spacing-scale-3;
+  padding: $ds-spacing-scale-4;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  border-radius: 0.5rem;
+  border-inline-start: 0.25rem solid var(--ds-color-neutral-gray-500);
+  box-shadow: var(--ds-elevation-component-toast);
+}
+
+.ds-toast--success .ds-toast__surface {
+  border-inline-start-color: var(--ds-color-semantic-success);
+}
+
+.ds-toast--warning .ds-toast__surface {
+  border-inline-start-color: var(--ds-color-semantic-warning);
+}
+
+.ds-toast--danger .ds-toast__surface {
+  border-inline-start-color: var(--ds-color-semantic-danger);
+}
+
+.ds-toast--info .ds-toast__surface {
+  border-inline-start-color: var(--ds-color-semantic-info);
+}
+
+// A colored dot alongside the border accent so status isn't conveyed by color
+// alone; paired with the projected text, which always states the outcome.
+.ds-toast__icon {
+  flex-shrink: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-block-start: 0.125rem;
+  border-radius: 50%;
+  background-color: var(--ds-color-neutral-gray-500);
+}
+
+.ds-toast--success .ds-toast__icon {
+  background-color: var(--ds-color-semantic-success);
+}
+
+.ds-toast--warning .ds-toast__icon {
+  background-color: var(--ds-color-semantic-warning);
+}
+
+.ds-toast--danger .ds-toast__icon {
+  background-color: var(--ds-color-semantic-danger);
+}
+
+.ds-toast--info .ds-toast__icon {
+  background-color: var(--ds-color-semantic-info);
+}
+
+.ds-toast__content {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.ds-toast__title {
+  margin: 0 0 $ds-spacing-scale-1;
+  font-weight: 600;
+}
+
+.ds-toast__message {
+  margin: 0;
+}
+
+.ds-toast__close {
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-toast {
+    animation: none;
+  }
+}
+
+@keyframes ds-toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-toast__surface {
+    border: 0.0625rem solid CanvasText;
+    border-inline-start-width: 0.25rem;
+  }
+}

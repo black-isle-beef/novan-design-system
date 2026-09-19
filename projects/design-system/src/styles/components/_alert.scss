@@ -1,0 +1,95 @@
+// -----------------------------------------------------------------------------
+// _alert.scss — Overrides for DsAlertComponent
+//
+// Unlike the toast, this renders inline wherever it's placed (no top-layer
+// popover, no elevation/shadow, no auto-dismiss animation) since it's meant
+// to sit as a persistent part of the page's own content flow.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: $ds-spacing-scale-3;
+  padding: $ds-spacing-scale-4;
+  border: 0.0625rem solid var(--ds-color-neutral-gray-300);
+  border-radius: 0.5rem;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+}
+
+// No dedicated "tint" tokens exist for alert surfaces, so the background is
+// mixed at render time from the same semantic color that borders/icons use,
+// rather than hand-picking a separate raw tint value per variant.
+.ds-alert--success {
+  border-color: var(--ds-color-semantic-success);
+  background-color: color-mix(in srgb, var(--ds-color-semantic-success) 12%, var(--ds-color-surface-body));
+}
+
+.ds-alert--warning {
+  border-color: var(--ds-color-semantic-warning);
+  background-color: color-mix(in srgb, var(--ds-color-semantic-warning) 12%, var(--ds-color-surface-body));
+}
+
+.ds-alert--danger {
+  border-color: var(--ds-color-semantic-danger);
+  background-color: color-mix(in srgb, var(--ds-color-semantic-danger) 12%, var(--ds-color-surface-body));
+}
+
+.ds-alert--info {
+  border-color: var(--ds-color-semantic-info);
+  background-color: color-mix(in srgb, var(--ds-color-semantic-info) 12%, var(--ds-color-surface-body));
+}
+
+// A colored dot alongside the border accent so status isn't conveyed by
+// color alone; paired with the projected text, which always states the
+// outcome.
+.ds-alert__icon {
+  flex-shrink: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-block-start: 0.125rem;
+  border-radius: 50%;
+  background-color: var(--ds-color-neutral-gray-500);
+}
+
+.ds-alert--success .ds-alert__icon {
+  background-color: var(--ds-color-semantic-success);
+}
+
+.ds-alert--warning .ds-alert__icon {
+  background-color: var(--ds-color-semantic-warning);
+}
+
+.ds-alert--danger .ds-alert__icon {
+  background-color: var(--ds-color-semantic-danger);
+}
+
+.ds-alert--info .ds-alert__icon {
+  background-color: var(--ds-color-semantic-info);
+}
+
+.ds-alert__content {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.ds-alert__title {
+  margin: 0 0 $ds-spacing-scale-1;
+  font-weight: 600;
+}
+
+.ds-alert__message {
+  margin: 0;
+}
+
+.ds-alert__close {
+  flex-shrink: 0;
+}
+
+@media (forced-colors: active) {
+  .ds-alert {
+    border: 0.0625rem solid CanvasText;
+    background-color: Canvas;
+  }
+}

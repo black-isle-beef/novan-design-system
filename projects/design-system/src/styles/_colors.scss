@@ -44,6 +44,13 @@ $link-hover-decoration: none;
 
 // Runtime CSS custom properties (kept in sync with $theme-colors above) so
 // components can read colors without recompiling SCSS, e.g. for theming.
+//
+// This is the ONLY place `--ds-*` custom properties are declared at `:root`
+// — the separately generated `tokens/tokens.css` is not imported anywhere in
+// this build, so every category a component references via `var(--ds-...)`
+// (not just color) has to be listed here explicitly, or it silently
+// resolves to nothing (box-shadows disappear, transitions run at 0s, etc.)
+// with no build-time warning.
 :root {
   --ds-color-brand-primary: #{$ds-color-brand-primary};
   --ds-color-brand-secondary: #{$ds-color-brand-secondary};
@@ -52,12 +59,50 @@ $link-hover-decoration: none;
   --ds-color-semantic-warning: #{$ds-color-semantic-warning};
   --ds-color-semantic-danger: #{$ds-color-semantic-danger};
   --ds-color-semantic-info: #{$ds-color-semantic-info};
+  --ds-color-neutral-white: #{$ds-color-neutral-white};
+  --ds-color-neutral-gray-100: #{$ds-color-neutral-gray-100};
   --ds-color-neutral-gray-300: #{$ds-color-neutral-gray-300};
+  --ds-color-neutral-gray-400: #{$ds-color-neutral-gray-400};
+  --ds-color-neutral-gray-500: #{$ds-color-neutral-gray-500};
+  --ds-color-neutral-gray-700: #{$ds-color-neutral-gray-700};
   --ds-color-neutral-gray-900: #{$ds-color-neutral-gray-900};
+  --ds-color-neutral-black: #{$ds-color-neutral-black};
   --ds-color-surface-body: #{$ds-color-surface-body};
   --ds-color-surface-muted: #{$ds-color-surface-muted};
   --ds-color-text-body: #{$ds-color-text-body};
   --ds-color-text-muted: #{$ds-color-text-muted};
   --ds-color-text-inverse: #{$ds-color-text-inverse};
+  --ds-color-text-on-light-media: #{$ds-color-text-on-light-media};
   --ds-link-hover-color: #{$link-hover-color};
+
+  // Elevation (box-shadow) tokens.
+  --ds-elevation-scale-0: #{$ds-elevation-scale-0};
+  --ds-elevation-scale-1: #{$ds-elevation-scale-1};
+  --ds-elevation-scale-2: #{$ds-elevation-scale-2};
+  --ds-elevation-scale-3: #{$ds-elevation-scale-3};
+  --ds-elevation-scale-4: #{$ds-elevation-scale-4};
+  --ds-elevation-scale-5: #{$ds-elevation-scale-5};
+  --ds-elevation-component-card: #{$ds-elevation-component-card};
+  --ds-elevation-component-card-hover: #{$ds-elevation-component-card-hover};
+  --ds-elevation-component-header: #{$ds-elevation-component-header};
+  --ds-elevation-component-dropdown: #{$ds-elevation-component-dropdown};
+  --ds-elevation-component-tooltip: #{$ds-elevation-component-tooltip};
+  --ds-elevation-component-toast: #{$ds-elevation-component-toast};
+  --ds-elevation-component-modal: #{$ds-elevation-component-modal};
+  --ds-elevation-scrim-color: #{$ds-elevation-scrim-color};
+
+  // Motion (duration/easing) tokens.
+  --ds-motion-duration-instant: #{$ds-motion-duration-instant};
+  --ds-motion-duration-fast: #{$ds-motion-duration-fast};
+  --ds-motion-duration-base: #{$ds-motion-duration-base};
+  --ds-motion-duration-moderate: #{$ds-motion-duration-moderate};
+  --ds-motion-duration-slow: #{$ds-motion-duration-slow};
+  --ds-motion-duration-slower: #{$ds-motion-duration-slower};
+  --ds-motion-easing-linear: #{$ds-motion-easing-linear};
+  --ds-motion-easing-standard: #{$ds-motion-easing-standard};
+  --ds-motion-easing-decelerate: #{$ds-motion-easing-decelerate};
+  --ds-motion-easing-accelerate: #{$ds-motion-easing-accelerate};
+  --ds-motion-component-fade: #{$ds-motion-component-fade};
+  --ds-motion-component-overlay: #{$ds-motion-component-overlay};
+  --ds-motion-component-collapse: #{$ds-motion-component-collapse};
 }

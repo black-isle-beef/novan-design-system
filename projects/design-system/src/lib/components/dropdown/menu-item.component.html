@@ -1,0 +1,11 @@
+<button
+  #button
+  type="button"
+  role="menuitem"
+  class="ds-menu-item__button"
+  [attr.tabindex]="tabbable() ? 0 : -1"
+  [disabled]="disabled()"
+  (click)="activate()"
+>
+  <ng-content></ng-content>
+</button>

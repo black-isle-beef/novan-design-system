@@ -1,0 +1,12 @@
+<ng-content></ng-content>
+<div
+  #popover
+  [id]="tooltipId"
+  class="ds-tooltip"
+  [class.ds-tooltip--top]="resolvedPosition() === 'top'"
+  [class.ds-tooltip--bottom]="resolvedPosition() === 'bottom'"
+  [class.ds-tooltip--start]="resolvedPosition() === 'start'"
+  [class.ds-tooltip--end]="resolvedPosition() === 'end'"
+  popover="manual"
+  role="tooltip"
+>{{ content() }}</div>

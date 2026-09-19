@@ -1,0 +1,17 @@
+<div class="ds-toast__surface">
+  <span class="ds-toast__icon" aria-hidden="true"></span>
+  <div class="ds-toast__content">
+    @if (title()) {
+      <p class="ds-toast__title">{{ title() }}</p>
+    }
+    <p class="ds-toast__message"><ng-content></ng-content></p>
+  </div>
+  @if (dismissible()) {
+    <button
+      type="button"
+      class="ds-toast__close btn-close ds-focus-ring"
+      [attr.aria-label]="closeButtonLabel()"
+      (click)="requestClose()"
+    ></button>
+  }
+</div>

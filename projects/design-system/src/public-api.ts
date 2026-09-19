@@ -17,6 +17,17 @@ export * from './lib/components/sidebar/sidebar.component';
 export * from './lib/components/cookie-banner/cookie-banner.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/modal';
+export * from './lib/components/offcanvas';
+export * from './lib/components/toast';
+export * from './lib/components/tooltip';
+export * from './lib/components/dropdown';
+export * from './lib/components/tabs';
+export * from './lib/components/accordion';
+export * from './lib/components/alert';
+export * from './lib/components/card';
+export * from './lib/components/badge';
+export * from './lib/components/pagination';
+export * from './lib/components/progress';
 export * from './lib/components/forms';
 
 // Models

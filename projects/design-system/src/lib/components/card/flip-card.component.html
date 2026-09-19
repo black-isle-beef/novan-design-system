@@ -1,0 +1,15 @@
+<button type="button" class="ds-flip-card__trigger" [attr.aria-expanded]="flipped()" (click)="toggle()">
+  <span class="ds-flip-card__inner">
+    <span class="ds-flip-card__face ds-flip-card__face--front" [attr.aria-hidden]="flipped()">
+      <span class="ds-flip-card__media">
+        <ng-content select="[dsFlipCardMedia]"></ng-content>
+      </span>
+      <span class="ds-flip-card__scrim" aria-hidden="true"></span>
+      <span class="ds-flip-card__heading">{{ heading() }}</span>
+      <i class="ds-flip-card__icon bi bi-arrow-repeat" aria-hidden="true"></i>
+    </span>
+    <span class="ds-flip-card__face ds-flip-card__face--back" [attr.aria-hidden]="!flipped()">
+      <ng-content></ng-content>
+    </span>
+  </span>
+</button>

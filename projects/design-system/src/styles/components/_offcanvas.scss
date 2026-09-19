@@ -1,0 +1,174 @@
+// -----------------------------------------------------------------------------
+// _offcanvas.scss — Overrides for DsOffcanvasComponent (selector: ds-offcanvas)
+//
+// Same `<dialog>`-as-backdrop technique as `_modal.scss` (see its header
+// comment), except `.ds-offcanvas__surface` is pinned to one viewport edge
+// and slides in along that edge's axis instead of fading in centered.
+// `::backdrop` is the native scrim layer the browser paints behind a
+// `<dialog>` opened with `showModal()`.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-offcanvas__dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1090;
+  inline-size: 100vw;
+  block-size: 100vh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background: transparent;
+  border: 0;
+  color: inherit;
+
+  &::backdrop {
+    background-color: var(--ds-elevation-scrim-color);
+  }
+
+  &[open]::backdrop {
+    animation: ds-offcanvas-fade-in var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+
+  // Author styles win over the UA stylesheet's `dialog:not([open]) { display: none }`
+  // regardless of selector specificity, so `display: flex` above must be undone
+  // explicitly here — otherwise the closed dialog still lays out full-viewport
+  // and intercepts clicks on whatever's behind it.
+  &:not([open]) {
+    display: none;
+  }
+}
+
+.ds-offcanvas__dialog--start {
+  justify-content: flex-start;
+
+  .ds-offcanvas__surface {
+    block-size: 100%;
+    max-inline-size: 24rem;
+  }
+
+  &[open] .ds-offcanvas__surface {
+    animation: ds-offcanvas-slide-in-x var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-offcanvas__dialog--end {
+  justify-content: flex-end;
+
+  .ds-offcanvas__surface {
+    block-size: 100%;
+    max-inline-size: 24rem;
+  }
+
+  &[open] .ds-offcanvas__surface {
+    animation: ds-offcanvas-slide-in-x-reverse var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-offcanvas__dialog--top {
+  align-items: flex-start;
+
+  .ds-offcanvas__surface {
+    inline-size: 100%;
+    max-block-size: 24rem;
+  }
+
+  &[open] .ds-offcanvas__surface {
+    animation: ds-offcanvas-slide-in-y var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-offcanvas__dialog--bottom {
+  align-items: flex-end;
+
+  .ds-offcanvas__surface {
+    inline-size: 100%;
+    max-block-size: 24rem;
+  }
+
+  &[open] .ds-offcanvas__surface {
+    animation: ds-offcanvas-slide-in-y-reverse var(--ds-motion-component-overlay) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-offcanvas__surface {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  box-shadow: var(--ds-elevation-component-modal);
+}
+
+// Collapse the header/footer regions entirely when neither a heading, a close
+// button, nor projected footer content is present, instead of leaving behind
+// empty padding.
+.ds-offcanvas__header:empty,
+.ds-offcanvas__footer:empty {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-offcanvas__dialog::backdrop,
+  .ds-offcanvas__surface {
+    animation: none;
+  }
+}
+
+@keyframes ds-offcanvas-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ds-offcanvas-slide-in-x {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ds-offcanvas-slide-in-x-reverse {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ds-offcanvas-slide-in-y {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes ds-offcanvas-slide-in-y-reverse {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-offcanvas__surface {
+    border: 0.0625rem solid CanvasText;
+  }
+}
