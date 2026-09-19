@@ -1,0 +1,11 @@
+<span class="ds-badge__label"><ng-content></ng-content></span>
+@if (dismissible()) {
+  <button
+    type="button"
+    class="ds-badge__close"
+    [attr.aria-label]="closeButtonLabel()"
+    (click)="requestDismiss()"
+  >
+    <i class="bi bi-x" aria-hidden="true"></i>
+  </button>
+}

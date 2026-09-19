@@ -1,0 +1,92 @@
+// -----------------------------------------------------------------------------
+// _badge.scss — Overrides for DsBadgeComponent
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $ds-spacing-scale-1;
+  padding: $ds-spacing-scale-1 $ds-spacing-scale-3;
+  border-radius: 999px;
+  background-color: var(--ds-color-surface-muted);
+  color: var(--ds-color-text-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.ds-badge--primary {
+  background-color: var(--ds-color-brand-primary);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--secondary {
+  background-color: var(--ds-color-brand-secondary);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--success {
+  background-color: var(--ds-color-semantic-success);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--warning {
+  background-color: var(--ds-color-semantic-warning);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--danger {
+  background-color: var(--ds-color-semantic-danger);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--info {
+  background-color: var(--ds-color-semantic-info);
+  color: var(--ds-color-text-inverse);
+}
+
+.ds-badge--neutral {
+  background-color: var(--ds-color-surface-muted);
+  color: var(--ds-color-text-body);
+}
+
+.ds-badge__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-badge__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9375rem;
+  line-height: 1;
+
+  // Mixes in the badge's own (inherited) text color rather than a fixed
+  // overlay color, so the highlight reads correctly on both light
+  // (`--neutral`) and colored/dark-text badge backgrounds alike.
+  &:hover {
+    background-color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid currentColor;
+    outline-offset: 0.125rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-badge {
+    border: 0.0625rem solid CanvasText;
+  }
+}
