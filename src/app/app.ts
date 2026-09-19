@@ -101,7 +101,7 @@ function readInitialTheme(): Theme {
     DsModalComponent,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styles: [],
 })
 export class App {
   protected readonly navItems = NAV_ITEMS;
