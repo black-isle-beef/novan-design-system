@@ -21,7 +21,8 @@
     "storybook": "nx run novan-design-system:storybook",
     "storybook:ci": "nx run novan-design-system:storybook -- --ci --quiet",
     "build-storybook": "nx run novan-design-system:build-storybook",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "chromatic": "npx chromatic --project-token=chpt_68fea4b29bf559b"
   },
   "private": true,
   "packageManager": "npm@11.13.0",
@@ -62,6 +63,7 @@
     "@storybook/angular": "^10.6.0",
     "angular-eslint": "22.1.0",
     "bootstrap": "^5.3.8",
+    "chromatic": "^18.9.4",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "eslint": "^10.6.0",
     "jsdom": "^28.0.0",
