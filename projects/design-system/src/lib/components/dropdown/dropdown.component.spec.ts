@@ -53,8 +53,8 @@ describe('DsDropdownComponent', () => {
   beforeEach(() => {
     showPopoverSpy = vi.fn();
     hidePopoverSpy = vi.fn();
-    HTMLElement.prototype.showPopover = showPopoverSpy;
-    HTMLElement.prototype.hidePopover = hidePopoverSpy;
+    HTMLElement.prototype.showPopover = showPopoverSpy as unknown as HTMLElement['showPopover'];
+    HTMLElement.prototype.hidePopover = hidePopoverSpy as unknown as HTMLElement['hidePopover'];
   });
 
   afterEach(() => {

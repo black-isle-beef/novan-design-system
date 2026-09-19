@@ -1,4 +1,4 @@
-import { provideRouter } from '@angular/router';
+import { provideRouter, withDisabledInitialNavigation } from '@angular/router';
 import { applicationConfig, type Preview } from '@storybook/angular';
 
 // The design-system stylesheet (generated tokens -> overrides -> Bootstrap
@@ -10,7 +10,9 @@ const preview: Preview = {
   // Navigation components (main-nav, header, footer, sidebar, breadcrumb)
   // use `routerLink` for in-app hrefs, which needs a `Router` to inject into.
   // An empty route config is fine — stories never actually navigate.
-  decorators: [applicationConfig({ providers: [provideRouter([])] })],
+  // `withDisabledInitialNavigation()` stops the router from trying (and
+  // failing with NG04002) to match the iframe's own preview URL on load.
+  decorators: [applicationConfig({ providers: [provideRouter([], withDisabledInitialNavigation())] })],
   parameters: {
     controls: {
       matchers: {

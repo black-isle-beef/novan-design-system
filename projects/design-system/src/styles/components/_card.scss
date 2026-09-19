@@ -1,0 +1,205 @@
+// -----------------------------------------------------------------------------
+// _card.scss — Overrides for DsCardComponent
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0.0625rem solid var(--ds-color-neutral-gray-300);
+  border-radius: 0.75rem;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  box-shadow: var(--ds-elevation-component-card);
+}
+
+.ds-card--hoverable {
+  transition: box-shadow var(--ds-motion-component-fade) var(--ds-motion-easing-standard);
+
+  &:hover,
+  &:focus-within {
+    box-shadow: var(--ds-elevation-component-card-hover);
+  }
+}
+
+.ds-card__media {
+  &:empty {
+    display: none;
+  }
+
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+}
+
+.ds-card__header,
+.ds-card__body,
+.ds-card__footer {
+  padding: $ds-spacing-scale-5;
+}
+
+.ds-card__header {
+  padding-block-end: 0;
+
+  &:empty {
+    display: none;
+    padding: 0;
+  }
+}
+
+.ds-card__body {
+  flex: 1 1 auto;
+}
+
+.ds-card__footer {
+  padding-block-start: 0;
+
+  &:empty {
+    display: none;
+    padding: 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-card {
+    border: 0.0625rem solid CanvasText;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// DsFlipCardComponent — full-bleed image card that flips on its vertical axis.
+//
+// The whole card is a native <button> (`.ds-flip-card__trigger`), which is
+// what makes it focusable and keyboard-activatable (Enter/Space) for free.
+// Hover flips it via CSS alone (`:hover`); the button's `click` — which also
+// fires for keyboard/touch activation — toggles `.ds-flip-card--flipped`,
+// which keeps it flipped for keyboard and touch users who can't "hover".
+// `backface-visibility: hidden` on each face is what keeps the mirrored back
+// face from showing through the front face mid-rotation.
+// -----------------------------------------------------------------------------
+.ds-flip-card {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 20rem;
+  perspective: 62.5rem;
+}
+
+.ds-flip-card__trigger {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 0.1875rem solid var(--ds-color-brand-primary);
+    outline-offset: 0.1875rem;
+  }
+}
+
+.ds-flip-card__inner {
+  display: block;
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--ds-motion-component-overlay) var(--ds-motion-easing-standard);
+}
+
+.ds-flip-card__trigger:hover .ds-flip-card__inner,
+.ds-flip-card--flipped .ds-flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.ds-flip-card__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  border: 0.0625rem solid var(--ds-color-neutral-gray-300);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  backface-visibility: hidden;
+  box-shadow: var(--ds-elevation-component-card);
+}
+
+.ds-flip-card__face--back {
+  align-items: flex-start;
+  padding: $ds-spacing-scale-5;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  transform: rotateY(180deg);
+}
+
+.ds-flip-card__media {
+  position: absolute;
+  inset: 0;
+
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+}
+
+// Gradient scrim behind the heading so it stays legible over any photo,
+// reusing the same scrim color the modal's backdrop uses rather than a
+// one-off raw color.
+.ds-flip-card__scrim {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: 60%;
+  background: linear-gradient(to top, var(--ds-elevation-scrim-color), transparent);
+}
+
+.ds-flip-card__heading {
+  position: relative;
+  z-index: 1;
+  padding: $ds-spacing-scale-4;
+  color: var(--ds-color-text-inverse);
+  font-weight: 600;
+}
+
+.ds-flip-card--light-media .ds-flip-card__heading {
+  color: var(--ds-color-text-on-light-media);
+}
+
+.ds-flip-card__icon {
+  position: absolute;
+  z-index: 1;
+  inset-block-end: $ds-spacing-scale-3;
+  inset-inline-end: $ds-spacing-scale-3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: 50%;
+  background-color: var(--ds-elevation-scrim-color);
+  color: var(--ds-color-text-inverse);
+  font-size: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-flip-card__inner {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-flip-card__face {
+    border: 0.0625rem solid CanvasText;
+  }
+}

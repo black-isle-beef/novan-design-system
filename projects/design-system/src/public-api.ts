@@ -23,6 +23,7 @@ export * from './lib/components/dropdown';
 export * from './lib/components/tabs';
 export * from './lib/components/accordion';
 export * from './lib/components/alert';
+export * from './lib/components/card';
 export * from './lib/components/forms';
 
 // Models
