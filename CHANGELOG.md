@@ -2,6 +2,32 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [1.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v1.0.0...v1.1.0) (2026-09-19)
+
+### Features
+
+* **alert:** add DsAlertComponent with template, styles, tests, and stories ([820d884](https://github.com/black-isle-beef/novan-design-system/commit/820d8846d84ba5658ab15202734e0ad3a6c70450))
+* **badge:** add DsBadgeComponent with dismissible functionality, styles, tests, and stories ([f49cda7](https://github.com/black-isle-beef/novan-design-system/commit/f49cda777cc52ddd2f9744acbac0cd735ce8165d))
+* **card:** introduce DsCard and DsFlipCard components with associated styles, stories, and tests ([5a2b497](https://github.com/black-isle-beef/novan-design-system/commit/5a2b497fc5f002a29aa48513ca48f121bfe0c456))
+* **dropdown:** add DsDropdownComponent and DsMenuItemComponent with templates, styles, and tests ([ef11927](https://github.com/black-isle-beef/novan-design-system/commit/ef11927607aa61e5c014675563bcd294decd3b17))
+* **modal:** implement DsModalComponent with elevation and motion tokens ([74d4965](https://github.com/black-isle-beef/novan-design-system/commit/74d4965bfca4b9ace29a3592a24a959b52da585c))
+* **offcanvas:** add DsOffcanvasComponent with template, styles, tests, and stories ([5905923](https://github.com/black-isle-beef/novan-design-system/commit/5905923cf8f61c6424a408dfb28e9bf69815b1e1))
+* **pagination:** add DsPaginationComponent with template, styles, tests, and stories ([d024626](https://github.com/black-isle-beef/novan-design-system/commit/d02462628fc9fe5e99a6bf18c1a4f597fbbdf9b8))
+* **pagination:** enhance tests for DsPaginationComponent with improved element selection ([7d6044b](https://github.com/black-isle-beef/novan-design-system/commit/7d6044b2b7c609843a7df883159cb6f59942d02d))
+* **progress:** add DsProgressComponent and DsSpinnerComponent with templates, styles, tests, and stories ([6caa1eb](https://github.com/black-isle-beef/novan-design-system/commit/6caa1ebf263c8d736c9d85f931aeb54529e8982d))
+* **release:** add skill for automated design system release process ([0c19194](https://github.com/black-isle-beef/novan-design-system/commit/0c19194c498197090cccac2638a887a3bf77170a))
+* **styles:** add missing global styles for app layout and theme toggle ([8dc2d9f](https://github.com/black-isle-beef/novan-design-system/commit/8dc2d9fa21a7959036417c70d743d96dccea0834))
+* **tabs:** add DsTabsComponent and DsTabComponent with templates, styles, and tests ([b493d43](https://github.com/black-isle-beef/novan-design-system/commit/b493d431eac7f3d27ace2410b49f27c6788efa7e))
+* **toast:** add DsToastComponent and DsToastContainerComponent with service and styles ([f51bb92](https://github.com/black-isle-beef/novan-design-system/commit/f51bb921130c19163c836d1c46d2a7776aec4c76))
+* **tokens,modal:** add elevation/motion tokens and a DsModalComponent ([23aca1d](https://github.com/black-isle-beef/novan-design-system/commit/23aca1df4dab08db2c3e0b0b5b33c49d124c3011))
+* **tooltip:** add DsTooltipComponent with template, styles, and tests ([50ddc40](https://github.com/black-isle-beef/novan-design-system/commit/50ddc40c2a04d0acb22253d1556889f91adaabc4))
+
+### Bug Fixes
+
+* **badge:** correct casing for currentColor in hover and focus-visible styles ([df57230](https://github.com/black-isle-beef/novan-design-system/commit/df572309a3de246ed90783da239c86c8e11b9427))
+* **modal, offcanvas:** update ESLint comments for backdrop click handling ([a9898b2](https://github.com/black-isle-beef/novan-design-system/commit/a9898b204c5ea264625a2ada18143b2af248cb2c))
+* update package-lock and package.json for patch-package integration; add test setup for Vitest ([da490a9](https://github.com/black-isle-beef/novan-design-system/commit/da490a9e5e693e7dc5525f202a07e4c5f57c9dca))
+
 ## 1.0.0 (2026-09-13)
 
 ### Features
