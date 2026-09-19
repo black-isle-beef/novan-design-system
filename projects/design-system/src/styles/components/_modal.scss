@@ -72,8 +72,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-modal__dialog,
-  .ds-modal__dialog::backdrop {
+  // Must match the `[open]` attribute selector's specificity above (0-2-0);
+  // a plain `.ds-modal__dialog` override here would lose the cascade to it
+  // regardless of media query, leaving the fade-in animation always running.
+  .ds-modal__dialog[open],
+  .ds-modal__dialog[open]::backdrop {
     animation: none;
   }
 }

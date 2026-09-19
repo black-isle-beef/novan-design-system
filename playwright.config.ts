@@ -7,15 +7,27 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: 'projects/design-system/e2e/a11y',
-  fullyParallel: true,
+  // `@axe-core/playwright` shares a single CDP session/injected axe script
+  // per browser instance; running many pages in parallel against it
+  // intermittently throws "Axe is already running" under load. Serializing
+  // workers trades a little speed for a deterministic a11y gate.
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env['CI'],
   retries: process.env['CI'] ? 2 : 0,
   reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: 'http://localhost:9323',
     trace: 'on-first-retry',
+    // Components fade/slide in via CSS transitions gated on
+    // `prefers-reduced-motion`. Without this, axe can scan mid-transition
+    // and report false-positive contrast failures against interpolated
+    // (partially transparent) colors.
+    reducedMotion: 'reduce',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'], reducedMotion: 'reduce' } },
+  ],
   webServer: {
     command: 'npx sirv-cli storybook-static --port 9323 --quiet',
     url: 'http://localhost:9323',

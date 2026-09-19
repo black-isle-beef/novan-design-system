@@ -8,6 +8,13 @@
 // in this partial and also wins over the `btn-sm` / `btn-lg` radius values.
 .btn {
   --bs-btn-border-radius: 80px;
+
+  // Bootstrap's default disabled opacity (0.65) dilutes solid-color button
+  // backgrounds toward the page background enough to drop white button text
+  // below the WCAG AA 4.5:1 contrast minimum for our darker brand colors
+  // (e.g. btn-danger). 0.85 keeps a visible disabled affordance while
+  // preserving AA contrast across all variants.
+  --bs-btn-disabled-opacity: 0.85;
 }
 
 .btn-primary {

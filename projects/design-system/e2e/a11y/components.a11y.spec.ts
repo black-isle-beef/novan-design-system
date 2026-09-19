@@ -9,6 +9,20 @@ async function expectNoA11yViolations(page: import('@playwright/test').Page, sto
   await page.goto(`/iframe.html?id=${storyId}&viewMode=story`);
   await page.waitForSelector('#storybook-root', { state: 'attached' });
 
+  // Native <dialog>/popover stories (modal, offcanvas, dropdown, tooltip)
+  // open via a JS call that triggers focus-trap setup and an initial style
+  // recalculation; scanning on the same tick as `waitForSelector` can catch
+  // that first paint before it settles. A double rAF forces the browser to
+  // complete a full render cycle first, deterministically, without an
+  // arbitrary timeout.
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      })
+  );
+  await page.waitForTimeout(300);
+
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
     .analyze();

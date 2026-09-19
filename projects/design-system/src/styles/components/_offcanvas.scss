@@ -111,8 +111,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-offcanvas__dialog::backdrop,
-  .ds-offcanvas__surface {
+  // Must match (or exceed) the specificity of the `[open]`-gated selectors
+  // above (`&[open]::backdrop`, `.ds-offcanvas__dialog--{dir}[open] .ds-offcanvas__surface`)
+  // or this override loses the cascade and the animation always runs.
+  .ds-offcanvas__dialog[open]::backdrop,
+  .ds-offcanvas__dialog[open] .ds-offcanvas__surface {
     animation: none;
   }
 }
