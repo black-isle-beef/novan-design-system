@@ -62,7 +62,8 @@ describe('DsPaginationComponent', () => {
     let emitted: number | undefined;
     fixture.componentInstance.pageChange.subscribe((value: number) => (emitted = value));
 
-    const page3 = Array.from(fixture.nativeElement.querySelectorAll('.page-link')).find(
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const page3 = Array.from(nativeElement.querySelectorAll<HTMLButtonElement>('.page-link')).find(
       (el) => el.textContent?.trim() === '3',
     ) as HTMLButtonElement;
     page3.click();
@@ -90,7 +91,10 @@ describe('DsPaginationComponent', () => {
     fixture.componentRef.setInput('page', 10);
     fixture.detectChanges();
 
-    const items = Array.from(fixture.nativeElement.querySelectorAll('.page-item')).map((el) => el.textContent?.trim());
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const items = Array.from(nativeElement.querySelectorAll<HTMLElement>('.page-item')).map(
+      (el) => el.textContent?.trim(),
+    );
     // Previous, 1, …, 9, 10, 11, …, 20, Next
     expect(items).toEqual(['«', '1', '…', '9', '10', '11', '…', '20', '»']);
   });
