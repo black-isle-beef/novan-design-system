@@ -1,0 +1,17 @@
+<div
+  class="progress-bar"
+  [class.bg-success]="variant() === 'success'"
+  [class.bg-warning]="variant() === 'warning'"
+  [class.bg-danger]="variant() === 'danger'"
+  [class.bg-info]="variant() === 'info'"
+  role="progressbar"
+  [style.width.%]="percent()"
+  [attr.aria-valuenow]="value()"
+  [attr.aria-valuemin]="min()"
+  [attr.aria-valuemax]="max()"
+  [attr.aria-label]="label()"
+>
+  @if (showValueText()) {
+    {{ valueText() }}
+  }
+</div>

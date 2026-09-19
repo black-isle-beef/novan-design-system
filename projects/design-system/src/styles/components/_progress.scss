@@ -1,0 +1,24 @@
+// -----------------------------------------------------------------------------
+// _progress.scss — Overrides for DsProgressComponent / DsSpinnerComponent
+//
+// Layout/color come from Bootstrap's own `.progress`/`.progress-bar`/
+// `.spinner-border` classes (already themed off `$primary` -> brand.primary
+// via `_colors.scss`); this only adds a width transition for determinate
+// progress and a forced-colors fallback for the spinner.
+// -----------------------------------------------------------------------------
+
+.ds-progress .progress-bar {
+  transition: width var(--ds-motion-component-fade) var(--ds-motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-progress .progress-bar {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-spinner {
+    border-color: CanvasText transparent CanvasText CanvasText;
+  }
+}

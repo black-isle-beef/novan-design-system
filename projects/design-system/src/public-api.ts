@@ -26,6 +26,7 @@ export * from './lib/components/alert';
 export * from './lib/components/card';
 export * from './lib/components/badge';
 export * from './lib/components/pagination';
+export * from './lib/components/progress';
 export * from './lib/components/forms';
 
 // Models
