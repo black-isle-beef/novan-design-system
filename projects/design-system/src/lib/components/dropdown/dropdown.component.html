@@ -1,0 +1,32 @@
+<button
+  #trigger
+  type="button"
+  class="ds-dropdown__trigger"
+  [attr.popovertarget]="menuId"
+  popovertargetaction="toggle"
+  aria-haspopup="menu"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-controls]="menuId"
+  [disabled]="disabled()"
+  (keydown)="handleTriggerKeydown($event)"
+>
+  <ng-content select="[dsDropdownTrigger]">{{ label() }}</ng-content>
+</button>
+
+<div
+  #menu
+  [id]="menuId"
+  class="ds-dropdown__menu"
+  [class.ds-dropdown__menu--bottom-start]="position() === 'bottom-start'"
+  [class.ds-dropdown__menu--bottom-end]="position() === 'bottom-end'"
+  [class.ds-dropdown__menu--top-start]="position() === 'top-start'"
+  [class.ds-dropdown__menu--top-end]="position() === 'top-end'"
+  popover="auto"
+  role="menu"
+  tabindex="-1"
+  [attr.aria-label]="label() || null"
+  (toggle)="handleToggle($event)"
+  (keydown)="handleMenuKeydown($event)"
+>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,105 @@
+// -----------------------------------------------------------------------------
+// _dropdown.scss — Overrides for DsDropdownComponent / DsMenuItemComponent
+//
+// `.ds-dropdown__menu` is a native `popover="auto"` element, top-layered like
+// the modal's `<dialog>` and the tooltip's popover, and light-dismissed by the
+// browser on outside click/Escape for free. Position is computed in JS from
+// the trigger's bounding rect (see dropdown.component.ts), which is why the
+// UA's default centered `position: fixed` is overridden here.
+// -----------------------------------------------------------------------------
+@import '../variables';
+
+.ds-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.ds-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: $ds-spacing-scale-2;
+  padding: $ds-spacing-scale-2 $ds-spacing-scale-4;
+  border: 0.0625rem solid var(--ds-color-neutral-gray-300);
+  border-radius: 0.5rem;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  font: inherit;
+
+  &:focus-visible {
+    outline: 0.1875rem solid var(--ds-color-brand-primary);
+    outline-offset: 0.125rem;
+  }
+}
+
+.ds-dropdown__menu {
+  position: fixed;
+  z-index: 1075;
+  inset: auto;
+  margin: 0;
+  min-inline-size: 12rem;
+  max-inline-size: 20rem;
+  padding: $ds-spacing-scale-2;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: var(--ds-color-surface-body);
+  color: var(--ds-color-text-body);
+  box-shadow: var(--ds-elevation-component-dropdown);
+
+  &:popover-open {
+    display: flex;
+    flex-direction: column;
+    gap: $ds-spacing-scale-1;
+    animation: ds-dropdown-fade-in var(--ds-motion-component-fade) var(--ds-motion-easing-decelerate);
+  }
+}
+
+.ds-menu-item__button {
+  display: block;
+  inline-size: 100%;
+  padding: $ds-spacing-scale-2 $ds-spacing-scale-3;
+  border: 0;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+
+  &:hover:not(:disabled) {
+    background-color: var(--ds-color-surface-muted);
+  }
+
+  &:focus-visible {
+    outline: 0.1875rem solid var(--ds-color-brand-primary);
+    outline-offset: -0.1875rem;
+  }
+
+  &:disabled {
+    color: var(--ds-color-text-muted);
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-dropdown__menu:popover-open {
+    animation: none;
+  }
+}
+
+@keyframes ds-dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-dropdown__trigger,
+  .ds-dropdown__menu {
+    border: 0.0625rem solid CanvasText;
+  }
+}
