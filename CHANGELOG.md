@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.2.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.1.0...v2.2.0) (2026-09-20)
+
+### Features
+
+* enhance accessibility by updating aria-labelledby and adding unique heading IDs ([98c3a2a](https://github.com/black-isle-beef/novan-design-system/commit/98c3a2a07b320b1ae2c246fd91fc78345aa5928c))
+
 ## [2.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.0.0...v2.1.0) (2026-09-19)
 
 ### Features
