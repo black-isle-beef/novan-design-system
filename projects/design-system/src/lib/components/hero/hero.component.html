@@ -8,7 +8,7 @@
   [class.ds-hero--dark]="variant() === 'dark'"
   [class.ds-hero--light]="variant() === 'light'"
   [class.ds-hero--image]="variant() === 'image'"
-  aria-labelledby="ds-hero-heading"
+  [attr.aria-labelledby]="headingId"
 >
   @if (variant() === 'image' && backgroundImage(); as imageUrl) {
     <img class="ds-hero__background" [src]="imageUrl" alt="" aria-hidden="true" />
@@ -21,7 +21,7 @@
       The CTAs stay outside it so they render directly on the background.
     -->
     <div class="ds-hero__text">
-      <h1 id="ds-hero-heading" class="ds-hero__heading mb-4">{{ heading() }}</h1>
+      <h1 [id]="headingId" class="ds-hero__heading mb-4">{{ heading() }}</h1>
 
       @if (subheading()) {
         <p class="ds-hero__subheading lead mb-0">{{ subheading() }}</p>
