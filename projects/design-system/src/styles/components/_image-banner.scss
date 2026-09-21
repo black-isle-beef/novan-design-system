@@ -23,6 +23,10 @@
 
   // Height cap for the image-only layout (300px).
   --ds-image-banner-image-max-block-size: 18.75rem;
+
+  // Height cap for the split layout's image, which otherwise stretches to
+  // match the panel's content height via `align-items: stretch` (400px).
+  --ds-image-banner-split-image-max-block-size: 25rem;
 }
 
 .ds-image-banner__layout {
@@ -35,6 +39,7 @@
 .ds-image-banner__image {
   flex: 1 1 0;
   min-inline-size: 0;
+  max-block-size: var(--ds-image-banner-split-image-max-block-size);
   object-fit: cover;
   box-shadow: $box-shadow-lg;
 }
