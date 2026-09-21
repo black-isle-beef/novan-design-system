@@ -99,29 +99,6 @@ export const NoHeading: Story = {
   args: { heading: undefined },
 };
 
-export const LongContent: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <ds-image-banner
-        [imageSrc]="imageSrc"
-        [imageAlt]="imageAlt"
-        [layout]="layout"
-        [imagePosition]="imagePosition"
-        [heading]="heading"
-        [rounded]="rounded"
-        [cornerStyle]="cornerStyle"
-        [ctaPosition]="ctaPosition"
-      >
-        <p>A token-driven Angular + Bootstrap design system for consistent, accessible products.</p>
-        <p>Every colour, space, and type value comes from a single set of design tokens, so a change to a token flows through every component and template at once.</p>
-        <p>The image and the copy split the available width evenly on wider viewports and stack, image first, on narrow screens.</p>
-        <a dsImageBannerCta class="btn btn-lg btn-hero-light" href="#">Get started</a>
-      </ds-image-banner>
-    `,
-  }),
-};
-
 /** A described image: `imageAlt` is announced by assistive technology instead of being skipped. */
 export const DescriptiveImage: Story = {
   args: { imageAlt: 'A team collaborating around a laptop at a shared desk' },
