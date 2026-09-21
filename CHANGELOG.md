@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.3.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.2.0...v2.3.0) (2026-09-21)
+
+### Features
+
+* add fixed height for split layout images in image banner component ([1a2a2ed](https://github.com/black-isle-beef/novan-design-system/commit/1a2a2ed74f5efda05e877092f995bc9e99c5e3d1))
+
 ## [2.2.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.1.0...v2.2.0) (2026-09-20)
 
 ### Features
