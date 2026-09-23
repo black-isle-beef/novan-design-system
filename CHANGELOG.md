@@ -2,6 +2,13 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.4.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.3.0...v2.4.0) (2026-09-23)
+
+### Features
+
+* enhance form validation with ARIA attributes and improve accessibility in header component ([53710cd](https://github.com/black-isle-beef/novan-design-system/commit/53710cdd490ead0c29a6187ee1a7660cd49f440c))
+* implement dark mode support and add example section for live preview ([15656ae](https://github.com/black-isle-beef/novan-design-system/commit/15656aef320e3236f03e37057752c96332b2014d))
+
 ## [2.3.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.2.0...v2.3.0) (2026-09-21)
 
 ### Features
