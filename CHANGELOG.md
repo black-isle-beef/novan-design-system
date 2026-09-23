@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.5.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.4.0...v2.5.0) (2026-09-23)
+
+### Features
+
+* add background color to brand foundation component ([aaf73fa](https://github.com/black-isle-beef/novan-design-system/commit/aaf73fab51fc8dcab8d18412856c2f3453f0d77d))
+
 ## [2.4.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.3.0...v2.4.0) (2026-09-23)
 
 ### Features
