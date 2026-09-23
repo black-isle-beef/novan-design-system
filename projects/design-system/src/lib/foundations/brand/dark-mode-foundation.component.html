@@ -1,0 +1,93 @@
+<section class="ds-bfd__intro">
+  <h1 class="ds-bfd__title">Dark Mode</h1>
+  <p class="ds-bfd__lede">
+    Dark mode is driven by a single attribute, <code>data-bs-theme="dark"</code>, set on
+    <code>&lt;html&gt;</code> (or any ancestor). Every <code>--ds-color-*</code> custom property
+    that components read directly is re-pointed to its dark value by
+    <code>_dark-mode.scss</code>, generated from each color token's dark override in
+    <code>tokens/color.tokens.json</code>. Toggle the switch below to preview it live, using the
+    real published token values — not a standalone demo palette.
+  </p>
+  <button
+    type="button"
+    class="ds-bfd__toggle"
+    [attr.aria-pressed]="darkMode()"
+    (click)="toggleDarkMode()"
+  >
+    {{ darkMode() ? '☀️ Preview light mode' : '🌙 Preview dark mode' }}
+  </button>
+</section>
+
+<section class="ds-bfd__demo">
+  <h2 class="ds-bfd__section-title">Live component demo</h2>
+  <p class="ds-bfd__section-hint">
+    These are the design system's real component styles &mdash; no bespoke theme variables.
+  </p>
+
+  <div class="ds-bfd__demo-grid">
+    <div class="ds-bfd__demo-card">
+      <h3 class="ds-bfd__demo-card-title">Typography &amp; links</h3>
+      <p class="ds-bfd__text-body">Primary body text, set for strong readability on the current surface.</p>
+      <p class="ds-bfd__text-muted">Muted text is used for secondary or supporting copy.</p>
+      <p><a href="javascript:void(0)" class="ds-bfd__link">A default link</a></p>
+    </div>
+
+    <div class="ds-bfd__demo-card">
+      <h3 class="ds-bfd__demo-card-title">Buttons</h3>
+      <div class="ds-bfd__button-row">
+        <button type="button" class="ds-bfd__btn ds-bfd__btn--primary">Primary</button>
+        <button type="button" class="ds-bfd__btn ds-bfd__btn--secondary">Secondary</button>
+      </div>
+    </div>
+
+    <div class="ds-bfd__demo-card ds-bfd__demo-card--feedback">
+      <h3 class="ds-bfd__demo-card-title">Feedback</h3>
+      <div class="ds-bfd__alert ds-bfd__alert--success">
+        <strong>Success.</strong> Your changes have been saved.
+        <span class="ds-bfd__badge ds-bfd__badge--success">Verified</span>
+      </div>
+      <div class="ds-bfd__alert ds-bfd__alert--warning">
+        <strong>Warning.</strong> This action needs your attention.
+        <span class="ds-bfd__badge ds-bfd__badge--warning">Pending</span>
+      </div>
+      <div class="ds-bfd__alert ds-bfd__alert--danger">
+        <strong>Error.</strong> Something went wrong, please try again.
+        <span class="ds-bfd__badge ds-bfd__badge--danger">Failed</span>
+      </div>
+    </div>
+
+    <div class="ds-bfd__demo-card ds-bfd__demo-card--structural">
+      <h3 class="ds-bfd__demo-card-title">Structural surfaces</h3>
+      <div class="ds-bfd__page-bg">
+        <span class="ds-bfd__page-bg-label">Muted surface</span>
+        <div class="ds-bfd__surface-card">Card container on the body surface</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-bfd__tokens">
+  <h2 class="ds-bfd__section-title">
+    Color tokens
+    <span class="ds-bfd__token-count">{{ changedCount() }} of {{ swatches.length }} have a dark override</span>
+  </h2>
+
+  <div class="ds-bfd__token-grid">
+    @for (swatch of swatches; track swatch.key) {
+      <div class="ds-bfd__token-card" [class.ds-bfd__token-card--unchanged]="!swatch.changed">
+        <div class="ds-bfd__token-swatches">
+          <span class="ds-bfd__token-swatch" [style.background]="swatch.light" aria-hidden="true"></span>
+          <span class="ds-bfd__token-swatch" [style.background]="swatch.dark" aria-hidden="true"></span>
+        </div>
+        <div class="ds-bfd__token-body">
+          <code class="ds-bfd__token-key">{{ swatch.key }}</code>
+          <div class="ds-bfd__token-values">
+            <span>{{ swatch.light }}</span>
+            <span>&rarr;</span>
+            <span>{{ swatch.dark }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

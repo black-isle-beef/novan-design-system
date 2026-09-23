@@ -61,6 +61,7 @@ function groupBy<T, K>(items: readonly T[], keyFn: (item: T) => K): Map<K, T[]> 
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-dt',
+    '[attr.data-bs-theme]': 'theme() === "dark" ? "dark" : null',
   },
 })
 export class DsDesignTokensFoundationComponent {
@@ -158,7 +159,7 @@ export class DsDesignTokensFoundationComponent {
     const darkTokens = DESIGN_TOKENS.filter((t) => t.darkValue !== undefined);
     const darkLines = darkTokens.map((t) => `  ${t.cssVar}: ${t.darkValue};`);
 
-    return [':root {', ...lightLines, '}', '', "[data-theme='dark'] {", ...darkLines, '}'].join('\n');
+    return [':root {', ...lightLines, '}', '', "[data-bs-theme='dark'] {", ...darkLines, '}'].join('\n');
   }
 
   private buildScss(): string {

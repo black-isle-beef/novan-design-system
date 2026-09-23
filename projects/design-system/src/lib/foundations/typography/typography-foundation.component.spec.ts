@@ -35,12 +35,12 @@ describe('DsTypographyFoundationComponent', () => {
   it('toggles dark mode', async () => {
     const fixture = await setup();
     const host = fixture.nativeElement as HTMLElement;
-    expect(host.classList.contains('ds-tf--dark')).toBe(false);
+    expect(host.getAttribute('data-bs-theme')).toBeNull();
 
     fixture.componentInstance.toggleDarkMode();
     fixture.detectChanges();
 
-    expect(host.classList.contains('ds-tf--dark')).toBe(true);
+    expect(host.getAttribute('data-bs-theme')).toBe('dark');
   });
 
   it('updates the playground preview style from control input', async () => {
