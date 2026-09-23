@@ -38,6 +38,8 @@
                   formControlName="username"
                   [ngClass]="getControlClass('username')"
                   placeholder="john_doe"
+                  [attr.aria-invalid]="isInvalid('username') ? true : null"
+                  [attr.aria-describedby]="isInvalid('username') ? 'valUsernameErrors' : null"
                 >
                 @if (validationForm.get('username')?.pending) {
                   <span class="input-group-text text-primary bg-light">
@@ -46,18 +48,20 @@
                 }
               </div>
 
-              @if (validationForm.get('username')?.hasError('required') && (validationForm.get('username')?.touched || formSubmitted())) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username is required.</div>
-              }
-              @if (validationForm.get('username')?.hasError('minlength') && validationForm.get('username')?.touched) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username must be at least 4 characters long.</div>
-              }
-              @if (validationForm.get('username')?.hasError('pattern') && validationForm.get('username')?.touched) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username can only contain letters, numbers, and underscores.</div>
-              }
-              @if (validationForm.get('username')?.hasError('usernameTaken')) {
-                <div class="invalid-feedback d-block"><i class="bi bi-x-circle-fill me-1"></i> Username '{{ validationForm.get('username')?.value }}' is already taken! Try another.</div>
-              }
+              <div id="valUsernameErrors">
+                @if (validationForm.get('username')?.hasError('required') && (validationForm.get('username')?.touched || formSubmitted())) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username is required.</div>
+                }
+                @if (validationForm.get('username')?.hasError('minlength') && validationForm.get('username')?.touched) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username must be at least 4 characters long.</div>
+                }
+                @if (validationForm.get('username')?.hasError('pattern') && validationForm.get('username')?.touched) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username can only contain letters, numbers, and underscores.</div>
+                }
+                @if (validationForm.get('username')?.hasError('usernameTaken')) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-x-circle-fill me-1"></i> Username '{{ validationForm.get('username')?.value }}' is already taken! Try another.</div>
+                }
+              </div>
               @if (validationForm.get('username')?.valid && validationForm.get('username')?.dirty) {
                 <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1"></i> Username is available!</div>
               }
@@ -73,13 +77,17 @@
                 formControlName="email"
                 [ngClass]="getControlClass('email')"
                 placeholder="developer@example.com"
+                [attr.aria-invalid]="isInvalid('email') ? true : null"
+                [attr.aria-describedby]="isInvalid('email') ? 'valEmailErrors' : null"
               >
-              @if (validationForm.get('email')?.hasError('required') && (validationForm.get('email')?.touched || formSubmitted())) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Email address is required.</div>
-              }
-              @if (validationForm.get('email')?.hasError('email') && validationForm.get('email')?.touched) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please enter a valid email format.</div>
-              }
+              <div id="valEmailErrors">
+                @if (validationForm.get('email')?.hasError('required') && (validationForm.get('email')?.touched || formSubmitted())) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Email address is required.</div>
+                }
+                @if (validationForm.get('email')?.hasError('email') && validationForm.get('email')?.touched) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please enter a valid email format.</div>
+                }
+              </div>
               @if (validationForm.get('email')?.valid && validationForm.get('email')?.dirty) {
                 <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1"></i> Valid email format.</div>
               }
@@ -95,19 +103,29 @@
                 formControlName="password"
                 [ngClass]="getControlClass('password')"
                 placeholder="At least 8 characters..."
+                [attr.aria-invalid]="isInvalid('password') ? true : null"
+                [attr.aria-describedby]="isInvalid('password') ? 'valPasswordErrors' : null"
               >
-              @if (validationForm.get('password')?.hasError('required') && (validationForm.get('password')?.touched || formSubmitted())) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password is required.</div>
-              }
-              @if (validationForm.get('password')?.hasError('minlength') && validationForm.get('password')?.touched) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password must be at least 8 characters.</div>
-              }
+              <div id="valPasswordErrors">
+                @if (validationForm.get('password')?.hasError('required') && (validationForm.get('password')?.touched || formSubmitted())) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password is required.</div>
+                }
+                @if (validationForm.get('password')?.hasError('minlength') && validationForm.get('password')?.touched) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password must be at least 8 characters.</div>
+                }
+              </div>
             </div>
 
             <!-- Role Select -->
             <div class="mb-3">
               <label for="valRoleSelect" class="form-label fw-semibold">Primary Role <span class="text-danger">*</span></label>
-              <select class="form-select" id="valRoleSelect" formControlName="role" [ngClass]="getControlClass('role')">
+              <select
+                class="form-select"
+                id="valRoleSelect"
+                formControlName="role"
+                [ngClass]="getControlClass('role')"
+                [attr.aria-invalid]="isInvalid('role') ? true : null"
+              >
                 <option value="developer">Full Stack Developer</option>
                 <option value="architect">System Architect</option>
                 <option value="designer">UI/UX Designer</option>
@@ -122,13 +140,17 @@
                 id="valAgreeTerms"
                 formControlName="agreeTerms"
                 [ngClass]="getControlClass('agreeTerms')"
+                [attr.aria-invalid]="isInvalid('agreeTerms') ? true : null"
+                [attr.aria-describedby]="isInvalid('agreeTerms') ? 'valAgreeTermsErrors' : null"
               >
               <label class="form-check-label fw-semibold" for="valAgreeTerms">
                 I agree to the Terms of Service & Privacy Policy <span class="text-danger">*</span>
               </label>
-              @if (validationForm.get('agreeTerms')?.hasError('required') && (validationForm.get('agreeTerms')?.touched || formSubmitted())) {
-                <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> You must agree before submitting.</div>
-              }
+              <div id="valAgreeTermsErrors">
+                @if (validationForm.get('agreeTerms')?.hasError('required') && (validationForm.get('agreeTerms')?.touched || formSubmitted())) {
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> You must agree before submitting.</div>
+                }
+              </div>
             </div>
 
             <!-- Actions -->

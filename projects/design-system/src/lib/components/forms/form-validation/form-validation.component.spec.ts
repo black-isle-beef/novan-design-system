@@ -30,6 +30,26 @@ describe('DsFormValidationComponent', () => {
     expect(emailControl?.valid).toBe(true);
   });
 
+  it('should expose aria-invalid and aria-describedby on an invalid, touched field', () => {
+    const emailControl = component.validationForm.get('email');
+    emailControl?.setValue('invalid');
+    emailControl?.markAsTouched();
+    fixture.detectChanges();
+
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('#valEmailInput');
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+    expect(input.getAttribute('aria-describedby')).toBe('valEmailErrors');
+
+    const errors = fixture.nativeElement.querySelector('#valEmailErrors');
+    expect(errors.textContent).toContain('Please enter a valid email format.');
+  });
+
+  it('should not expose aria-invalid/aria-describedby before the field is touched', () => {
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('#valEmailInput');
+    expect(input.hasAttribute('aria-invalid')).toBe(false);
+    expect(input.hasAttribute('aria-describedby')).toBe(false);
+  });
+
   it('should handle form submission when valid', async () => {
     component.validationForm.patchValue({
       username: 'valid_user',
