@@ -14,7 +14,7 @@ import { FONT_WEIGHTS, HEADING_SCALE, NAV_SECTIONS, PANGRAM, type FontWeightToke
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-tf',
-    '[class.ds-tf--dark]': 'darkMode()',
+    '[attr.data-bs-theme]': 'darkMode() ? "dark" : null',
   },
 })
 export class DsTypographyFoundationComponent {

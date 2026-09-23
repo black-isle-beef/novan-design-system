@@ -187,30 +187,23 @@
   --heading-h4-size: 1.5rem;
   --heading-h5-size: 1.25rem;
   --heading-h6-size: 1rem;
-  --tf-bg: #{$ds-color-surface-body};
-  --tf-surface: #{$ds-color-surface-muted};
-  --tf-text: #{$ds-color-text-body};
-  --tf-muted: #{$ds-color-text-muted};
-  --tf-border: #{$ds-color-neutral-gray-300};
-  --tf-link: #{$ds-color-brand-primary};
-  --tf-link-hover: #{mix(black, $ds-color-brand-primary, 64%)};
-  --tf-mark-bg: #{$ds-color-semantic-warning};
+
+  // Aliased to the runtime `--ds-color-*` custom properties (not compiled
+  // SCSS constants) so this page re-themes via the real `data-bs-theme`
+  // mechanism instead of needing its own private dark palette.
+  --tf-bg: var(--ds-color-surface-body);
+  --tf-surface: var(--ds-color-surface-muted);
+  --tf-text: var(--ds-color-text-body);
+  --tf-muted: var(--ds-color-text-muted);
+  --tf-border: var(--ds-color-neutral-gray-300);
+  --tf-link: var(--ds-color-brand-primary);
+  --tf-link-hover: var(--ds-link-hover-color);
+  --tf-mark-bg: var(--ds-color-semantic-warning);
 
   display: block;
   font-family: var(--font-montserrat);
   color: var(--tf-text);
   background: var(--tf-bg);
-}
-
-.ds-tf.ds-tf--dark {
-  --tf-bg: #{$ds-color-neutral-gray-900};
-  --tf-surface: #{tint-color($ds-color-neutral-gray-900, 6%)};
-  --tf-text: #{$ds-color-neutral-gray-100};
-  --tf-muted: #{$ds-color-neutral-gray-300};
-  --tf-border: #{tint-color($ds-color-neutral-gray-900, 22%)};
-  --tf-link: #{tint-color($ds-color-brand-primary, 55%)};
-  --tf-link-hover: #{tint-color($ds-color-brand-primary, 70%)};
-  --tf-mark-bg: #{shade-color($ds-color-semantic-warning, 55%)};
 }
 
 .ds-tf__layout {

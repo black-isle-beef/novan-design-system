@@ -18,7 +18,7 @@ const meta: Meta<DsHeaderComponent> = {
       subtitle: 'Structural site header',
       description: {
         component:
-          'Structural site header. Renders the `banner` landmark, a projected branding slot, and an integrated `DsMainNavComponent`.',
+          'Structural site header. Renders the `banner` landmark, a projected branding slot, and an integrated `DsMainNavComponent`. Its built-in "Skip to main content" link targets `#ds-main-content` — give the page\'s `<main>` that id, as shown in this story, or the skip link will have nothing to jump to.',
       },
     },
   },
@@ -29,6 +29,7 @@ const meta: Meta<DsHeaderComponent> = {
       <ds-header [navItems]="navItems">
         <strong dsBrand>Novan&nbsp;DS</strong>
       </ds-header>
+      <main id="ds-main-content">Page content goes here.</main>
     `,
   }),
 };

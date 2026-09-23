@@ -53,6 +53,14 @@ export class DsFormValidationComponent {
     };
   }
 
+  /** Whether a control's error messages should currently be exposed via `aria-invalid`/`aria-describedby`. */
+  isInvalid(controlName: string): boolean {
+    const control = this.validationForm.get(controlName);
+    if (!control) return false;
+    const isTouchedOrDirty = control.touched || control.dirty || this.formSubmitted();
+    return control.invalid && isTouchedOrDirty;
+  }
+
   setCodeTab(tab: 'preview' | 'html' | 'ts'): void {
     this.activeCodeTab.set(tab);
   }

@@ -9,12 +9,15 @@
 @import '../variables';
 
 .ds-dt {
-  --tf-bg: #{$ds-color-surface-body};
-  --tf-surface: #{$ds-color-surface-muted};
-  --tf-text: #{$ds-color-text-body};
-  --tf-muted: #{$ds-color-text-muted};
-  --tf-border: #{$ds-color-neutral-gray-300};
-  --tf-link: #{$ds-color-brand-primary};
+  // Aliased to the runtime `--ds-color-*` custom properties (not compiled
+  // SCSS constants) so this page re-themes via the real `data-bs-theme`
+  // mechanism set by the component's `theme()` toggle.
+  --tf-bg: var(--ds-color-surface-body);
+  --tf-surface: var(--ds-color-surface-muted);
+  --tf-text: var(--ds-color-text-body);
+  --tf-muted: var(--ds-color-text-muted);
+  --tf-border: var(--ds-color-neutral-gray-300);
+  --tf-link: var(--ds-color-brand-primary);
 
   display: block;
   color: var(--tf-text);

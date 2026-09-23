@@ -4,39 +4,46 @@
       "primary": {
         "$type": "color",
         "$value": "#0a2f73",
-        "$description": "Primary brand color used for main CTAs, links, and active states."
+        "$description": "Primary brand color used for main CTAs, links, and active states.",
+        "$extensions": { "com.novan.dark": "#6c82ab" }
       },
       "secondary": {
         "$type": "color",
         "$value": "#2f1778",
-        "$description": "Purple 500 from the brand palette, used for supporting actions."
+        "$description": "Purple 500 from the brand palette, used for supporting actions.",
+        "$extensions": { "com.novan.dark": "#8d7fb5" }
       },
       "accent": {
         "$type": "color",
         "$value": "#2f1778",
-        "$description": "Accent color used sparingly for highlights and promotional callouts."
+        "$description": "Accent color used sparingly for highlights and promotional callouts.",
+        "$extensions": { "com.novan.dark": "#8d7fb5" }
       }
     },
     "semantic": {
       "success": {
         "$type": "color",
         "$value": "#2f9160",
-        "$description": "Green 600 from the brand palette, used for successful actions or positive status."
+        "$description": "Green 600 from the brand palette, used for successful actions or positive status.",
+        "$extensions": { "com.novan.dark": "#6db290" }
       },
       "warning": {
         "$type": "color",
         "$value": "#d99a06",
-        "$description": "Amber 600 from the brand palette, used for caution or states requiring attention."
+        "$description": "Amber 600 from the brand palette, used for caution or states requiring attention.",
+        "$extensions": { "com.novan.dark": "#dfa92b" }
       },
       "danger": {
         "$type": "color",
         "$value": "#c11f34",
-        "$description": "Indicates destructive actions or error states."
+        "$description": "Indicates destructive actions or error states.",
+        "$extensions": { "com.novan.dark": "#d76d7b" }
       },
       "info": {
         "$type": "color",
         "$value": "{color.brand.primary}",
-        "$description": "Blue 500 from the brand palette, used for informational, non-critical messaging."
+        "$description": "Blue 500 from the brand palette, used for informational, non-critical messaging.",
+        "$extensions": { "com.novan.dark": "#6c82ab" }
       }
     },
     "neutral": {
@@ -53,22 +60,26 @@
       "gray-300": {
         "$type": "color",
         "$value": "#b0b3b5",
-        "$description": "Light gray, used for borders and dividers."
+        "$description": "Light gray, used for borders and dividers.",
+        "$extensions": { "com.novan.dark": "#444540" }
       },
       "gray-400": {
         "$type": "color",
         "$value": "#838484",
-        "$description": "Light gray, used for borders and dividers."
+        "$description": "Light gray, used for borders and dividers.",
+        "$extensions": { "com.novan.dark": "#5b5d58" }
       },
       "gray-500": {
         "$type": "color",
         "$value": "#848c84",
-        "$description": "Mid gray, used for disabled text and placeholders."
+        "$description": "Mid gray, used for disabled text and placeholders.",
+        "$extensions": { "com.novan.dark": "#7e7f7c" }
       },
       "gray-700": {
         "$type": "color",
         "$value": "#66665f",
-        "$description": "Dark gray, used for secondary body text."
+        "$description": "Dark gray, used for secondary body text.",
+        "$extensions": { "com.novan.dark": "#969793" }
       },
       "gray-900": {
         "$type": "color",
@@ -85,24 +96,28 @@
       "body": {
         "$type": "color",
         "$value": "{color.neutral.white}",
-        "$description": "Default page/body background surface."
+        "$description": "Default page/body background surface.",
+        "$extensions": { "com.novan.dark": "#151710" }
       },
       "muted": {
         "$type": "color",
         "$value": "{color.neutral.gray-100}",
-        "$description": "Muted surface for cards and secondary panels."
+        "$description": "Muted surface for cards and secondary panels.",
+        "$extensions": { "com.novan.dark": "#31332d" }
       }
     },
     "text": {
       "body": {
         "$type": "color",
         "$value": "{color.neutral.gray-900}",
-        "$description": "Default body text color."
+        "$description": "Default body text color.",
+        "$extensions": { "com.novan.dark": "#f5f6f8" }
       },
       "muted": {
         "$type": "color",
         "$value": "{color.neutral.gray-700}",
-        "$description": "De-emphasized/secondary text color."
+        "$description": "De-emphasized/secondary text color.",
+        "$extensions": { "com.novan.dark": "#838484" }
       },
       "inverse": {
         "$type": "color",
