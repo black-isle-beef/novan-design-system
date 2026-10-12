@@ -17,10 +17,19 @@ const preview: Preview = {
   // on <html>, read by `_dark-mode.scss`) to every story canvas, driven by the
   // "Theme" toolbar item below — this is what makes dark mode previewable
   // for any component, not just the dedicated Brand/Dark Mode story.
+  // "Charcoal & Copper" sets `data-ds-theme="copper"` on top of dark mode; the
+  // `Themes/Charcoal & Copper` stories force it with `parameters.dsTheme`.
   decorators: [
     applicationConfig({ providers: [provideRouter([], withDisabledInitialNavigation())] }),
     (story, context) => {
-      document.documentElement.setAttribute('data-bs-theme', context.globals['theme'] ?? 'light');
+      const theme = context.parameters['dsTheme'] ?? context.globals['theme'] ?? 'light';
+      const root = document.documentElement;
+      root.setAttribute('data-bs-theme', theme === 'copper' ? 'dark' : theme);
+      if (theme === 'copper') {
+        root.setAttribute('data-ds-theme', 'copper');
+      } else {
+        root.removeAttribute('data-ds-theme');
+      }
       return story();
     },
   ],
@@ -33,6 +42,7 @@ const preview: Preview = {
         items: [
           { value: 'light', icon: 'circlehollow', title: 'Light' },
           { value: 'dark', icon: 'circle', title: 'Dark' },
+          { value: 'copper', icon: 'contrast', title: 'Charcoal & Copper' },
         ],
         dynamicTitle: true,
       },
@@ -61,7 +71,7 @@ const preview: Preview = {
       // Force the top-level Introduction page first so it's what Storybook
       // opens to on launch; everything else keeps its natural sort order.
       storySort: {
-        order: ['Introduction', 'Getting Started', 'Foundations', 'Components', 'Templates'],
+        order: ['Introduction', 'Getting Started', 'Foundations', 'Components', 'Templates', 'Themes'],
       },
     },
   },

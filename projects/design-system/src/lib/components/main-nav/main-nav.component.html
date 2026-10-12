@@ -1,7 +1,18 @@
-<nav class="ds-main-nav__nav navbar navbar-expand-lg px-4 py-3" [attr.aria-label]="ariaLabel()">
+<nav
+  class="ds-main-nav__nav navbar"
+  [class.navbar-expand-lg]="!pills()"
+  [class.navbar-expand-md]="pills()"
+  [class.px-4]="!pills()"
+  [class.py-3]="!pills()"
+  [class.px-2]="pills()"
+  [class.py-2]="pills()"
+  [attr.aria-label]="ariaLabel()"
+>
   <button
     type="button"
-    class="ds-main-nav__toggle btn btn-outline-secondary d-lg-none ds-focus-ring"
+    class="ds-main-nav__toggle btn btn-outline-secondary ds-focus-ring"
+    [class.d-lg-none]="!pills()"
+    [class.d-md-none]="pills()"
     [attr.aria-expanded]="mobileOpen()"
     aria-controls="ds-main-nav-menu"
     [attr.aria-label]="mobileOpen() ? 'Close main menu' : 'Open main menu'"
@@ -15,7 +26,9 @@
 
   <ul
     id="ds-main-nav-menu"
-    class="ds-main-nav__list navbar-nav flex-grow-1 gap-2"
+    class="ds-main-nav__list navbar-nav flex-grow-1"
+    [class.gap-2]="!pills()"
+    [class.gap-1]="pills()"
     [class.ds-main-nav__list--open]="mobileOpen()"
   >
     @for (item of items(); track item.label; let i = $index) {
@@ -32,6 +45,9 @@
             (click)="toggleDropdown(i)"
             (keydown)="onDropdownKeydown($event, i)"
           >
+            @if (item.icon) {
+              <i class="ds-main-nav__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
             {{ item.label }}
             <i class="ds-main-nav__chevron bi bi-chevron-down" aria-hidden="true"></i>
           </button>
@@ -56,6 +72,9 @@
             [href]="item.href"
             [attr.aria-current]="item.active ? 'page' : null"
           >
+            @if (item.icon) {
+              <i class="ds-main-nav__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
             {{ item.label }}
           </a>
         } @else {
@@ -64,6 +83,9 @@
             [routerLink]="item.href"
             [attr.aria-current]="item.active ? 'page' : null"
           >
+            @if (item.icon) {
+              <i class="ds-main-nav__icon" [class]="item.icon" aria-hidden="true"></i>
+            }
             {{ item.label }}
           </a>
         }

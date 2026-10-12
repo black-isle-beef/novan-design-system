@@ -14,6 +14,10 @@
 // 2. Custom overrides (must precede Bootstrap so `!default` vars no-op) -------
 @import 'colors';
 @import 'dark-mode';
+
+// Opt-in "Charcoal & Copper" app theme (`data-bs-theme="dark" data-ds-theme="copper"`).
+// Its doubled attribute selector outranks Bootstrap's dark-mode block below.
+@import 'copper-theme';
 @import 'typography';
 @import 'spacers';
 

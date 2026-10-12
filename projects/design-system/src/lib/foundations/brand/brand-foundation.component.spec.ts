@@ -12,7 +12,7 @@ describe('DsBrandFoundationComponent', () => {
   it('renders every palette family as a swatch group', async () => {
     const fixture = await setup();
     const headings = fixture.nativeElement.querySelectorAll('.ds-bf__family-title');
-    expect(headings.length).toBe(7);
+    expect(headings.length).toBe(9);
   });
 
   it('applies the default role colors to the live demo theme vars', async () => {

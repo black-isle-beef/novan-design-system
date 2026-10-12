@@ -40,6 +40,16 @@ export const BRAND_PALETTE: readonly ColorFamily[] = [
     ],
   },
   {
+    id: 'charcoal',
+    label: 'Charcoals',
+    tokens: [
+      { name: 'Charcoal 600', hex: '#4d4d4d', usage: 'Decorative card borders and grid lines on charcoal surfaces.' },
+      { name: 'Charcoal 700', hex: '#3d3d3d', usage: 'Raised or selected surfaces on charcoal: active nav pill, inactive progress.' },
+      { name: 'Charcoal 900', hex: '#262626', usage: 'Page background, top bar and editor canvas of dark app UI.' },
+      { name: 'Charcoal 950', hex: '#141414', usage: 'Text on copper, solid or brushed.' },
+    ],
+  },
+  {
     id: 'blue',
     label: 'Blues',
     tokens: [
@@ -59,6 +69,18 @@ export const BRAND_PALETTE: readonly ColorFamily[] = [
       { name: 'Purple 700', hex: '#1a0b40', usage: 'Active/pressed state for secondary elements.' },
       { name: 'Purple 800', hex: '#160a34', usage: 'Dark-mode secondary surfaces.' },
       { name: 'Purple 900', hex: '#0f0626', usage: 'Deepest secondary shade for dense dark UI.' },
+    ],
+  },
+  {
+    id: 'copper',
+    label: 'Coppers',
+    tokens: [
+      { name: 'Copper 100', hex: '#f3dcc6', usage: 'Text on copper-tinted chips.' },
+      { name: 'Copper 300', hex: '#e6ae7a', usage: 'Brushed-copper highlight and link hover on charcoal.' },
+      { name: 'Copper 500', hex: '#d9955a', usage: 'Accent on charcoal: links, icons, focus rings, selection outlines.' },
+      { name: 'Copper 600', hex: '#c98850', usage: 'Brushed-copper mid stop.' },
+      { name: 'Copper 700', hex: '#b37543', usage: 'Brushed-copper deep stop and pressed state.' },
+      { name: 'Copper 900', hex: '#5a3a24', usage: 'Avatar and brand chip backgrounds.' },
     ],
   },
   {

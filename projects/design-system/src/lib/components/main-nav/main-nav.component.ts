@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { NavItem } from '../../models/nav-item.model';
 import { isExternalLink } from '../../utils/link.util';
+
+/** `default`: site navigation, collapsing below `lg`. `pills`: compact app navigation, collapsing below `md`. */
+export type DsMainNavVariant = 'default' | 'pills';
 
 /**
  * Accessible primary navigation bar with desktop dropdown support and a
@@ -16,6 +19,7 @@ import { isExternalLink } from '../../utils/link.util';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-main-nav',
+    '[class.ds-main-nav--pills]': 'pills()',
   },
 })
 export class DsMainNavComponent {
@@ -23,6 +27,10 @@ export class DsMainNavComponent {
   readonly items = input.required<NavItem[]>();
   /** Accessible label for the `<nav>` landmark (distinguishes multiple navs on a page). */
   readonly ariaLabel = input('Primary');
+  /** `pills` renders a compact row of pill links (the active one on a raised surface) that collapses below `md`. */
+  readonly variant = input<DsMainNavVariant>('default');
+
+  protected readonly pills = computed(() => this.variant() === 'pills');
 
   protected readonly isExternalLink = isExternalLink;
 

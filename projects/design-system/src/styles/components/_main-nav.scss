@@ -22,13 +22,25 @@
   transform: rotate(180deg);
 }
 
+// Leading glyph from `NavItem.icon`.
+.ds-main-nav__icon {
+  margin-inline-end: 0.375rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ds-main-nav__chevron {
     transition: none;
   }
 }
 
-@media (max-width: 991.98px) {
+// -----------------------------------------------------------------------------
+// Collapsed (mobile / tablet) menu. Emitted below `lg` for the default variant
+// and below `md` for the compact `pills` variant. The `:where()` wrappers add
+// no specificity, so these rules weigh the same as before variants existed.
+// Colours read the `--ds-color-*` custom properties so the overlay follows
+// `data-bs-theme="dark"` (and the copper theme) instead of staying white.
+// -----------------------------------------------------------------------------
+@mixin ds-main-nav-collapsed {
   // -----------------------------------------------------------------------
   // Mobile / tablet: the menu list is a fixed, full-viewport overlay panel
   // that is always in the DOM so it can animate. It is clipped to a zero-
@@ -46,7 +58,7 @@
     gap: 0;
     margin: 0;
     padding: map-get($spacers, 11) map-get($spacers, 5) map-get($spacers, 6);
-    background-color: $ds-color-neutral-white;
+    background-color: var(--ds-color-surface-body);
     overflow-y: auto;
     box-shadow: inset 0 6px 10px -8px rgba($ds-color-neutral-gray-900, 0.15);
     visibility: hidden;
@@ -69,7 +81,7 @@
   // Divided vertical list — items left-aligned, hairline rule between each,
   // large touch targets.
   .ds-main-nav__list--open .ds-main-nav__item {
-    border-bottom: 1px solid $ds-color-neutral-gray-300;
+    border-bottom: 1px solid var(--ds-color-neutral-gray-300);
   }
 
   .ds-main-nav__list--open .ds-main-nav__item:last-child {
@@ -136,15 +148,15 @@
     inline-size: 44px;
     block-size: 44px;
     padding: 0;
-    background-color: $ds-color-neutral-white;
-    color: $ds-color-neutral-gray-900;
-    border: 2px solid $ds-color-neutral-gray-700;
+    background-color: var(--ds-color-surface-body);
+    color: var(--ds-color-text-body);
+    border: 2px solid var(--ds-color-text-muted);
     border-radius: 50%;
 
     &:hover {
-      background-color: $ds-color-neutral-gray-100;
-      color: $ds-color-neutral-gray-900;
-      border-color: $ds-color-neutral-gray-700;
+      background-color: var(--ds-color-surface-muted);
+      color: var(--ds-color-text-body);
+      border-color: var(--ds-color-text-muted);
     }
   }
 
@@ -192,5 +204,62 @@
     .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
       transition: none;
     }
+  }
+}
+
+@media (max-width: 991.98px) {
+  :where(.ds-main-nav:not(.ds-main-nav--pills)) {
+    @include ds-main-nav-collapsed;
+  }
+}
+
+@media (max-width: 767.98px) {
+  :where(.ds-main-nav--pills) {
+    @include ds-main-nav-collapsed;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// `pills` variant: a compact single row for app headers. Links are muted text
+// in pill shapes; the current page sits on the raised (tertiary) surface with a
+// hairline ring and bold text, and carries `aria-current="page"`, so it is
+// never marked by colour alone. Two classes plus the element class outrank the
+// global `a[href]` link colour and underline in styles.scss.
+// -----------------------------------------------------------------------------
+.ds-main-nav--pills .ds-main-nav__link.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  color: var(--ds-color-text-muted);
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--ds-color-text-body);
+    background-color: var(--bs-tertiary-bg);
+    text-decoration: none;
+  }
+
+  &[aria-current='page'] {
+    color: var(--ds-color-text-body);
+    background-color: var(--bs-tertiary-bg);
+    box-shadow: inset 0 0 0 1px var(--bs-border-color-translucent);
+    font-weight: $font-weight-bold;
+  }
+}
+
+// Collapsed pills keep the overlay's full-width rows and large touch targets.
+@media (max-width: 767.98px) {
+  .ds-main-nav--pills .ds-main-nav__list--open .ds-main-nav__link.nav-link {
+    display: flex;
+    width: 100%;
+    padding: map-get($spacers, 3) map-get($spacers, 4);
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-main-nav--pills .ds-main-nav__link.nav-link[aria-current='page'] {
+    outline: 1px solid CanvasText;
   }
 }

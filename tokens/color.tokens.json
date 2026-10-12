@@ -129,6 +129,100 @@
         "$value": "#333333",
         "$description": "Heading/label color for text overlaid on a light-toned photo or media background, paired with {color.text.inverse} for dark-toned media."
       }
+    },
+    "palette": {
+      "charcoal": {
+        "600": {
+          "$type": "color",
+          "$value": "#4d4d4d",
+          "$description": "Charcoal 600: decorative card borders and the editor canvas grid on charcoal surfaces. Too faint (1.5:1) for meaningful boundaries."
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#3d3d3d",
+          "$description": "Charcoal 700: raised or selected surfaces on charcoal, such as the active nav pill and an inactive progress track."
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#333333",
+          "$description": "Charcoal (base palette): cards, panels and menus on the Charcoal & Copper theme."
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#262626",
+          "$description": "Charcoal 900: page background, top bar and editor canvas on the Charcoal & Copper theme."
+        },
+        "950": {
+          "$type": "color",
+          "$value": "#141414",
+          "$description": "Charcoal 950: text on copper (solid or brushed). Never put white text on copper."
+        }
+      },
+      "copper": {
+        "100": {
+          "$type": "color",
+          "$value": "#f3dcc6",
+          "$description": "Copper 100 (pale): text on copper-tinted chips."
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#e6ae7a",
+          "$description": "Copper 300 (light): brushed-gradient highlight and link hover on charcoal."
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#d9955a",
+          "$description": "Copper 500: solid copper for links, icons, focus rings, selection outlines and the current step. Text on Charcoal 900/800 only, not on Charcoal 700."
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#c98850",
+          "$description": "Copper 600 (mid): brushed-gradient stop."
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#b37543",
+          "$description": "Copper 700 (deep): brushed-gradient stop and pressed state."
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#5a3a24",
+          "$description": "Copper 900 (deep brown): avatar and brand chip backgrounds."
+        }
+      },
+      "neutral": {
+        "300": {
+          "$type": "color",
+          "$value": "#b0b3b5",
+          "$description": "Neutral 300: secondary text and placeholders on charcoal (6.0:1)."
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#838484",
+          "$description": "Neutral 400: form-control borders and other meaningful boundaries on charcoal (WCAG 1.4.11)."
+        }
+      },
+      "green": {
+        "400": {
+          "$type": "color",
+          "$value": "#57b788",
+          "$description": "Green 400: success text and icons on charcoal."
+        }
+      },
+      "gold": {
+        "400": {
+          "$type": "color",
+          "$value": "#f0b429",
+          "$description": "Gold 400: warning text and icons on charcoal. Warm like copper, so always pair it with text or an icon."
+        }
+      },
+      "rose": {
+        "100": {
+          "$type": "color",
+          "$value": "#fbdde0",
+          "$description": "Rose 100: danger text on charcoal (Red 600 fails at 2.1:1)."
+        }
+      }
     }
   }
 }

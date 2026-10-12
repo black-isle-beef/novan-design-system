@@ -197,3 +197,34 @@ test.describe('WCAG 2.1 AA accessibility', () => {
     await expectNoA11yViolations(page, 'components-content-card--with-footer-actions');
   });
 });
+
+test.describe('Charcoal & Copper theme: WCAG 2.1 AA accessibility', () => {
+  for (const story of ['header', 'buttons', 'form-controls', 'alert', 'badge', 'progress', 'toast', 'modal', 'sidebar']) {
+    test(`${story} has no violations`, async ({ page }) => {
+      await expectNoA11yViolations(page, `themes-charcoal-copper--${story}`);
+      await expect(page.locator('html')).toHaveAttribute('data-ds-theme', 'copper');
+    });
+  }
+
+  test('header (app variant) keeps its menu reachable below md', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 700 });
+    await page.goto('/iframe.html?id=themes-charcoal-copper--header&viewMode=story');
+    await page.waitForSelector('#storybook-root', { state: 'attached' });
+    await disableTransitions(page);
+    // Let the Storybook a11y addon's own scan finish first ("Axe is already running").
+    await page.waitForTimeout(300);
+    await page.getByRole('button', { name: 'Open main menu' }).click();
+    await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Pages' })).toBeVisible();
+
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+    expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+  });
+
+  test('primary buttons fall back to solid copper with a border under prefers-contrast: more', async ({ page }) => {
+    await page.emulateMedia({ contrast: 'more' });
+    await page.goto('/iframe.html?id=themes-charcoal-copper--buttons&viewMode=story');
+    const button = page.getByRole('button', { name: 'Publish' });
+    await expect(button).toHaveCSS('background-image', 'none');
+    await expect(button).toHaveCSS('border-top-color', 'rgb(255, 255, 255)');
+  });
+});

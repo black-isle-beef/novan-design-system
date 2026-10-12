@@ -11,7 +11,7 @@ const meta: Meta<DsBrandFoundationComponent> = {
       subtitle: 'Modular brand color palette and live role-assignment demo',
       description: {
         component:
-          'The design system color palette, organized into cohesive families (base, neutrals, blues, purples, greens, yellows, reds). Assign palette colors to brand roles (primary/secondary/tertiary/success/warning/danger) — or keep the defaults — and preview the result live across typography, buttons, inputs, and feedback components.',
+          'The design system color palette, organized into cohesive families (base, neutrals, charcoals, blues, purples, coppers, greens, yellows, reds). Charcoals and Coppers make up the Charcoal & Copper app theme (`data-ds-theme="copper"`). Assign palette colors to brand roles (primary/secondary/tertiary/success/warning/danger) — or keep the defaults — and preview the result live across typography, buttons, inputs, and feedback components.',
       },
     },
   },
