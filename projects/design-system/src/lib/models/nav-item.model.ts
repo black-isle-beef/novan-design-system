@@ -2,6 +2,8 @@
 export interface NavItem {
   label: string;
   href: string;
+  /** Bootstrap Icons class name(s) for a leading glyph, e.g. `'bi bi-house'`. Rendered `aria-hidden`. */
+  icon?: string;
   active?: boolean;
   children?: NavItem[];
 }
