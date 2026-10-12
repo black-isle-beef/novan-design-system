@@ -2,6 +2,17 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.6.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.5.0...v2.6.0) (2026-10-12)
+
+### Features
+
+* **theme:** charcoal & copper theme and app header variant ([06bdb53](https://github.com/black-isle-beef/novan-design-system/commit/06bdb53ba8539f1b62dd04e72da5d6849806a340))
+
+### Bug Fixes
+
+* **header:** render no navigation when there are no nav items ([8bae915](https://github.com/black-isle-beef/novan-design-system/commit/8bae915b7987213433736591e9198acecb157ca5))
+* **theme:** copper dropdowns and a wrapping app header nav ([2ace634](https://github.com/black-isle-beef/novan-design-system/commit/2ace63417fce4114dd4c882edb829f15a3920617))
+
 ## [2.5.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.4.0...v2.5.0) (2026-09-23)
 
 ### Features
