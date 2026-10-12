@@ -35,6 +35,23 @@ describe('DsHeaderComponent', () => {
     expect(host.querySelector('[aria-current="page"]')?.textContent?.trim()).toBe('Home');
   });
 
+  it('renders no navigation landmark or menu button without nav items', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsHeaderComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(DsHeaderComponent);
+    fixture.componentRef.setInput('navItems', []);
+    fixture.componentRef.setInput('variant', 'app');
+    fixture.detectChanges();
+
+    const host: HTMLElement = fixture.nativeElement;
+    expect(host.querySelector('nav')).toBeNull();
+    expect(host.querySelector('.ds-main-nav__toggle')).toBeNull();
+    expect(host.querySelector('.ds-skip-link')).not.toBeNull();
+    expect(host.querySelector('.ds-header__actions')).not.toBeNull();
+  });
+
   it('keeps the site variant by default', async () => {
     await TestBed.configureTestingModule({
       imports: [DsHeaderComponent],

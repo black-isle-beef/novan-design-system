@@ -5,8 +5,11 @@
     <ng-content select="[dsBrand]" />
   </div>
 
+  <!-- No items: no navigation landmark and no menu button that would open nothing; the space keeps actions at the end. -->
   <div class="ds-header__nav flex-grow-1">
-    <ds-main-nav [items]="navItems()" [variant]="app() ? 'pills' : 'default'" />
+    @if (navItems().length) {
+      <ds-main-nav [items]="navItems()" [variant]="app() ? 'pills' : 'default'" />
+    }
   </div>
 
   <div class="ds-header__actions d-flex align-items-center gap-2" [class.px-4]="!app()" [class.py-2]="!app()">
