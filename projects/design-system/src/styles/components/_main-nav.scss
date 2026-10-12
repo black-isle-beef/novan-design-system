@@ -226,10 +226,18 @@
 // never marked by colour alone. Two classes plus the element class outrank the
 // global `a[href]` link colour and underline in styles.scss.
 // -----------------------------------------------------------------------------
+// A long menu wraps onto a second row rather than pushing the page sideways.
+@media (min-width: 768px) {
+  .ds-main-nav--pills .ds-main-nav__list {
+    flex-wrap: wrap;
+  }
+}
+
 .ds-main-nav--pills .ds-main-nav__link.nav-link {
   display: inline-flex;
   align-items: center;
   padding: 0.375rem 0.875rem;
+  white-space: nowrap;
   border-radius: 999px;
   color: var(--ds-color-text-muted);
   font-weight: $font-weight-medium;

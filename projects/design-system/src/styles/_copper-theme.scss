@@ -419,6 +419,24 @@ $ds-copper-switch-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org
     color: var(--ds-color-copper-theme-text);
   }
 
+  .ds-dropdown__trigger {
+    border-color: var(--ds-color-copper-theme-control);
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--ds-color-copper-theme-raised);
+    }
+  }
+
+  .ds-dropdown__menu {
+    border: 0.0625rem solid var(--ds-color-copper-theme-line);
+    background-color: var(--ds-color-copper-theme-surface);
+  }
+
+  .ds-menu-item__button:hover:not(:disabled) {
+    background-color: var(--ds-color-copper-theme-raised);
+  }
+
   .ds-sidebar,
   .ds-sidebar__nav,
   .ds-sidebar__toggle {

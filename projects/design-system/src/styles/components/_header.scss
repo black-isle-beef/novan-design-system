@@ -22,6 +22,16 @@
   border-bottom: var(--bs-border-width) solid var(--bs-border-color-translucent);
 }
 
+// Let the nav shrink (and its pills wrap) so brand and actions stay on screen.
+.ds-header--app .ds-header__nav {
+  min-width: 0;
+}
+
+.ds-header--app .ds-header__brand,
+.ds-header--app .ds-header__actions {
+  flex-shrink: 0;
+}
+
 // -----------------------------------------------------------------------------
 // Collapsed nav: emitted below `lg` for the `site` variant and below `md` for
 // the `app` variant (matching DsMainNavComponent's `default` / `pills`
