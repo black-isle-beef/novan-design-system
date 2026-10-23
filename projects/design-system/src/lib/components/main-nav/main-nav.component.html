@@ -59,9 +59,9 @@
             @for (child of item.children; track child.label) {
               <li>
                 @if (isExternalLink(child.href)) {
-                  <a class="dropdown-item" [href]="child.href">{{ child.label }}</a>
+                  <a class="dropdown-item" [href]="child.href" (click)="closeMenus()">{{ child.label }}</a>
                 } @else {
-                  <a class="dropdown-item" [routerLink]="child.href">{{ child.label }}</a>
+                  <a class="dropdown-item" [routerLink]="child.href" (click)="closeMenus()">{{ child.label }}</a>
                 }
               </li>
             }
@@ -71,6 +71,7 @@
             class="ds-main-nav__link nav-link ds-focus-ring"
             [href]="item.href"
             [attr.aria-current]="item.active ? 'page' : null"
+            (click)="closeMenus()"
           >
             @if (item.icon) {
               <i class="ds-main-nav__icon" [class]="item.icon" aria-hidden="true"></i>
@@ -82,6 +83,7 @@
             class="ds-main-nav__link nav-link ds-focus-ring"
             [routerLink]="item.href"
             [attr.aria-current]="item.active ? 'page' : null"
+            (click)="closeMenus()"
           >
             @if (item.icon) {
               <i class="ds-main-nav__icon" [class]="item.icon" aria-hidden="true"></i>

@@ -84,6 +84,73 @@ describe('DsMainNavComponent', () => {
     expect(links[1].querySelector('i')).toBeNull();
   });
 
+  it('closes the open mobile menu on Escape and returns focus to the menu button', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(DsMainNavComponent);
+    fixture.componentRef.setInput('items', [{ label: 'Home', href: '/' }]);
+    fixture.detectChanges();
+
+    const host: HTMLElement = fixture.nativeElement;
+    const toggle = host.querySelector<HTMLButtonElement>('.ds-main-nav__toggle')!;
+    toggle.click();
+    fixture.detectChanges();
+    const link = host.querySelector<HTMLAnchorElement>('.ds-main-nav__link')!;
+    link.focus();
+
+    link.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    fixture.detectChanges();
+
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(host.querySelector('#ds-main-nav-menu')?.classList).not.toContain('ds-main-nav__list--open');
+    expect(document.activeElement).toBe(toggle);
+  });
+
+  it('closes the open dropdown on Escape from inside it and returns focus to its button', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(DsMainNavComponent);
+    fixture.componentRef.setInput('items', items);
+    fixture.detectChanges();
+
+    const host: HTMLElement = fixture.nativeElement;
+    const button = host.querySelector<HTMLButtonElement>('.ds-main-nav__link.btn-link')!;
+    button.click();
+    fixture.detectChanges();
+    const child = host.querySelector<HTMLAnchorElement>('.dropdown-item')!;
+    child.focus();
+
+    child.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    fixture.detectChanges();
+
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('closes the mobile menu when a link is followed', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(DsMainNavComponent);
+    fixture.componentRef.setInput('items', [{ label: 'Docs', href: '#docs' }]);
+    fixture.detectChanges();
+
+    const host: HTMLElement = fixture.nativeElement;
+    const toggle = host.querySelector<HTMLButtonElement>('.ds-main-nav__toggle')!;
+    toggle.click();
+    fixture.detectChanges();
+
+    host.querySelector<HTMLAnchorElement>('.ds-main-nav__link')!.click();
+    fixture.detectChanges();
+
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
   it('collapses the pills variant below md instead of lg', async () => {
     await TestBed.configureTestingModule({
       imports: [DsMainNavComponent],
