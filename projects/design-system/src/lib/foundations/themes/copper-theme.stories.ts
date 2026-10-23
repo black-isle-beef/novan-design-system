@@ -115,6 +115,8 @@ export const Buttons: Story = {
         <button type="button" class="btn btn-link">Link button</button>
         <button type="button" class="btn btn-danger">Delete</button>
         <ds-button variant="primary" [disabled]="true">Disabled</ds-button>
+        <a class="btn btn-primary" href="#demo">Link as primary</a>
+        <a class="btn btn-secondary" href="#features">Link as secondary</a>
       </div>
     `,
   }),
