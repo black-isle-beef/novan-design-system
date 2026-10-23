@@ -68,6 +68,30 @@ describe('DsCookieBannerComponent', () => {
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeFalsy();
   });
 
+  it('leaves focus alone when the page first opens it after rendering, and moves it on the next opening', async () => {
+    await TestBed.configureTestingModule({ imports: [DsCookieBannerComponent] }).compileComponents();
+    const fixture = TestBed.createComponent(DsCookieBannerComponent);
+    fixture.componentRef.setInput('open', false);
+    fixture.componentRef.setInput('autoFocus', false);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    // As a site does after reading its consent cookie in the browser.
+    fixture.componentRef.setInput('open', true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const host: HTMLElement = fixture.nativeElement;
+    expect(host.contains(document.activeElement)).toBe(false);
+
+    host.querySelector<HTMLButtonElement>('.btn-primary')!.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.componentInstance.open.set(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(document.activeElement).toBe(host.querySelector('.btn-primary'));
+  });
+
   describe('with labels, a manage action and a two-way open binding', () => {
     async function render() {
       await TestBed.configureTestingModule({ imports: [HostComponent] }).compileComponents();

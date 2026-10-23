@@ -40,7 +40,11 @@ export class DsCookieBannerComponent {
   );
   /** Whether the banner is shown. Bind with `[(open)]` to reopen it. */
   readonly open = model(true);
-  /** Whether focus moves to the banner when it is shown on first render. Reopening always moves focus. */
+  /**
+   * Whether focus moves into the banner the first time it is shown: on first render, or when the page opens it
+   * later (e.g. after reading a consent cookie in the browser). Every later opening, such as from a "Cookie
+   * settings" link, moves focus.
+   */
   readonly autoFocus = input(true);
   /** Label of the accept action. */
   readonly acceptLabel = input('Accept');
@@ -61,13 +65,12 @@ export class DsCookieBannerComponent {
   private readonly injector = inject(Injector);
   private previouslyFocused: HTMLElement | null = null;
   private rendered = false;
+  private shownBefore = false;
 
   constructor() {
     afterNextRender(() => {
-      if (this.open() && this.autoFocus()) {
-        this.moveFocusIn();
-      }
       this.rendered = true;
+      if (this.open()) this.shown();
     });
 
     effect(() => {
@@ -76,7 +79,7 @@ export class DsCookieBannerComponent {
       untracked(() => {
         if (!this.rendered) return;
         if (open) {
-          afterNextRender(() => this.moveFocusIn(), { injector: this.injector });
+          afterNextRender(() => this.shown(), { injector: this.injector });
         } else {
           this.previouslyFocused?.focus();
           this.previouslyFocused = null;
@@ -97,6 +100,14 @@ export class DsCookieBannerComponent {
 
   protected requestManage(): void {
     this.manage.emit();
+  }
+
+  /** The first showing follows `autoFocus`; every later one moves focus in. */
+  private shown(): void {
+    const first = !this.shownBefore;
+    this.shownBefore = true;
+    if (first && !this.autoFocus()) return;
+    this.moveFocusIn();
   }
 
   private moveFocusIn(): void {
