@@ -3,6 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { DsAlertComponent } from '../../components/alert';
 import { DsBadgeComponent } from '../../components/badge';
 import { DsButtonComponent } from '../../components/button';
+import { DsCookieBannerComponent } from '../../components/cookie-banner/cookie-banner.component';
 import { DsHeaderComponent } from '../../components/header/header.component';
 import { DsModalComponent } from '../../components/modal';
 import { DsProgressComponent } from '../../components/progress';
@@ -38,6 +39,7 @@ const meta: Meta = {
         DsAlertComponent,
         DsBadgeComponent,
         DsButtonComponent,
+        DsCookieBannerComponent,
         DsHeaderComponent,
         DsModalComponent,
         DsProgressComponent,
@@ -79,6 +81,26 @@ export const Header: Story = {
         <h1 class="h3">Dashboard</h1>
         <p>Page content goes here, with an <a href="#copper">inline link</a> in solid copper.</p>
       </main>
+    `,
+  }),
+};
+
+export const CookieBanner: Story = {
+  parameters: { layout: 'fullscreen' },
+  render: () => ({
+    // A transform gives the fixed banner a containing block, so it stays visible on the Docs page.
+    template: `
+      <div style="position: relative; min-height: 160px; transform: translateZ(0);">
+        <ds-cookie-banner
+          [autoFocus]="false"
+          acceptLabel="Accept all"
+          declineLabel="Reject all"
+          manageLabel="Manage preferences"
+          [equalProminence]="true"
+        >
+          We use strictly necessary cookies to run this site. Read our <a href="#cookies">cookie policy</a>.
+        </ds-cookie-banner>
+      </div>
     `,
   }),
 };

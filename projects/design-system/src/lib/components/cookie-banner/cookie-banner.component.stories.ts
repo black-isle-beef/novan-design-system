@@ -42,3 +42,25 @@ export const CustomMessage: Story = {
     message: 'This site uses strictly necessary cookies only. No tracking, ever.',
   },
 };
+
+/**
+ * UK/EU-style consent: accept and reject with equal weight, a "Manage
+ * preferences" action, a projected message linking to the cookie policy, and
+ * no focus move on page load. Bind `[(open)]` to reopen it from a footer link.
+ */
+export const Consent: Story = {
+  render: () => ({
+    template: `
+      <ds-cookie-banner
+        [autoFocus]="false"
+        acceptLabel="Accept all"
+        declineLabel="Reject all"
+        manageLabel="Manage preferences"
+        [equalProminence]="true"
+      >
+        We use strictly necessary cookies to run this site. With your permission we would also use analytics cookies.
+        Read our <a href="#cookies" class="link-light">cookie policy</a>.
+      </ds-cookie-banner>
+    `,
+  }),
+};

@@ -90,7 +90,11 @@ test.describe('WCAG 2.1 AA accessibility', () => {
   });
 
   test('DsCookieBannerComponent (Default) has no violations', async ({ page }) => {
-    await expectNoA11yViolations(page, 'components-global-cookiebanner--default');
+    await expectNoA11yViolations(page, 'components-structural-cookiebanner--default');
+  });
+
+  test('DsCookieBannerComponent (Consent) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-structural-cookiebanner--consent');
   });
 
   test('DsBreadcrumbComponent (Default) has no violations', async ({ page }) => {
@@ -199,7 +203,7 @@ test.describe('WCAG 2.1 AA accessibility', () => {
 });
 
 test.describe('Charcoal & Copper theme: WCAG 2.1 AA accessibility', () => {
-  for (const story of ['header', 'buttons', 'form-controls', 'alert', 'badge', 'progress', 'toast', 'modal', 'sidebar']) {
+  for (const story of ['header', 'cookie-banner', 'buttons', 'form-controls', 'alert', 'badge', 'progress', 'toast', 'modal', 'sidebar']) {
     test(`${story} has no violations`, async ({ page }) => {
       await expectNoA11yViolations(page, `themes-charcoal-copper--${story}`);
       await expect(page.locator('html')).toHaveAttribute('data-ds-theme', 'copper');
