@@ -2,6 +2,18 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [2.7.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.6.0...v2.7.0) (2026-10-24)
+
+### Features
+
+* **cookie-banner:** reopenable consent with labels, manage action and equal prominence ([16e7d7e](https://github.com/black-isle-beef/novan-design-system/commit/16e7d7e379c8ab3b40f97f85f6daa6baccdf2703))
+
+### Bug Fixes
+
+* **button:** links styled as buttons keep their button colours ([e000836](https://github.com/black-isle-beef/novan-design-system/commit/e0008361efea32447c5fd369f73fc3a92de29985))
+* **cookie-banner:** autoFocus governs the first showing, whenever it happens ([ef851d3](https://github.com/black-isle-beef/novan-design-system/commit/ef851d3ffdc96a091bc9d70a5c34ab7d56f3684b))
+* **main-nav:** escape closes menus and returns focus; links close them ([abefbfb](https://github.com/black-isle-beef/novan-design-system/commit/abefbfb03a3855d3f97eb20e9c41ba2d840b1e60))
+
 ## [2.6.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.5.0...v2.6.0) (2026-10-12)
 
 ### Features
