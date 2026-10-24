@@ -3,6 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { DsAlertComponent } from '../../components/alert';
 import { DsBadgeComponent } from '../../components/badge';
 import { DsButtonComponent } from '../../components/button';
+import { DsCookieBannerComponent } from '../../components/cookie-banner/cookie-banner.component';
 import { DsHeaderComponent } from '../../components/header/header.component';
 import { DsModalComponent } from '../../components/modal';
 import { DsProgressComponent } from '../../components/progress';
@@ -38,6 +39,7 @@ const meta: Meta = {
         DsAlertComponent,
         DsBadgeComponent,
         DsButtonComponent,
+        DsCookieBannerComponent,
         DsHeaderComponent,
         DsModalComponent,
         DsProgressComponent,
@@ -83,6 +85,26 @@ export const Header: Story = {
   }),
 };
 
+export const CookieBanner: Story = {
+  parameters: { layout: 'fullscreen' },
+  render: () => ({
+    // A transform gives the fixed banner a containing block, so it stays visible on the Docs page.
+    template: `
+      <div style="position: relative; min-height: 160px; transform: translateZ(0);">
+        <ds-cookie-banner
+          [autoFocus]="false"
+          acceptLabel="Accept all"
+          declineLabel="Reject all"
+          manageLabel="Manage preferences"
+          [equalProminence]="true"
+        >
+          We use strictly necessary cookies to run this site. Read our <a href="#cookies">cookie policy</a>.
+        </ds-cookie-banner>
+      </div>
+    `,
+  }),
+};
+
 export const Buttons: Story = {
   render: () => ({
     template: `
@@ -93,6 +115,8 @@ export const Buttons: Story = {
         <button type="button" class="btn btn-link">Link button</button>
         <button type="button" class="btn btn-danger">Delete</button>
         <ds-button variant="primary" [disabled]="true">Disabled</ds-button>
+        <a class="btn btn-primary" href="#demo">Link as primary</a>
+        <a class="btn btn-secondary" href="#features">Link as secondary</a>
       </div>
     `,
   }),

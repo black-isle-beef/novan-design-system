@@ -1,4 +1,4 @@
-@if (visible()) {
+@if (open()) {
   <div
     class="ds-cookie-banner__region d-flex flex-column flex-md-row align-items-md-center gap-4 p-6"
     role="dialog"
@@ -6,16 +6,27 @@
     aria-labelledby="ds-cookie-banner-message"
   >
     <p id="ds-cookie-banner-message" class="ds-cookie-banner__message mb-0 flex-grow-1">
-      {{ message() }}
+      <ng-content>{{ message() }}</ng-content>
     </p>
 
-    <div class="ds-cookie-banner__actions d-flex gap-2 flex-shrink-0">
+    <div class="ds-cookie-banner__actions d-flex flex-wrap gap-2 flex-shrink-0">
+      @if (manageLabel(); as label) {
+        <button
+          type="button"
+          class="btn btn-outline-light ds-focus-ring"
+          (click)="requestManage()"
+        >
+          {{ label }}
+        </button>
+      }
       <button
         type="button"
-        class="btn btn-outline-light ds-focus-ring"
+        class="btn ds-focus-ring"
+        [class.btn-outline-light]="!equalProminence()"
+        [class.btn-primary]="equalProminence()"
         (click)="decline()"
       >
-        Decline
+        {{ declineLabel() }}
       </button>
       <button
         #acceptButton
@@ -23,7 +34,7 @@
         class="btn btn-primary ds-focus-ring"
         (click)="accept()"
       >
-        Accept
+        {{ acceptLabel() }}
       </button>
     </div>
   </div>

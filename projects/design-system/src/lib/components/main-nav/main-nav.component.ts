@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { NavItem } from '../../models/nav-item.model';
 import { isExternalLink } from '../../utils/link.util';
@@ -10,6 +10,9 @@ export type DsMainNavVariant = 'default' | 'pills';
  * Accessible primary navigation bar with desktop dropdown support and a
  * keyboard-navigable mobile toggle. Implements the WAI-ARIA disclosure
  * pattern for dropdowns and the navigation-menu pattern for the mobile toggle.
+ *
+ * Escape closes the open dropdown, or else the open mobile menu, and returns
+ * focus to the button that opened it. Following a link closes both.
  */
 @Component({
   selector: 'ds-main-nav',
@@ -20,6 +23,7 @@ export type DsMainNavVariant = 'default' | 'pills';
   host: {
     class: 'ds-main-nav',
     '[class.ds-main-nav--pills]': 'pills()',
+    '(keydown.escape)': 'onEscape()',
   },
 })
 export class DsMainNavComponent {
@@ -37,6 +41,8 @@ export class DsMainNavComponent {
   protected readonly mobileOpen = signal(false);
   protected readonly openDropdownIndex = signal<number | null>(null);
 
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+
   protected toggleMobile(): void {
     this.mobileOpen.update((open) => !open);
   }
@@ -50,11 +56,31 @@ export class DsMainNavComponent {
   }
 
   protected onDropdownKeydown(event: KeyboardEvent, index: number): void {
-    if (event.key === 'Escape') {
-      this.closeDropdown();
-    } else if (event.key === 'ArrowDown' && this.openDropdownIndex() !== index) {
+    if (event.key === 'ArrowDown' && this.openDropdownIndex() !== index) {
       event.preventDefault();
       this.toggleDropdown(index);
     }
+  }
+
+  /** Closes the innermost open menu and puts focus back on the button that opened it. */
+  protected onEscape(): void {
+    const dropdown = this.openDropdownIndex();
+    if (dropdown !== null) {
+      this.closeDropdown();
+      this.focus(`[aria-controls="ds-main-nav-dropdown-${dropdown}"]`);
+    } else if (this.mobileOpen()) {
+      this.mobileOpen.set(false);
+      this.focus('.ds-main-nav__toggle');
+    }
+  }
+
+  /** A followed link leaves the page (or the in-app view) behind, so no menu should stay open over it. */
+  protected closeMenus(): void {
+    this.closeDropdown();
+    this.mobileOpen.set(false);
+  }
+
+  private focus(selector: string): void {
+    this.host.nativeElement.querySelector<HTMLElement>(selector)?.focus();
   }
 }

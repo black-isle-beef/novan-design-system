@@ -17,6 +17,27 @@
   --bs-btn-disabled-opacity: 0.85;
 }
 
+// Links styled as buttons (`<a class="btn btn-*" href>`) keep their button's
+// colours, and no underline, in every state. The global `a[href]` link styling
+// in styles.scss (0,1,1) otherwise beats the base `.btn` rule (0,1,0), giving
+// anchors the link colour: unreadable on a filled or brushed button. `btn-link`
+// keeps its link treatment.
+a.btn[href]:not(.btn-link) {
+  color: var(--bs-btn-color);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-btn-hover-color);
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    color: var(--bs-btn-active-color);
+  }
+}
+
 .btn-primary {
   @include button-variant($ds-color-brand-primary, $ds-color-brand-primary);
 }
