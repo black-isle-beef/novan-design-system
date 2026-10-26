@@ -2,6 +2,38 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [3.0.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.7.0...v3.0.0) (2026-10-26)
+
+### ⚠ BREAKING CHANGES
+
+* **components:** markup projected into or around the components must use
+Bootstrap 6 classes (see the README's upgrade notes).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+* **styles:** consumers need bootstrap@6.0.0-alpha.1 and must load
+the styles with `@use` (not `@import`). Bootstrap custom properties
+are unprefixed (`--primary-base`, `--link-color`, not `--bs-*`).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Features
+
+* **accordion:** implement Bootstrap 6 accordion structure and styles ([0938efc](https://github.com/black-isle-beef/novan-design-system/commit/0938efce36c8ec1c82475d7c9a697334e9c2874a))
+
+### Bug Fixes
+
+* **components:** move the last form-check leftovers to Bootstrap 6 ([b3c8dd2](https://github.com/black-isle-beef/novan-design-system/commit/b3c8dd21c7d0d1abd03d2a632405f9ea4a43f3fc))
+* **skills:** remove obsolete bootstrap-v4-v6-migration entry ([778b056](https://github.com/black-isle-beef/novan-design-system/commit/778b056d6dfcb5048b1577a2530858ac3252c090))
+* **styles:** match Bootstrap 5 rendering found in a side-by-side review ([1730ad7](https://github.com/black-isle-beef/novan-design-system/commit/1730ad7bfc697f1c06acf910e52906ef6e71c653))
+
+### Code Refactoring
+
+* **components:** move templates to Bootstrap 6 classes and markup ([37a17eb](https://github.com/black-isle-beef/novan-design-system/commit/37a17eb5577759e8a44fae29418155e79e51ac8a))
+
+### Build System
+
+* **styles:** move the Sass layer to Bootstrap 6.0.0-alpha.1 ([564210f](https://github.com/black-isle-beef/novan-design-system/commit/564210fb39784c1c2f0f8f0aef58b7d12dde4cb7))
+
 ## [2.7.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.6.0...v2.7.0) (2026-10-24)
 
 ### Features
