@@ -8,7 +8,7 @@ const meta: Meta<DsFormSelectComponent> = {
     docs: {
       subtitle: 'Bootstrap Select Controls & Sizing',
       description: {
-        component: 'Single select, multi-select, sizing variations (.form-select-sm, .form-select-lg), and disabled options.',
+        component: 'Single select, multi-select, sizing variations (.form-control-sm, .form-control-lg), and disabled options.',
       },
     },
   },

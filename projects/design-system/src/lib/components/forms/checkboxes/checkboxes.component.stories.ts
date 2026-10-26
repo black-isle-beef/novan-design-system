@@ -8,7 +8,7 @@ const meta: Meta<DsCheckboxesComponent> = {
     docs: {
       subtitle: 'Bootstrap Checkboxes, Switches & Indeterminate States',
       description: {
-        component: 'Standard stacked checkboxes, inline checkboxes, switch toggles (.form-switch), and Angular dsIndeterminate directive.',
+        component: 'Standard stacked checkboxes, inline checkboxes, switch toggles (.switch), and Angular dsIndeterminate directive.',
       },
     },
   },

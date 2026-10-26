@@ -1,47 +1,111 @@
 // =============================================================================
 // styles.scss — Master entry point for @black-isle-beef/novan-design-system
 //
-// Import order is intentional and load-bearing:
-//   1. Generated design tokens (Style Dictionary output)
-//   2. Custom Bootstrap variable overrides driven by those tokens
-//   3. Bootstrap core (functions -> variables -> maps -> mixins -> components)
-//   4. Custom utilities / components authored on top of Bootstrap
+// Load order is intentional and load-bearing:
+//   1. Generated design tokens (Style Dictionary output), forwarded so
+//      consumers can read `$ds-*` tokens and configure `$ds-enable-web-fonts`
+//      through `@use '.../styles' with (...)`
+//   2. Bootstrap 6 configuration maps built from those tokens (no CSS)
+//   3. Bootstrap 6, configured once with `@use ... with (...)`. It must be the
+//      first module to load Bootstrap, or the configuration is rejected.
+//   4. Design-system styles. Tokens (custom properties on `:root` and theme
+//      attributes) are unlayered, like Bootstrap's own `:root` tokens, which
+//      a layered rule could never override. Rules go in Bootstrap's cascade
+//      layers: element defaults in `reboot`, everything else in `custom`
+//      (above Bootstrap's components, below its `helpers` and `utilities`, so
+//      utility classes still win).
 // =============================================================================
+@use 'sass:map';
+@use 'sass:meta';
 
-// 1. Generated tokens (forwarded via _variables.scss) --------------------------
-@import 'variables';
+// 1. Generated tokens -----------------------------------------------------------
+@forward 'variables';
+@use 'variables' as *;
 
-// 2. Custom overrides (must precede Bootstrap so `!default` vars no-op) -------
-@import 'colors';
-@import 'dark-mode';
+// Web font import: a plain CSS `@import`, so it must precede every rule.
+@use 'fonts';
 
-// Opt-in "Charcoal & Copper" app theme (`data-bs-theme="dark" data-ds-theme="copper"`).
-// Its doubled attribute selector outranks Bootstrap's dark-mode block below.
-@import 'copper-theme';
-@import 'typography';
-@import 'spacers';
+// 2. Bootstrap configuration -----------------------------------------------------
+@use 'colors';
+@use 'typography';
+@use 'spacers';
 
 // 3. Bootstrap core ------------------------------------------------------------
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+// The `.scss` extension is required: Bootstrap 6's package `exports` map only
+// exposes exact file paths, and resolvers that honour it (Angular's, Vite's)
+// can't find the extensionless `bootstrap/scss/bootstrap`.
+@use 'bootstrap/scss/bootstrap.scss' with (
+  // Dark mode follows `data-bs-theme`, not the operating system (see _base.scss).
+  $color-mode-type: data,
 
-// Links retain the same visual affordance wherever Bootstrap components place them.
-// Read through the CSS custom properties (rather than the compiled SCSS
-// variables) so link color follows `[data-bs-theme="dark"]` at runtime.
-a[href] {
-	color: var(--bs-link-color);
-	text-decoration: underline;
+  // Bootstrap 5's breakpoints and container widths, which the design system's
+  // layouts and media queries are built on.
+  $breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, 2xl: 1400px),
+  $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px, 2xl: 1320px),
+
+  // Bootstrap 5's base radius; `--radius-5` (buttons, inputs) keeps its v5 size.
+  $radius: 0.375rem,
+
+  $spacers: spacers.$ds-bs-spacers,
+  $theme-colors: colors.$ds-bs-theme-colors,
+  $theme-bgs: colors.$ds-bs-theme-bgs,
+  $theme-fgs: colors.$ds-bs-theme-fgs,
+  $font-sizes: typography.$ds-bs-font-sizes,
+  $font-weights: typography.$ds-bs-font-weights,
+  $root-tokens: map.merge(colors.$ds-bs-root-color-tokens, typography.$ds-bs-root-type-tokens),
+  $type-tokens: typography.$ds-bs-type-tokens,
+
+  // Bootstrap 6 pads these from `--spacer-N`, which now holds the design
+  // system's scale; pin them to their Bootstrap 5 sizes.
+  $card-tokens: (
+      --card-spacer-y: 1rem,
+      --card-spacer-x: 1rem,
+      --card-cap-padding-y: 0.5rem,
+      --card-cap-padding-x: 1rem
+    ),
+
+  // Bootstrap 5's `.blockquote`: larger type, no leading rule.
+  $blockquote-tokens: (
+      --blockquote-padding-x: 0,
+      --blockquote-border-width: 0,
+      --blockquote-font-size: 1.25rem
+    ),
+
+  // Outline buttons keep Bootstrap 5's solid-colour border (v6 uses the
+  // lighter `border` role). The map merges one level deep, so `outline` is whole.
+  $button-variants: (
+      'outline': (
+        'base': (
+          'bg': 'transparent',
+          'color': 'fg',
+          'border-color': 'bg',
+        ),
+        'hover': (
+          'bg': 'bg',
+          'color': 'contrast',
+          'border-color': 'bg',
+        ),
+        'active': (
+          'bg': 'bg',
+          'color': 'contrast',
+          'border-color': 'bg',
+        ),
+      )
+    )
+);
+@use 'bootstrap-icons/font/bootstrap-icons';
+
+// 4. Design-system styles ----------------------------------------------------------
+@include meta.load-css('base');
+@include meta.load-css('custom-properties');
+@include meta.load-css('dark-mode');
+
+// Opt-in "Charcoal & Copper" app theme (`data-bs-theme="dark" data-ds-theme="copper"`).
+// Its doubled attribute selector outranks the dark-mode blocks above; it
+// layers its own rules.
+@include meta.load-css('copper-theme');
+
+@layer custom {
+  @include meta.load-css('utilities');
+  @include meta.load-css('components/index');
 }
-
-a[href]:hover {
-	color: var(--ds-link-hover-color);
-	text-decoration: none;
-}
-
-p a[href] {
-	font-weight: $font-weight-medium;
-}
-
-// 4. Custom utilities / components ---------------------------------------------
-@import 'utilities';
-@import 'components/index';

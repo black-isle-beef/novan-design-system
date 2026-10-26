@@ -54,7 +54,7 @@ const meta: Meta = {
       subtitle: 'A dark, warm app theme: charcoal surfaces, brushed copper on primary actions, solid copper on links and focus',
       description: {
         component:
-          'Opt in with `<html data-bs-theme="dark" data-ds-theme="copper">`. Bootstrap\'s dark component variables apply first and the theme refines them. Text on copper is always Charcoal 950; solid copper text is only for the canvas and surface, never the raised surface; form-control borders use Neutral 400; danger text uses Rose 100. Under `prefers-contrast: more` and forced colours, primary buttons and progress fall back to solid copper with a visible border.',
+          'Opt in with `<html data-bs-theme="dark" data-ds-theme="copper">`. The theme re-points Bootstrap\'s colour roles and surfaces at copper and charcoal. Text on copper is always Charcoal 950; solid copper text is only for the canvas and surface, never the raised surface; form-control borders use Neutral 400; danger text uses Rose 100. Under `prefers-contrast: more` and forced colours, primary buttons and progress fall back to solid copper with a visible border.',
       },
     },
   },
@@ -71,10 +71,10 @@ export const Header: Story = {
       <ds-header variant="app" [navItems]="navItems">
         <strong dsBrand>Novan&nbsp;CMS</strong>
         <ng-container dsActions>
-          <button type="button" class="btn btn-secondary btn-sm">
+          <button type="button" class="btn btn-outline theme-primary ds-btn-secondary btn-sm">
             <i class="bi bi-search me-1" aria-hidden="true"></i>Search
           </button>
-          <button type="button" class="btn btn-secondary btn-sm rounded-circle" aria-label="Account menu">AB</button>
+          <button type="button" class="btn btn-outline theme-primary ds-btn-secondary btn-sm rounded-circle" aria-label="Account menu">AB</button>
         </ng-container>
       </ds-header>
       <main id="ds-main-content" class="p-4">
@@ -111,12 +111,12 @@ export const Buttons: Story = {
       <div class="d-flex flex-wrap align-items-center gap-3">
         <ds-button variant="primary">Publish</ds-button>
         <ds-button variant="secondary">Save draft</ds-button>
-        <button type="button" class="btn btn-outline-primary">Outline</button>
+        <button type="button" class="btn btn-outline theme-primary">Outline</button>
         <button type="button" class="btn btn-link">Link button</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-solid theme-danger">Delete</button>
         <ds-button variant="primary" [disabled]="true">Disabled</ds-button>
-        <a class="btn btn-primary" href="#demo">Link as primary</a>
-        <a class="btn btn-secondary" href="#features">Link as secondary</a>
+        <a class="btn btn-solid theme-primary" href="#demo">Link as primary</a>
+        <a class="btn btn-outline theme-primary ds-btn-secondary" href="#features">Link as secondary</a>
       </div>
     `,
   }),
@@ -132,7 +132,7 @@ export const FormControls: Story = {
         </div>
         <div>
           <label class="form-label" for="copper-status">Status</label>
-          <select class="form-select" id="copper-status">
+          <select class="form-control" id="copper-status">
             <option>Draft</option>
             <option>Published</option>
           </select>
@@ -142,21 +142,21 @@ export const FormControls: Story = {
           <input class="form-control is-invalid" id="copper-slug" value="Opening Hours" aria-describedby="copper-slug-error" />
           <div class="invalid-feedback" id="copper-slug-error">Use lower-case letters and dashes only.</div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="copper-check" checked />
-          <label class="form-check-label" for="copper-check">Show in the menu</label>
+        <div class="form-field">
+          <input class="check" type="checkbox" id="copper-check" checked />
+          <label for="copper-check">Show in the menu</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="copper-radio" id="copper-radio-a" checked />
-          <label class="form-check-label" for="copper-radio-a">Everyone</label>
+        <div class="form-field">
+          <input class="radio" type="radio" name="copper-radio" id="copper-radio-a" checked />
+          <label for="copper-radio-a">Everyone</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="copper-radio" id="copper-radio-b" />
-          <label class="form-check-label" for="copper-radio-b">Signed-in people only</label>
+        <div class="form-field">
+          <input class="radio" type="radio" name="copper-radio" id="copper-radio-b" />
+          <label for="copper-radio-b">Signed-in people only</label>
         </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="copper-switch" checked />
-          <label class="form-check-label" for="copper-switch">Send me a copy</label>
+        <div class="form-field">
+          <div class="switch"><input type="checkbox" role="switch" id="copper-switch" checked switch /></div>
+          <label for="copper-switch">Send me a copy</label>
         </div>
       </form>
     `,

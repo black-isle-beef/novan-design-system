@@ -3,7 +3,7 @@
   so assistive tech announces it as a labeled landmark region.
 -->
 <section
-  class="ds-hero__region d-flex flex-column justify-content-center py-16 px-4 px-md-8"
+  class="ds-hero__region d-flex flex-column justify-content-center py-16 px-4 md:px-8"
   [class.ds-hero--primary]="variant() === 'primary'"
   [class.ds-hero--dark]="variant() === 'dark'"
   [class.ds-hero--light]="variant() === 'light'"
@@ -24,7 +24,7 @@
       <h1 [id]="headingId" class="ds-hero__heading mb-4">{{ heading() }}</h1>
 
       @if (subheading()) {
-        <p class="ds-hero__subheading lead mb-0">{{ subheading() }}</p>
+        <p class="ds-hero__subheading fs-lg fw-light mb-0">{{ subheading() }}</p>
       }
     </div>
 

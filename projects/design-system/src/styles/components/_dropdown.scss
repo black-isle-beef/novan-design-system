@@ -7,7 +7,7 @@
 // the trigger's bounding rect (see dropdown.component.ts), which is why the
 // UA's default centered `position: fixed` is overridden here.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-dropdown {
   position: relative;

@@ -1,11 +1,30 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming';
 
+declare global {
+  interface Window {
+    /** Set by `managerHead` in main.ts from the newest CHANGELOG.md release. */
+    __NOVAN_DS_VERSION__?: string;
+  }
+}
+
+const version = window.__NOVAN_DS_VERSION__;
+
+// With no `brandImage`, Storybook renders `brandTitle` as HTML inside the
+// sidebar's home link, which lets the version pill sit beside the logo.
+// Styles live in manager-head.html.
+const brandTitle = [
+  '<span class="ds-sb-brand">',
+  '<img class="ds-sb-brand__mark" src="/logos/marks/compass-mark-charcoal.svg" alt="">',
+  '<span class="ds-sb-brand__name">novan</span>',
+  version ? `<span class="ds-sb-brand__version">v${version}</span>` : '',
+  '</span>',
+].join('');
+
 const novanTheme = create({
   base: 'light',
-  brandTitle: 'novan design system',
+  brandTitle,
   brandUrl: '/',
-  brandImage: '/Novan%20logos_1.png',
   brandTarget: '_self',
   fontBase: 'Montserrat Alternates, sans-serif',
   fontCode: 'Montserrat Alternates, monospace',

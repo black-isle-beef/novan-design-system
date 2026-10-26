@@ -121,7 +121,7 @@ describe('DsMainNavComponent', () => {
     const button = host.querySelector<HTMLButtonElement>('.ds-main-nav__link.btn-link')!;
     button.click();
     fixture.detectChanges();
-    const child = host.querySelector<HTMLAnchorElement>('.dropdown-item')!;
+    const child = host.querySelector<HTMLAnchorElement>('.menu-item')!;
     child.focus();
 
     child.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
@@ -163,9 +163,8 @@ describe('DsMainNavComponent', () => {
 
     const host: HTMLElement = fixture.nativeElement;
     expect(host.classList).toContain('ds-main-nav--pills');
-    expect(host.querySelector('nav')?.classList).toContain('navbar-expand-md');
-    expect(host.querySelector('nav')?.classList).not.toContain('navbar-expand-lg');
-    expect(host.querySelector('.ds-main-nav__toggle')?.classList).toContain('d-md-none');
+    expect(host.querySelector('.ds-main-nav__toggle')?.classList).toContain('md:d-none');
+    expect(host.querySelector('.ds-main-nav__toggle')?.classList).not.toContain('lg:d-none');
     expect(host.querySelector('[aria-current="page"]')?.textContent?.trim()).toBe('Home');
   });
 });

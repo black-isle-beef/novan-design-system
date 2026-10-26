@@ -133,6 +133,24 @@ test.describe('WCAG 2.1 AA accessibility', () => {
     await expectNoA11yViolations(page, 'components-disclosure-accordion--default');
   });
 
+  test('DsAccordionComponent (SingleOpen) has no violations', async ({ page }) => {
+    await expectNoA11yViolations(page, 'components-disclosure-accordion--single-open');
+  });
+
+  // jsdom doesn't implement `<details name>` exclusivity, so the single-open
+  // behavior is checked here in a real browser.
+  test('DsAccordionComponent opening one item closes the others', async ({ page }) => {
+    await page.goto('/iframe.html?id=components-disclosure-accordion--single-open&viewMode=story');
+    const items = page.locator('details.accordion-item');
+    await expect(items.nth(0)).toHaveAttribute('open', '');
+
+    await page.getByText('Can I change plans later?').click();
+
+    await expect(items.nth(1)).toHaveAttribute('open', '');
+    await expect(items.nth(0)).not.toHaveAttribute('open', '');
+    await expect(items.nth(2)).not.toHaveAttribute('open', '');
+  });
+
   test('DsAlertComponent (Default) has no violations', async ({ page }) => {
     await expectNoA11yViolations(page, 'components-feedback-alert--default');
   });

@@ -1,17 +1,17 @@
 <div class="card shadow-sm border-0">
-  <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+  <div class="card-header bg-white border-bottom py-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-2">
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-menu-button-wide text-primary fs-4"></i>
+      <i class="bi bi-menu-button-wide fg-primary fs-xl"></i>
       <div>
         <h2 class="h5 mb-0 fw-bold">Form Select Controls</h2>
-        <small class="text-muted">Single select, multi-select, sizing variations (.form-select-sm, .form-select-lg), and disabled options.</small>
+        <small class="fg-3">Single select, multi-select, sizing variations (.form-control-sm, .form-control-lg), and disabled options.</small>
       </div>
     </div>
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
-      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-solid theme-inverse" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
         <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
       </button>
     </div>
@@ -21,9 +21,9 @@
     @if (activeCodeTab() === 'preview') {
       <div class="row g-3">
         <!-- Single Select -->
-        <div class="col-md-6">
+        <div class="md:col-6">
           <label for="singleSelectDemo" class="form-label fw-semibold">Standard Single Select</label>
-          <select class="form-select" id="singleSelectDemo" aria-label="Default select example">
+          <select class="form-control" id="singleSelectDemo" aria-label="Default select example">
             <option selected>Open this select menu</option>
             <option value="us">United States</option>
             <option value="ca">Canada</option>
@@ -33,24 +33,24 @@
         </div>
 
         <!-- Sizing Small & Large -->
-        <div class="col-md-6">
-          <label for="selectSmDemo" class="form-label fw-semibold">Small Select (.form-select-sm)</label>
-          <select class="form-select form-select-sm mb-3" id="selectSmDemo">
+        <div class="md:col-6">
+          <label for="selectSmDemo" class="form-label fw-semibold">Small Select (.form-control-sm)</label>
+          <select class="form-control form-control-sm mb-3" id="selectSmDemo">
             <option selected>Small select option</option>
             <option value="1">Small Option 1</option>
           </select>
 
-          <label for="selectLgDemo" class="form-label fw-semibold">Large Select (.form-select-lg)</label>
-          <select class="form-select form-select-lg" id="selectLgDemo">
+          <label for="selectLgDemo" class="form-label fw-semibold">Large Select (.form-control-lg)</label>
+          <select class="form-control form-control-lg" id="selectLgDemo">
             <option selected>Large select option</option>
             <option value="1">Large Option 1</option>
           </select>
         </div>
 
         <!-- Multi Select -->
-        <div class="col-md-6">
+        <div class="md:col-6">
           <label for="multiSelectDemo" class="form-label fw-semibold">Multi-Select Control</label>
-          <select class="form-select ds-forms-multiselect" id="multiSelectDemo" multiple aria-label="Multiple select example">
+          <select class="form-control ds-forms-multiselect" id="multiSelectDemo" multiple aria-label="Multiple select example">
             <option value="ng" selected>Angular 22</option>
             <option value="react" selected>React 19</option>
             <option value="vue">Vue 3</option>
@@ -59,9 +59,9 @@
         </div>
 
         <!-- Disabled Select -->
-        <div class="col-md-6">
+        <div class="md:col-6">
           <label for="disabledSelectDemo" class="form-label fw-semibold">Disabled Select</label>
-          <select class="form-select" id="disabledSelectDemo" disabled>
+          <select class="form-control" id="disabledSelectDemo" disabled>
             <option selected>Disabled menu state</option>
           </select>
         </div>

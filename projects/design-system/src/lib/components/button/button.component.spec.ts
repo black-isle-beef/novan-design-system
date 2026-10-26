@@ -23,30 +23,31 @@ describe('DsButtonComponent', () => {
     const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
     expect(button.type).toBe('button');
     expect(button.classList.contains('btn')).toBe(true);
-    expect(button.classList.contains('btn-primary')).toBe(true);
+    expect(button.classList).toContain('btn-solid');
+    expect(button.classList).toContain('theme-primary');
     expect(button.classList.contains('btn-sm')).toBe(false);
     expect(button.classList.contains('btn-lg')).toBe(false);
     expect(button.disabled).toBe(false);
   });
 
-  it.each<DsButtonVariant>([
-    'primary',
-    'secondary',
-    'success',
-    'warning',
-    'danger',
-    'info',
-    'hero-light',
-    'hero-dark',
+  it.each<[DsButtonVariant, string[]]>([
+    ['primary', ['btn-solid', 'theme-primary']],
+    ['secondary', ['btn-outline', 'theme-primary', 'ds-btn-secondary']],
+    ['success', ['btn-solid', 'theme-success']],
+    ['warning', ['btn-solid', 'theme-warning']],
+    ['danger', ['btn-solid', 'theme-danger']],
+    ['info', ['btn-solid', 'theme-accent']],
+    ['hero-light', ['btn-hero-light']],
+    ['hero-dark', ['btn-hero-dark']],
   ])(
-    'applies the %s variant class',
-    async (variant) => {
+    'applies the %s variant classes',
+    async (variant, classes) => {
       const fixture = await createFixture();
       fixture.componentRef.setInput('variant', variant);
       fixture.detectChanges();
 
       const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
-      expect(button.classList.contains(`btn-${variant}`)).toBe(true);
+      expect([...button.classList]).toEqual(expect.arrayContaining(['btn', ...classes]));
     },
   );
 

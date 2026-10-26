@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 // _badge.scss — Overrides for DsBadgeComponent
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-badge {
   display: inline-flex;

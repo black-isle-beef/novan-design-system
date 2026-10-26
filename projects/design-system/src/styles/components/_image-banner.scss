@@ -9,7 +9,7 @@
 // Unlike `_hero.scss`, the split layout keeps the copy beside the image, not
 // on top of it.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-image-banner {
   display: block;
@@ -41,7 +41,7 @@
   min-inline-size: 0;
   max-block-size: var(--ds-image-banner-split-image-max-block-size);
   object-fit: cover;
-  box-shadow: $box-shadow-lg;
+  box-shadow: var(--box-shadow-lg);
 }
 
 .ds-image-banner__panel {
@@ -61,7 +61,7 @@
   background-color: color-mix(in srgb, var(--ds-color-surface-muted) 78%, transparent);
   border: 1px solid color-mix(in srgb, var(--ds-color-neutral-white) 45%, transparent);
   backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: $box-shadow-lg;
+  box-shadow: var(--box-shadow-lg);
 }
 
 // No `backdrop-filter` support: fall back to the solid muted surface so the

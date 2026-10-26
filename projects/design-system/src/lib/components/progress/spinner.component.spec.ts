@@ -26,10 +26,10 @@ describe('DsSpinnerComponent', () => {
   it('applies the small-size modifier class only when requested', async () => {
     const fixture = await createFixture();
     fixture.detectChanges();
-    expect(fixture.nativeElement.classList.contains('spinner-border-sm')).toBe(false);
+    expect(fixture.nativeElement.classList.contains('spinner-sm')).toBe(false);
 
     fixture.componentRef.setInput('size', 'sm');
     fixture.detectChanges();
-    expect(fixture.nativeElement.classList.contains('spinner-border-sm')).toBe(true);
+    expect(fixture.nativeElement.classList.contains('spinner-sm')).toBe(true);
   });
 });

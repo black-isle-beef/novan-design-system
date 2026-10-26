@@ -1,10 +1,47 @@
 // -----------------------------------------------------------------------------
 // _main-nav.scss — Overrides for DsMainNavComponent (selector: ds-main-nav)
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use 'sass:map';
+@use '../variables' as *;
 
 .ds-main-nav {
   display: block;
+}
+
+// Bootstrap 6's `.navbar` is a query container, and its `navbar-expand`
+// classes respond to the navbar's own width. The design system collapses on
+// the viewport (matching the toggle's `lg:d-none` / `md:d-none`), so it drops
+// the containment, which would also stop the navbar sizing to its content.
+.ds-main-nav__nav {
+  container-type: normal;
+}
+
+// Expanded (desktop) layout: what Bootstrap 5's `navbar-expand-lg` /
+// `navbar-expand-md` provided, on the same viewport breakpoints as the
+// collapsed menu below.
+@mixin ds-main-nav-expanded {
+  .ds-main-nav__list {
+    // Bootstrap 5's navbar link padding (v6 widens it to 0.75rem).
+    --nav-link-padding-x: 0.5rem;
+
+    flex-direction: row;
+  }
+
+  .ds-main-nav__item {
+    position: relative;
+  }
+}
+
+@media (min-width: 992px) {
+  :where(.ds-main-nav:not(.ds-main-nav--pills)) {
+    @include ds-main-nav-expanded;
+  }
+}
+
+@media (min-width: 768px) {
+  :where(.ds-main-nav--pills) {
+    @include ds-main-nav-expanded;
+  }
 }
 
 // Dropdown affordance on the parent nav item's toggle. Points down to signal a
@@ -52,12 +89,12 @@
   .ds-main-nav__list {
     position: fixed;
     inset: 0;
-    z-index: $zindex-fixed;
+    z-index: var(--z-fixed);
     display: flex !important;
     flex-direction: column;
     gap: 0;
     margin: 0;
-    padding: map-get($spacers, 11) map-get($spacers, 5) map-get($spacers, 6);
+    padding: map.get($ds-spacers, 11) map.get($ds-spacers, 5) map.get($ds-spacers, 6);
     background-color: var(--ds-color-surface-body);
     overflow-y: auto;
     box-shadow: inset 0 6px 10px -8px rgba($ds-color-neutral-gray-900, 0.15);
@@ -92,13 +129,13 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding-block: map-get($spacers, 4);
+    padding-block: map.get($ds-spacers, 4);
     font-size: 1.125rem;
     text-align: left;
   }
 
   .ds-main-nav__list--open .ds-main-nav__link[aria-current='page'] {
-    font-weight: $font-weight-bold;
+    font-weight: $ds-font-weight-bold;
     text-decoration: underline;
   }
 
@@ -111,14 +148,14 @@
   // within the overlay. Kept in flow and collapsed to zero height when closed
   // so it can animate open / closed over 0.3s instead of snapping via
   // `display`.
-  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+  .ds-main-nav__list--open .ds-main-nav__dropdown.menu {
     position: static;
     display: block;
     max-height: 0;
     overflow: hidden;
     margin: 0;
     padding-block: 0;
-    padding-inline: map-get($spacers, 4) 0;
+    padding-inline: map.get($ds-spacers, 4) 0;
     border: 0;
     box-shadow: none;
     transform: none;
@@ -129,9 +166,9 @@
       opacity 0.3s ease;
   }
 
-  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu.show {
+  .ds-main-nav__list--open .ds-main-nav__dropdown.menu.show {
     max-height: 16rem;
-    padding-block: 0 map-get($spacers, 3);
+    padding-block: 0 map.get($ds-spacers, 3);
     opacity: 1;
   }
 
@@ -139,9 +176,9 @@
   // reachable to close the menu once the overlay panel is covering the page.
   .ds-main-nav__toggle.btn {
     position: fixed;
-    top: map-get($spacers, 3);
-    right: map-get($spacers, 4);
-    z-index: $zindex-modal;
+    top: map.get($ds-spacers, 3);
+    right: map.get($ds-spacers, 4);
+    z-index: var(--z-dialog);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -201,7 +238,7 @@
     .ds-main-nav__list,
     .ds-main-nav__list--open,
     .ds-main-nav__toggle-bar,
-    .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+    .ds-main-nav__list--open .ds-main-nav__dropdown.menu {
       transition: none;
     }
   }
@@ -221,10 +258,9 @@
 
 // -----------------------------------------------------------------------------
 // `pills` variant: a compact single row for app headers. Links are muted text
-// in pill shapes; the current page sits on the raised (tertiary) surface with a
+// in pill shapes; the current page sits on the raised (`--bg-3`) surface with a
 // hairline ring and bold text, and carries `aria-current="page"`, so it is
-// never marked by colour alone. Two classes plus the element class outrank the
-// global `a[href]` link colour and underline in styles.scss.
+// never marked by colour alone.
 // -----------------------------------------------------------------------------
 // A long menu wraps onto a second row rather than pushing the page sideways.
 @media (min-width: 768px) {
@@ -240,20 +276,20 @@
   white-space: nowrap;
   border-radius: 999px;
   color: var(--ds-color-text-muted);
-  font-weight: $font-weight-medium;
+  font-weight: $ds-font-weight-medium;
   text-decoration: none;
 
   &:hover {
     color: var(--ds-color-text-body);
-    background-color: var(--bs-tertiary-bg);
+    background-color: var(--bg-3);
     text-decoration: none;
   }
 
   &[aria-current='page'] {
     color: var(--ds-color-text-body);
-    background-color: var(--bs-tertiary-bg);
-    box-shadow: inset 0 0 0 1px var(--bs-border-color-translucent);
-    font-weight: $font-weight-bold;
+    background-color: var(--bg-3);
+    box-shadow: inset 0 0 0 1px var(--border-color-translucent);
+    font-weight: $ds-font-weight-bold;
   }
 }
 
@@ -262,7 +298,7 @@
   .ds-main-nav--pills .ds-main-nav__list--open .ds-main-nav__link.nav-link {
     display: flex;
     width: 100%;
-    padding: map-get($spacers, 3) map-get($spacers, 4);
+    padding: map.get($ds-spacers, 3) map.get($ds-spacers, 4);
   }
 }
 

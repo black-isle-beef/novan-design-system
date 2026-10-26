@@ -1,12 +1,15 @@
 # @black-isle-beef/novan-design-system
 
-Token-driven Angular (v17+ standalone components) + Bootstrap 5 design system.
+Token-driven Angular (v17+ standalone components) + Bootstrap 6 design system.
 
 ## Install
 
 ```bash
-npm install @black-isle-beef/novan-design-system bootstrap
+npm install @black-isle-beef/novan-design-system bootstrap@6.0.0-alpha.1
 ```
+
+The styles compile Bootstrap 6's Sass source, so Bootstrap is a peer dependency.
+Bootstrap 6 is currently an alpha release.
 
 ## Usage
 
@@ -27,11 +30,30 @@ Add the compiled stylesheet to your app's global styles (`angular.json`):
 "styles": ["node_modules/@black-isle-beef/novan-design-system/styles/styles.scss"]
 ```
 
-Or import it directly in a root SCSS file:
+Or load it from a root SCSS file with `@use`. The module forwards the `$ds-*` design tokens,
+and you can configure it the same way:
 
 ```scss
-@import '@black-isle-beef/novan-design-system/styles/styles';
+@use '@black-isle-beef/novan-design-system/styles/styles' with (
+  $ds-enable-web-fonts: false // self-host Inter and Montserrat Alternates instead
+);
 ```
+
+Dark mode is opt-in: set `data-bs-theme="dark"` on `<html>` (or on any element, for a dark
+subtree). Pages don't follow the operating system's colour scheme on their own.
+
+### Upgrading from 2.x (Bootstrap 5)
+
+- Load the styles with `@use`, not `@import`, and install `bootstrap@6.0.0-alpha.1`.
+- Bootstrap's custom properties are unprefixed: `var(--bs-body-bg)` is now `var(--bg-body)`,
+  `var(--bs-link-color)` is `var(--link-color)`, and colour roles are `var(--primary-base)`,
+  `var(--primary-fg)` and so on. The `--bs-*-rgb` triplets are gone; use `color-mix()`.
+- Component inputs (`variant`, `size`, …) are unchanged. If your own templates use Bootstrap
+  classes, follow Bootstrap's [v6 migration guide](https://getbootstrap.com/docs/6.0/migration/):
+  for example `btn btn-primary` is now `btn-solid theme-primary`, `col-md-6` is `md:col-6`, and
+  `text-muted` is `fg-3`.
+- The design system keeps Bootstrap 5's breakpoints (`lg` is 992px, `2xl` replaces `xxl` at
+  1400px), its spacing scale (keys 1–16) and its heading sizes, so layouts don't shift.
 
 Design tokens are also available as typed TypeScript constants:
 

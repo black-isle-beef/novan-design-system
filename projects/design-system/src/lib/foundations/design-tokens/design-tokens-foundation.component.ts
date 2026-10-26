@@ -166,7 +166,7 @@ export class DsDesignTokensFoundationComponent {
     return DESIGN_TOKENS.map((t) => `${t.scssVar}: ${t.value};`).join('\n');
   }
 
-  /** Sass maps grouped the same way `_colors.scss`/`_spacers.scss` override Bootstrap's own `$theme-colors`/`$spacers`. */
+  /** Sass maps grouped the way `_colors.scss`/`_spacers.scss` build Bootstrap's `$theme-colors`/`$spacers` configuration. */
   private buildBootstrap(): string {
     const byCategory = groupBy(DESIGN_TOKENS, (t) => t.category);
     const blocks: string[] = [];

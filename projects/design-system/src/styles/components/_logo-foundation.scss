@@ -6,7 +6,8 @@
 // tokens instead of hand-picked hex literals, except where a swatch must
 // mirror an exact logo-export background color.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use 'sass:color';
+@use '../variables' as *;
 
 .ds-logo-foundation {
   --tf-bg: #{$ds-color-surface-body};
@@ -217,7 +218,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #{tint-color($ds-color-neutral-gray-300, 50%)};
+  background: #{color.mix(white, $ds-color-neutral-gray-300, 50%)};
   border: 1px solid var(--tf-border);
   border-radius: 0.25rem;
   padding: 0.4rem 0.6rem;
@@ -387,7 +388,7 @@
   padding: 0.75rem;
   overflow-x: auto;
   font-size: 0.8rem;
-  background: #{tint-color($ds-color-neutral-gray-900, 4%)};
+  background: #{color.mix(white, $ds-color-neutral-gray-900, 4%)};
   color: #{$ds-color-neutral-gray-100};
 }
 

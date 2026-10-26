@@ -31,11 +31,11 @@ export class DsFormLayoutComponent {
 
   readonly htmlSnippet = `<!-- Grid Layout -->
 <form class="row g-3">
-  <div class="col-md-6">
+  <div class="md:col-6">
     <label for="gridEmail" class="form-label">Email</label>
     <input type="email" class="form-control" id="gridEmail">
   </div>
-  <div class="col-md-6">
+  <div class="md:col-6">
     <label for="gridPhone" class="form-label">Phone</label>
     <input type="tel" class="form-control" id="gridPhone">
   </div>
@@ -43,8 +43,8 @@ export class DsFormLayoutComponent {
 
 <!-- Horizontal Layout -->
 <div class="row mb-3">
-  <label for="horizEmail" class="col-sm-3 col-form-label">Account Email</label>
-  <div class="col-sm-9">
+  <label for="horizEmail" class="sm:col-3 col-form-label">Account Email</label>
+  <div class="sm:col-9">
     <input type="email" class="form-control" id="horizEmail">
   </div>
 </div>`;

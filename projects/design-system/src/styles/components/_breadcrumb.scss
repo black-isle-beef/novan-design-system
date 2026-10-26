@@ -6,8 +6,15 @@
   display: block;
 }
 
+// Bootstrap 6 separates items with `.breadcrumb-divider` elements; the design
+// system keeps Bootstrap 5's "/" separator, muted colour and spacing.
+.ds-breadcrumb .breadcrumb-divider {
+  margin-inline: 0.5rem;
+  color: var(--fg-3);
+}
+
 .ds-breadcrumb__link {
-  color: var(--bs-link-color);
+  color: var(--link-color);
   text-decoration: none;
 
   &:hover,

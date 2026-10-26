@@ -38,21 +38,21 @@ export class DsCheckboxesComponent {
   }
 
   readonly htmlSnippet = `<!-- Standard Checkbox -->
-<div class="form-check mb-2">
-  <input class="form-check-input" type="checkbox" id="checkDefault">
-  <label class="form-check-label" for="checkDefault">Default checkbox</label>
+<div class="form-field mb-2">
+  <input class="check" type="checkbox" id="checkDefault">
+  <label for="checkDefault">Default checkbox</label>
 </div>
 
 <!-- Switch Toggle -->
-<div class="form-check form-switch mb-3">
-  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-  <label class="form-check-label" for="flexSwitchCheckDefault">Default switch toggle</label>
+<div class="form-field mb-3">
+  <div class="switch"><input type="checkbox" role="switch" id="flexSwitchCheckDefault" switch></div>
+  <label for="flexSwitchCheckDefault">Default switch toggle</label>
 </div>
 
 <!-- Indeterminate Checkbox -->
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" id="indeterminateCheck" [dsIndeterminate]="isIndeterminate()">
-  <label class="form-check-label" for="indeterminateCheck">Indeterminate checkbox</label>
+<div class="form-field">
+  <input class="check" type="checkbox" id="indeterminateCheck" [dsIndeterminate]="isIndeterminate()">
+  <label for="indeterminateCheck">Indeterminate checkbox</label>
 </div>`;
 
   readonly tsSnippet = `@Component({

@@ -39,12 +39,12 @@
 }
 
 .ds-bf__btn--primary:hover {
-  background: var(--bs-link-hover-color);
+  background: var(--link-hover-color);
 }
 
 .ds-bf__btn--ghost {
   background: transparent;
-  border-color: var(--bs-border-color);
+  border-color: var(--border-color);
   color: var(--ds-color-text-body);
 }
 
@@ -55,7 +55,7 @@
 .ds-bf__modal-backdrop {
   position: fixed;
   inset: 0;
-  background: color-mix(in srgb, var(--bs-black) 50%, transparent);
+  background: color-mix(in srgb, var(--black) 50%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,14 +64,14 @@
 }
 
 .ds-bf__modal {
-  background: var(--bs-body-bg);
+  background: var(--bg-body);
   border-radius: 0.75rem;
   padding: 1.5rem;
   width: 100%;
   max-width: 640px;
   max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 20px 50px color-mix(in srgb, var(--bs-black) 25%, transparent);
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--black) 25%, transparent);
 }
 
 .ds-bf__modal-title {
@@ -93,7 +93,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 0.75rem;
 }
@@ -118,14 +118,14 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--bs-black) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--black) 15%, transparent);
   flex: 0 0 auto;
 }
 
 .ds-bf__role-select {
   flex: 1;
   padding: 0.35rem 0.5rem;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   font: inherit;
 }
@@ -157,8 +157,8 @@
 }
 
 .ds-bf__demo-card {
-  background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color);
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -194,7 +194,7 @@
 
 .ds-bf__page-bg {
   background: var(--ds-color-surface-muted);
-  border: 1px dashed var(--bs-border-color);
+  border: 1px dashed var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -209,8 +209,8 @@
 
 .ds-bf__surface-card {
   margin-top: 0.5rem;
-  background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color);
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -270,7 +270,7 @@
 .ds-bf__input {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   font: inherit;
   box-sizing: border-box;
@@ -355,10 +355,10 @@
 .ds-bf__swatch-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
   overflow: hidden;
-  background: var(--bs-body-bg);
+  background: var(--bg-body);
 }
 
 .ds-bf__swatch-color {
@@ -391,7 +391,7 @@
 
 .ds-bf__copy-btn {
   align-self: flex-start;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   background: var(--ds-color-surface-muted);
   border-radius: 0.375rem;
   padding: 0.25rem 0.6rem;
@@ -400,5 +400,5 @@
 }
 
 .ds-bf__copy-btn:hover {
-  background: var(--bs-gray-200);
+  background: var(--gray-200);
 }

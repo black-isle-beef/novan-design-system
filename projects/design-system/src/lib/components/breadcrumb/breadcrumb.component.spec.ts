@@ -41,6 +41,22 @@ describe('DsBreadcrumbComponent', () => {
     expect(lastItem.querySelector('a')).toBeNull();
   });
 
+  it('separates items with dividers hidden from assistive technology', async () => {
+    const fixture = await createFixture();
+    fixture.componentRef.setInput('items', [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Widgets' },
+    ]);
+    fixture.detectChanges();
+
+    const list: HTMLOListElement = fixture.nativeElement.querySelector('ol');
+    const dividers = Array.from(list.querySelectorAll<HTMLLIElement>(':scope > .breadcrumb-divider'));
+    expect(dividers.length).toBe(2);
+    expect(dividers.every((divider) => divider.getAttribute('aria-hidden') === 'true')).toBe(true);
+    expect(list.firstElementChild?.classList).toContain('ds-breadcrumb__item');
+  });
+
   it('renders internal hrefs via routerLink and external hrefs as plain links', async () => {
     const fixture = await createFixture();
     fixture.componentRef.setInput('items', [

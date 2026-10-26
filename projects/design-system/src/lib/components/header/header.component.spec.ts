@@ -64,6 +64,6 @@ describe('DsHeaderComponent', () => {
     const host: HTMLElement = fixture.nativeElement;
     expect(host.classList).not.toContain('ds-header--app');
     expect(host.querySelector('.ds-header__brand')?.classList).toContain('px-4');
-    expect(host.querySelector('nav')?.classList).toContain('navbar-expand-lg');
+    expect(host.querySelector('.ds-main-nav__toggle')?.classList).toContain('lg:d-none');
   });
 });

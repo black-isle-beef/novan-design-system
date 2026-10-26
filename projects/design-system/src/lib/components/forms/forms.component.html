@@ -2,25 +2,25 @@
   <!-- Header / Hero Section -->
   <div class="row mb-4">
     <div class="col-12">
-      <div class="card border-0 bg-primary text-white shadow-sm overflow-hidden rounded-3">
-        <div class="card-body p-4 p-md-5">
+      <div class="card border-0 bg-primary fg-white shadow-sm overflow-hidden rounded-3" data-bs-theme="light">
+        <div class="card-body p-4 md:p-5">
           <div class="d-flex align-items-center gap-3 mb-2">
-            <span class="badge bg-white text-primary p-2 fs-4 rounded-circle d-inline-flex align-items-center justify-content-center ds-forms-avatar">
+            <span class="badge bg-white fg-primary p-2 fs-xl rounded-circle d-inline-flex align-items-center justify-content-center ds-forms-avatar">
               <i class="bi bi-input-cursor-text"></i>
             </span>
             <div>
-              <span class="badge bg-light text-primary mb-1 fw-semibold">Angular 22 Standalone Suite</span>
+              <span class="badge bg-3 fg-primary mb-1 fw-semibold">Angular 22 Standalone Suite</span>
               <h1 class="h2 mb-0 fw-bold">Bootstrap Form Controls Suite</h1>
             </div>
           </div>
-          <p class="lead mb-4 opacity-90">
-            A modular component suite and interactive showcase page for Bootstrap 5 form controls. Each section is a separate, standalone component with dedicated TypeScript, HTML, SCSS, unit tests, and Storybook stories.
+          <p class="fs-lg fw-light mb-4 opacity-90">
+            A modular component suite and interactive showcase page for Bootstrap 6 form controls. Each section is a separate, standalone component with dedicated TypeScript, HTML, SCSS, unit tests, and Storybook stories.
           </p>
           <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Standalone Sub-Components</span>
-            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Reactive Forms & Signals</span>
-            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Async Validation</span>
-            <span class="badge bg-white text-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill text-success me-1"></i> Zero Bootstrap JS Dependencies</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Standalone Sub-Components</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Reactive Forms & Signals</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Async Validation</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Zero Bootstrap JS Dependencies</span>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             <a
               [href]="'#' + sec.id"
               class="btn btn-sm text-nowrap rounded-pill"
-              [ngClass]="activeSection() === sec.id ? 'btn-primary' : 'btn-outline-secondary'"
+              [ngClass]="activeSection() === sec.id ? 'btn-solid theme-primary' : 'btn-outline theme-secondary'"
               (click)="activeSection.set(sec.id)"
             >
               <i class="bi {{ sec.icon }} me-1"></i> {{ sec.label }}

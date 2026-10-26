@@ -22,9 +22,29 @@ describe('DsAccordionItemComponent', () => {
     expect(details.querySelector('summary')?.textContent).toContain('Shipping details');
   });
 
+  it('renders Bootstrap 6 accordion markup and carries .accordion when standalone', async () => {
+    const fixture = await createFixture();
+    fixture.detectChanges();
+
+    const details = getDetails(fixture);
+    expect(fixture.nativeElement.classList).toContain('accordion');
+    expect(details.classList).toContain('accordion-item');
+    expect(details.hasAttribute('name')).toBe(false);
+    expect(details.querySelector('summary.accordion-header .accordion-icon')).not.toBeNull();
+    expect(details.querySelector('.accordion-body')).not.toBeNull();
+  });
+
   it('starts open when open is true', async () => {
     const fixture = await createFixture();
     fixture.componentRef.setInput('open', true);
+    fixture.detectChanges();
+
+    expect(getDetails(fixture).open).toBe(true);
+  });
+
+  it('treats a bare open attribute as open', async () => {
+    const fixture = await createFixture();
+    fixture.componentRef.setInput('open', '');
     fixture.detectChanges();
 
     expect(getDetails(fixture).open).toBe(true);

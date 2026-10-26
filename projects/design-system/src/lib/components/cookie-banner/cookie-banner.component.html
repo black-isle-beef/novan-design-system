@@ -1,6 +1,6 @@
 @if (open()) {
   <div
-    class="ds-cookie-banner__region d-flex flex-column flex-md-row align-items-md-center gap-4 p-6"
+    class="ds-cookie-banner__region d-flex flex-column md:flex-row md:align-items-center gap-4 p-6"
     role="dialog"
     aria-modal="false"
     aria-labelledby="ds-cookie-banner-message"
@@ -11,9 +11,12 @@
 
     <div class="ds-cookie-banner__actions d-flex flex-wrap gap-2 flex-shrink-0">
       @if (manageLabel(); as label) {
+        <!-- Outline buttons resolve their theme tokens in dark mode, which keeps them
+             light on the always-dark banner. -->
         <button
           type="button"
-          class="btn btn-outline-light ds-focus-ring"
+          class="btn btn-outline theme-inverse ds-focus-ring"
+          data-bs-theme="dark"
           (click)="requestManage()"
         >
           {{ label }}
@@ -22,8 +25,11 @@
       <button
         type="button"
         class="btn ds-focus-ring"
-        [class.btn-outline-light]="!equalProminence()"
-        [class.btn-primary]="equalProminence()"
+        [class.btn-outline]="!equalProminence()"
+        [class.theme-inverse]="!equalProminence()"
+        [attr.data-bs-theme]="equalProminence() ? null : 'dark'"
+        [class.btn-solid]="equalProminence()"
+        [class.theme-primary]="equalProminence()"
         (click)="decline()"
       >
         {{ declineLabel() }}
@@ -31,7 +37,7 @@
       <button
         #acceptButton
         type="button"
-        class="btn btn-primary ds-focus-ring"
+        class="btn btn-solid theme-primary ds-focus-ring"
         (click)="accept()"
       >
         {{ acceptLabel() }}

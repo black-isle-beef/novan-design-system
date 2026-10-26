@@ -5,7 +5,7 @@
 // `pointer-events: none` on the container (re-enabled per toast) keeps it from
 // blocking clicks on whatever sits beneath the empty parts of the stack.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-toast-container {
   position: fixed;

@@ -41,7 +41,7 @@ describe('DsCookieBannerComponent', () => {
     let acceptedEmitted = false;
     fixture.componentInstance.accepted.subscribe(() => (acceptedEmitted = true));
 
-    const acceptButton: HTMLButtonElement = fixture.nativeElement.querySelector('.btn-primary');
+    const acceptButton: HTMLButtonElement = fixture.nativeElement.querySelector('.btn-solid.theme-primary');
     acceptButton.click();
     fixture.detectChanges();
 
@@ -56,7 +56,8 @@ describe('DsCookieBannerComponent', () => {
 
     const buttons: HTMLButtonElement[] = Array.from(fixture.nativeElement.querySelectorAll('button'));
     expect(buttons.map((b) => b.textContent?.trim())).toEqual(['Decline', 'Accept']);
-    expect(buttons[0].classList).toContain('btn-outline-light');
+    expect(buttons[0].classList).toContain('btn-outline');
+    expect(buttons[0].getAttribute('data-bs-theme')).toBe('dark');
   });
 
   it('renders nothing while `open` is false', async () => {
@@ -83,13 +84,13 @@ describe('DsCookieBannerComponent', () => {
     const host: HTMLElement = fixture.nativeElement;
     expect(host.contains(document.activeElement)).toBe(false);
 
-    host.querySelector<HTMLButtonElement>('.btn-primary')!.click();
+    host.querySelector<HTMLButtonElement>('.btn-solid.theme-primary')!.click();
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.componentInstance.open.set(true);
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(document.activeElement).toBe(host.querySelector('.btn-primary'));
+    expect(document.activeElement).toBe(host.querySelector('.btn-solid.theme-primary'));
   });
 
   describe('with labels, a manage action and a two-way open binding', () => {
@@ -108,8 +109,9 @@ describe('DsCookieBannerComponent', () => {
       expect(host.querySelector('#ds-cookie-banner-message a')?.getAttribute('href')).toBe('/cookies');
       const buttons = Array.from(host.querySelectorAll<HTMLButtonElement>('.ds-cookie-banner__actions button'));
       expect(buttons.map((b) => b.textContent?.trim())).toEqual(['Manage preferences', 'Reject all', 'Accept all']);
-      expect(buttons[1].classList).toContain('btn-primary');
-      expect(buttons[2].classList).toContain('btn-primary');
+      expect(buttons[1].classList).toContain('btn-solid');
+      expect(buttons[1].hasAttribute('data-bs-theme')).toBe(false);
+      expect(buttons[2].classList).toContain('btn-solid');
     });
 
     it('leaves focus alone on first render when autoFocus is off', async () => {
