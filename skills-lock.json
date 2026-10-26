@@ -37,12 +37,7 @@
       "skillPath": "skills/bootstrap-utility-api/SKILL.md",
       "computedHash": "78116fcac6cd57feca125ee0518c7ec753a50c186d85f691d617262f32ab371f"
     },
-    "bootstrap-v4-v6-migration": {
-      "source": "twbs/bootstrap",
-      "sourceType": "github",
-      "skillPath": "skills/bootstrap-v4-v6-migration/SKILL.md",
-      "computedHash": "4ebab4c618092915951b1a9e0b2d5e8ee70058bb447178bbe0be32e93ab61c97"
-    },
+
     "bootstrap-v5-v6-migration": {
       "source": "twbs/bootstrap",
       "sourceType": "github",
