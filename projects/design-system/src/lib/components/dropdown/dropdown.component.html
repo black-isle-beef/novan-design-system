@@ -1,5 +1,6 @@
 <button
   #trigger
+  [id]="triggerId"
   type="button"
   class="ds-dropdown__trigger"
   [attr.popovertarget]="menuId"
@@ -24,7 +25,7 @@
   popover="auto"
   role="menu"
   tabindex="-1"
-  [attr.aria-label]="label() || null"
+  [attr.aria-labelledby]="triggerId"
   (toggle)="handleToggle($event)"
   (keydown)="handleMenuKeydown($event)"
 >

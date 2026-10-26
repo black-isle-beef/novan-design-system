@@ -49,7 +49,9 @@ export class DsDropdownComponent {
   /** Emits the new open state; pair with `open` for `[(open)]="isOpen"`. */
   readonly openChange = output<boolean>();
 
-  protected readonly menuId = `ds-dropdown-menu-${nextDropdownId++}`;
+  protected readonly menuId = `ds-dropdown-menu-${nextDropdownId}`;
+  /** The menu is named by its trigger, so a projected `[dsDropdownTrigger]` names it too, not just `label`. */
+  protected readonly triggerId = `ds-dropdown-trigger-${nextDropdownId++}`;
   protected readonly isOpen = signal(false);
 
   private readonly menuRef = viewChild.required<ElementRef<HTMLElement>>('menu');

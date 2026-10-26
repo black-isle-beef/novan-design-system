@@ -29,7 +29,14 @@ const sidebarItems: SidebarItem[] = [
  * Every story here renders with `data-bs-theme="dark" data-ds-theme="copper"`
  * on <html> (see the `dsTheme` parameter in .storybook/preview.ts), the same
  * way an app opts in.
+ *
+ * On the Docs page each story renders in its own iframe (`docs.story.inline:
+ * false`). Inline, every story shares the docs document: the theme's light
+ * text would sit on Storybook's white docs canvas, and the modal's
+ * `showModal()` would open over the docs page instead of inside its block.
+ * The iframe is the same charcoal page the Axe suite scans in story view.
  */
+const docsIframe = (height: string) => ({ docs: { story: { inline: false, height } } });
 const meta: Meta = {
   title: 'Themes/Charcoal & Copper',
   tags: ['autodocs'],
@@ -64,7 +71,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Header: Story = {
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', ...docsIframe('14rem') },
   render: () => ({
     props: { navItems },
     template: `
@@ -86,7 +93,7 @@ export const Header: Story = {
 };
 
 export const CookieBanner: Story = {
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', ...docsIframe('12rem') },
   render: () => ({
     // A transform gives the fixed banner a containing block, so it stays visible on the Docs page.
     template: `
@@ -106,6 +113,7 @@ export const CookieBanner: Story = {
 };
 
 export const Buttons: Story = {
+  parameters: docsIframe('7rem'),
   render: () => ({
     template: `
       <div class="d-flex flex-wrap align-items-center gap-3">
@@ -123,6 +131,7 @@ export const Buttons: Story = {
 };
 
 export const FormControls: Story = {
+  parameters: docsIframe('30rem'),
   render: () => ({
     template: `
       <form class="d-grid gap-3" style="max-inline-size: 28rem">
@@ -164,6 +173,7 @@ export const FormControls: Story = {
 };
 
 export const Alert: Story = {
+  parameters: docsIframe('24rem'),
   render: () => ({
     template: `
       <div class="d-grid gap-3">
@@ -177,6 +187,7 @@ export const Alert: Story = {
 };
 
 export const Badge: Story = {
+  parameters: docsIframe('6rem'),
   render: () => ({
     template: `
       <div class="d-flex flex-wrap gap-2">
@@ -193,6 +204,7 @@ export const Badge: Story = {
 };
 
 export const Progress: Story = {
+  parameters: docsIframe('9rem'),
   render: () => ({
     template: `
       <div class="d-grid gap-3">
@@ -205,6 +217,7 @@ export const Progress: Story = {
 };
 
 export const Toast: Story = {
+  parameters: docsIframe('13rem'),
   render: () => ({
     template: `
       <div class="d-grid gap-3" style="max-inline-size: 24rem">
@@ -216,6 +229,7 @@ export const Toast: Story = {
 };
 
 export const Modal: Story = {
+  parameters: docsIframe('22rem'),
   render: () => ({
     template: `
       <ds-modal [open]="true" heading="Dismiss the checklist?">
@@ -228,7 +242,7 @@ export const Modal: Story = {
 };
 
 export const Sidebar: Story = {
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', ...docsIframe('40rem') },
   render: () => ({
     props: { items: sidebarItems },
     template: `

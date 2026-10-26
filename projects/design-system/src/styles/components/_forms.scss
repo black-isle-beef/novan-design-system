@@ -47,6 +47,12 @@
   backdrop-filter: blur(8px);
 }
 
+// Jump-link targets clear the sticky section bar instead of scrolling
+// underneath it, so the section heading (and focus) stays in view.
+.ds-forms-suite section[id] {
+  scroll-margin-top: 5rem;
+}
+
 .ds-forms-multiselect {
   height: 7.5rem;
 }

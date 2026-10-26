@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   computed,
   effect,
@@ -14,12 +15,25 @@ export type DsTooltipPosition = 'top' | 'bottom' | 'start' | 'end';
 
 let nextTooltipId = 0;
 
+/** Matches the projected control the tooltip describes. */
+const FOCUSABLE_SELECTOR = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+/** Grace period before a mouse-out hides the tooltip, long enough to cross the gap onto the popup itself. */
+const HIDE_DELAY_MS = 150;
+
 /**
  * Accessible tooltip that wraps its trigger via content projection and shows
  * a short description on hover *and* focus (never hover-only, so keyboard
  * and touch users still get it). No native element covers this pattern, so
  * it follows the WAI-ARIA tooltip pattern: the popup has `role="tooltip"`
  * and the trigger references it with `aria-describedby` while it's open.
+ * That reference goes on the projected focusable control itself (falling
+ * back to the host when nothing inside is focusable), since a description on
+ * the non-interactive `<ds-tooltip>` wrapper is never announced.
+ *
+ * Mouse-out hides it after a short delay that re-entering cancels, so the
+ * pointer can move from the trigger onto the popup without it vanishing
+ * (WCAG 1.4.13); Escape and focus-out still hide it at once.
  *
  * The popup itself is a native `popover="manual"` element, which — like the
  * modal's `<dialog>` — gets top-layer stacking for free, so it's never
@@ -34,9 +48,8 @@ let nextTooltipId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-tooltip-trigger',
-    '[attr.aria-describedby]': 'shouldBeOpen() ? tooltipId : null',
     '(mouseenter)': 'show()',
-    '(mouseleave)': 'hide()',
+    '(mouseleave)': 'hideAfterDelay()',
     '(focusin)': 'show()',
     '(focusout)': 'hide()',
     '(keydown.escape)': 'hide()',
@@ -58,6 +71,7 @@ export class DsTooltipComponent {
   private readonly canShow = computed(() => !this.disabled() && !!this.content());
   protected readonly shouldBeOpen = computed(() => this.visible() && this.canShow());
   private isOpen = false;
+  private hideTimeoutId?: ReturnType<typeof setTimeout>;
 
   constructor() {
     effect((onCleanup) => {
@@ -66,6 +80,7 @@ export class DsTooltipComponent {
       if (this.shouldBeOpen()) {
         if (!this.isOpen) {
           this.showPopover(popoverEl);
+          this.setDescribedBy(true);
           this.isOpen = true;
         }
         this.updatePosition(popoverEl);
@@ -79,19 +94,44 @@ export class DsTooltipComponent {
         });
       } else if (this.isOpen) {
         this.hidePopover(popoverEl);
+        this.setDescribedBy(false);
         this.isOpen = false;
       }
     });
+
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.hideTimeoutId));
   }
 
   protected show(): void {
+    clearTimeout(this.hideTimeoutId);
     if (this.canShow()) {
       this.visible.set(true);
     }
   }
 
   protected hide(): void {
+    clearTimeout(this.hideTimeoutId);
     this.visible.set(false);
+  }
+
+  protected hideAfterDelay(): void {
+    clearTimeout(this.hideTimeoutId);
+    this.hideTimeoutId = setTimeout(() => this.visible.set(false), HIDE_DELAY_MS);
+  }
+
+  /** Adds or removes this tooltip's id on the trigger's `aria-describedby`, keeping any ids the caller already set. */
+  private setDescribedBy(describe: boolean): void {
+    const host: HTMLElement = this.hostRef.nativeElement;
+    const trigger = host.querySelector<HTMLElement>(FOCUSABLE_SELECTOR) ?? host;
+    const ids = (trigger.getAttribute('aria-describedby') ?? '').split(/\s+/).filter((id) => id && id !== this.tooltipId);
+    if (describe) {
+      ids.push(this.tooltipId);
+    }
+    if (ids.length) {
+      trigger.setAttribute('aria-describedby', ids.join(' '));
+    } else {
+      trigger.removeAttribute('aria-describedby');
+    }
   }
 
   private updatePosition(popoverEl: HTMLElement): void {

@@ -104,7 +104,7 @@ describe('DsMainNavComponent', () => {
     fixture.detectChanges();
 
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
-    expect(host.querySelector('#ds-main-nav-menu')?.classList).not.toContain('ds-main-nav__list--open');
+    expect(host.querySelector('.ds-main-nav__list')?.classList).not.toContain('ds-main-nav__list--open');
     expect(document.activeElement).toBe(toggle);
   });
 
@@ -149,6 +149,30 @@ describe('DsMainNavComponent', () => {
     fixture.detectChanges();
 
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('gives each instance its own menu and dropdown ids for aria-controls', async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsMainNavComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const createNav = () => {
+      const fixture = TestBed.createComponent(DsMainNavComponent);
+      fixture.componentRef.setInput('items', items);
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    };
+    const first = createNav();
+    const second = createNav();
+
+    for (const host of [first, second]) {
+      const menu = host.querySelector('.ds-main-nav__list')!;
+      const dropdown = host.querySelector('.ds-main-nav__dropdown')!;
+      expect(host.querySelector('.ds-main-nav__toggle')?.getAttribute('aria-controls')).toBe(menu.id);
+      expect(host.querySelector('.ds-main-nav__link.btn-link')?.getAttribute('aria-controls')).toBe(dropdown.id);
+    }
+    expect(first.querySelector('.ds-main-nav__list')!.id).not.toBe(second.querySelector('.ds-main-nav__list')!.id);
+    expect(first.querySelector('.ds-main-nav__dropdown')!.id).not.toBe(second.querySelector('.ds-main-nav__dropdown')!.id);
   });
 
   it('collapses the pills variant below md instead of lg', async () => {

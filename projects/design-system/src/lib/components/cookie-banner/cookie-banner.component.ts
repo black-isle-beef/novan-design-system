@@ -13,6 +13,8 @@ import {
   viewChild,
 } from '@angular/core';
 
+let nextCookieBannerId = 0;
+
 /**
  * Accessible cookie-consent banner. Manages focus (moves focus to the
  * primary action when shown, restores focus to the previously-focused
@@ -60,6 +62,9 @@ export class DsCookieBannerComponent {
   readonly declined = output<void>();
   /** Emitted when the user asks to choose categories. The banner stays open; close it through `open`. */
   readonly manage = output<void>();
+
+  /** Labels the dialog; unique per instance so `aria-labelledby` never resolves to another banner's message. */
+  protected readonly messageId = `ds-cookie-banner-message-${nextCookieBannerId++}`;
 
   private readonly acceptButton = viewChild<ElementRef<HTMLButtonElement>>('acceptButton');
   private readonly injector = inject(Injector);

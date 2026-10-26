@@ -40,7 +40,8 @@ describe('DsTooltipComponent', () => {
     fixture.detectChanges();
     const tooltipHost = fixture.nativeElement.querySelector('ds-tooltip') as HTMLElement;
     const popover = tooltipHost.querySelector('.ds-tooltip') as HTMLElement;
-    return { fixture, tooltipHost, popover };
+    const trigger = tooltipHost.querySelector('button') as HTMLButtonElement;
+    return { fixture, tooltipHost, popover, trigger };
   }
 
   beforeEach(() => {
@@ -48,69 +49,111 @@ describe('DsTooltipComponent', () => {
     Object.defineProperty(window, 'innerHeight', { value: 768, configurable: true });
   });
 
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it('does not set aria-describedby before the tooltip is shown', async () => {
-    const { tooltipHost } = await createFixture();
+    const { tooltipHost, trigger } = await createFixture();
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
     expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
   });
 
-  it('sets aria-describedby to the popover id on hover and clears it on mouseleave', async () => {
-    const { fixture, tooltipHost, popover } = await createFixture();
-    mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
-    mockRect(popover, { width: 80, height: 30 });
-
-    tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
-    fixture.detectChanges();
-    expect(tooltipHost.getAttribute('aria-describedby')).toBe(popover.id);
-
-    tooltipHost.dispatchEvent(new MouseEvent('mouseleave'));
-    fixture.detectChanges();
-    expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
-  });
-
-  it('shows on focusin and hides on focusout, so keyboard users get it too', async () => {
-    const { fixture, tooltipHost, popover } = await createFixture();
+  it('describes the projected focusable control, not the non-interactive host', async () => {
+    const { fixture, tooltipHost, popover, trigger } = await createFixture();
     mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
     mockRect(popover, { width: 80, height: 30 });
 
     tooltipHost.dispatchEvent(new FocusEvent('focusin'));
     fixture.detectChanges();
-    expect(tooltipHost.getAttribute('aria-describedby')).toBe(popover.id);
 
-    tooltipHost.dispatchEvent(new FocusEvent('focusout'));
-    fixture.detectChanges();
+    expect(trigger.getAttribute('aria-describedby')).toBe(popover.id);
     expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
   });
 
-  it('hides on Escape', async () => {
-    const { fixture, tooltipHost, popover } = await createFixture();
+  it('keeps ids the caller already put on aria-describedby', async () => {
+    const { fixture, tooltipHost, popover, trigger } = await createFixture();
+    mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
+    mockRect(popover, { width: 80, height: 30 });
+    trigger.setAttribute('aria-describedby', 'existing-hint');
+
+    tooltipHost.dispatchEvent(new FocusEvent('focusin'));
+    fixture.detectChanges();
+    expect(trigger.getAttribute('aria-describedby')).toBe(`existing-hint ${popover.id}`);
+
+    tooltipHost.dispatchEvent(new FocusEvent('focusout'));
+    fixture.detectChanges();
+    expect(trigger.getAttribute('aria-describedby')).toBe('existing-hint');
+  });
+
+  it('shows on hover and hides shortly after mouseleave, unless the pointer comes back', async () => {
+    vi.useFakeTimers();
+    const { fixture, tooltipHost, popover, trigger } = await createFixture();
     mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
     mockRect(popover, { width: 80, height: 30 });
 
     tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
-    expect(tooltipHost.hasAttribute('aria-describedby')).toBe(true);
+    expect(trigger.getAttribute('aria-describedby')).toBe(popover.id);
+
+    // Crossing the gap onto the popup re-enters the host before the delay runs out.
+    tooltipHost.dispatchEvent(new MouseEvent('mouseleave'));
+    vi.advanceTimersByTime(100);
+    tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
+    vi.advanceTimersByTime(500);
+    fixture.detectChanges();
+    expect(trigger.getAttribute('aria-describedby')).toBe(popover.id);
+
+    tooltipHost.dispatchEvent(new MouseEvent('mouseleave'));
+    vi.advanceTimersByTime(500);
+    fixture.detectChanges();
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
+  });
+
+  it('shows on focusin and hides on focusout, so keyboard users get it too', async () => {
+    const { fixture, tooltipHost, popover, trigger } = await createFixture();
+    mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
+    mockRect(popover, { width: 80, height: 30 });
+
+    tooltipHost.dispatchEvent(new FocusEvent('focusin'));
+    fixture.detectChanges();
+    expect(trigger.getAttribute('aria-describedby')).toBe(popover.id);
+
+    tooltipHost.dispatchEvent(new FocusEvent('focusout'));
+    fixture.detectChanges();
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
+  });
+
+  it('hides on Escape', async () => {
+    const { fixture, tooltipHost, popover, trigger } = await createFixture();
+    mockRect(tooltipHost, { top: 400, left: 400, width: 40, height: 20, bottom: 420, right: 440 });
+    mockRect(popover, { width: 80, height: 30 });
+
+    tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    expect(trigger.hasAttribute('aria-describedby')).toBe(true);
 
     tooltipHost.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     fixture.detectChanges();
-    expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
   });
 
   it('never shows when content is empty', async () => {
-    const { fixture, tooltipHost } = await createFixture({ content: null });
+    const { fixture, tooltipHost, trigger } = await createFixture({ content: null });
 
     tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
 
-    expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
   });
 
   it('never shows when disabled', async () => {
-    const { fixture, tooltipHost } = await createFixture({ disabled: true });
+    const { fixture, tooltipHost, trigger } = await createFixture({ disabled: true });
 
     tooltipHost.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
 
-    expect(tooltipHost.hasAttribute('aria-describedby')).toBe(false);
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
   });
 
   it('flips to the opposite side when the preferred side would overflow the viewport', async () => {

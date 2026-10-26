@@ -6,7 +6,7 @@
         <div class="card-body p-4 md:p-5">
           <div class="d-flex align-items-center gap-3 mb-2">
             <span class="badge bg-white fg-primary p-2 fs-xl rounded-circle d-inline-flex align-items-center justify-content-center ds-forms-avatar">
-              <i class="bi bi-input-cursor-text"></i>
+              <i class="bi bi-input-cursor-text" aria-hidden="true"></i>
             </span>
             <div>
               <span class="badge bg-3 fg-primary mb-1 fw-semibold">Angular 22 Standalone Suite</span>
@@ -17,10 +17,10 @@
             A modular component suite and interactive showcase page for Bootstrap 6 form controls. Each section is a separate, standalone component with dedicated TypeScript, HTML, SCSS, unit tests, and Storybook stories.
           </p>
           <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Standalone Sub-Components</span>
-            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Reactive Forms & Signals</span>
-            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Async Validation</span>
-            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1"></i> Zero Bootstrap JS Dependencies</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1" aria-hidden="true"></i> Standalone Sub-Components</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1" aria-hidden="true"></i> Reactive Forms & Signals</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1" aria-hidden="true"></i> Async Validation</span>
+            <span class="badge bg-white fg-primary px-3 py-2 fw-normal"><i class="bi bi-check-circle-fill fg-success me-1" aria-hidden="true"></i> Zero Bootstrap JS Dependencies</span>
           </div>
         </div>
       </div>
@@ -30,20 +30,21 @@
   <!-- Quick Jumper Navigation -->
   <div class="row mb-4 sticky-top pt-2 ds-forms-sticky-bar">
     <div class="col-12">
-      <div class="card border-0 shadow-sm">
+      <nav class="card border-0 shadow-sm" aria-label="Form control sections">
         <div class="card-body p-2 d-flex flex-nowrap overflow-x-auto gap-2">
           @for (sec of sections; track sec.id) {
             <a
               [href]="'#' + sec.id"
               class="btn btn-sm text-nowrap rounded-pill"
               [ngClass]="activeSection() === sec.id ? 'btn-solid theme-primary' : 'btn-outline theme-secondary'"
+              [attr.aria-current]="activeSection() === sec.id ? 'true' : null"
               (click)="activeSection.set(sec.id)"
             >
-              <i class="bi {{ sec.icon }} me-1"></i> {{ sec.label }}
+              <i class="bi {{ sec.icon }} me-1" aria-hidden="true"></i> {{ sec.label }}
             </a>
           }
         </div>
-      </div>
+      </nav>
     </div>
   </div>
 

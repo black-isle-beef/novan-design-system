@@ -8,7 +8,11 @@ export type DsPaginationItem = number | 'ellipsis';
  * a data fetch, not a route change, so there's no `href`/`routerLink` here —
  * see `DsBreadcrumbComponent`/`DsSidebarComponent` for the link-based case).
  * The current page gets `aria-current="page"`; every button gets a
- * descriptive `aria-label`. Bind `[(page)]` for two-way sync, or `page` +
+ * descriptive `aria-label`. Previous/Next at a boundary are `aria-disabled`
+ * rather than natively disabled, so a keyboard user who just pressed one to
+ * reach the first/last page keeps focus on it instead of being dropped to
+ * `<body>`; `goTo()` clamps, so activating one there is a no-op.
+ * Bind `[(page)]` for two-way sync, or `page` +
  * `(pageChange)` to control it externally (e.g. keep it in sync with a
  * `page` query param).
  */

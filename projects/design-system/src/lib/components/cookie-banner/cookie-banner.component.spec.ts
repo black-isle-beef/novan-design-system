@@ -106,7 +106,7 @@ describe('DsCookieBannerComponent', () => {
       const fixture = await render();
       const host: HTMLElement = fixture.nativeElement;
 
-      expect(host.querySelector('#ds-cookie-banner-message a')?.getAttribute('href')).toBe('/cookies');
+      expect(host.querySelector('.ds-cookie-banner__message a')?.getAttribute('href')).toBe('/cookies');
       const buttons = Array.from(host.querySelectorAll<HTMLButtonElement>('.ds-cookie-banner__actions button'));
       expect(buttons.map((b) => b.textContent?.trim())).toEqual(['Manage preferences', 'Reject all', 'Accept all']);
       expect(buttons[1].classList).toContain('btn-solid');

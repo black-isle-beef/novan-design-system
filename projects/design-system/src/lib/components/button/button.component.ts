@@ -36,10 +36,10 @@ const VARIANT_CLASSES: Record<DsButtonVariant, string> = {
   standalone: true,
   templateUrl: './button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // Disabled/busy state lives on the inner native <button> only; repeating it on this non-interactive host
+  // would be redundant, and a busy ancestor can hold back the loading announcement.
   host: {
     class: 'ds-button',
-    '[attr.aria-disabled]': 'isDisabled()',
-    '[attr.aria-busy]': 'loading()',
   },
 })
 export class DsButtonComponent {

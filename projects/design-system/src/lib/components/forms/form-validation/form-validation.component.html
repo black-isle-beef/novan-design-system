@@ -1,20 +1,21 @@
 <div class="card shadow-sm border-0">
   <div class="card-header bg-white border-bottom py-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-2">
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-check2-square fg-primary fs-xl"></i>
+      <i class="bi bi-check2-square fg-primary fs-xl" aria-hidden="true"></i>
       <div>
         <h2 class="h5 mb-0 fw-bold">Complete Reactive Form Validation Suite</h2>
         <small class="fg-3">Client-side rules (required, email, pattern), custom async validator (username check), touched/dirty error display, and submit state management.</small>
       </div>
     </div>
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('preview')">Preview</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('html')">HTML</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'preview'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'html'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'ts'" (click)="setCodeTab('ts')">TS</button>
       <button type="button" class="btn btn-solid theme-inverse" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
-        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'" aria-hidden="true"></i> {{ copied() ? 'Copied!' : 'Copy' }}
       </button>
     </div>
+    <span class="visually-hidden" role="status">{{ copied() ? 'Copied!' : '' }}</span>
   </div>
 
   <div class="card-body">
@@ -26,7 +27,7 @@
             <!-- Username Field with Async Check -->
             <div class="mb-3">
               <label for="valUsernameInput" class="form-label fw-semibold">
-                Username <span class="fg-danger">*</span>
+                Username <span class="fg-danger" aria-hidden="true">*</span>
                 <small class="fg-3 fw-normal">(Try 'admin' or 'taken' to trigger Async Taken Error)</small>
               </label>
               <div class="input-group">
@@ -36,6 +37,7 @@
                   class="form-control"
                   id="valUsernameInput"
                   formControlName="username"
+                  aria-required="true"
                   [ngClass]="getControlClass('username')"
                   placeholder="john_doe"
                   [attr.aria-invalid]="isInvalid('username') ? true : null"
@@ -48,81 +50,85 @@
                 }
               </div>
 
-              <div id="valUsernameErrors">
+              <!-- Polite live region: the async "taken"/"available" result arrives while the user is still typing. -->
+              <div id="valUsernameErrors" aria-live="polite">
                 @if (validationForm.get('username')?.hasError('required') && (validationForm.get('username')?.touched || formSubmitted())) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username is required.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Username is required.</div>
                 }
                 @if (validationForm.get('username')?.hasError('minlength') && validationForm.get('username')?.touched) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username must be at least 4 characters long.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Username must be at least 4 characters long.</div>
                 }
                 @if (validationForm.get('username')?.hasError('pattern') && validationForm.get('username')?.touched) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Username can only contain letters, numbers, and underscores.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Username can only contain letters, numbers, and underscores.</div>
                 }
                 @if (validationForm.get('username')?.hasError('usernameTaken')) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-x-circle-fill me-1"></i> Username '{{ validationForm.get('username')?.value }}' is already taken! Try another.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-x-circle-fill me-1" aria-hidden="true"></i> Username '{{ validationForm.get('username')?.value }}' is already taken! Try another.</div>
+                }
+                @if (validationForm.get('username')?.valid && validationForm.get('username')?.dirty) {
+                  <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i> Username is available!</div>
                 }
               </div>
-              @if (validationForm.get('username')?.valid && validationForm.get('username')?.dirty) {
-                <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1"></i> Username is available!</div>
-              }
             </div>
 
             <!-- Email Field -->
             <div class="mb-3">
-              <label for="valEmailInput" class="form-label fw-semibold">Email Address <span class="fg-danger">*</span></label>
+              <label for="valEmailInput" class="form-label fw-semibold">Email Address <span class="fg-danger" aria-hidden="true">*</span></label>
               <input
                 type="email"
                 class="form-control"
                 id="valEmailInput"
                 formControlName="email"
+                aria-required="true"
                 [ngClass]="getControlClass('email')"
                 placeholder="developer@example.com"
                 [attr.aria-invalid]="isInvalid('email') ? true : null"
                 [attr.aria-describedby]="isInvalid('email') ? 'valEmailErrors' : null"
               >
-              <div id="valEmailErrors">
+              <div id="valEmailErrors" aria-live="polite">
                 @if (validationForm.get('email')?.hasError('required') && (validationForm.get('email')?.touched || formSubmitted())) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Email address is required.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Email address is required.</div>
                 }
                 @if (validationForm.get('email')?.hasError('email') && validationForm.get('email')?.touched) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please enter a valid email format.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Please enter a valid email format.</div>
                 }
               </div>
               @if (validationForm.get('email')?.valid && validationForm.get('email')?.dirty) {
-                <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1"></i> Valid email format.</div>
+                <div class="valid-feedback d-block"><i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i> Valid email format.</div>
               }
             </div>
 
             <!-- Password Field -->
             <div class="mb-3">
-              <label for="valPasswordInput" class="form-label fw-semibold">Password <span class="fg-danger">*</span></label>
+              <label for="valPasswordInput" class="form-label fw-semibold">Password <span class="fg-danger" aria-hidden="true">*</span></label>
               <input
                 type="password"
                 class="form-control"
                 id="valPasswordInput"
                 formControlName="password"
+                aria-required="true"
                 [ngClass]="getControlClass('password')"
                 placeholder="At least 8 characters..."
                 [attr.aria-invalid]="isInvalid('password') ? true : null"
                 [attr.aria-describedby]="isInvalid('password') ? 'valPasswordErrors' : null"
               >
-              <div id="valPasswordErrors">
+              <div id="valPasswordErrors" aria-live="polite">
                 @if (validationForm.get('password')?.hasError('required') && (validationForm.get('password')?.touched || formSubmitted())) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password is required.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Password is required.</div>
                 }
                 @if (validationForm.get('password')?.hasError('minlength') && validationForm.get('password')?.touched) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> Password must be at least 8 characters.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> Password must be at least 8 characters.</div>
                 }
               </div>
             </div>
 
             <!-- Role Select -->
             <div class="mb-3">
-              <label for="valRoleSelect" class="form-label fw-semibold">Primary Role <span class="fg-danger">*</span></label>
+              <label for="valRoleSelect" class="form-label fw-semibold">Primary Role <span class="fg-danger" aria-hidden="true">*</span></label>
               <select
                 class="form-control"
                 id="valRoleSelect"
                 formControlName="role"
+                aria-required="true"
                 [ngClass]="getControlClass('role')"
                 [attr.aria-invalid]="isInvalid('role') ? true : null"
               >
@@ -138,26 +144,28 @@
                 type="checkbox"
                 id="valAgreeTerms"
                 formControlName="agreeTerms"
+                aria-required="true"
                 [ngClass]="getControlClass('agreeTerms')"
                 [attr.aria-invalid]="isInvalid('agreeTerms') ? true : null"
                 [attr.aria-describedby]="isInvalid('agreeTerms') ? 'valAgreeTermsErrors' : null"
               >
               <label class="fw-semibold" for="valAgreeTerms">
-                I agree to the Terms of Service & Privacy Policy <span class="fg-danger">*</span>
+                I agree to the Terms of Service & Privacy Policy <span class="fg-danger" aria-hidden="true">*</span>
               </label>
-              <div id="valAgreeTermsErrors">
+              <div id="valAgreeTermsErrors" aria-live="polite">
                 @if (validationForm.get('agreeTerms')?.hasError('required') && (validationForm.get('agreeTerms')?.touched || formSubmitted())) {
-                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1"></i> You must agree before submitting.</div>
+                  <div class="invalid-feedback d-block"><i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> You must agree before submitting.</div>
                 }
               </div>
             </div>
 
             <!-- Actions -->
             <div class="d-flex gap-2">
+              <!-- Not disabled while invalid: submitting is how a user discovers which fields still need attention. -->
               <button
                 type="submit"
                 class="btn btn-solid theme-primary px-4"
-                [disabled]="validationForm.invalid || validationForm.pending"
+                [disabled]="validationForm.pending"
               >
                 @if (validationForm.pending) {
                   <span class="spinner-border spinner-sm me-1" role="status" aria-hidden="true"></span>
@@ -177,7 +185,7 @@
           <!-- Submitted Alert Output -->
           @if (submittedData()) {
             <div class="alert theme-success mt-4 mb-0 shadow-sm border-0" role="alert">
-              <h5 class="alert-heading fw-bold mb-2"><i class="bi bi-check-circle-fill me-1"></i> Form Submitted Successfully!</h5>
+              <h3 class="alert-heading h5 fw-bold mb-2"><i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i> Form Submitted Successfully!</h3>
               <p class="mb-2 small">Payload emitted from Angular Reactive Form:</p>
               <pre class="bg-white fg-black p-3 rounded border mb-0 small ds-forms-json-scroll"><code>{{ submittedData() | json }}</code></pre>
             </div>
@@ -188,7 +196,7 @@
         <div class="lg:col-5">
           <div class="card bg-3 border-0 h-100 shadow-sm">
             <div class="card-header bg-white border-bottom py-3">
-              <h6 class="fw-bold mb-0 fg-black"><i class="bi bi-bug-fill fg-primary me-1"></i> Reactive Form Inspector</h6>
+              <h3 class="h6 fw-bold mb-0 fg-black"><i class="bi bi-bug-fill fg-primary me-1" aria-hidden="true"></i> Reactive Form Inspector</h3>
             </div>
             <div class="card-body">
               <div class="mb-3">
@@ -220,10 +228,10 @@
                 </div>
               </div>
 
-              <h6 class="fw-bold small fg-3 text-uppercase mb-2">Live Form Values</h6>
+              <h4 class="h6 fw-bold small fg-3 text-uppercase mb-2">Live Form Values</h4>
               <pre data-bs-theme="dark" class="p-3 bg-body fg-success rounded small mb-3 ds-forms-code-sm"><code>{{ validationForm.value | json }}</code></pre>
 
-              <h6 class="fw-bold small fg-3 text-uppercase mb-2">Username Errors</h6>
+              <h4 class="h6 fw-bold small fg-3 text-uppercase mb-2">Username Errors</h4>
               <pre data-bs-theme="dark" class="p-3 bg-body fg-warning rounded small mb-0 ds-forms-code-sm"><code>{{ validationForm.get('username')?.errors | json }}</code></pre>
             </div>
           </div>

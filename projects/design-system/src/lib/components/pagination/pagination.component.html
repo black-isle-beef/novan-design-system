@@ -4,7 +4,7 @@
       <button
         type="button"
         class="page-link"
-        [disabled]="page() <= 1"
+        [attr.aria-disabled]="page() <= 1"
         aria-label="Previous page"
         (click)="goTo(page() - 1)"
       >
@@ -36,7 +36,7 @@
       <button
         type="button"
         class="page-link"
-        [disabled]="page() >= totalPages()"
+        [attr.aria-disabled]="page() >= totalPages()"
         aria-label="Next page"
         (click)="goTo(page() + 1)"
       >
