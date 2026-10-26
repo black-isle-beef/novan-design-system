@@ -111,7 +111,7 @@ export class DsFormValidationComponent {
     };
   }
 
-  readonly htmlSnippet = `<form [formGroup]="validationForm" (ngSubmit)="submitValidationForm()" [ngClass]="{'was-validated': formSubmitted()}" novalidate>
+  readonly htmlSnippet = `<form [formGroup]="validationForm" (ngSubmit)="submitValidationForm()" novalidate>
   <!-- Username with Custom Async Validator -->
   <div class="mb-3">
     <label for="valUsername" class="form-label">Username (Async check)</label>
@@ -119,8 +119,8 @@ export class DsFormValidationComponent {
       <span class="input-group-text">@</span>
       <input type="text" class="form-control" id="valUsername" formControlName="username" [ngClass]="getControlClass('username')">
       @if (validationForm.get('username')?.pending) {
-        <span class="input-group-text text-primary">
-          <span class="spinner-border spinner-border-sm me-1" role="status"></span> Checking...
+        <span class="input-group-text fg-primary">
+          <span class="spinner-border spinner-sm me-1" role="status"></span> Checking...
         </span>
       }
     </div>
@@ -129,7 +129,7 @@ export class DsFormValidationComponent {
     }
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="validationForm.invalid || validationForm.pending">Submit</button>
+  <button type="submit" class="btn btn-solid theme-primary" [disabled]="validationForm.invalid || validationForm.pending">Submit</button>
 </form>`;
 
   readonly tsSnippet = `@Component({

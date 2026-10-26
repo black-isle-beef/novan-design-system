@@ -1,7 +1,5 @@
 <nav
   class="ds-main-nav__nav navbar"
-  [class.navbar-expand-lg]="!pills()"
-  [class.navbar-expand-md]="pills()"
   [class.px-4]="!pills()"
   [class.py-3]="!pills()"
   [class.px-2]="pills()"
@@ -10,9 +8,8 @@
 >
   <button
     type="button"
-    class="ds-main-nav__toggle btn btn-outline-secondary ds-focus-ring"
-    [class.d-lg-none]="!pills()"
-    [class.d-md-none]="pills()"
+    class="ds-main-nav__toggle btn btn-outline theme-secondary ds-focus-ring"
+    [ngClass]="pills() ? 'md:d-none' : 'lg:d-none'"
     [attr.aria-expanded]="mobileOpen()"
     aria-controls="ds-main-nav-menu"
     [attr.aria-label]="mobileOpen() ? 'Close main menu' : 'Open main menu'"
@@ -32,10 +29,7 @@
     [class.ds-main-nav__list--open]="mobileOpen()"
   >
     @for (item of items(); track item.label; let i = $index) {
-      <li
-        class="ds-main-nav__item nav-item"
-        [class.dropdown]="!!item.children?.length"
-      >
+      <li class="ds-main-nav__item nav-item">
         @if (item.children?.length) {
           <button
             type="button"
@@ -53,15 +47,15 @@
           </button>
           <ul
             [id]="'ds-main-nav-dropdown-' + i"
-            class="ds-main-nav__dropdown dropdown-menu"
+            class="ds-main-nav__dropdown menu"
             [class.show]="openDropdownIndex() === i"
           >
             @for (child of item.children; track child.label) {
               <li>
                 @if (isExternalLink(child.href)) {
-                  <a class="dropdown-item" [href]="child.href" (click)="closeMenus()">{{ child.label }}</a>
+                  <a class="menu-item" [href]="child.href" (click)="closeMenus()">{{ child.label }}</a>
                 } @else {
-                  <a class="dropdown-item" [routerLink]="child.href" (click)="closeMenus()">{{ child.label }}</a>
+                  <a class="menu-item" [routerLink]="child.href" (click)="closeMenus()">{{ child.label }}</a>
                 }
               </li>
             }

@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { NavItem } from '../../models/nav-item.model';
@@ -17,7 +18,7 @@ export type DsMainNavVariant = 'default' | 'pills';
 @Component({
   selector: 'ds-main-nav',
   standalone: true,
-  imports: [RouterLink],
+  imports: [NgClass, RouterLink],
   templateUrl: './main-nav.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {

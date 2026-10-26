@@ -32,21 +32,20 @@ export class DsRadioButtonsComponent {
   }
 
   readonly htmlSnippet = `<!-- Stacked Radios -->
-<div class="form-check mb-2">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio1" checked>
-  <label class="form-check-label" for="radio1">Default radio</label>
+<div class="form-field mb-2">
+  <input class="radio" type="radio" name="flexRadioDefault" id="radio1" checked>
+  <label for="radio1">Default radio</label>
 </div>
 
 <!-- Inline Radios -->
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-  <label class="form-check-label" for="inlineRadio1">Inline 1</label>
+<div class="form-field d-inline-grid me-4">
+  <input class="radio" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label for="inlineRadio1">Inline 1</label>
 </div>
 
 <!-- Toggle Button Group -->
 <div class="btn-group" role="group">
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-  <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+  <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradio" autocomplete="off" checked>Radio 1</label>
 </div>`;
 
   readonly tsSnippet = `@Component({

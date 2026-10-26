@@ -22,7 +22,7 @@ export type DsSpinnerSize = 'sm' | 'md';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-spinner spinner-border',
-    '[class.spinner-border-sm]': "size() === 'sm'",
+    '[class.spinner-sm]': "size() === 'sm'",
     role: 'status',
   },
 })

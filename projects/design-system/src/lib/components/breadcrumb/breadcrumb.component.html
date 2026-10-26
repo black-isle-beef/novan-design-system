@@ -1,6 +1,9 @@
 <nav [attr.aria-label]="ariaLabel()">
   <ol class="ds-breadcrumb__list breadcrumb mb-0">
-    @for (item of items(); track item.label; let last = $last) {
+    @for (item of items(); track item.label; let first = $first, last = $last) {
+      @if (!first) {
+        <li class="breadcrumb-divider" aria-hidden="true">/</li>
+      }
       <li
         class="ds-breadcrumb__item breadcrumb-item"
         [class.active]="last"

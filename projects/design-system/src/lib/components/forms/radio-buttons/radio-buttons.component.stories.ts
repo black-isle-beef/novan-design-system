@@ -8,7 +8,7 @@ const meta: Meta<DsRadioButtonsComponent> = {
     docs: {
       subtitle: 'Bootstrap Stacked, Inline & Button Toggle Radios',
       description: {
-        component: 'Standard stacked radios, inline radio options (.form-check-inline), and toggle button groups (.btn-check).',
+        component: 'Standard stacked radios, inline radio options (.d-inline-grid on .form-field), and toggle button groups (.btn-check).',
       },
     },
   },

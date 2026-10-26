@@ -1,10 +1,10 @@
 <ds-header [navItems]="navItems">
-  <a dsBrand href="#" class="fw-bold fs-4 text-decoration-none">Novan</a>
+  <a dsBrand href="#" class="fw-bold fs-xl text-decoration-none">Novan</a>
 
   <div dsActions>
     <button
       type="button"
-      class="ds-sandbox__theme-toggle btn btn-outline-secondary ds-focus-ring d-inline-flex align-items-center gap-2"
+      class="ds-sandbox__theme-toggle btn btn-outline theme-secondary ds-focus-ring d-inline-flex align-items-center gap-2"
       [attr.aria-pressed]="theme() === 'dark'"
       [attr.aria-label]="theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
       (click)="toggleTheme()"
@@ -15,7 +15,7 @@
   </div>
 </ds-header>
 
-<div class="ds-sandbox__breadcrumb-bar border-bottom px-4 px-md-8 py-3">
+<div class="ds-sandbox__breadcrumb-bar border-bottom px-4 md:px-8 py-3">
   <ds-breadcrumb [items]="breadcrumbItems" />
 </div>
 
@@ -31,7 +31,7 @@
     </ds-hero>
   </section>
 
-  <section id="buttons" class="p-4 p-md-8 border-bottom" aria-labelledby="ds-sandbox-buttons-heading">
+  <section id="buttons" class="p-4 md:p-8 border-bottom" aria-labelledby="ds-sandbox-buttons-heading">
     <h2 id="ds-sandbox-buttons-heading" class="h3 mb-4">Buttons</h2>
     <div class="d-flex flex-wrap gap-3">
       <ds-button variant="primary">Primary</ds-button>
@@ -43,7 +43,7 @@
     </div>
   </section>
 
-  <section id="content" class="p-4 p-md-8 border-bottom" aria-labelledby="ds-sandbox-content-heading">
+  <section id="content" class="p-4 md:p-8 border-bottom" aria-labelledby="ds-sandbox-content-heading">
     <h2 id="ds-sandbox-content-heading" class="h3 mb-4">Content banner</h2>
     <ds-image-banner [imageSrc]="placeholderImage" imageAlt="" heading="Split layout content banner">
       <p class="mb-0">
@@ -53,12 +53,12 @@
     </ds-image-banner>
   </section>
 
-  <section id="forms" class="p-4 p-md-8 border-bottom" aria-labelledby="ds-sandbox-forms-heading">
+  <section id="forms" class="p-4 md:p-8 border-bottom" aria-labelledby="ds-sandbox-forms-heading">
     <h2 id="ds-sandbox-forms-heading" class="visually-hidden">Forms</h2>
     <ds-forms />
   </section>
 
-  <section id="modal" class="p-4 p-md-8" aria-labelledby="ds-sandbox-modal-heading">
+  <section id="modal" class="p-4 md:p-8" aria-labelledby="ds-sandbox-modal-heading">
     <h2 id="ds-sandbox-modal-heading" class="h3 mb-4">Modal</h2>
     <ds-button (pressed)="demoModalOpen.set(true)">Open modal</ds-button>
     <ds-modal [(open)]="demoModalOpen" heading="Invite teammates">

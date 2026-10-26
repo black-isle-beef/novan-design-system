@@ -1,13 +1,6 @@
 <button
   class="btn"
-  [class.btn-primary]="variant() === 'primary'"
-  [class.btn-secondary]="variant() === 'secondary'"
-  [class.btn-success]="variant() === 'success'"
-  [class.btn-warning]="variant() === 'warning'"
-  [class.btn-danger]="variant() === 'danger'"
-  [class.btn-info]="variant() === 'info'"
-  [class.btn-hero-light]="variant() === 'hero-light'"
-  [class.btn-hero-dark]="variant() === 'hero-dark'"
+  [class]="variantClass()"
   [class.btn-sm]="size() === 'sm'"
   [class.btn-lg]="size() === 'lg'"
   type="button"
@@ -17,7 +10,7 @@
   (click)="handleClick()"
 >
   @if (loading()) {
-    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+    <span class="spinner-border spinner-sm" aria-hidden="true"></span>
     <span class="visually-hidden" aria-live="polite">Loading</span>
   }
   <ng-content select="[dsButtonIcon]"></ng-content>

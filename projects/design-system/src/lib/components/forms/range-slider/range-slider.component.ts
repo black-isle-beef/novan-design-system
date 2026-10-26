@@ -45,9 +45,9 @@ export class DsRangeSliderComponent {
   readonly htmlSnippet = `<div class="mb-3">
   <div class="d-flex justify-content-between align-items-center mb-1">
     <label for="customRange" class="form-label mb-0">Volume Range Slider</label>
-    <span class="badge bg-primary fs-6">{{ rangeValue() }}%</span>
+    <span class="badge theme-primary fs-md">{{ rangeValue() }}%</span>
   </div>
-  <input type="range" class="form-range" min="0" max="100" step="1" id="customRange" [formControl]="rangeControl">
+  <div class="form-range"><input type="range" class="form-range-input" min="0" max="100" step="1" id="customRange" [formControl]="rangeControl"></div>
 </div>`;
 
   readonly tsSnippet = `@Component({

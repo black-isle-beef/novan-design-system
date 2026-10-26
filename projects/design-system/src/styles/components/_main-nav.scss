@@ -8,6 +8,41 @@
   display: block;
 }
 
+// Bootstrap 6's `.navbar` is a query container, and its `navbar-expand`
+// classes respond to the navbar's own width. The design system collapses on
+// the viewport (matching the toggle's `lg:d-none` / `md:d-none`), so it drops
+// the containment, which would also stop the navbar sizing to its content.
+.ds-main-nav__nav {
+  container-type: normal;
+}
+
+// Expanded (desktop) layout: what Bootstrap 5's `navbar-expand-lg` /
+// `navbar-expand-md` provided, on the same viewport breakpoints as the
+// collapsed menu below.
+@mixin ds-main-nav-expanded {
+  .ds-main-nav__list {
+    --nav-link-padding-x: var(--navbar-nav-link-padding-x);
+
+    flex-direction: row;
+  }
+
+  .ds-main-nav__item {
+    position: relative;
+  }
+}
+
+@media (min-width: 992px) {
+  :where(.ds-main-nav:not(.ds-main-nav--pills)) {
+    @include ds-main-nav-expanded;
+  }
+}
+
+@media (min-width: 768px) {
+  :where(.ds-main-nav--pills) {
+    @include ds-main-nav-expanded;
+  }
+}
+
 // Dropdown affordance on the parent nav item's toggle. Points down to signal a
 // menu; rotates a full 180deg clockwise while the dropdown is open and unwinds
 // counter-clockwise back to 0 when it closes. Same behaviour at every viewport.
@@ -112,7 +147,7 @@
   // within the overlay. Kept in flow and collapsed to zero height when closed
   // so it can animate open / closed over 0.3s instead of snapping via
   // `display`.
-  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+  .ds-main-nav__list--open .ds-main-nav__dropdown.menu {
     position: static;
     display: block;
     max-height: 0;
@@ -130,7 +165,7 @@
       opacity 0.3s ease;
   }
 
-  .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu.show {
+  .ds-main-nav__list--open .ds-main-nav__dropdown.menu.show {
     max-height: 16rem;
     padding-block: 0 map.get($ds-spacers, 3);
     opacity: 1;
@@ -202,7 +237,7 @@
     .ds-main-nav__list,
     .ds-main-nav__list--open,
     .ds-main-nav__toggle-bar,
-    .ds-main-nav__list--open .ds-main-nav__dropdown.dropdown-menu {
+    .ds-main-nav__list--open .ds-main-nav__dropdown.menu {
       transition: none;
     }
   }
@@ -222,10 +257,9 @@
 
 // -----------------------------------------------------------------------------
 // `pills` variant: a compact single row for app headers. Links are muted text
-// in pill shapes; the current page sits on the raised (tertiary) surface with a
+// in pill shapes; the current page sits on the raised (`--bg-3`) surface with a
 // hairline ring and bold text, and carries `aria-current="page"`, so it is
-// never marked by colour alone. Two classes plus the element class outrank the
-// global `a[href]` link colour and underline in styles.scss.
+// never marked by colour alone.
 // -----------------------------------------------------------------------------
 // A long menu wraps onto a second row rather than pushing the page sideways.
 @media (min-width: 768px) {

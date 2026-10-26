@@ -1,17 +1,17 @@
 <div class="card shadow-sm border-0">
   <div class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-check2-square text-primary fs-4"></i>
+      <i class="bi bi-check2-square fg-primary fs-xl"></i>
       <div>
         <h2 class="h5 mb-0 fw-bold">Complete Reactive Form Validation Suite</h2>
-        <small class="text-muted">Client-side rules (required, email, pattern), custom async validator (username check), touched/dirty error display, and submit state management.</small>
+        <small class="fg-3">Client-side rules (required, email, pattern), custom async validator (username check), touched/dirty error display, and submit state management.</small>
       </div>
     </div>
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('preview')">Preview</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('html')">HTML</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-primary' : 'btn-outline-dark'" (click)="setCodeTab('ts')">TS</button>
-      <button type="button" class="btn btn-dark" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn btn-solid theme-inverse" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
         <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
       </button>
     </div>
@@ -21,13 +21,13 @@
     @if (activeCodeTab() === 'preview') {
       <div class="row g-4">
         <!-- Interactive Validation Form -->
-        <div class="col-lg-7">
-          <form [formGroup]="validationForm" (ngSubmit)="submitValidationForm()" [ngClass]="{'was-validated': formSubmitted()}" novalidate>
+        <div class="lg:col-7">
+          <form [formGroup]="validationForm" (ngSubmit)="submitValidationForm()" novalidate>
             <!-- Username Field with Async Check -->
             <div class="mb-3">
               <label for="valUsernameInput" class="form-label fw-semibold">
-                Username <span class="text-danger">*</span>
-                <small class="text-muted fw-normal">(Try 'admin' or 'taken' to trigger Async Taken Error)</small>
+                Username <span class="fg-danger">*</span>
+                <small class="fg-3 fw-normal">(Try 'admin' or 'taken' to trigger Async Taken Error)</small>
               </label>
               <div class="input-group">
                 <span class="input-group-text">@</span>
@@ -42,8 +42,8 @@
                   [attr.aria-describedby]="isInvalid('username') ? 'valUsernameErrors' : null"
                 >
                 @if (validationForm.get('username')?.pending) {
-                  <span class="input-group-text text-primary bg-light">
-                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Checking...
+                  <span class="input-group-text fg-primary bg-3">
+                    <span class="spinner-border spinner-sm me-1" role="status" aria-hidden="true"></span> Checking...
                   </span>
                 }
               </div>
@@ -69,7 +69,7 @@
 
             <!-- Email Field -->
             <div class="mb-3">
-              <label for="valEmailInput" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+              <label for="valEmailInput" class="form-label fw-semibold">Email Address <span class="fg-danger">*</span></label>
               <input
                 type="email"
                 class="form-control"
@@ -95,7 +95,7 @@
 
             <!-- Password Field -->
             <div class="mb-3">
-              <label for="valPasswordInput" class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+              <label for="valPasswordInput" class="form-label fw-semibold">Password <span class="fg-danger">*</span></label>
               <input
                 type="password"
                 class="form-control"
@@ -118,9 +118,9 @@
 
             <!-- Role Select -->
             <div class="mb-3">
-              <label for="valRoleSelect" class="form-label fw-semibold">Primary Role <span class="text-danger">*</span></label>
+              <label for="valRoleSelect" class="form-label fw-semibold">Primary Role <span class="fg-danger">*</span></label>
               <select
-                class="form-select"
+                class="form-control"
                 id="valRoleSelect"
                 formControlName="role"
                 [ngClass]="getControlClass('role')"
@@ -133,9 +133,8 @@
             </div>
 
             <!-- Terms Agreement Checkbox -->
-            <div class="form-check mb-4">
-              <input
-                class="form-check-input"
+            <div class="form-field mb-4">
+              <input class="check"
                 type="checkbox"
                 id="valAgreeTerms"
                 formControlName="agreeTerms"
@@ -143,8 +142,8 @@
                 [attr.aria-invalid]="isInvalid('agreeTerms') ? true : null"
                 [attr.aria-describedby]="isInvalid('agreeTerms') ? 'valAgreeTermsErrors' : null"
               >
-              <label class="form-check-label fw-semibold" for="valAgreeTerms">
-                I agree to the Terms of Service & Privacy Policy <span class="text-danger">*</span>
+              <label class="fw-semibold" for="valAgreeTerms">
+                I agree to the Terms of Service & Privacy Policy <span class="fg-danger">*</span>
               </label>
               <div id="valAgreeTermsErrors">
                 @if (validationForm.get('agreeTerms')?.hasError('required') && (validationForm.get('agreeTerms')?.touched || formSubmitted())) {
@@ -157,17 +156,17 @@
             <div class="d-flex gap-2">
               <button
                 type="submit"
-                class="btn btn-primary px-4"
+                class="btn btn-solid theme-primary px-4"
                 [disabled]="validationForm.invalid || validationForm.pending"
               >
                 @if (validationForm.pending) {
-                  <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  <span class="spinner-border spinner-sm me-1" role="status" aria-hidden="true"></span>
                 }
                 Submit Registration
               </button>
               <button
                 type="button"
-                class="btn btn-outline-secondary"
+                class="btn btn-outline theme-secondary"
                 (click)="resetValidationForm()"
               >
                 Reset Form
@@ -177,29 +176,29 @@
 
           <!-- Submitted Alert Output -->
           @if (submittedData()) {
-            <div class="alert alert-success mt-4 mb-0 shadow-sm border-0" role="alert">
+            <div class="alert theme-success mt-4 mb-0 shadow-sm border-0" role="alert">
               <h5 class="alert-heading fw-bold mb-2"><i class="bi bi-check-circle-fill me-1"></i> Form Submitted Successfully!</h5>
               <p class="mb-2 small">Payload emitted from Angular Reactive Form:</p>
-              <pre class="bg-white text-dark p-3 rounded border mb-0 small ds-forms-json-scroll"><code>{{ submittedData() | json }}</code></pre>
+              <pre class="bg-white fg-black p-3 rounded border mb-0 small ds-forms-json-scroll"><code>{{ submittedData() | json }}</code></pre>
             </div>
           }
         </div>
 
         <!-- Live Form State Inspector -->
-        <div class="col-lg-5">
-          <div class="card bg-light border-0 h-100 shadow-sm">
+        <div class="lg:col-5">
+          <div class="card bg-3 border-0 h-100 shadow-sm">
             <div class="card-header bg-white border-bottom py-3">
-              <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-bug-fill text-primary me-1"></i> Reactive Form Inspector</h6>
+              <h6 class="fw-bold mb-0 fg-black"><i class="bi bi-bug-fill fg-primary me-1"></i> Reactive Form Inspector</h6>
             </div>
             <div class="card-body">
               <div class="mb-3">
                 <span class="fw-bold me-2">Form Status:</span>
                 <span
-                  class="badge fs-6"
+                  class="badge fs-md"
                   [ngClass]="{
-                    'bg-success': validationForm.valid,
-                    'bg-danger': validationForm.invalid && !validationForm.pending,
-                    'bg-warning text-dark': validationForm.pending
+                    'theme-success': validationForm.valid,
+                    'theme-danger': validationForm.invalid && !validationForm.pending,
+                    'theme-warning': validationForm.pending
                   }"
                 >
                   {{ validationForm.pending ? 'PENDING' : (validationForm.valid ? 'VALID' : 'INVALID') }}
@@ -209,23 +208,23 @@
               <div class="row g-2 mb-3 text-center">
                 <div class="col-6">
                   <div class="p-2 bg-white rounded border">
-                    <small class="text-muted d-block">Touched</small>
-                    <span class="fw-bold" [ngClass]="validationForm.touched ? 'text-primary' : 'text-muted'">{{ validationForm.touched }}</span>
+                    <small class="fg-3 d-block">Touched</small>
+                    <span class="fw-bold" [ngClass]="validationForm.touched ? 'fg-primary' : 'fg-3'">{{ validationForm.touched }}</span>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="p-2 bg-white rounded border">
-                    <small class="text-muted d-block">Dirty</small>
-                    <span class="fw-bold" [ngClass]="validationForm.dirty ? 'text-primary' : 'text-muted'">{{ validationForm.dirty }}</span>
+                    <small class="fg-3 d-block">Dirty</small>
+                    <span class="fw-bold" [ngClass]="validationForm.dirty ? 'fg-primary' : 'fg-3'">{{ validationForm.dirty }}</span>
                   </div>
                 </div>
               </div>
 
-              <h6 class="fw-bold small text-muted text-uppercase mb-2">Live Form Values</h6>
-              <pre class="p-3 bg-dark text-success rounded small mb-3 ds-forms-code-sm"><code>{{ validationForm.value | json }}</code></pre>
+              <h6 class="fw-bold small fg-3 text-uppercase mb-2">Live Form Values</h6>
+              <pre data-bs-theme="dark" class="p-3 bg-body fg-success rounded small mb-3 ds-forms-code-sm"><code>{{ validationForm.value | json }}</code></pre>
 
-              <h6 class="fw-bold small text-muted text-uppercase mb-2">Username Errors</h6>
-              <pre class="p-3 bg-dark text-warning rounded small mb-0 ds-forms-code-sm"><code>{{ validationForm.get('username')?.errors | json }}</code></pre>
+              <h6 class="fw-bold small fg-3 text-uppercase mb-2">Username Errors</h6>
+              <pre data-bs-theme="dark" class="p-3 bg-body fg-warning rounded small mb-0 ds-forms-code-sm"><code>{{ validationForm.get('username')?.errors | json }}</code></pre>
             </div>
           </div>
         </div>

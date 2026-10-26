@@ -59,7 +59,7 @@ export const Consent: Story = {
         [equalProminence]="true"
       >
         We use strictly necessary cookies to run this site. With your permission we would also use analytics cookies.
-        Read our <a href="#cookies" class="link-light">cookie policy</a>.
+        Read our <a href="#cookies" class="fg-white">cookie policy</a>.
       </ds-cookie-banner>
     `,
   }),

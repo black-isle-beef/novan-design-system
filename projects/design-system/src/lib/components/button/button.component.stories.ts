@@ -53,9 +53,9 @@ export const BootstrapVariants: Story = {
     template: `
       <div class="container-fluid px-0">
         <div class="row g-4 align-items-center mb-2">
-          <div class="col-12 col-md-2"></div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4 small text-muted">
+          <div class="col-12 md:col-2"></div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4 small fg-3">
               <div class="col">Default</div>
               <div class="col">Hover</div>
               <div class="col">Focus</div>
@@ -64,9 +64,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center mb-5">
-          <div class="col-12 col-md-2 fw-semibold">Primary</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Primary</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="primary">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="primary">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="primary">Focus</ds-button></div>
@@ -75,9 +75,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center mb-5">
-          <div class="col-12 col-md-2 fw-semibold">Secondary</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Secondary</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="secondary">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="secondary">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="secondary">Focus</ds-button></div>
@@ -86,9 +86,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center mb-5">
-          <div class="col-12 col-md-2 fw-semibold">Success</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Success</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="success">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="success">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="success">Focus</ds-button></div>
@@ -97,9 +97,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center mb-5">
-          <div class="col-12 col-md-2 fw-semibold">Warning</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Warning</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="warning">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="warning">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="warning">Focus</ds-button></div>
@@ -108,9 +108,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center mb-5">
-          <div class="col-12 col-md-2 fw-semibold">Danger</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Danger</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="danger">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="danger">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="danger">Focus</ds-button></div>
@@ -119,9 +119,9 @@ export const BootstrapVariants: Story = {
           </div>
         </div>
         <div class="row g-4 align-items-center">
-          <div class="col-12 col-md-2 fw-semibold">Info</div>
-          <div class="col-12 col-md-10">
-            <div class="row row-cols-2 row-cols-sm-4 g-4">
+          <div class="col-12 md:col-2 fw-semibold">Info</div>
+          <div class="col-12 md:col-10">
+            <div class="row row-cols-2 sm:row-cols-4 g-4">
               <div class="col"><ds-button class="ds-button--full-width" variant="info">Default</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--hover" variant="info">Hover</ds-button></div>
               <div class="col"><ds-button class="ds-button--full-width ds-button--focus" variant="info">Focus</ds-button></div>
