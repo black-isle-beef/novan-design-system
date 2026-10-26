@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [3.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v3.0.0...v3.1.0) (2026-10-26)
+
+### Features
+
+* **storybook:** add prebuild script for storybook to build tokens ([a2a0870](https://github.com/black-isle-beef/novan-design-system/commit/a2a087018aef8e2cae0dfd6ef738c5475a3f2f01))
+
 ## [3.0.0](https://github.com/black-isle-beef/novan-design-system/compare/v2.7.0...v3.0.0) (2026-10-26)
 
 ### ⚠ BREAKING CHANGES
