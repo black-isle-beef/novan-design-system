@@ -13,6 +13,40 @@
     accent-color: #2f1778;
   }
 
+  /* Sidebar brand (see manager.ts): compass mark, wordmark, version pill. */
+  .ds-sb-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #111111;
+    text-decoration: none;
+  }
+
+  .ds-sb-brand__mark {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+
+  .ds-sb-brand__name {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .ds-sb-brand__version {
+    padding: 3px 8px;
+    border-radius: 999px;
+    background-color: #2f1778;
+    color: #ffffff;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
   @font-face {
     font-family: 'Montserrat Alternates';
     font-style: normal;

@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, Component, ElementRef, input, output, viewChild } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  output,
+  viewChild,
+} from '@angular/core';
+import { DsAccordionComponent } from './accordion.component';
 
 let nextAccordionItemId = 0;
 
 /**
- * A single progressive-disclosure panel built on native `<details>`/
- * `<summary>`, which gets click/Enter-Space toggling, an implicit disclosure
- * role and `aria-expanded`, and independent open state for free from the
- * browser. Works standalone — wrap several in a `ds-accordion` only when
- * they need to be mutually exclusive (single-open); on its own, each item
- * opens and closes independently.
+ * A single Bootstrap 6 accordion panel (`details.accordion-item`), which gets
+ * click/Enter-Space toggling, an implicit disclosure role and
+ * `aria-expanded`, and independent open state for free from the browser.
+ * Works standalone — the host then carries `.accordion` itself so
+ * Bootstrap's accordion tokens apply — or inside a `ds-accordion`, which
+ * makes the items mutually exclusive (single-open).
  */
 @Component({
   selector: 'ds-accordion-item',
@@ -17,17 +27,19 @@ let nextAccordionItemId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ds-accordion-item',
+    '[class.accordion]': '!accordion',
   },
 })
 export class DsAccordionItemComponent {
   /** Text shown in the summary row; ignored when `[dsAccordionItemSummary]` content is projected instead. */
   readonly summary = input.required<string>();
-  /** Whether the panel starts open. Bind with `[(open)]` for two-way sync. */
-  readonly open = input(false);
+  /** Whether the panel starts open; a bare `open` attribute counts. Bind with `[(open)]` for two-way sync. */
+  readonly open = input(false, { transform: booleanAttribute });
 
-  /** Emits the new open state whenever the user toggles the panel. */
+  /** Emits the new open state whenever the panel toggles, including when a sibling in a `ds-accordion` closes it. */
   readonly openChange = output<boolean>();
 
+  protected readonly accordion = inject(DsAccordionComponent, { optional: true });
   protected readonly headingId = `ds-accordion-item-heading-${nextAccordionItemId++}`;
   private readonly detailsRef = viewChild.required<ElementRef<HTMLDetailsElement>>('details');
 
@@ -35,7 +47,7 @@ export class DsAccordionItemComponent {
     this.openChange.emit((event.target as HTMLDetailsElement).open);
   }
 
-  /** Called by a parent `ds-accordion` enforcing single-open behavior. */
+  /** Closes the panel programmatically, emitting `openChange(false)` if it was open. */
   forceClose(): void {
     const detailsEl = this.detailsRef().nativeElement;
     if (detailsEl.open) {

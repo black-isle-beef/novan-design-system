@@ -1,8 +1,15 @@
 import { dirname } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import type { StorybookConfig } from '@storybook/angular';
 
 const require = createRequire(import.meta.url);
+
+// The released version lives in CHANGELOG.md (semantic-release commits it
+// there; the package.json versions are never bumped in the repo), so the
+// newest `## [x.y.z]` heading is the version currently on npm.
+const changelog = readFileSync(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
+const designSystemVersion = /^## \[(\d+\.\d+\.\d+[^\]]*)\]/m.exec(changelog)?.[1] ?? '';
 
 // Forces every `@angular/*` import (from the story bundles, from
 // @storybook/angular's own renderer, and from any other webpack entry point
@@ -45,6 +52,10 @@ const config: StorybookConfig = {
 
     return config;
   },
+  // Hands the version to manager.ts, which renders it as a pill beside the
+  // sidebar logo. The manager bundle loads after <head>, so this runs first.
+  managerHead: (head) =>
+    `${head}<script>window.__NOVAN_DS_VERSION__ = ${JSON.stringify(designSystemVersion)};</script>`,
   staticDirs: ['../public'],
   docs: {
     defaultName: 'Docs',

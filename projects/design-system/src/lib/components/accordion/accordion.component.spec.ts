@@ -25,27 +25,23 @@ describe('DsAccordionComponent', () => {
     return { fixture, detailsEls };
   }
 
+  // The browser closes the other members of a `<details name>` group itself;
+  // jsdom doesn't, so that behavior is covered by the Playwright suite.
+  it('renders a Bootstrap .accordion whose items share one <details name>', async () => {
+    const { fixture, detailsEls } = await createFixture();
+    const host = fixture.nativeElement.querySelector('ds-accordion') as HTMLElement;
+    const names = detailsEls().map((el) => el.getAttribute('name'));
+
+    expect(host.classList).toContain('accordion');
+    expect(names[0]).toMatch(/^ds-accordion-\d+$/);
+    expect(new Set(names).size).toBe(1);
+    // The wrapper owns the tokens, so the items don't redeclare them.
+    expect(fixture.nativeElement.querySelector('ds-accordion-item').classList).not.toContain('accordion');
+  });
+
   it('lets multiple items be closed at once', async () => {
     const { detailsEls } = await createFixture();
     expect(detailsEls().every((el) => !el.open)).toBe(true);
-  });
-
-  it('opening one item closes the others', async () => {
-    const { fixture, detailsEls } = await createFixture();
-    const [first, second] = detailsEls();
-
-    first.open = true;
-    first.dispatchEvent(new Event('toggle'));
-    fixture.detectChanges();
-
-    second.open = true;
-    second.dispatchEvent(new Event('toggle'));
-    fixture.detectChanges();
-
-    const [firstNow, secondNow, thirdNow] = detailsEls();
-    expect(firstNow.open).toBe(false);
-    expect(secondNow.open).toBe(true);
-    expect(thirdNow.open).toBe(false);
   });
 
   it('closing the only open item leaves all items closed', async () => {

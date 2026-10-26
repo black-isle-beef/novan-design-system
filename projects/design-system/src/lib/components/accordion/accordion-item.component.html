@@ -1,11 +1,17 @@
-<details #details class="ds-accordion-item__details" [open]="open()" (toggle)="handleToggle($event)">
-  <summary class="ds-accordion-item__summary" [id]="headingId">
-    <span class="ds-accordion-item__summary-text">
+<details
+  #details
+  class="accordion-item"
+  [attr.name]="accordion?.groupName"
+  [open]="open()"
+  (toggle)="handleToggle($event)"
+>
+  <summary class="accordion-header" [id]="headingId">
+    <span>
       <ng-content select="[dsAccordionItemSummary]">{{ summary() }}</ng-content>
     </span>
-    <i class="ds-accordion-item__icon bi bi-chevron-down" aria-hidden="true"></i>
+    <i class="accordion-icon bi bi-chevron-down" aria-hidden="true"></i>
   </summary>
-  <div class="ds-accordion-item__body">
+  <div class="accordion-body">
     <ng-content></ng-content>
   </div>
 </details>
