@@ -20,6 +20,7 @@
     "lint:ts": "nx lint novan-design-system && nx lint design-system",
     "storybook": "nx run novan-design-system:storybook",
     "storybook:ci": "nx run novan-design-system:storybook -- --ci --quiet",
+    "prebuild-storybook": "npm run build:tokens",
     "build-storybook": "nx run novan-design-system:build-storybook",
     "semantic-release": "semantic-release",
     "chromatic": "npx chromatic"
