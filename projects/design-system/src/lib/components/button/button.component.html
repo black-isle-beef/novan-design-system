@@ -11,8 +11,9 @@
 >
   @if (loading()) {
     <span class="spinner-border spinner-sm" aria-hidden="true"></span>
-    <span class="visually-hidden" aria-live="polite">Loading</span>
   }
   <ng-content select="[dsButtonIcon]"></ng-content>
   <span><ng-content></ng-content></span>
 </button>
+<!-- Always rendered, and outside the aria-busy button: a live region only announces changes to content it already contains. -->
+<span class="visually-hidden" aria-live="polite">@if (loading()) {Loading}</span>

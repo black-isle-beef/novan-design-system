@@ -1,5 +1,5 @@
 <nav class="ds-sidebar__nav" [attr.aria-label]="ariaLabel()">
-  <ul id="ds-sidebar-list" class="ds-sidebar__list list-unstyled d-flex flex-column gap-1">
+  <ul [id]="listId" class="ds-sidebar__list list-unstyled d-flex flex-column gap-1">
     @for (item of items(); track item.label) {
       <li>
         <a
@@ -22,7 +22,7 @@
     type="button"
     class="ds-sidebar__toggle ds-focus-ring"
     [attr.aria-expanded]="!collapsed()"
-    aria-controls="ds-sidebar-list"
+    [attr.aria-controls]="listId"
     [attr.aria-label]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
     (click)="toggleCollapsed()"
   >

@@ -11,7 +11,7 @@
     class="ds-main-nav__toggle btn btn-outline theme-secondary ds-focus-ring"
     [ngClass]="pills() ? 'md:d-none' : 'lg:d-none'"
     [attr.aria-expanded]="mobileOpen()"
-    aria-controls="ds-main-nav-menu"
+    [attr.aria-controls]="menuId"
     [attr.aria-label]="mobileOpen() ? 'Close main menu' : 'Open main menu'"
     (click)="toggleMobile()"
   >
@@ -22,7 +22,7 @@
   </button>
 
   <ul
-    id="ds-main-nav-menu"
+    [id]="menuId"
     class="ds-main-nav__list navbar-nav flex-grow-1"
     [class.gap-2]="!pills()"
     [class.gap-1]="pills()"
@@ -35,7 +35,7 @@
             type="button"
             class="ds-main-nav__link nav-link btn btn-link ds-focus-ring"
             [attr.aria-expanded]="openDropdownIndex() === i"
-            [attr.aria-controls]="'ds-main-nav-dropdown-' + i"
+            [attr.aria-controls]="dropdownId(i)"
             (click)="toggleDropdown(i)"
             (keydown)="onDropdownKeydown($event, i)"
           >
@@ -46,7 +46,7 @@
             <i class="ds-main-nav__chevron bi bi-chevron-down" aria-hidden="true"></i>
           </button>
           <ul
-            [id]="'ds-main-nav-dropdown-' + i"
+            [id]="dropdownId(i)"
             class="ds-main-nav__dropdown menu"
             [class.show]="openDropdownIndex() === i"
           >

@@ -29,6 +29,9 @@ const sidebarItems: SidebarItem[] = [
  * Every story here renders with `data-bs-theme="dark" data-ds-theme="copper"`
  * on <html> (see the `dsTheme` parameter in .storybook/preview.ts), the same
  * way an app opts in.
+ *
+ * On the Docs page the preview decorator scopes the theme to a wrapper around
+ * each inline story instead, so it doesn't leak onto the docs page itself.
  */
 const meta: Meta = {
   title: 'Themes/Charcoal & Copper',
@@ -216,6 +219,10 @@ export const Toast: Story = {
 };
 
 export const Modal: Story = {
+  // `showModal()` inline would open over the whole Docs page, so the modal
+  // alone gets its own docs iframe; one iframe stays well inside the dev
+  // server's connection limit.
+  parameters: { docs: { story: { inline: false, height: '22rem' } } },
   render: () => ({
     template: `
       <ds-modal [open]="true" heading="Dismiss the checklist?">

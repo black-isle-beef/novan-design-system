@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import type { SidebarItem } from '../../models/nav-item.model';
 import { isExternalLink } from '../../utils/link.util';
 
+let nextSidebarId = 0;
+
 /**
  * Collapsible side navigation with `aria-current="page"` active-route
  * indication and a labeled toggle button for collapsing/expanding the rail.
@@ -29,6 +31,8 @@ export class DsSidebarComponent {
   protected readonly isExternalLink = isExternalLink;
 
   protected readonly collapsed = signal(false);
+  /** Unique per instance, so the toggle's `aria-controls` never resolves to another sidebar's list. */
+  protected readonly listId = `ds-sidebar-list-${nextSidebarId++}`;
 
   protected toggleCollapsed(): void {
     this.collapsed.update((value) => !value);

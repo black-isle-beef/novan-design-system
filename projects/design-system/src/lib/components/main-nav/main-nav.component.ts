@@ -7,6 +7,8 @@ import { isExternalLink } from '../../utils/link.util';
 /** `default`: site navigation, collapsing below `lg`. `pills`: compact app navigation, collapsing below `md`. */
 export type DsMainNavVariant = 'default' | 'pills';
 
+let nextMainNavId = 0;
+
 /**
  * Accessible primary navigation bar with desktop dropdown support and a
  * keyboard-navigable mobile toggle. Implements the WAI-ARIA disclosure
@@ -42,7 +44,14 @@ export class DsMainNavComponent {
   protected readonly mobileOpen = signal(false);
   protected readonly openDropdownIndex = signal<number | null>(null);
 
+  /** Unique per instance, so `aria-controls` never resolves to another nav's menu on the same page. */
+  protected readonly menuId = `ds-main-nav-menu-${nextMainNavId++}`;
+
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+
+  protected dropdownId(index: number): string {
+    return `${this.menuId}-dropdown-${index}`;
+  }
 
   protected toggleMobile(): void {
     this.mobileOpen.update((open) => !open);
@@ -68,7 +77,7 @@ export class DsMainNavComponent {
     const dropdown = this.openDropdownIndex();
     if (dropdown !== null) {
       this.closeDropdown();
-      this.focus(`[aria-controls="ds-main-nav-dropdown-${dropdown}"]`);
+      this.focus(`[aria-controls="${this.dropdownId(dropdown)}"]`);
     } else if (this.mobileOpen()) {
       this.mobileOpen.set(false);
       this.focus('.ds-main-nav__toggle');

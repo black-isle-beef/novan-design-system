@@ -6,6 +6,20 @@ import { applicationConfig, type Preview } from '@storybook/angular';
 // `storybook-browser-target` in angular.json, so every story renders with
 // the real production styles instead of Storybook's default theme.
 
+/** `copper` is dark mode plus `data-ds-theme="copper"`; `light`/`dark` are plain Bootstrap color modes. */
+function applyTheme(element: HTMLElement, theme: string): void {
+  element.setAttribute('data-bs-theme', theme === 'copper' ? 'dark' : theme);
+  if (theme === 'copper') {
+    element.setAttribute('data-ds-theme', 'copper');
+  } else {
+    element.removeAttribute('data-ds-theme');
+  }
+}
+
+function themeAttributes(theme: string): string {
+  return theme === 'copper' ? 'data-bs-theme="dark" data-ds-theme="copper"' : `data-bs-theme="${theme}"`;
+}
+
 const preview: Preview = {
   // Navigation components (main-nav, header, footer, sidebar, breadcrumb)
   // use `routerLink` for in-app hrefs, which needs a `Router` to inject into.
@@ -19,18 +33,32 @@ const preview: Preview = {
   // for any component, not just the dedicated Brand/Dark Mode story.
   // "Charcoal & Copper" sets `data-ds-theme="copper"` on top of dark mode; the
   // `Themes/Charcoal & Copper` stories force it with `parameters.dsTheme`.
+  //
+  // On the Docs page every inline story shares one document, so a theme a story
+  // forces can't go on <html> without leaking onto Storybook's white docs
+  // canvas (light theme text on white). There it is scoped to a wrapper around
+  // the story instead (the theme selectors work on any subtree, and the themed
+  // element paints its own background), while <html> keeps the toolbar theme.
+  // Rendering such stories as docs iframes isn't an alternative: each iframe
+  // holds a dev-server HMR connection, and past Chrome's six per host the rest
+  // never load.
   decorators: [
     applicationConfig({ providers: [provideRouter([], withDisabledInitialNavigation())] }),
     (story, context) => {
-      const theme = context.parameters['dsTheme'] ?? context.globals['theme'] ?? 'light';
-      const root = document.documentElement;
-      root.setAttribute('data-bs-theme', theme === 'copper' ? 'dark' : theme);
-      if (theme === 'copper') {
-        root.setAttribute('data-ds-theme', 'copper');
-      } else {
-        root.removeAttribute('data-ds-theme');
+      const globalTheme: string = context.globals['theme'] ?? 'light';
+      const forcedTheme: string | undefined = context.parameters['dsTheme'];
+      const scopeToCanvas = context.viewMode === 'docs' && !!forcedTheme;
+      applyTheme(document.documentElement, scopeToCanvas ? globalTheme : (forcedTheme ?? globalTheme));
+
+      const rendered = story();
+      if (!scopeToCanvas || !rendered.template) {
+        return rendered;
       }
-      return story();
+      const padding = context.parameters['layout'] === 'fullscreen' ? '' : ' p-4';
+      return {
+        ...rendered,
+        template: `<div class="ds-docs-theme-canvas${padding}" ${themeAttributes(forcedTheme)}>${rendered.template}</div>`,
+      };
     },
   ],
   globalTypes: {

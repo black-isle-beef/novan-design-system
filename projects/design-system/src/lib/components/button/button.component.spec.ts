@@ -83,12 +83,29 @@ describe('DsButtonComponent', () => {
     button.click();
 
     expect(button.disabled).toBe(true);
-    expect(fixture.nativeElement.getAttribute('aria-disabled')).toBe('true');
     expect(pressed).toBe(false);
+  });
+
+  it('keeps disabled and busy state on the native button, not the host', async () => {
+    const fixture = await createFixture();
+    fixture.componentRef.setInput('disabled', true);
+    fixture.componentRef.setInput('loading', true);
+    fixture.detectChanges();
+
+    const host: HTMLElement = fixture.nativeElement;
+    expect(host.hasAttribute('aria-disabled')).toBe(false);
+    expect(host.hasAttribute('aria-busy')).toBe(false);
   });
 
   it('treats loading as disabled and announces loading status', async () => {
     const fixture = await createFixture();
+    fixture.detectChanges();
+
+    // The live region exists, empty, before loading starts, so the later text change is announced.
+    const liveRegion: HTMLElement = fixture.nativeElement.querySelector('[aria-live="polite"]');
+    expect(liveRegion.textContent?.trim()).toBe('');
+    expect(liveRegion.closest('button')).toBeNull();
+
     fixture.componentRef.setInput('loading', true);
     fixture.detectChanges();
 
@@ -96,7 +113,8 @@ describe('DsButtonComponent', () => {
     expect(button.disabled).toBe(true);
     expect(button.getAttribute('aria-busy')).toBe('true');
     expect(fixture.nativeElement.querySelector('.spinner-border')).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.visually-hidden')?.textContent).toContain('Loading');
+    expect(fixture.nativeElement.querySelector('[aria-live="polite"]')).toBe(liveRegion);
+    expect(liveRegion.textContent?.trim()).toBe('Loading');
   });
 
   it('projects an icon and text label while accepting an accessible name override', async () => {

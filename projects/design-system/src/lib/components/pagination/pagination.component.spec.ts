@@ -44,13 +44,25 @@ describe('DsPaginationComponent', () => {
 
     const previous = fixture.nativeElement.querySelector('[aria-label="Previous page"]') as HTMLButtonElement;
     const next = fixture.nativeElement.querySelector('[aria-label="Next page"]') as HTMLButtonElement;
-    expect(previous.disabled).toBe(true);
-    expect(next.disabled).toBe(false);
+    expect(previous.getAttribute('aria-disabled')).toBe('true');
+    expect(previous.closest('.page-item')?.classList).toContain('disabled');
+    expect(next.getAttribute('aria-disabled')).toBe('false');
 
     fixture.componentRef.setInput('page', 5);
     fixture.detectChanges();
+    expect(previous.getAttribute('aria-disabled')).toBe('false');
+    expect(next.getAttribute('aria-disabled')).toBe('true');
+    expect(next.closest('.page-item')?.classList).toContain('disabled');
+  });
+
+  it('keeps Previous/Next focusable at a boundary so focus is not lost', async () => {
+    const fixture = await createFixture();
+    fixture.componentRef.setInput('totalPages', 5);
+    fixture.componentRef.setInput('page', 1);
+    fixture.detectChanges();
+
+    const previous = fixture.nativeElement.querySelector('[aria-label="Previous page"]') as HTMLButtonElement;
     expect(previous.disabled).toBe(false);
-    expect(next.disabled).toBe(true);
   });
 
   it('emits pageChange when a page number is clicked', async () => {
@@ -108,9 +120,9 @@ describe('DsPaginationComponent', () => {
     let emitted = false;
     fixture.componentInstance.pageChange.subscribe(() => (emitted = true));
 
-    // The button is natively disabled, so this simulates what a real click would (not) do.
+    // The button stays focusable (aria-disabled), so a keyboard activation still fires click; goTo() must ignore it.
     const previous = fixture.nativeElement.querySelector('[aria-label="Previous page"]') as HTMLButtonElement;
-    expect(previous.disabled).toBe(true);
+    expect(previous.getAttribute('aria-disabled')).toBe('true');
     previous.click();
 
     expect(emitted).toBe(false);

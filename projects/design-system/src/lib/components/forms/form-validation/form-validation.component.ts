@@ -129,7 +129,7 @@ export class DsFormValidationComponent {
     }
   </div>
 
-  <button type="submit" class="btn btn-solid theme-primary" [disabled]="validationForm.invalid || validationForm.pending">Submit</button>
+  <button type="submit" class="btn btn-solid theme-primary" [disabled]="validationForm.pending">Submit</button>
 </form>`;
 
   readonly tsSnippet = `@Component({

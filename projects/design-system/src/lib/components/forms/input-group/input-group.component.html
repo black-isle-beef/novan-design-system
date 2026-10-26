@@ -1,20 +1,21 @@
 <div class="card shadow-sm border-0">
   <div class="card-header bg-white border-bottom py-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-2">
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-input-cursor fg-primary fs-xl"></i>
+      <i class="bi bi-input-cursor fg-primary fs-xl" aria-hidden="true"></i>
       <div>
         <h2 class="h5 mb-0 fw-bold">Input Group Variations</h2>
         <small class="fg-3">Prefix/suffix badges (.input-group-text), multiple grouped inputs, segmented dropdowns, and checkbox/radio addons.</small>
       </div>
     </div>
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('preview')">Preview</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('html')">HTML</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'preview'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'html'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'ts'" (click)="setCodeTab('ts')">TS</button>
       <button type="button" class="btn btn-solid theme-inverse" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
-        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'" aria-hidden="true"></i> {{ copied() ? 'Copied!' : 'Copy' }}
       </button>
     </div>
+    <span class="visually-hidden" role="status">{{ copied() ? 'Copied!' : '' }}</span>
   </div>
 
   <div class="card-body">
@@ -33,7 +34,7 @@
         <div class="md:col-6">
           <label for="igSuffix" class="form-label fw-semibold">Suffix Addon</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="igSuffix" placeholder="Recipient's username" aria-label="Recipient's username">
+            <input type="text" class="form-control" id="igSuffix" placeholder="Recipient's username">
             <span class="input-group-text">@my-org.com</span>
           </div>
         </div>
@@ -55,7 +56,7 @@
             <div class="input-group-text">
               <input class="check mt-0" type="checkbox" value="" aria-label="Checkbox for input">
             </div>
-            <input type="text" class="form-control" id="igCheckboxText" aria-label="Text input with checkbox" placeholder="Item task label...">
+            <input type="text" class="form-control" id="igCheckboxText" placeholder="Item task label...">
           </div>
         </div>
 
@@ -63,9 +64,9 @@
         <div class="col-12">
           <label for="igActionQuery" class="form-label fw-semibold">Segmented Action Button Addon</label>
           <div class="input-group">
-            <button class="btn btn-outline theme-secondary" type="button"><i class="bi bi-search me-1"></i> Search</button>
-            <button class="btn btn-outline theme-secondary" type="button"><i class="bi bi-filter me-1"></i> Filter</button>
-            <input type="text" class="form-control" id="igActionQuery" placeholder="Search parameters..." aria-label="Search parameters">
+            <button class="btn btn-outline theme-secondary" type="button"><i class="bi bi-search me-1" aria-hidden="true"></i> Search</button>
+            <button class="btn btn-outline theme-secondary" type="button"><i class="bi bi-filter me-1" aria-hidden="true"></i> Filter</button>
+            <input type="text" class="form-control" id="igActionQuery" placeholder="Search parameters...">
             <button class="btn btn-solid theme-primary" type="button">Execute</button>
           </div>
         </div>

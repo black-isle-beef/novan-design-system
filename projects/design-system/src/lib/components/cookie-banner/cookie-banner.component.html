@@ -3,9 +3,9 @@
     class="ds-cookie-banner__region d-flex flex-column md:flex-row md:align-items-center gap-4 p-6"
     role="dialog"
     aria-modal="false"
-    aria-labelledby="ds-cookie-banner-message"
+    [attr.aria-labelledby]="messageId"
   >
-    <p id="ds-cookie-banner-message" class="ds-cookie-banner__message mb-0 flex-grow-1">
+    <p [id]="messageId" class="ds-cookie-banner__message mb-0 flex-grow-1">
       <ng-content>{{ message() }}</ng-content>
     </p>
 

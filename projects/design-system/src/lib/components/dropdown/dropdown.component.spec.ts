@@ -96,6 +96,12 @@ describe('DsDropdownComponent', () => {
     expect(trigger.getAttribute('aria-controls')).toBe(menu.id);
   });
 
+  it('names the menu after its trigger', async () => {
+    const { trigger, menu } = await createFixture();
+    expect(menu.getAttribute('aria-labelledby')).toBe(trigger.id);
+    expect(trigger.textContent?.trim()).toBe('Actions');
+  });
+
   it('ArrowDown on the trigger opens the menu and focuses the first item', async () => {
     const { fixture, trigger, menu } = await createFixture();
 

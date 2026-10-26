@@ -1,28 +1,29 @@
 <div class="card shadow-sm border-0">
   <div class="card-header bg-white border-bottom py-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-2">
     <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-ui-radios fg-primary fs-xl"></i>
+      <i class="bi bi-ui-radios fg-primary fs-xl" aria-hidden="true"></i>
       <div>
         <h2 class="h5 mb-0 fw-bold">Radio Buttons & Toggle Button Groups</h2>
         <small class="fg-3">Standard stacked radios, inline radio options (.d-inline-grid on .form-field), and toggle button groups (.btn-check).</small>
       </div>
     </div>
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('preview')">Preview</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('html')">HTML</button>
-      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" (click)="setCodeTab('ts')">TS</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'preview' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'preview'" (click)="setCodeTab('preview')">Preview</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'html' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'html'" (click)="setCodeTab('html')">HTML</button>
+      <button type="button" class="btn" [ngClass]="activeCodeTab() === 'ts' ? 'btn-solid theme-primary' : 'btn-outline theme-inverse'" [attr.aria-pressed]="activeCodeTab() === 'ts'" (click)="setCodeTab('ts')">TS</button>
       <button type="button" class="btn btn-solid theme-inverse" (click)="copySnippet(activeCodeTab() === 'ts' ? tsSnippet : htmlSnippet)">
-        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'"></i> {{ copied() ? 'Copied!' : 'Copy' }}
+        <i class="bi" [ngClass]="copied() ? 'bi-check-lg' : 'bi-clipboard'" aria-hidden="true"></i> {{ copied() ? 'Copied!' : 'Copy' }}
       </button>
     </div>
+    <span class="visually-hidden" role="status">{{ copied() ? 'Copied!' : '' }}</span>
   </div>
 
   <div class="card-body">
     @if (activeCodeTab() === 'preview') {
       <div class="row g-3">
         <!-- Stacked Radios -->
-        <div class="md:col-6">
-          <h6 class="fw-bold mb-2">Stacked Radio Group</h6>
+        <div class="md:col-6" role="radiogroup" aria-labelledby="radioStackedHeading">
+          <h3 class="h6 fw-bold mb-2" id="radioStackedHeading">Stacked Radio Group</h3>
           <div class="form-field mb-2">
             <input class="radio" type="radio" name="stackedRadio" id="radioStacked1" checked>
             <label for="radioStacked1">Standard Option 1</label>
@@ -38,8 +39,8 @@
         </div>
 
         <!-- Inline Radios -->
-        <div class="md:col-6">
-          <h6 class="fw-bold mb-2">Inline Radios (.d-inline-grid)</h6>
+        <div class="md:col-6" role="radiogroup" aria-labelledby="radioInlineHeading">
+          <h3 class="h6 fw-bold mb-2" id="radioInlineHeading">Inline Radios (.d-inline-grid)</h3>
           <div class="form-field d-inline-grid me-4">
             <input class="radio" type="radio" name="inlineRadio" id="radioInline1" value="developer" [ngModel]="ngModelRole()" (ngModelChange)="ngModelRole.set($event)">
             <label for="radioInline1">Developer</label>
@@ -57,13 +58,13 @@
 
         <!-- Toggle Button Group (.btn-check) -->
         <div class="col-12 mt-3">
-          <h6 class="fw-bold mb-2">Toggle Button Group (.btn-check)</h6>
+          <h3 class="h6 fw-bold mb-2">Toggle Button Group (.btn-check)</h3>
           <div class="btn-group" role="group" aria-label="Radio toggle group">
-            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off" checked><i class="bi bi-grid-fill me-1"></i> Grid View</label>
+            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off" checked><i class="bi bi-grid-fill me-1" aria-hidden="true"></i> Grid View</label>
 
-            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off"><i class="bi bi-list-ul me-1"></i> List View</label>
+            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off"><i class="bi bi-list-ul me-1" aria-hidden="true"></i> List View</label>
 
-            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off"><i class="bi bi-card-text me-1"></i> Card View</label>
+            <label class="btn-check btn btn-outline theme-primary"><input type="radio" name="btnradioGroup" autocomplete="off"><i class="bi bi-card-text me-1" aria-hidden="true"></i> Card View</label>
           </div>
         </div>
       </div>

@@ -50,8 +50,19 @@ $sidebar-hover-color: $ds-color-neutral-gray-900;
   width: $sidebar-width;
 }
 
+// The collapsed rail shows icons only, but the label stays in the
+// accessibility tree (visually hidden, not `display: none`) so each link keeps
+// its accessible name; the icons themselves are `aria-hidden`.
 .ds-sidebar:not(.ds-sidebar--open) .ds-sidebar__label {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
 }
 
 // Scoped under `.ds-sidebar__nav` so the base `color` beats the global
@@ -117,5 +128,13 @@ $sidebar-hover-color: $ds-color-neutral-gray-900;
 @media (max-width: 767.98px) {
   .ds-sidebar__nav {
     box-shadow: var(--box-shadow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-sidebar,
+  .ds-sidebar__nav,
+  .ds-sidebar__toggle .ds-sidebar__toggle-icon {
+    transition: none;
   }
 }

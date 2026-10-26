@@ -57,8 +57,9 @@ export class DsTextInputComponent {
   <label for="passwordInput" class="form-label">Password with Show/Hide</label>
   <div class="input-group">
     <input [type]="showPassword() ? 'text' : 'password'" class="form-control" id="passwordInput">
-    <button class="btn btn-outline theme-secondary" type="button" (click)="togglePasswordVisibility()">
-      <i class="bi" [ngClass]="showPassword() ? 'bi-eye-slash' : 'bi-eye'"></i>
+    <button class="btn btn-outline theme-secondary" type="button" (click)="togglePasswordVisibility()"
+      aria-label="Toggle password visibility" aria-controls="passwordInput" [attr.aria-pressed]="showPassword()">
+      <i class="bi" [ngClass]="showPassword() ? 'bi-eye-slash' : 'bi-eye'" aria-hidden="true"></i>
     </button>
   </div>
 </div>
