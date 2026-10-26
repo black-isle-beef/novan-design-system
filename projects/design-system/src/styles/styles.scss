@@ -55,6 +55,22 @@
   $root-tokens: map.merge(colors.$ds-bs-root-color-tokens, typography.$ds-bs-root-type-tokens),
   $type-tokens: typography.$ds-bs-type-tokens,
 
+  // Bootstrap 6 pads these from `--spacer-N`, which now holds the design
+  // system's scale; pin them to their Bootstrap 5 sizes.
+  $card-tokens: (
+      --card-spacer-y: 1rem,
+      --card-spacer-x: 1rem,
+      --card-cap-padding-y: 0.5rem,
+      --card-cap-padding-x: 1rem
+    ),
+
+  // Bootstrap 5's `.blockquote`: larger type, no leading rule.
+  $blockquote-tokens: (
+      --blockquote-padding-x: 0,
+      --blockquote-border-width: 0,
+      --blockquote-font-size: 1.25rem
+    ),
+
   // Outline buttons keep Bootstrap 5's solid-colour border (v6 uses the
   // lighter `border` role). The map merges one level deep, so `outline` is whole.
   $button-variants: (

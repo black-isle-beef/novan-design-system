@@ -17,7 +17,19 @@
 $ds-on-light: $ds-color-neutral-gray-900;
 $ds-on-dark: $ds-color-neutral-white;
 
+// Bootstrap 5's button state shades: toward black under light text, toward
+// white under dark text, so the label keeps its contrast (15% hover, 20% active).
+@function ds-state-shade($color, $weight) {
+  @if ds-on-color($color, $ds-on-dark, $ds-on-light) == $ds-on-dark {
+    @return color.mix(black, $color, $weight);
+  }
+
+  @return color.mix(white, $color, $weight);
+}
+
 // Builds one complete Bootstrap 6 theme role from a light and a dark token.
+// `hover` and `active` are design-system keys (Bootstrap emits them as
+// `--{role}-hover` / `--theme-hover`); _button.scss applies them.
 // Shades follow Bootstrap 5's derivations (subtle = 80% tint, emphasis = 60%
 // shade, and the inverse in dark mode) so variants keep their v5 weight.
 @function ds-theme-role($light, $dark) {
@@ -33,6 +45,8 @@ $ds-on-dark: $ds-color-neutral-white;
     'bg-muted': light-dark(color.mix(white, $light, 60%), color.mix(black, $dark, 60%)),
     'border': light-dark(color.mix(white, $light, 60%), color.mix(black, $dark, 40%)),
     'focus-ring': color-mix(in oklch, light-dark($light, $dark) 50%, var(--bg-body)),
+    'hover': light-dark(ds-state-shade($light, 15%), ds-state-shade($dark, 15%)),
+    'active': light-dark(ds-state-shade($light, 20%), ds-state-shade($dark, 20%)),
     'contrast': light-dark(
         ds-on-color($light, $ds-on-dark, $ds-on-light),
         ds-on-color($dark, $ds-on-dark, $ds-on-light)

@@ -54,6 +54,9 @@ $sidebar-hover-color: $ds-color-neutral-gray-900;
   display: none;
 }
 
+// Scoped under `.ds-sidebar__nav` so the base `color` beats the global
+// `a[href]` link colour in _base.scss (equal specificity would otherwise let
+// the link default win over this single-class selector).
 .ds-sidebar__nav .ds-sidebar__link {
   display: flex;
   align-items: center;

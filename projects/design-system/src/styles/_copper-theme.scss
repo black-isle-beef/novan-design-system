@@ -114,22 +114,14 @@ $ds-copper-theme: "[data-bs-theme='dark'][data-ds-theme='copper']";
   --primary-focus-ring: var(--ds-color-copper-500);
   --primary-contrast: var(--ds-color-copper-theme-on-accent);
 
-  // Semantic fills carry Charcoal 950 text, matching the copper badges.
-  --success-base: var(--ds-color-copper-theme-success);
-  --success-bg: var(--ds-color-copper-theme-success);
+  // Semantic text (status text, validation feedback); solid fills keep the
+  // dark-mode roles.
   --success-fg: var(--ds-color-copper-theme-success);
   --success-fg-emphasis: var(--ds-color-copper-theme-success);
-  --success-contrast: var(--ds-color-copper-theme-on-accent);
-  --warning-base: var(--ds-color-copper-theme-warning);
-  --warning-bg: var(--ds-color-copper-theme-warning);
   --warning-fg: var(--ds-color-copper-theme-warning);
   --warning-fg-emphasis: var(--ds-color-copper-theme-warning);
-  --warning-contrast: var(--ds-color-copper-theme-on-accent);
-  --danger-base: var(--ds-color-copper-theme-danger);
-  --danger-bg: var(--ds-color-copper-theme-danger);
   --danger-fg: var(--ds-color-copper-theme-danger);
   --danger-fg-emphasis: var(--ds-color-copper-theme-danger);
-  --danger-contrast: var(--ds-color-copper-theme-on-accent);
 
   background-color: var(--bg-body);
   color: var(--fg-body);
@@ -186,6 +178,21 @@ $ds-copper-theme: "[data-bs-theme='dark'][data-ds-theme='copper']";
         background-image: var(--ds-gradient-copper-brushed);
         filter: none;
       }
+    }
+
+    // Outline danger: Rose 100 label and border, filling with Rose 100 and
+    // Charcoal 950 text on hover.
+    .btn-outline.theme-danger {
+      --btn-color: var(--ds-color-copper-theme-danger);
+      --btn-border-color: var(--ds-color-copper-theme-danger);
+      --btn-hover-color: var(--ds-color-copper-theme-on-accent);
+      --btn-hover-bg: var(--ds-color-copper-theme-danger);
+      --btn-hover-border-color: var(--ds-color-copper-theme-danger);
+      --btn-active-color: var(--ds-color-copper-theme-on-accent);
+      --btn-active-bg: var(--ds-color-copper-theme-danger);
+      --btn-active-border-color: var(--ds-color-copper-theme-danger);
+      --btn-disabled-color: var(--ds-color-copper-theme-danger);
+      --btn-disabled-border-color: var(--ds-color-copper-theme-danger);
     }
 
     // The design system's secondary button and secondary outline buttons are

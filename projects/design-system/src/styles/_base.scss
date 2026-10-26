@@ -5,25 +5,31 @@
 @use 'variables' as *;
 @use 'typography';
 
-// Element defaults sit in Bootstrap's `reboot` layer, after Bootstrap's own
-// reboot, so components (`.btn` on an `<a>`), utilities and design-system
-// component styles all override them without specificity workarounds.
-@layer reboot {
-  // Links retain the same visual affordance wherever Bootstrap components place them.
-  a[href] {
+// Links retain the same visual affordance wherever Bootstrap components place
+// them (nav links, page links, menu items). In the `custom` layer, above
+// Bootstrap's components, at the same weight as before (0-1-1), so a
+// design-system rule with two classes still overrides it. Buttons styled on
+// an `<a>` keep their button colours; `:where()` excludes them without
+// adding specificity.
+@layer custom {
+  a[href]:where(:not(.btn, [class*='btn-'])) {
     color: var(--link-color);
     text-decoration: underline;
   }
 
-  a[href]:hover {
+  a[href]:where(:not(.btn, [class*='btn-'])):hover {
     color: var(--link-hover-color);
     text-decoration: none;
   }
 
-  p a[href] {
+  p a[href]:where(:not(.btn, [class*='btn-'])) {
     font-weight: $ds-font-weight-medium;
   }
+}
 
+// Element defaults sit in Bootstrap's `reboot` layer, after Bootstrap's own
+// reboot, so components, utilities and design-system styles override them.
+@layer reboot {
   // Bootstrap 6 sizes headings from its fluid t-shirt scale; the design system
   // keeps its fixed token sizes.
   @each $level, $size in typography.$ds-heading-font-sizes {

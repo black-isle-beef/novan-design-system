@@ -15,20 +15,36 @@
   @return math.div($px, $root) * 1rem;
 }
 
+// Bootstrap 5's responsive font sizing (RFS), which Bootstrap 6 drops: sizes
+// above 1.25rem shrink below a 1200px viewport, by up to 9/10 of the excess
+// over 1.25rem, and reach full size at 1200px.
+@function ds-fluid($size) {
+  $base: 1.25rem;
+
+  @if $size <= $base {
+    @return $size;
+  }
+
+  $min: $base + math.div($size - $base, 10);
+  $vw: math.div(math.div($size - $min, 1rem) * 16, 1200) * 100vw;
+
+  @return min(#{$size}, calc(#{$min} + #{$vw}));
+}
+
 // Heading sizes, h1-h6.
 $ds-heading-font-sizes: (
-  1: ds-rem($ds-font-size-h1),
-  2: ds-rem($ds-font-size-h2),
-  3: ds-rem($ds-font-size-h3),
-  4: ds-rem($ds-font-size-h4),
-  5: ds-rem($ds-font-size-h5),
-  6: ds-rem($ds-font-size-h6),
+  1: ds-fluid(ds-rem($ds-font-size-h1)),
+  2: ds-fluid(ds-rem($ds-font-size-h2)),
+  3: ds-fluid(ds-rem($ds-font-size-h3)),
+  4: ds-fluid(ds-rem($ds-font-size-h4)),
+  5: ds-fluid(ds-rem($ds-font-size-h5)),
+  6: ds-fluid(ds-rem($ds-font-size-h6)),
 );
 
 // Bootstrap 6's t-shirt scale, pinned to the token sizes. `.fs-4xl` to `.fs-md`
 // are the replacements for Bootstrap 5's `.fs-1` to `.fs-6`, which were the h1-h6
-// sizes, so each keeps its exact v5 size here (fixed, not Bootstrap's fluid
-// clamp()). Line heights are Bootstrap's. `xs` keeps Bootstrap's default.
+// sizes, so each keeps its v5 size, scaled the way v5's RFS scaled it. Line
+// heights are Bootstrap's. `xs` keeps Bootstrap's default.
 $ds-bs-font-sizes: (
   'sm': (
     'font-size': ds-rem($ds-font-size-sm),
@@ -43,19 +59,19 @@ $ds-bs-font-sizes: (
     'line-height': 1.5,
   ),
   'xl': (
-    'font-size': ds-rem($ds-font-size-h4),
+    'font-size': ds-fluid(ds-rem($ds-font-size-h4)),
     'line-height': calc(2.5 / 1.75),
   ),
   '2xl': (
-    'font-size': ds-rem($ds-font-size-h3),
+    'font-size': ds-fluid(ds-rem($ds-font-size-h3)),
     'line-height': calc(3 / 2.25),
   ),
   '3xl': (
-    'font-size': ds-rem($ds-font-size-h2),
+    'font-size': ds-fluid(ds-rem($ds-font-size-h2)),
     'line-height': 1.2,
   ),
   '4xl': (
-    'font-size': ds-rem($ds-font-size-h1),
+    'font-size': ds-fluid(ds-rem($ds-font-size-h1)),
     'line-height': 1.1,
   ),
 );
@@ -79,4 +95,9 @@ $ds-bs-type-tokens: (
   --heading-font-family: meta.inspect($ds-font-family-heading),
   --heading-font-weight: $ds-font-weight-semibold,
   --heading-line-height: $ds-font-line-height-heading,
+  // Bootstrap 5 sizes; Bootstrap 6 reads these from `--spacer-N`, which holds
+  // the design system's scale.
+  --heading-margin-bottom: 0.5rem,
+  --legend-margin-bottom: 0.5rem,
+  --list-padding-x: 2rem,
 );

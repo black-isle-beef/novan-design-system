@@ -4,7 +4,7 @@
 // Colors come from the theme roles (`.btn-solid.theme-primary`, …) built from
 // the tokens in _colors.scss. This partial adds the pill shape, the disabled
 // opacity, the secondary and hero variants, and the docs-only state previews.
-// Global link styling lives in Bootstrap's `reboot` layer (see _base.scss), so
+// The global link styling (see _base.scss) skips buttons, so
 // `<a class="btn-solid theme-primary" href>` keeps its button colors without
 // overrides here.
 // -----------------------------------------------------------------------------
@@ -27,6 +27,28 @@ $ds-btn-selectors: '.btn, .btn-solid, .btn-outline, .btn-subtle, .btn-text, .btn
   // (e.g. danger). 0.85 keeps a visible disabled affordance while
   // preserving AA contrast across all variants.
   --btn-disabled-opacity: 0.85;
+}
+
+// Hover and active fills. Bootstrap 6 always darkens, which drops dark labels
+// (success, warning, and every role in dark mode) below 4.5:1; the theme
+// roles' `hover` / `active` shades move away from the label colour instead
+// (see _colors.scss). Roles without them keep Bootstrap's shade.
+$ds-btn-hover: var(--theme-hover, oklch(from var(--theme-bg) calc(l * 0.95) calc(c * 1.1) h));
+$ds-btn-active: var(--theme-active, oklch(from var(--theme-bg) calc(l * 0.9) calc(c * 1.15) h));
+
+.btn-solid {
+  --btn-hover-bg: #{$ds-btn-hover};
+  --btn-hover-border-color: #{$ds-btn-hover};
+  --btn-active-bg: #{$ds-btn-active};
+  --btn-active-border-color: #{$ds-btn-active};
+}
+
+// Outline buttons fill with the role colour itself, as in Bootstrap 5.
+.btn-outline {
+  --btn-hover-bg: var(--theme-bg);
+  --btn-hover-border-color: var(--theme-bg);
+  --btn-active-bg: var(--theme-bg);
+  --btn-active-border-color: var(--theme-bg);
 }
 
 // The design system's secondary button: white fill with a primary border and
@@ -110,13 +132,17 @@ ds-button.ds-button--full-width {
   }
 }
 
+// Docs-only state previews. Bootstrap 6 defines a variant's `--btn-hover-*`
+// tokens only inside its real `:hover` rule, so the preview falls back to the
+// variant's (darker) `--btn-active-*` tokens, which are always set.
 ds-button.ds-button--hover .btn {
-  color: var(--btn-hover-color);
-  background-color: var(--btn-hover-bg);
-  border-color: var(--btn-hover-border-color);
+  color: var(--btn-hover-color, var(--btn-active-color));
+  background-color: var(--btn-hover-bg, var(--btn-active-bg));
+  border-color: var(--btn-hover-border-color, var(--btn-active-border-color));
 }
 
 ds-button.ds-button--focus .btn {
   outline: var(--focus-ring);
+  outline-color: var(--theme-focus-ring, var(--focus-ring-color));
   outline-offset: var(--focus-ring-offset);
 }

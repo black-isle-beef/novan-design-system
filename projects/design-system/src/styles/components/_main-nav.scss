@@ -21,7 +21,8 @@
 // collapsed menu below.
 @mixin ds-main-nav-expanded {
   .ds-main-nav__list {
-    --nav-link-padding-x: var(--navbar-nav-link-padding-x);
+    // Bootstrap 5's navbar link padding (v6 widens it to 0.75rem).
+    --nav-link-padding-x: 0.5rem;
 
     flex-direction: row;
   }
