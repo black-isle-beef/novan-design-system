@@ -1,12 +1,18 @@
 // -----------------------------------------------------------------------------
 // _sidebar.scss — Overrides for DsSidebarComponent (selector: ds-sidebar)
 // -----------------------------------------------------------------------------
+@use '../variables' as *;
 
 $sidebar-width: 16rem;
 $sidebar-rail-width: 3.75rem; // 60px
-$sidebar-bg: var(--bs-dark);
-$sidebar-color: var(--bs-light);
+$sidebar-bg: $ds-color-neutral-gray-900;
+$sidebar-color: $ds-color-neutral-gray-100;
 $sidebar-toggle-size: 3.125rem; // 50px
+
+// The rail is dark in every color mode, so hover and active links invert to a
+// fixed light surface.
+$sidebar-hover-bg: $ds-color-neutral-gray-100;
+$sidebar-hover-color: $ds-color-neutral-gray-900;
 
 .ds-sidebar {
   position: relative;
@@ -48,9 +54,6 @@ $sidebar-toggle-size: 3.125rem; // 50px
   display: none;
 }
 
-// Scoped under `.ds-sidebar__nav` so the base `color` beats the global
-// `a[href]` link colour in styles.scss (equal specificity would otherwise let
-// the link default win over this single-class selector).
 .ds-sidebar__nav .ds-sidebar__link {
   display: flex;
   align-items: center;
@@ -69,8 +72,8 @@ $sidebar-toggle-size: 3.125rem; // 50px
 
   &:hover,
   &.ds-sidebar__link--active {
-    color: var(--bs-dark);
-    background: var(--bs-light-bg-subtle);
+    color: $sidebar-hover-color;
+    background: $sidebar-hover-bg;
   }
 }
 
@@ -84,9 +87,9 @@ $sidebar-toggle-size: 3.125rem; // 50px
   height: $sidebar-toggle-size;
   padding: 0;
   margin-top: auto;
-  color: var(--bs-white);
+  color: var(--white);
   background: $sidebar-bg;
-  border: 1px solid var(--bs-white);
+  border: 1px solid var(--white);
   border-radius: 0.5rem;
 
   .ds-sidebar__toggle-icon {
@@ -95,8 +98,8 @@ $sidebar-toggle-size: 3.125rem; // 50px
   }
 
   &:hover {
-    background: var(--bs-light-bg-subtle);
-    color: var(--bs-dark);
+    background: $sidebar-hover-bg;
+    color: $sidebar-hover-color;
   }
 }
 
@@ -110,6 +113,6 @@ $sidebar-toggle-size: 3.125rem; // 50px
 
 @media (max-width: 767.98px) {
   .ds-sidebar__nav {
-    box-shadow: var(--bs-box-shadow);
+    box-shadow: var(--box-shadow);
   }
 }

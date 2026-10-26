@@ -7,7 +7,7 @@
 // `::backdrop` is the native scrim layer the browser paints behind a
 // `<dialog>` opened with `showModal()`.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-offcanvas__dialog {
   position: fixed;

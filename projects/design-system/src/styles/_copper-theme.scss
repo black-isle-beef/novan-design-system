@@ -7,11 +7,11 @@
 //
 //   <html data-bs-theme="dark" data-ds-theme="copper">
 //
-// Bootstrap's own `[data-bs-theme='dark']` component variables (forms,
-// dropdowns, modals, tables) apply first and this theme refines them. Both
-// attributes are required: the doubled attribute selector (0-2-0) outranks
-// Bootstrap's and the generated dark tokens' single-attribute blocks
-// (0-1-0), which are compiled later in styles.scss.
+// Most of the theme is Bootstrap 6 role tokens: re-pointing `--primary-*` at
+// copper re-themes every primary button, link, check, switch, range, page
+// link and progress bar, so only surfaces and a few treatments need component
+// tokens. Both attributes are required: the doubled attribute selector (0-2-0)
+// outranks the single-attribute dark-mode blocks (0-1-0) in the same layer.
 //
 // Contrast rules (keep them when changing values):
 // - Text on copper is always Charcoal 950 (`--ds-color-copper-theme-on-accent`):
@@ -26,23 +26,9 @@
 // - Copper and Gold 400 are both warm: state (selected, current, draft,
 //   warning) always also carries text or an icon.
 // -----------------------------------------------------------------------------
-@use 'sass:color';
-@import 'variables';
+@use 'variables' as *;
 
 $ds-copper-theme: "[data-bs-theme='dark'][data-ds-theme='copper']";
-
-// "r, g, b" triplet for Bootstrap's `--bs-*-rgb` variables.
-@function ds-rgb($value) {
-  @return color.channel($value, 'red', $space: rgb), color.channel($value, 'green', $space: rgb),
-    color.channel($value, 'blue', $space: rgb);
-}
-
-// Checked-state glyphs for checkboxes, radios and switches, drawn in Charcoal
-// 950 because they sit on copper.
-$ds-copper-check-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23141414' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
-$ds-copper-indeterminate-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23141414' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
-$ds-copper-radio-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23141414'/%3e%3c/svg%3e");
-$ds-copper-switch-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23141414'/%3e%3c/svg%3e");
 
 #{$ds-copper-theme} {
   color-scheme: dark;
@@ -90,380 +76,303 @@ $ds-copper-switch-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org
   --ds-link-hover-color: var(--ds-color-copper-300);
 
   // ---------------------------------------------------------------------------
-  // Bootstrap runtime variables
+  // Bootstrap surface, text and border tokens
   // ---------------------------------------------------------------------------
-  --bs-body-bg: var(--ds-color-copper-theme-canvas);
-  --bs-body-bg-rgb: #{ds-rgb($ds-color-palette-charcoal-900)};
-  --bs-body-color: var(--ds-color-copper-theme-text);
-  --bs-body-color-rgb: #{ds-rgb($ds-color-neutral-white)};
-  --bs-emphasis-color: var(--ds-color-copper-theme-text);
-  --bs-emphasis-color-rgb: #{ds-rgb($ds-color-neutral-white)};
-  --bs-secondary-color: var(--ds-color-copper-theme-text-muted);
-  --bs-secondary-color-rgb: #{ds-rgb($ds-color-palette-neutral-300)};
-  --bs-secondary-bg: var(--ds-color-copper-theme-surface);
-  --bs-secondary-bg-rgb: #{ds-rgb($ds-color-palette-charcoal-800)};
-  --bs-tertiary-color: var(--ds-color-copper-theme-text-muted);
-  --bs-tertiary-color-rgb: #{ds-rgb($ds-color-palette-neutral-300)};
-  --bs-tertiary-bg: var(--ds-color-copper-theme-raised);
-  --bs-tertiary-bg-rgb: #{ds-rgb($ds-color-palette-charcoal-700)};
+  --bg-body: var(--ds-color-copper-theme-canvas);
+  --bg-1: var(--ds-color-copper-theme-surface);
+  --bg-2: var(--ds-color-copper-theme-surface);
+  --bg-3: var(--ds-color-copper-theme-raised);
+  --bg-4: var(--ds-color-copper-theme-raised);
+  --fg-body: var(--ds-color-copper-theme-text);
+  --fg-1: var(--ds-color-copper-theme-text);
+  --fg-2: var(--ds-color-copper-theme-text);
+  --fg-3: var(--ds-color-copper-theme-text-muted);
+  --fg-4: var(--ds-color-copper-theme-text-muted);
 
   // Form controls and other meaningful boundaries use the control token;
   // Bootstrap's translucent border (cards, menus, dialogs) is decorative.
-  --bs-border-color: var(--ds-color-copper-theme-control);
-  --bs-border-color-translucent: var(--ds-color-copper-theme-line);
-  --bs-link-color: var(--ds-color-copper-500);
-  --bs-link-color-rgb: #{ds-rgb($ds-color-palette-copper-500)};
-  --bs-link-hover-color: var(--ds-color-copper-300);
-  --bs-link-hover-color-rgb: #{ds-rgb($ds-color-palette-copper-300)};
-  --bs-focus-ring-color: var(--ds-color-copper-500);
-  --bs-primary-text-emphasis: var(--ds-color-copper-300);
-  --bs-primary-bg-subtle: var(--ds-color-copper-900);
-  --bs-primary-border-subtle: var(--ds-color-copper-700);
-  --bs-success-text-emphasis: var(--ds-color-copper-theme-success);
-  --bs-warning-text-emphasis: var(--ds-color-copper-theme-warning);
-  --bs-danger-text-emphasis: var(--ds-color-copper-theme-danger);
-  --bs-form-valid-color: var(--ds-color-copper-theme-success);
-  --bs-form-valid-border-color: var(--ds-color-copper-theme-success);
-  --bs-form-invalid-color: var(--ds-color-copper-theme-danger);
-  --bs-form-invalid-border-color: var(--ds-color-copper-theme-danger);
+  --border-color: var(--ds-color-copper-theme-control);
+  --border-color-translucent: var(--ds-color-copper-theme-line);
+  --link-color: var(--ds-color-copper-500);
+  --link-hover-color: var(--ds-color-copper-300);
 
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-
-  // ---------------------------------------------------------------------------
   // Focus: one copper ring everywhere, 0.125rem with a 0.125rem offset.
-  // ---------------------------------------------------------------------------
-  :focus-visible {
-    outline: 0.125rem solid var(--ds-color-copper-500);
-    outline-offset: 0.125rem;
-  }
-
-  .btn {
-    --bs-btn-focus-box-shadow: none;
-  }
-
-  .ds-focus-ring:focus-visible,
-  .nav-link:focus-visible,
-  .accordion-button:focus,
-  .page-link:focus,
-  .btn-close:focus {
-    box-shadow: none;
-  }
-
-  .form-control:focus,
-  .form-select:focus,
-  .form-check-input:focus,
-  .form-range:focus {
-    border-color: var(--ds-color-copper-500);
-    box-shadow: none;
-    outline: 0.125rem solid var(--ds-color-copper-500);
-    outline-offset: 0.125rem;
-  }
-
-  .ds-skip-link {
-    background-color: var(--ds-color-copper-theme-surface);
-    color: var(--ds-color-copper-theme-text);
-  }
+  --focus-ring-width: 0.125rem;
+  --focus-ring-offset: 0.125rem;
+  --focus-ring-color: var(--ds-color-copper-500);
 
   // ---------------------------------------------------------------------------
-  // Text utilities whose Bootstrap colours fail on charcoal.
+  // Bootstrap theme roles
   // ---------------------------------------------------------------------------
-  .text-primary {
-    color: var(--ds-color-copper-500) !important;
-  }
+  --primary-base: var(--ds-color-copper-500);
+  --primary-bg: var(--ds-color-copper-500);
+  --primary-fg: var(--ds-color-copper-500);
+  --primary-fg-emphasis: var(--ds-color-copper-300);
+  --primary-bg-subtle: var(--ds-color-copper-900);
+  --primary-bg-muted: var(--ds-color-copper-700);
+  --primary-border: var(--ds-color-copper-700);
+  --primary-focus-ring: var(--ds-color-copper-500);
+  --primary-contrast: var(--ds-color-copper-theme-on-accent);
 
-  .text-success {
-    color: var(--ds-color-copper-theme-success) !important;
-  }
+  // Semantic fills carry Charcoal 950 text, matching the copper badges.
+  --success-base: var(--ds-color-copper-theme-success);
+  --success-bg: var(--ds-color-copper-theme-success);
+  --success-fg: var(--ds-color-copper-theme-success);
+  --success-fg-emphasis: var(--ds-color-copper-theme-success);
+  --success-contrast: var(--ds-color-copper-theme-on-accent);
+  --warning-base: var(--ds-color-copper-theme-warning);
+  --warning-bg: var(--ds-color-copper-theme-warning);
+  --warning-fg: var(--ds-color-copper-theme-warning);
+  --warning-fg-emphasis: var(--ds-color-copper-theme-warning);
+  --warning-contrast: var(--ds-color-copper-theme-on-accent);
+  --danger-base: var(--ds-color-copper-theme-danger);
+  --danger-bg: var(--ds-color-copper-theme-danger);
+  --danger-fg: var(--ds-color-copper-theme-danger);
+  --danger-fg-emphasis: var(--ds-color-copper-theme-danger);
+  --danger-contrast: var(--ds-color-copper-theme-on-accent);
 
-  .text-warning {
-    color: var(--ds-color-copper-theme-warning) !important;
-  }
+  background-color: var(--bg-body);
+  color: var(--fg-body);
+}
 
-  .text-danger {
-    color: var(--ds-color-copper-theme-danger) !important;
-  }
-
-  // ---------------------------------------------------------------------------
-  // Buttons
-  // ---------------------------------------------------------------------------
-  .btn-primary {
-    --bs-btn-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-bg: var(--ds-color-copper-500);
-    --bs-btn-border-color: transparent;
-    --bs-btn-hover-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-hover-bg: var(--ds-color-copper-500);
-    --bs-btn-hover-border-color: transparent;
-    --bs-btn-active-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-active-bg: var(--ds-color-copper-700);
-    --bs-btn-active-border-color: transparent;
-    --bs-btn-disabled-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-disabled-bg: var(--ds-color-copper-500);
-    --bs-btn-disabled-border-color: transparent;
-
-    background-image: var(--ds-gradient-copper-brushed);
-
-    &:hover {
-      filter: brightness(1.06);
+// Rules sit in the `custom` layer with the rest of the design system's styles,
+// above Bootstrap's components and below its utilities. The tokens above stay
+// unlayered so they override Bootstrap's unlayered `:root` tokens on <html>.
+@layer custom {
+  #{$ds-copper-theme} {
+    :focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
     }
 
-    &:active,
-    &.active {
-      filter: brightness(0.94);
+    .form-control:is(:focus-visible, :focus-within),
+    .check:focus-visible,
+    .radio:focus-visible,
+    .switch:has(input:focus-visible) {
+      --focus-ring-offset: 0.125rem;
+
+      border-color: var(--ds-color-copper-500);
     }
 
-    &:disabled,
-    &.disabled {
-      filter: none;
+    .ds-skip-link {
+      background-color: var(--ds-color-copper-theme-surface);
+      color: var(--ds-color-copper-theme-text);
     }
-  }
 
-  .btn-secondary,
-  .btn-outline-secondary {
-    --bs-btn-color: var(--ds-color-copper-theme-text);
-    --bs-btn-bg: transparent;
-    --bs-btn-border-color: var(--ds-color-copper-theme-control);
-    --bs-btn-hover-color: var(--ds-color-copper-theme-text);
-    --bs-btn-hover-bg: var(--ds-color-copper-theme-raised);
-    --bs-btn-hover-border-color: var(--ds-color-copper-theme-text-muted);
-    --bs-btn-active-color: var(--ds-color-copper-theme-text);
-    --bs-btn-active-bg: var(--ds-color-copper-theme-raised);
-    --bs-btn-active-border-color: var(--ds-color-copper-500);
-    --bs-btn-disabled-color: var(--ds-color-copper-theme-text-muted);
-    --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: var(--ds-color-copper-theme-line);
-  }
+    // ---------------------------------------------------------------------------
+    // Buttons
+    // ---------------------------------------------------------------------------
+    .btn-solid.theme-primary {
+      --btn-border-color: transparent;
+      --btn-hover-bg: var(--ds-color-copper-500);
+      --btn-hover-border-color: transparent;
+      --btn-active-bg: var(--ds-color-copper-700);
+      --btn-active-border-color: transparent;
+      --btn-disabled-border-color: transparent;
 
-  .btn-outline-primary {
-    --bs-btn-color: var(--ds-color-copper-500);
-    --bs-btn-border-color: var(--ds-color-copper-500);
-    --bs-btn-hover-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-hover-bg: var(--ds-color-copper-500);
-    --bs-btn-hover-border-color: var(--ds-color-copper-500);
-    --bs-btn-active-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-active-bg: var(--ds-color-copper-700);
-    --bs-btn-active-border-color: var(--ds-color-copper-700);
-    --bs-btn-disabled-color: var(--ds-color-copper-500);
-    --bs-btn-disabled-border-color: var(--ds-color-copper-500);
-  }
+      background-image: var(--ds-gradient-copper-brushed);
 
-  .btn-outline-danger {
-    --bs-btn-color: var(--ds-color-copper-theme-danger);
-    --bs-btn-border-color: var(--ds-color-copper-theme-danger);
-    --bs-btn-hover-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-hover-bg: var(--ds-color-copper-theme-danger);
-    --bs-btn-hover-border-color: var(--ds-color-copper-theme-danger);
-    --bs-btn-active-color: var(--ds-color-copper-theme-on-accent);
-    --bs-btn-active-bg: var(--ds-color-copper-theme-danger);
-    --bs-btn-active-border-color: var(--ds-color-copper-theme-danger);
-    --bs-btn-disabled-color: var(--ds-color-copper-theme-danger);
-    --bs-btn-disabled-border-color: var(--ds-color-copper-theme-danger);
-  }
+      &:hover {
+        filter: brightness(1.06);
+      }
 
-  // ---------------------------------------------------------------------------
-  // Form controls
-  // ---------------------------------------------------------------------------
-  .form-check-input:checked,
-  .form-check-input[type='checkbox']:indeterminate {
-    background-color: var(--ds-color-copper-500);
-    border-color: var(--ds-color-copper-500);
-  }
+      &:active,
+      &.active {
+        filter: brightness(0.94);
+      }
 
-  .form-check-input:checked[type='checkbox'] {
-    --bs-form-check-bg-image: #{$ds-copper-check-glyph};
-  }
+      &:disabled,
+      &.disabled {
+        background-image: var(--ds-gradient-copper-brushed);
+        filter: none;
+      }
+    }
 
-  .form-check-input[type='checkbox']:indeterminate {
-    --bs-form-check-bg-image: #{$ds-copper-indeterminate-glyph};
-  }
+    // The design system's secondary button and secondary outline buttons are
+    // neutral on charcoal; copper stays reserved for primary actions.
+    .ds-btn-secondary,
+    .btn-outline.theme-secondary {
+      --btn-color: var(--ds-color-copper-theme-text);
+      --btn-bg: transparent;
+      --btn-border-color: var(--ds-color-copper-theme-control);
+      --btn-hover-color: var(--ds-color-copper-theme-text);
+      --btn-hover-bg: var(--ds-color-copper-theme-raised);
+      --btn-hover-border-color: var(--ds-color-copper-theme-text-muted);
+      --btn-active-color: var(--ds-color-copper-theme-text);
+      --btn-active-bg: var(--ds-color-copper-theme-raised);
+      --btn-active-border-color: var(--ds-color-copper-500);
+      --btn-disabled-color: var(--ds-color-copper-theme-text-muted);
+      --btn-disabled-bg: transparent;
+      --btn-disabled-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .form-check-input:checked[type='radio'] {
-    --bs-form-check-bg-image: #{$ds-copper-radio-glyph};
-  }
+    // ---------------------------------------------------------------------------
+    // Surfaces: cards, menus and dialogs sit on Charcoal with a decorative line.
+    // ---------------------------------------------------------------------------
+    .card {
+      --card-bg: var(--ds-color-copper-theme-surface);
+      --card-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .form-switch .form-check-input:checked {
-    --bs-form-switch-bg: #{$ds-copper-switch-glyph};
-  }
+    .menu {
+      --menu-bg: var(--ds-color-copper-theme-surface);
+      --menu-item-hover-bg: var(--ds-color-copper-theme-raised);
+      --menu-item-active-color: var(--ds-color-copper-theme-text);
+      --menu-item-active-bg: var(--ds-color-copper-theme-raised);
 
-  .form-range::-webkit-slider-thumb {
-    background-color: var(--ds-color-copper-500);
-  }
+      border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .form-range::-moz-range-thumb {
-    background-color: var(--ds-color-copper-500);
-  }
+    .dialog {
+      --dialog-bg: var(--ds-color-copper-theme-surface);
+      --dialog-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  // ---------------------------------------------------------------------------
-  // Surfaces: cards, menus and dialogs sit on Charcoal with a decorative line.
-  // ---------------------------------------------------------------------------
-  .card {
-    --bs-card-bg: var(--ds-color-copper-theme-surface);
-    --bs-card-border-color: var(--ds-color-copper-theme-line);
-  }
+    .drawer {
+      --drawer-bg: var(--ds-color-copper-theme-surface);
+    }
 
-  .dropdown-menu {
-    --bs-dropdown-bg: var(--ds-color-copper-theme-surface);
-    --bs-dropdown-border-color: var(--ds-color-copper-theme-line);
-    --bs-dropdown-link-hover-bg: var(--ds-color-copper-theme-raised);
-    --bs-dropdown-link-active-color: var(--ds-color-copper-theme-text);
-    --bs-dropdown-link-active-bg: var(--ds-color-copper-theme-raised);
-  }
+    .popover {
+      --popover-bg: var(--ds-color-copper-theme-surface);
+      --popover-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .modal {
-    --bs-modal-bg: var(--ds-color-copper-theme-surface);
-    --bs-modal-border-color: var(--ds-color-copper-theme-line);
-  }
+    .toast {
+      --toast-bg: var(--ds-color-copper-theme-surface);
+      --toast-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .offcanvas {
-    --bs-offcanvas-bg: var(--ds-color-copper-theme-surface);
-  }
+    .table {
+      --table-bg: transparent;
+      --table-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .popover {
-    --bs-popover-bg: var(--ds-color-copper-theme-surface);
-    --bs-popover-border-color: var(--ds-color-copper-theme-line);
-  }
+    .list-group {
+      --list-group-bg: transparent;
+      --list-group-border-color: var(--ds-color-copper-theme-line);
+      --list-group-action-hover-bg: var(--ds-color-copper-theme-raised);
+      --list-group-action-active-bg: var(--ds-color-copper-theme-raised);
+      --list-group-active-color: var(--ds-color-copper-theme-text);
+      --list-group-active-bg: var(--ds-color-copper-theme-raised);
+      --list-group-active-border-color: var(--ds-color-copper-500);
+    }
 
-  .toast {
-    --bs-toast-bg: var(--ds-color-copper-theme-surface);
-    --bs-toast-border-color: var(--ds-color-copper-theme-line);
-  }
+    .accordion {
+      --accordion-bg: transparent;
+      --accordion-border-color: var(--ds-color-copper-theme-line);
+      --accordion-active-color: var(--ds-color-copper-theme-text);
+      --accordion-active-bg: var(--ds-color-copper-theme-raised);
+    }
 
-  .table {
-    --bs-table-bg: transparent;
-    --bs-table-border-color: var(--ds-color-copper-theme-line);
-  }
+    .nav-pills {
+      --nav-pills-link-active-color: var(--ds-color-copper-theme-text);
+      --nav-pills-link-active-bg: var(--ds-color-copper-theme-raised);
+    }
 
-  .list-group {
-    --bs-list-group-bg: transparent;
-    --bs-list-group-border-color: var(--ds-color-copper-theme-line);
-    --bs-list-group-action-hover-bg: var(--ds-color-copper-theme-raised);
-    --bs-list-group-action-active-bg: var(--ds-color-copper-theme-raised);
-    --bs-list-group-active-color: var(--ds-color-copper-theme-text);
-    --bs-list-group-active-bg: var(--ds-color-copper-theme-raised);
-    --bs-list-group-active-border-color: var(--ds-color-copper-500);
-  }
+    .pagination {
+      --pagination-bg: transparent;
+      --pagination-border-color: var(--ds-color-copper-theme-control);
+      --pagination-hover-bg: var(--ds-color-copper-theme-raised);
+      --pagination-hover-border-color: var(--ds-color-copper-theme-control);
+      --pagination-disabled-bg: transparent;
+      --pagination-disabled-border-color: var(--ds-color-copper-theme-line);
+    }
 
-  .accordion {
-    --bs-accordion-bg: transparent;
-    --bs-accordion-border-color: var(--ds-color-copper-theme-line);
-    --bs-accordion-active-color: var(--ds-color-copper-theme-text);
-    --bs-accordion-active-bg: var(--ds-color-copper-theme-raised);
-  }
+    .progress,
+    .progress-stacked {
+      --progress-bg: var(--ds-color-copper-theme-raised);
+    }
 
-  .nav-pills {
-    --bs-nav-pills-link-active-color: var(--ds-color-copper-theme-text);
-    --bs-nav-pills-link-active-bg: var(--ds-color-copper-theme-raised);
-  }
+    // Default (primary) progress gets the brushed fill; semantic variants keep
+    // their own colour.
+    .ds-progress .progress-bar:not(.bg-success, .bg-warning, .bg-danger, .bg-info) {
+      background-image: var(--ds-gradient-copper-brushed);
+    }
 
-  .pagination {
-    --bs-pagination-bg: transparent;
-    --bs-pagination-border-color: var(--ds-color-copper-theme-control);
-    --bs-pagination-hover-bg: var(--ds-color-copper-theme-raised);
-    --bs-pagination-hover-border-color: var(--ds-color-copper-theme-control);
-    --bs-pagination-focus-bg: var(--ds-color-copper-theme-raised);
-    --bs-pagination-active-color: var(--ds-color-copper-theme-on-accent);
-    --bs-pagination-active-bg: var(--ds-color-copper-500);
-    --bs-pagination-active-border-color: var(--ds-color-copper-500);
-    --bs-pagination-disabled-bg: transparent;
-    --bs-pagination-disabled-border-color: var(--ds-color-copper-theme-line);
-  }
+    // ---------------------------------------------------------------------------
+    // Design-system components
+    // ---------------------------------------------------------------------------
+    .ds-modal__surface {
+      background-color: var(--ds-color-copper-theme-surface);
+      border: 0.0625rem solid var(--ds-color-copper-theme-line);
+    }
 
-  .progress,
-  .progress-stacked {
-    --bs-progress-bg: var(--ds-color-copper-theme-raised);
-    --bs-progress-bar-color: var(--ds-color-copper-theme-on-accent);
-    --bs-progress-bar-bg: var(--ds-color-copper-500);
-  }
+    .ds-toast__surface {
+      background-color: var(--ds-color-copper-theme-surface);
+    }
 
-  // Default (primary) progress gets the brushed fill; semantic variants keep
-  // their own colour.
-  .ds-progress .progress-bar:not(.bg-success, .bg-warning, .bg-danger, .bg-info) {
-    background-image: var(--ds-gradient-copper-brushed);
-  }
+    .ds-badge--primary {
+      color: var(--ds-color-copper-theme-on-accent);
+    }
 
-  // ---------------------------------------------------------------------------
-  // Design-system components
-  // ---------------------------------------------------------------------------
-  .ds-modal__surface {
-    background-color: var(--ds-color-copper-theme-surface);
-    border: 0.0625rem solid var(--ds-color-copper-theme-line);
-  }
+    .ds-badge--success {
+      background-color: var(--ds-color-copper-theme-success);
+      color: var(--ds-color-copper-theme-on-accent);
+    }
 
-  .ds-toast__surface {
-    background-color: var(--ds-color-copper-theme-surface);
-  }
+    .ds-badge--warning {
+      background-color: var(--ds-color-copper-theme-warning);
+      color: var(--ds-color-copper-theme-on-accent);
+    }
 
-  .ds-badge--primary {
-    color: var(--ds-color-copper-theme-on-accent);
-  }
+    .ds-badge--danger {
+      background-color: var(--ds-color-copper-theme-danger);
+      color: var(--ds-color-copper-theme-on-accent);
+    }
 
-  .ds-badge--success {
-    background-color: var(--ds-color-copper-theme-success);
-    color: var(--ds-color-copper-theme-on-accent);
-  }
+    .ds-badge--secondary,
+    .ds-badge--info,
+    .ds-badge--neutral {
+      background-color: var(--ds-color-copper-theme-raised);
+      color: var(--ds-color-copper-theme-text);
+    }
 
-  .ds-badge--warning {
-    background-color: var(--ds-color-copper-theme-warning);
-    color: var(--ds-color-copper-theme-on-accent);
-  }
+    .ds-dropdown__trigger {
+      border-color: var(--ds-color-copper-theme-control);
+      background-color: transparent;
 
-  .ds-badge--danger {
-    background-color: var(--ds-color-copper-theme-danger);
-    color: var(--ds-color-copper-theme-on-accent);
-  }
+      &:hover {
+        background-color: var(--ds-color-copper-theme-raised);
+      }
+    }
 
-  .ds-badge--secondary,
-  .ds-badge--info,
-  .ds-badge--neutral {
-    background-color: var(--ds-color-copper-theme-raised);
-    color: var(--ds-color-copper-theme-text);
-  }
+    .ds-dropdown__menu {
+      border: 0.0625rem solid var(--ds-color-copper-theme-line);
+      background-color: var(--ds-color-copper-theme-surface);
+    }
 
-  .ds-dropdown__trigger {
-    border-color: var(--ds-color-copper-theme-control);
-    background-color: transparent;
-
-    &:hover {
+    .ds-menu-item__button:hover:not(:disabled) {
       background-color: var(--ds-color-copper-theme-raised);
     }
-  }
 
-  .ds-dropdown__menu {
-    border: 0.0625rem solid var(--ds-color-copper-theme-line);
-    background-color: var(--ds-color-copper-theme-surface);
-  }
-
-  .ds-menu-item__button:hover:not(:disabled) {
-    background-color: var(--ds-color-copper-theme-raised);
-  }
-
-  .ds-sidebar,
-  .ds-sidebar__nav,
-  .ds-sidebar__toggle {
-    background: var(--ds-color-copper-theme-surface);
-    color: var(--ds-color-copper-theme-text);
-  }
-
-  .ds-sidebar__nav .ds-sidebar__link {
-    color: var(--ds-color-copper-theme-text);
-
-    &:hover,
-    &.ds-sidebar__link--active {
+    .ds-sidebar,
+    .ds-sidebar__nav,
+    .ds-sidebar__toggle {
+      background: var(--ds-color-copper-theme-surface);
       color: var(--ds-color-copper-theme-text);
-      background: var(--ds-color-copper-theme-raised);
     }
 
-    &.ds-sidebar__link--active {
-      box-shadow: inset 0.1875rem 0 0 var(--ds-color-copper-500);
-    }
-  }
-
-  .ds-sidebar__toggle {
-    border-color: var(--ds-color-copper-theme-control);
-
-    &:hover {
+    .ds-sidebar__nav .ds-sidebar__link {
       color: var(--ds-color-copper-theme-text);
-      background: var(--ds-color-copper-theme-raised);
+
+      &:hover,
+      &.ds-sidebar__link--active {
+        color: var(--ds-color-copper-theme-text);
+        background: var(--ds-color-copper-theme-raised);
+      }
+
+      &.ds-sidebar__link--active {
+        box-shadow: inset 0.1875rem 0 0 var(--ds-color-copper-500);
+      }
+    }
+
+    .ds-sidebar__toggle {
+      border-color: var(--ds-color-copper-theme-control);
+
+      &:hover {
+        color: var(--ds-color-copper-theme-text);
+        background: var(--ds-color-copper-theme-raised);
+      }
     }
   }
 }
@@ -474,39 +383,49 @@ $ds-copper-switch-glyph: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org
 // -----------------------------------------------------------------------------
 @media (prefers-contrast: more) {
   #{$ds-copper-theme} {
-    --bs-border-color-translucent: var(--ds-color-copper-theme-control);
+    --border-color-translucent: var(--ds-color-copper-theme-control);
     --ds-color-copper-theme-line: var(--ds-color-copper-theme-control);
-
-    .btn-primary {
-      --bs-btn-border-color: var(--ds-color-copper-theme-text);
-      --bs-btn-hover-border-color: var(--ds-color-copper-theme-text);
-      --bs-btn-active-border-color: var(--ds-color-copper-theme-text);
-      --bs-btn-disabled-border-color: var(--ds-color-copper-theme-text);
-
-      background-image: none;
-    }
-
-    .ds-progress .progress-bar {
-      background-image: none;
-    }
   }
 }
 
-@media (forced-colors: active) {
-  #{$ds-copper-theme} {
-    .btn-primary {
-      background-image: none;
-      border-color: ButtonText;
-    }
+@layer custom {
+  @media (prefers-contrast: more) {
+    #{$ds-copper-theme} {
+      .btn-solid.theme-primary {
+        --btn-border-color: var(--ds-color-copper-theme-text);
+        --btn-hover-border-color: var(--ds-color-copper-theme-text);
+        --btn-active-border-color: var(--ds-color-copper-theme-text);
+        --btn-disabled-border-color: var(--ds-color-copper-theme-text);
 
-    .ds-progress {
-      border: 0.0625rem solid CanvasText;
-    }
+        &,
+        &:disabled,
+        &.disabled {
+          background-image: none;
+        }
+      }
 
-    .ds-progress .progress-bar {
-      background-image: none;
-      background-color: Highlight;
-      forced-color-adjust: none;
+      .ds-progress .progress-bar {
+        background-image: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    #{$ds-copper-theme} {
+      .btn-solid.theme-primary {
+        background-image: none;
+        border-color: ButtonText;
+      }
+
+      .ds-progress {
+        border: 0.0625rem solid CanvasText;
+      }
+
+      .ds-progress .progress-bar {
+        background-image: none;
+        background-color: Highlight;
+        forced-color-adjust: none;
+      }
     }
   }
 }

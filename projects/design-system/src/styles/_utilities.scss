@@ -4,26 +4,28 @@
 // generated utility API. Keep this file small — prefer Bootstrap's utility
 // generator (`$utilities` map) for anything expressible as a single property.
 // -----------------------------------------------------------------------------
+@use 'sass:map';
+@use 'variables' as *;
 
 // Visually-hidden-until-focused skip link, used by DsHeaderComponent/DsMainNavComponent.
 .ds-skip-link {
   position: absolute;
   top: -100%;
-  left: $spacer * 0.5;
-  z-index: $zindex-tooltip;
-  padding: map-get($spacers, 2) map-get($spacers, 4);
+  left: map.get($ds-spacers, 3);
+  z-index: var(--z-tooltip);
+  padding: map.get($ds-spacers, 2) map.get($ds-spacers, 4);
   background-color: $ds-color-surface-body;
   color: $ds-color-text-body;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  border-radius: var(--radius-5);
+  box-shadow: var(--box-shadow);
 
   &:focus-visible {
-    top: map-get($spacers, 2);
+    top: map.get($ds-spacers, 2);
   }
 }
 
-// Consistent focus ring across custom DS components (matches Bootstrap's focus-ring).
+// Consistent focus ring across custom DS components (matches Bootstrap's focus ring).
 .ds-focus-ring:focus-visible {
-  outline: 0;
-  box-shadow: $focus-ring-box-shadow;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }

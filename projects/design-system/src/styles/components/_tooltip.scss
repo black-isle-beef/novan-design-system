@@ -7,7 +7,7 @@
 // `top`/`left` from the trigger's bounding rect in JS (viewport-relative
 // pixels), which is why the UA's default `position: fixed` is kept here.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-tooltip-trigger {
   display: inline-block;

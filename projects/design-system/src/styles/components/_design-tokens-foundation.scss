@@ -6,7 +6,8 @@
 // so nothing leaks. Colour values are derived from the `$ds-color-*` design
 // tokens instead of hand-picked hex literals.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use 'sass:color';
+@use '../variables' as *;
 
 .ds-dt {
   // Aliased to the runtime `--ds-color-*` custom properties (not compiled
@@ -365,6 +366,6 @@
   overflow-x: auto;
   max-height: 420px;
   font-size: 0.8rem;
-  background: #{tint-color($ds-color-neutral-gray-900, 4%)};
+  background: #{color.mix(white, $ds-color-neutral-gray-900, 4%)};
   color: #{$ds-color-neutral-gray-100};
 }

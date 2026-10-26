@@ -39,13 +39,13 @@
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   background: var(--ds-color-surface-muted);
   color: var(--ds-color-text-body);
 }
 
 .ds-bfd__toggle:hover {
-  background: var(--bs-gray-200);
+  background: var(--gray-200);
 }
 
 .ds-bfd__section-title {
@@ -75,7 +75,7 @@
 
 .ds-bfd__demo-card {
   background: var(--ds-color-surface-muted);
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -181,7 +181,7 @@
 
 .ds-bfd__page-bg {
   background: var(--ds-color-surface-muted);
-  border: 1px dashed var(--bs-border-color);
+  border: 1px dashed var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -197,7 +197,7 @@
 .ds-bfd__surface-card {
   margin-top: 0.5rem;
   background: var(--ds-color-surface-body);
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -209,7 +209,7 @@
 }
 
 .ds-bfd__token-card {
-  border: 1px solid var(--bs-border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   overflow: hidden;
   background: var(--ds-color-surface-muted);

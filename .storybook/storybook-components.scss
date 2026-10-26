@@ -7,4 +7,4 @@
 // SCSS styles into a centralized location for Storybook.
 // =============================================================================
 
-@import '../projects/design-system/src/styles/styles';
+@use '../projects/design-system/src/styles/styles';

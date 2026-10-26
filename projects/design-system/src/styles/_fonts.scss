@@ -1,0 +1,13 @@
+// -----------------------------------------------------------------------------
+// _fonts.scss
+// Loads the web fonts referenced by the typography tokens. Kept apart from
+// _typography.scss (which emits no CSS) so the `@import` is emitted once, at
+// the top of the stylesheet. Disable with `$ds-enable-web-fonts: false`.
+// -----------------------------------------------------------------------------
+@use 'variables' as *;
+
+@if $ds-enable-web-fonts {
+  // Self-host these families in production; this CDN import is provided for
+  // local development / Storybook convenience only.
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat+Alternates:wght@500;600;700&display=swap');
+}

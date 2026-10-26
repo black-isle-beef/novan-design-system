@@ -1,0 +1,63 @@
+// -----------------------------------------------------------------------------
+// _color-functions.scss
+// WCAG contrast helpers used to derive Bootstrap 6 theme roles from the color
+// tokens at compile time. Bootstrap's own `contrast-ratio()` lives in a module
+// that loads its config, and loading that before `@use 'bootstrap' with (...)`
+// would lock the configuration, so the design system keeps its own copy.
+// -----------------------------------------------------------------------------
+@use 'sass:color';
+@use 'sass:math';
+
+@function ds-luminance($color) {
+  $sum: 0;
+  $weights: (
+    'red': 0.2126,
+    'green': 0.7152,
+    'blue': 0.0722,
+  );
+
+  @each $channel, $weight in $weights {
+    $value: math.div(color.channel($color, $channel, $space: rgb), 255);
+    $linear: math.div($value, 12.92);
+
+    // sRGB's 0.04045 threshold; no 8-bit channel value falls between the two.
+    @if $value > 0.0404 {
+      $linear: math.pow(math.div($value + 0.055, 1.055), 2.4);
+    }
+
+    $sum: $sum + $linear * $weight;
+  }
+
+  @return $sum;
+}
+
+@function ds-contrast($a, $b) {
+  $l1: ds-luminance($a);
+  $l2: ds-luminance($b);
+
+  @return math.div(math.max($l1, $l2) + 0.05, math.min($l1, $l2) + 0.05);
+}
+
+// Mixes `$color` toward `$toward` in 5% steps until it reaches `$ratio`
+// against `$background`, so a role's text color stays readable (WCAG 1.4.3).
+@function ds-readable($color, $background, $toward, $ratio: 4.5) {
+  $result: $color;
+  $step: 0;
+
+  @while ds-contrast($result, $background) < $ratio and $step < 100 {
+    $step: $step + 5;
+    $result: color.mix($toward, $color, $step * 1%);
+  }
+
+  @return $result;
+}
+
+// Text color for content on a solid `$background`: whichever of `$light` and
+// `$dark` contrasts more.
+@function ds-on-color($background, $light, $dark) {
+  @if ds-contrast($background, $light) >= ds-contrast($background, $dark) {
+    @return $light;
+  }
+
+  @return $dark;
+}

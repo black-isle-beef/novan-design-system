@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------
+// _base.scss
+// Element-level design-system styling, layered into Bootstrap 6's cascade.
+// -----------------------------------------------------------------------------
+@use 'variables' as *;
+@use 'typography';
+
+// Element defaults sit in Bootstrap's `reboot` layer, after Bootstrap's own
+// reboot, so components (`.btn` on an `<a>`), utilities and design-system
+// component styles all override them without specificity workarounds.
+@layer reboot {
+  // Links retain the same visual affordance wherever Bootstrap components place them.
+  a[href] {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+
+  a[href]:hover {
+    color: var(--link-hover-color);
+    text-decoration: none;
+  }
+
+  p a[href] {
+    font-weight: $ds-font-weight-medium;
+  }
+
+  // Bootstrap 6 sizes headings from its fluid t-shirt scale; the design system
+  // keeps its fixed token sizes.
+  @each $level, $size in typography.$ds-heading-font-sizes {
+    h#{$level},
+    .h#{$level} {
+      font-size: $size;
+    }
+  }
+}
+
+// Dark mode is opt-in: pages are light unless `data-bs-theme="dark"` is set on
+// <html> or a subtree. Bootstrap 6 otherwise follows the operating system
+// (`color-scheme: light dark`, which drives every `light-dark()` token, and a
+// `prefers-color-scheme` media query for shadow strength).
+//
+// Unlayered, like Bootstrap's own `:root` tokens: a layered rule would lose to
+// them on <html>. Equal specificity, so source order decides: these come
+// after Bootstrap, and the attribute blocks after the `:root` pin.
+:root,
+:host {
+  --shadow-strength: 1;
+
+  color-scheme: light;
+}
+
+[data-bs-theme='dark'] {
+  --shadow-strength: 2.4;
+
+  color-scheme: dark;
+}
+
+[data-bs-theme='light'] {
+  --shadow-strength: 1;
+
+  color-scheme: light;
+}

@@ -1,14 +1,16 @@
 // -----------------------------------------------------------------------------
 // _spacers.scss
-// Extends Bootstrap's utility spacing scale (1-16) using token-defined values.
-// Because Bootstrap's utilities API (`_utilities.scss`) reads `$spacers`
-// directly when generating `p-*`, `m-*`, and `gap-*` classes, redefining this
-// map here (before `bootstrap/scss/bootstrap` is imported) automatically
-// flows through to every directional spacing utility.
+// The design system's spacing scale (1-16) from the token-defined values.
+// Bootstrap 6 merges `$spacers` over its own 0-12 scale, so these keys replace
+// Bootstrap's values and add 13-16. The map drives every `p-*`, `m-*` and
+// `gap-*` utility and the `--spacer-*` tokens Bootstrap's components read.
 // -----------------------------------------------------------------------------
-@import 'variables';
+@use 'sass:map';
+@use 'variables' as *;
 
-$spacers: map-merge(
-  (0: 0),
+$ds-bs-spacers: map.merge(
+  (
+    0: 0,
+  ),
   $ds-spacers
 );

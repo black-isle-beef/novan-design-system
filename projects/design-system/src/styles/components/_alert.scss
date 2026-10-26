@@ -5,7 +5,7 @@
 // popover, no elevation/shadow, no auto-dismiss animation) since it's meant
 // to sit as a persistent part of the page's own content flow.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-alert {
   display: flex;

@@ -3,9 +3,9 @@
 // Core configuration layer. Forwards the Style Dictionary generated token
 // partials (SCSS variables + maps) so the rest of the override layer
 // (_colors, _typography, _spacers) and any consuming application can access
-// `$ds-*` tokens via a single entry point.
+// `$ds-*` tokens via a single `@use 'variables' as *`.
 // -----------------------------------------------------------------------------
-@import 'tokens/index';
+@forward 'tokens/index';
 
 // Global feature flags consumed by the override partials below.
 $ds-enable-web-fonts: true !default;

@@ -8,7 +8,7 @@
 // collapse height; unsupporting browsers just get an instant, unanimated
 // toggle instead of a broken layout.
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-accordion-item + .ds-accordion-item {
   border-block-start: 0.0625rem solid var(--ds-color-neutral-gray-300);

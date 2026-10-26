@@ -8,7 +8,7 @@
 // colours are tinted from the neutral/brand tokens (a dedicated dark-theme
 // token set would let these reference values directly).
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 /* Static Montserrat weights, self-hosted from public/fonts/Montserrat/static
    (served at /fonts/... via Storybook's staticDirs -> ../public). Add

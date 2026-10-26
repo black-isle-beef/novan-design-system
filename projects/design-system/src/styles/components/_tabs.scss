@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 // _tabs.scss — Overrides for DsTabsComponent / DsTabComponent
 // -----------------------------------------------------------------------------
-@import '../variables';
+@use '../variables' as *;
 
 .ds-tabs__list {
   display: flex;
