@@ -6,8 +6,9 @@
 
 // Focus ring overrides driven by design tokens
 .form-control,
-.form-select,
-.form-check-input,
+.check,
+.radio,
+.switch,
 .form-range {
   &:focus {
     border-color: $ds-color-brand-primary;
