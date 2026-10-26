@@ -326,22 +326,25 @@ test.describe('Charcoal & Copper theme: WCAG 2.1 AA accessibility', () => {
   }
 
   // The stories above are scanned one at a time; the Docs page shows them all at
-  // once, where inline rendering once put the theme's light text on Storybook's
-  // white docs canvas. Each story must render in its own themed iframe there.
-  test('Docs page renders every story in its own themed iframe', async ({ page }) => {
+  // once in one document, where the theme once leaked onto Storybook's white
+  // docs canvas (light text on white). It must be scoped to each story there,
+  // inline, since docs iframes starve the dev server's connections.
+  test('Docs page renders every story inline on its own themed canvas', async ({ page }) => {
     await page.goto('/iframe.html?id=themes-charcoal-copper--docs&viewMode=docs');
-    // Ten stories, plus the Docs page's primary preview of the first one.
-    const frames = page.locator('iframe[src*="themes-charcoal-copper--"]');
-    await expect(frames).toHaveCount(11);
+    const canvases = page.locator('.ds-docs-theme-canvas[data-ds-theme="copper"]');
+    // Nine inline stories plus the Docs page's primary preview of the first; the modal is the one docs iframe.
+    await expect(canvases).toHaveCount(10);
+    await expect(page.locator('iframe[src*="themes-charcoal-copper--"]')).toHaveCount(1);
+    await expect(page.locator('html')).not.toHaveAttribute('data-ds-theme', 'copper');
 
+    await expect(page.getByRole('button', { name: 'Save draft' })).toBeVisible();
+    await expect(page.getByLabel('Page title')).toBeVisible();
+    await expect(page.getByText('Could not save')).toBeVisible();
     const modal = page.frameLocator('iframe[src*="themes-charcoal-copper--modal"]');
     await expect(modal.getByRole('dialog', { name: 'Dismiss the checklist?' })).toBeVisible();
-    const buttons = page.frameLocator('iframe[src*="themes-charcoal-copper--buttons"]');
-    await expect(buttons.getByRole('button', { name: 'Save draft' })).toBeVisible();
-    await expect(buttons.locator('html')).toHaveAttribute('data-ds-theme', 'copper');
 
     const results = await new AxeBuilder({ page })
-      .include('iframe[src*="themes-charcoal-copper--"]')
+      .include('.ds-docs-theme-canvas')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
