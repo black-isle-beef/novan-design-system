@@ -15,7 +15,8 @@ projects/design-system/          The publishable library (@black-isle-beef/novan
   src/styles/tokens/              Generated SCSS token partials (gitignored, build artifact)
   e2e/a11y/                      Playwright + @axe-core/playwright WCAG 2.1 AA test suite
 .storybook/                      Storybook 10 (@storybook/angular) configuration
-.github/workflows/ci-cd.yml      CI/CD: tokens/lint/build/test -> Chromatic visual regression -> semantic-release
+.github/workflows/ci-cd.yml      CI/CD: tokens/lint/build/test -> semantic-release
+.github/workflows/storybook.yml  Builds Storybook and deploys it to GitHub Pages
 .releaserc.json                  semantic-release (Conventional Commits) configuration
 ```
 

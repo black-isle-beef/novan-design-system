@@ -97,7 +97,7 @@ If squashing, pass an explicit `--body`/edit the squash message to preserve the 
 gh run watch --exit-status
 ```
 
-or check the Actions tab. The pipeline is: `build-and-test` → `visual-regression` (Chromatic; skipped gracefully if `CHROMATIC_PROJECT_TOKEN` isn't set) → `release` (only runs on push to `main`). The `release` job runs `npx semantic-release`, which will, in order:
+or check the Actions tab. The pipeline is: `build-and-test` → `release` (only runs on push to `main`). The `release` job runs `npx semantic-release`, which will, in order:
 
 1. Analyze commits since the last tag → compute next version
 2. Generate release notes and prepend them to `CHANGELOG.md`
