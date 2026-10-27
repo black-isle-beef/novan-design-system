@@ -2,6 +2,13 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [3.2.0](https://github.com/black-isle-beef/novan-design-system/compare/v3.1.0...v3.2.0) (2026-10-27)
+
+### Features
+
+* enhance accessibility across components ([6c1903f](https://github.com/black-isle-beef/novan-design-system/commit/6c1903ff238cf26538534c072894de1b6c00daa2))
+* improve accessibility and theme handling in Storybook ([2228d26](https://github.com/black-isle-beef/novan-design-system/commit/2228d26dd4258a4a66391cd91e829c4d740d425c))
+
 ## [3.1.0](https://github.com/black-isle-beef/novan-design-system/compare/v3.0.0...v3.1.0) (2026-10-26)
 
 ### Features
