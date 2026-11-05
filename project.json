@@ -1,17 +1,19 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
   "name": "novan-design-system",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "src",
+  "prefix": "app",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "src",
-  "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular/build:application",
+      "defaultConfiguration": "production",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "browser": "src/main.ts",
         "tsConfig": "tsconfig.app.json",
@@ -22,9 +24,7 @@
             "input": "public"
           }
         ],
-        "styles": [
-          "src/styles.scss"
-        ],
+        "styles": ["src/styles.scss"],
         "outputPath": "dist/novan-design-system"
       },
       "configurations": {
@@ -48,14 +48,11 @@
           "extractLicenses": false,
           "sourceMap": true
         }
-      },
-      "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      }
     },
     "serve": {
       "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
       "configurations": {
         "production": {
           "buildTarget": "novan-design-system:build:production"
@@ -64,25 +61,24 @@
           "buildTarget": "novan-design-system:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "readyWhen": {
+        "signal": true
+      }
     },
     "test": {
       "executor": "@angular/build:unit-test"
     },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "src/**/*.ts",
-          "src/**/*.html"
-        ]
-      },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+      }
     },
     "storybook-browser-target": {
       "executor": "@angular-devkit/build-angular:browser",
+      "defaultConfiguration": "development",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/storybook-browser-target",
         "index": "src/index.html",
@@ -94,9 +90,7 @@
             "input": "public"
           }
         ],
-        "styles": [
-          ".storybook/storybook-components.scss"
-        ],
+        "styles": [".storybook/storybook-components.scss"],
         "scripts": []
       },
       "configurations": {
@@ -108,11 +102,7 @@
           "extractLicenses": false,
           "sourceMap": true
         }
-      },
-      "defaultConfiguration": "development",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      }
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",

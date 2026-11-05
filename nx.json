@@ -24,5 +24,8 @@
     "production": ["default", "!{projectRoot}/.eslintrc.json", "!{projectRoot}/eslint.config.cjs"]
   },
   "useDaemonProcess": false,
-  "analytics": true
+  "analytics": true,
+  "affected": {
+    "legacy": true
+  }
 }
