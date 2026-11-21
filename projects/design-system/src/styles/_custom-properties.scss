@@ -36,6 +36,11 @@
   --ds-color-text-muted: #{$ds-color-text-muted};
   --ds-color-text-inverse: #{$ds-color-text-inverse};
   --ds-color-text-on-light-media: #{$ds-color-text-on-light-media};
+  --ds-color-text-on-brand: #{$ds-color-text-on-brand};
+  --ds-color-text-on-success: #{$ds-color-text-on-success};
+  --ds-color-text-on-warning: #{$ds-color-text-on-warning};
+  --ds-color-text-on-danger: #{$ds-color-text-on-danger};
+  --ds-color-text-on-info: #{$ds-color-text-on-info};
   --ds-link-hover-color: #{colors.$ds-link-hover-color};
 
   // Elevation (box-shadow) tokens.

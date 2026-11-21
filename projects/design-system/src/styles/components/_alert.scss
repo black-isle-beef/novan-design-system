@@ -87,6 +87,14 @@
   flex-shrink: 0;
 }
 
+// Bootstrap's own `.alert.theme-*` colours its text with `--theme-fg` on
+// `--theme-bg-subtle`, which is under 4.5:1 for success, warning and danger in
+// light mode and for info in dark mode. The theme's emphasis colour passes in
+// both; an alert without a theme class keeps Bootstrap's inherited colour.
+.alert {
+  color: var(--theme-fg-emphasis, var(--alert-color));
+}
+
 @media (forced-colors: active) {
   .ds-alert {
     border: 0.0625rem solid CanvasText;
