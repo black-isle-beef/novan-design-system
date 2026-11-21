@@ -2,6 +2,12 @@
 
 All notable changes to `@black-isle-beef/novan-design-system` are documented here.
 
+## [3.3.0](https://github.com/black-isle-beef/novan-design-system/compare/v3.2.0...v3.3.0) (2026-11-21)
+
+### Features
+
+* enhance light mode contrast for badges and alerts ([1c61ebe](https://github.com/black-isle-beef/novan-design-system/commit/1c61ebe39ebee26bbbef6de7c358d0ee90137acf))
+
 ## [3.2.0](https://github.com/black-isle-beef/novan-design-system/compare/v3.1.0...v3.2.0) (2026-10-27)
 
 ### Features
