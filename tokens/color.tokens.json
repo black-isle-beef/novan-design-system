@@ -128,6 +128,46 @@
         "$type": "color",
         "$value": "#333333",
         "$description": "Heading/label color for text overlaid on a light-toned photo or media background, paired with {color.text.inverse} for dark-toned media."
+      },
+      "on-brand": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Text on a solid brand primary or secondary fill, such as a badge: white in light mode, dark on the lighter dark-mode fills (white is under 4:1 there).",
+        "$extensions": {
+          "com.novan.dark": "#151710"
+        }
+      },
+      "on-success": {
+        "$type": "color",
+        "$value": "{color.neutral.gray-900}",
+        "$description": "Text on a solid {color.semantic.success} fill, such as a success badge: 4.7:1 (white is 3.9:1).",
+        "$extensions": {
+          "com.novan.dark": "#151710"
+        }
+      },
+      "on-warning": {
+        "$type": "color",
+        "$value": "{color.neutral.gray-900}",
+        "$description": "Text on a solid {color.semantic.warning} fill, such as a warning badge: 7.4:1 (white is 2.4:1).",
+        "$extensions": {
+          "com.novan.dark": "#151710"
+        }
+      },
+      "on-danger": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Text on a solid {color.semantic.danger} fill, such as a danger badge: white in light mode, dark on the lighter dark-mode fill.",
+        "$extensions": {
+          "com.novan.dark": "#151710"
+        }
+      },
+      "on-info": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Text on a solid {color.semantic.info} fill, such as an info badge: white in light mode, dark on the lighter dark-mode fill.",
+        "$extensions": {
+          "com.novan.dark": "#151710"
+        }
       }
     },
     "palette": {

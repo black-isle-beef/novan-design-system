@@ -17,34 +17,36 @@
   white-space: nowrap;
 }
 
+// Each fill takes its own text token: white does not reach 4.5:1 on the light
+// success and warning fills, nor on any of the lighter dark-mode fills.
 .ds-badge--primary {
   background-color: var(--ds-color-brand-primary);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-brand);
 }
 
 .ds-badge--secondary {
   background-color: var(--ds-color-brand-secondary);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-brand);
 }
 
 .ds-badge--success {
   background-color: var(--ds-color-semantic-success);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-success);
 }
 
 .ds-badge--warning {
   background-color: var(--ds-color-semantic-warning);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-warning);
 }
 
 .ds-badge--danger {
   background-color: var(--ds-color-semantic-danger);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-danger);
 }
 
 .ds-badge--info {
   background-color: var(--ds-color-semantic-info);
-  color: var(--ds-color-text-inverse);
+  color: var(--ds-color-text-on-info);
 }
 
 .ds-badge--neutral {
